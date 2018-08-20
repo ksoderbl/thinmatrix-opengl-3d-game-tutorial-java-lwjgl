@@ -205,6 +205,10 @@ public class MainGameLoop {
         RawModel treeRawModel = loader.loadToVAO(treeData.getVertices(), treeData.getTextureCoords(), treeData.getNormals(), treeData.getIndices());
         TexturedModel treeModel = new TexturedModel(treeRawModel, new ModelTexture(loader.loadTexture("tree")));
 
+        ModelData lowPolyTreeData = OBJFileLoader.loadOBJ("lowPolyTree");
+        RawModel lowPolyTreeRawModel = loader.loadToVAO(lowPolyTreeData.getVertices(), lowPolyTreeData.getTextureCoords(), lowPolyTreeData.getNormals(), lowPolyTreeData.getIndices());
+        TexturedModel lowPolyTreeModel = new TexturedModel(lowPolyTreeRawModel, new ModelTexture(loader.loadTexture("lowPolyTree")));
+
         ModelData grassData = OBJFileLoader.loadOBJ("grassModel");
         RawModel grassRawModel = loader.loadToVAO(grassData.getVertices(), grassData.getTextureCoords(), grassData.getNormals(), grassData.getIndices());
         TexturedModel grassModel = new TexturedModel(grassRawModel, new ModelTexture(loader.loadTexture("grassTexture")));
@@ -236,7 +240,14 @@ public class MainGameLoop {
             float x = random.nextFloat() * 800 - 400;
             float y = 0;
             float z = random.nextFloat() * -600;
-            entities.add(new Entity(treeModel, new Vector3f(x, y, z), 0, 0, 0, 3));
+            entities.add(new Entity(treeModel, new Vector3f(x, y, z), 0, 0, 0, 10));
+        }
+
+        for (int i = 0; i < 100; i++) {
+            float x = random.nextFloat() * 800 - 400;
+            float y = 0;
+            float z = random.nextFloat() * -600;
+            entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z), 0, 0, 0, 1));
         }
 
         for (int i = 0; i < 100; i++) {
@@ -256,11 +267,11 @@ public class MainGameLoop {
 
 
 
-
-        Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap);
-        Terrain terrain2 = new Terrain(0, -1, loader, texturePack, blendMap);
-        Terrain terrain3 = new Terrain(-1, 0, loader, texturePack, blendMap);
-        Terrain terrain4 = new Terrain(-1, -1, loader, texturePack, blendMap);
+        String heightMap = "heightmap";
+        Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap, heightMap);
+        Terrain terrain2 = new Terrain(0, -1, loader, texturePack, blendMap, heightMap);
+        Terrain terrain3 = new Terrain(-1, 0, loader, texturePack, blendMap, heightMap);
+        Terrain terrain4 = new Terrain(-1, -1, loader, texturePack, blendMap, heightMap);
         List<Terrain> terrains = new ArrayList<>();
         terrains.add(terrain);
         terrains.add(terrain2);
