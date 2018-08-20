@@ -298,15 +298,15 @@ public class MainGameLoop {
 
         GuiRenderer guiRenderer = new GuiRenderer(loader);
 
+        WaterFrameBuffers fbos = new WaterFrameBuffers();
         WaterShader waterShader = new WaterShader();
-        WaterRenderer waterRenderer = new WaterRenderer(loader, waterShader, renderer.getProjectionMatrix());
+        WaterRenderer waterRenderer = new WaterRenderer(loader, waterShader, renderer.getProjectionMatrix(), fbos);
         List<WaterTile> waters = new ArrayList<>();
-        WaterTile water = new WaterTile(0, 0, 1.0f);
+        WaterTile water = new WaterTile(60, 60, 5f);
         waters.add(water);
 
-        WaterFrameBuffers fbos = new WaterFrameBuffers();
-        GuiTexture refrGui = new GuiTexture(fbos.getRefractionTexture(), new Vector2f( 0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
-        GuiTexture reflGui = new GuiTexture(fbos.getReflectionTexture(), new Vector2f(-0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
+        GuiTexture refrGui = new GuiTexture(fbos.getRefractionTexture(), new Vector2f( 0.75f, -0.75f), new Vector2f(0.25f, 0.25f));
+        GuiTexture reflGui = new GuiTexture(fbos.getReflectionTexture(), new Vector2f(-0.75f, -0.75f), new Vector2f(0.25f, 0.25f));
         guiTextures.add(refrGui);
         guiTextures.add(reflGui);
 
@@ -332,6 +332,9 @@ public class MainGameLoop {
             renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, water.getHeight()));
 
             fbos.unbindCurrentFrameBuffer();
+
+            GL11.glDisable(GL30.GL_CLIP_DISTANCE0);
+
             renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, 1000000));
             waterRenderer.render(waters, camera);
 
