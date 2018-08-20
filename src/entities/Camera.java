@@ -4,16 +4,17 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Camera {
-    private Vector3f position = new Vector3f(0, 200, 0);
-    private float pitch = 90.0f; // high or low
+    private Vector3f position = new Vector3f(100, 35, 50);
+    private float pitch = 10.0f; // high or low
     private float yaw = 0;   // left or right
     private float roll;  // tilt: 180 deg = upside down
-    private int moves = 0;
+    //private int moves = 0;
 
     public Camera() {}
 
     public void move() {
 
+        /*
         double angle = Math.toRadians(yaw);
         double s = 1.0 * Math.sin(angle);
         double c = 1.0 * Math.cos(angle);
@@ -94,7 +95,7 @@ public class Camera {
             System.err.println("Camera (pitch, yaw, roll) = (" + pitch + ", " + yaw + ", " + roll + ")");
             moves = 0;
         }
-
+        */
 
     }
 

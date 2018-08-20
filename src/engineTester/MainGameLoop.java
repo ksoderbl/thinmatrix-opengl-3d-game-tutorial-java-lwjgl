@@ -3,6 +3,7 @@ package engineTester;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
+import entities.Player;
 import guis.GuiRenderer;
 import guis.GuiTexture;
 import models.TexturedModel;
@@ -269,6 +270,12 @@ public class MainGameLoop {
         MasterRenderer renderer = new MasterRenderer();
         Camera camera = new Camera();
 
+        ModelData playerData = OBJFileLoader.loadOBJ("person");
+        RawModel playerRawModel = loader.loadToVAO(playerData.getVertices(), playerData.getTextureCoords(), playerData.getNormals(), playerData.getIndices());
+        TexturedModel playerModel = new TexturedModel(playerRawModel, new ModelTexture(loader.loadTexture("playerTexture")));
+        Player player = new Player(playerModel, new Vector3f(100, 0, -50), 0, 0,0, 1);
+        entities.add(player);
+
         List<GuiTexture> guiTextures = new ArrayList<GuiTexture>();
         GuiTexture gui = new GuiTexture(loader.loadTexture("socuwan"), new Vector2f(0.7f, 0.5f), new Vector2f(0.125f, 0.125f));
         GuiTexture gui2 = new GuiTexture(loader.loadTexture("thinmatrix"), new Vector2f(0.5f, 0.6f), new Vector2f(0.2f, 0.2f));
@@ -297,6 +304,7 @@ public class MainGameLoop {
 
         while (!Display.isCloseRequested()) {
             camera.move();
+            player.move();
             //entity.increasePosition(0, 0, -0.01f);
             /*if (Keyboard.isKeyDown(Keyboard.KEY_X))
                 cubeEntity.increaseRotation(1.0f,0.0f,0.0f);

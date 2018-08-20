@@ -34,12 +34,12 @@ public class TerrainRenderer {
         for (Terrain terrain:terrains) {
             prepareTerrain(terrain);
             loadModelMatrix(terrain);
-            if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-                GL11.glDrawElements(GL11.GL_POINTS, terrain.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
-            }
-            else {
-                GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
-            }
+            //if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            //    GL11.glDrawElements(GL11.GL_POINTS, terrain.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+            //}
+            //else {
+            GL11.glDrawElements(GL11.GL_TRIANGLES, terrain.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+            //}
             unbindTexturedModel();
         }
     }

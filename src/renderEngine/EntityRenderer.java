@@ -30,12 +30,12 @@ public class EntityRenderer {
             List<Entity> batch = entities.get(model);
             for (Entity entity:batch) {
                 prepareInstance(entity);
-                if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-                    GL11.glDrawElements(GL11.GL_POINTS, model.getRawModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
-                }
-                else {
-                    GL11.glDrawElements(GL11.GL_TRIANGLES, model.getRawModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
-                }
+                //if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+                //    GL11.glDrawElements(GL11.GL_POINTS, model.getRawModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+                //}
+                //else {
+                GL11.glDrawElements(GL11.GL_TRIANGLES, model.getRawModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+                //}
             }
             unbindTexturedModel();
         }
