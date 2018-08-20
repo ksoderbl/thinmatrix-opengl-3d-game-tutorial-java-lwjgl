@@ -1,93 +1,40 @@
 package entities;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Camera {
+
+    private final float MIN_DISTANCE_FROM_PLAYER = 5;
+    private final float MAX_DISTANCE_FROM_PLAYER = 1000;
+    private final float MIN_PITCH = 5;
+    private final float MAX_PITCH = 90 - MIN_PITCH;
+    private final float OFFSET_CAMERA_Y = 7;
+
+    private float distanceFromPlayer = 50;
+    private float angleAroundPlayer = 0;
+
     private Vector3f position = new Vector3f(100, 35, 50);
-    private float pitch = 10.0f; // high or low
+    private float pitch = 20.0f; // high or low
     private float yaw = 0;   // left or right
     private float roll;  // tilt: 180 deg = upside down
-    //private int moves = 0;
+    private int moves = 0;
 
-    public Camera() {}
+    private Player player;
+
+    public Camera(Player player) {
+        this.player = player;
+    }
 
     public void move() {
-
-        /*
-        double angle = Math.toRadians(yaw);
-        double s = 1.0 * Math.sin(angle);
-        double c = 1.0 * Math.cos(angle);
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_P)) {
-                pitch += 2.0f;
-                //cout << "pitch : " << pitch << endl;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
-                pitch -= 2.0f;
-                //cout << "pitch : " << pitch << endl;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_HOME)) {
-                position.x -= c;
-                position.z -= s;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_END)) {
-                position.x += c;
-                position.z += s;
-        }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_PRIOR )) {
-                position.y += 1.5f;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_NEXT)) {
-                position.y -= 1.5f;
-                if (position.y < 0.1f) {
-                        position.y = 0.1f;
-                }
-        }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-                position.x += s;
-                position.z -= c;
-        }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-                position.x -= s;
-                position.z += c;
-        }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-               yaw -= 2.0f;
-        }
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-                yaw += 2.0f;
-        }
-
-
-
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            position.z -= 1f;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            position.z += 1f;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-            position.x += 1f;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-            position.x -= 1f;
-        }
-
-
-        if (Keyboard.isKeyDown(Keyboard.KEY_R)) {
-            roll += 1f;
-            if (roll >= 360f) {
-                roll -= 360f;
-            }
-        }
-
+        calculateZoom();
+        calculatePitch();
+        calculateAngleAroundPlayer();
+        float horizontalDistance = calculateHorizontalDistance();
+        float verticalDistance = calculateVerticalDistance();
+        calculateCameraPosition(horizontalDistance, verticalDistance);
+        this.yaw = 180 - (player.getRotY() + angleAroundPlayer);
 
         moves++;
         if (moves >= 60) {
@@ -95,8 +42,6 @@ public class Camera {
             System.err.println("Camera (pitch, yaw, roll) = (" + pitch + ", " + yaw + ", " + roll + ")");
             moves = 0;
         }
-        */
-
     }
 
     public void invertPitch() {
@@ -117,5 +62,49 @@ public class Camera {
 
     public float getRoll() {
         return roll;
+    }
+
+    public void calculateCameraPosition(float horizDistance, float verticDistance) {
+        float theta = player.getRotY() + angleAroundPlayer;
+        float offsetX = (float) (horizDistance * Math.sin(Math.toRadians(theta)));
+        float offsetZ = (float) (horizDistance * Math.cos(Math.toRadians(theta)));
+        position.x = player.getPosition().x - offsetX;
+        position.z = player.getPosition().z - offsetZ;
+        position.y = player.getPosition().y + verticDistance + OFFSET_CAMERA_Y;
+    }
+
+    private float calculateHorizontalDistance() {
+        return (float) (distanceFromPlayer * Math.cos(Math.toRadians(pitch)));
+    }
+
+    private float calculateVerticalDistance() {
+        return (float) (distanceFromPlayer * Math.sin(Math.toRadians(pitch)));
+    }
+
+    private void calculateZoom() {
+        float zoomLevel = Mouse.getDWheel() * 0.1f;
+        distanceFromPlayer -= zoomLevel;
+        if (distanceFromPlayer < MIN_DISTANCE_FROM_PLAYER)
+            distanceFromPlayer = MIN_DISTANCE_FROM_PLAYER;
+        if (distanceFromPlayer > MAX_DISTANCE_FROM_PLAYER)
+            distanceFromPlayer = MAX_DISTANCE_FROM_PLAYER;
+    }
+
+    private void calculatePitch() {
+        if (Mouse.isButtonDown(1)) {
+            float pitchChange = Mouse.getDY() * 0.1f;
+            pitch -= pitchChange;
+            if (pitch < MIN_PITCH)
+                pitch = MIN_PITCH;
+            if (pitch > MAX_PITCH)
+                pitch = MAX_PITCH;
+        }
+    }
+
+    private void calculateAngleAroundPlayer() {
+        if (Mouse.isButtonDown(0)) {
+            float angleChange = Mouse.getDX() * 0.3f;
+            angleAroundPlayer -= angleChange;
+        }
     }
 }

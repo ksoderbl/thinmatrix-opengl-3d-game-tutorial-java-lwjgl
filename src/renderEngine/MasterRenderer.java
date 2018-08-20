@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class MasterRenderer {
 
-    private static final float FOV = 90; // thinmatrix has 70
+    private static final float FOV = 70;
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000f;
 
@@ -28,8 +28,8 @@ public class MasterRenderer {
     private static final float SKY_BLUE = 0.6f;
 
     // 0.0035 -> 0.007
-    private static final float MAX_FOG_DENSITY = 0.00001f;
-    private static final float MIN_FOG_DENSITY = 0.00001f;
+    private static final float MAX_FOG_DENSITY = 0.0035f;
+    private static final float MIN_FOG_DENSITY = 0.0035f;
     // 1.5 -> 5.0
     private static final float MAX_FOG_GRADIENT = 1.5f;
     private static final float MIN_FOG_GRADIENT = 1.5f;
@@ -155,7 +155,7 @@ public class MasterRenderer {
         projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
         projectionMatrix.m33 = 0;
 
-        System.err.println(projectionMatrix.toString());
+        //System.err.println(projectionMatrix.toString());
     }
 
     public Matrix4f getProjectionMatrix() {

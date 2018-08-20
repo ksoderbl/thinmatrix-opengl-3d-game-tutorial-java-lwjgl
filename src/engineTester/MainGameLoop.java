@@ -224,7 +224,7 @@ public class MainGameLoop {
         List<Entity> entities = new ArrayList<Entity>();
         Random random = new Random();
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 0; i++) {
             float x = random.nextFloat() * 800 - 50;
             float y = random.nextFloat() * 100 - 50;
             float z = random.nextFloat() * -400;
@@ -232,21 +232,21 @@ public class MainGameLoop {
                     random.nextFloat() * 180f, random.nextFloat() * 180f, 0f, 1f));
         }
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 100; i++) {
             float x = random.nextFloat() * 800 - 400;
             float y = 0;
             float z = random.nextFloat() * -600;
             entities.add(new Entity(treeModel, new Vector3f(x, y, z), 0, 0, 0, 3));
         }
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 100; i++) {
             float x = random.nextFloat() * 800 - 400;
             float y = 0;
             float z = random.nextFloat() * -600;
             entities.add(new Entity(grassModel, new Vector3f(x, y, z), 0, 0, 0, 1));
         }
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 100; i++) {
             float x = random.nextFloat() * 800 - 400;
             float y = 0;
             float z = random.nextFloat() * -600;
@@ -268,13 +268,14 @@ public class MainGameLoop {
         terrains.add(terrain4);
 
         MasterRenderer renderer = new MasterRenderer();
-        Camera camera = new Camera();
 
         ModelData playerData = OBJFileLoader.loadOBJ("person");
         RawModel playerRawModel = loader.loadToVAO(playerData.getVertices(), playerData.getTextureCoords(), playerData.getNormals(), playerData.getIndices());
         TexturedModel playerModel = new TexturedModel(playerRawModel, new ModelTexture(loader.loadTexture("playerTexture")));
         Player player = new Player(playerModel, new Vector3f(100, 0, -50), 0, 0,0, 1);
         entities.add(player);
+
+        Camera camera = new Camera(player);
 
         List<GuiTexture> guiTextures = new ArrayList<GuiTexture>();
         GuiTexture gui = new GuiTexture(loader.loadTexture("socuwan"), new Vector2f(0.7f, 0.5f), new Vector2f(0.125f, 0.125f));
@@ -305,13 +306,6 @@ public class MainGameLoop {
         while (!Display.isCloseRequested()) {
             camera.move();
             player.move();
-            //entity.increasePosition(0, 0, -0.01f);
-            /*if (Keyboard.isKeyDown(Keyboard.KEY_X))
-                cubeEntity.increaseRotation(1.0f,0.0f,0.0f);
-            if (Keyboard.isKeyDown(Keyboard.KEY_Y))
-                cubeEntity.increaseRotation(0.0f,1.0f,0.0f);
-            if (Keyboard.isKeyDown(Keyboard.KEY_Z))
-                cubeEntity.increaseRotation(0.0f,0.0f,1.0f);*/
 
             GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 
