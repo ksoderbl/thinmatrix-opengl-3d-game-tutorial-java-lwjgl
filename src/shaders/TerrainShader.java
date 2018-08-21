@@ -59,11 +59,11 @@ public class TerrainShader extends ShaderProgram {
         location_gTexture = super.getUniformLocation("gTexture");
         location_bTexture = super.getUniformLocation("bTexture");
         location_blendMap = super.getUniformLocation("blendMap");
-        location_clipPlane = super.getUniformLocation("plane");
+        location_clipPlane = super.getUniformLocation("clipPlane");
     }
 
-    public void loadClipPlane(Vector4f plane) {
-        loadVector(location_clipPlane, plane);
+    public void loadClipPlane(Vector4f clipPlane) {
+        loadVector(location_clipPlane, clipPlane);
     }
 
     public void connectTextureUnits() {

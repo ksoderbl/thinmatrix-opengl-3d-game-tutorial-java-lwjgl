@@ -18,12 +18,15 @@ uniform vec3 lightPosition;
 
 uniform float useFakeLighting;
 
+uniform float numberOfRows;
+uniform vec2 textureOffset;
+
 //const float fogDensity = 0.007;
 //const float fogGradient = 1.5;
 uniform float fogDensity;
 uniform float fogGradient;
 
-uniform vec4 plane;
+uniform vec4 clipPlane;
 
 void main() {
     //gl_Position = vec4(position.xyz, 1.0);
@@ -32,12 +35,12 @@ void main() {
 
     vec4 worldPosition = transformationMatrix * vec4(position, 1.0);
 
-    gl_ClipDistance[0] = dot(worldPosition, plane);
+    gl_ClipDistance[0] = dot(worldPosition, clipPlane);
 
     vec4 positionRelativeToCam = viewMatrix * worldPosition;
 
     gl_Position = projectionMatrix * positionRelativeToCam;
-    pass_textureCoordinates = textureCoordinates;
+    pass_textureCoordinates = (textureCoordinates/numberOfRows) + textureOffset;
 
     vec3 actualNormal = normal;
     if (useFakeLighting > 0.5) {

@@ -215,14 +215,12 @@ public class MainGameLoop {
         grassModel.getTexture().setHasTransparency(true);
         grassModel.getTexture().setUseFakeLighting(true);
 
+        ModelTexture fernTextureAtlas = new ModelTexture(loader.loadTexture("fern"));
+        fernTextureAtlas.setNumberOfRows(2);
         ModelData fernData = OBJFileLoader.loadOBJ("fern");
         RawModel fernRawModel = loader.loadToVAO(fernData.getVertices(), fernData.getTextureCoords(), fernData.getNormals(), fernData.getIndices());
-        TexturedModel fernModel = new TexturedModel(fernRawModel, new ModelTexture(loader.loadTexture("fern")));
+        TexturedModel fernModel = new TexturedModel(fernRawModel, fernTextureAtlas);
         fernModel.getTexture().setHasTransparency(true);
-
-
-
-
 
         String heightMap = "heightmap";
         Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, heightMap);
@@ -246,11 +244,11 @@ public class MainGameLoop {
         Random random = new Random(676452);
 
         for (int i = 0; i < 400; i++) {
-            if (i % 20 == 0) {
+            if (i % 1 == 0) {
                 float x = random.nextFloat() * 800 - 400;
                 float z = random.nextFloat() * -600;
                 float y = terrain.getHeightOfTerrain(x, z);
-                entities.add(new Entity(fernModel, new Vector3f(x, y, z),
+                entities.add(new Entity(fernModel, random.nextInt(4), new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, 0.9f));
             }
 

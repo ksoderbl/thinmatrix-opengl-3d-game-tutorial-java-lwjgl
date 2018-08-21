@@ -3,6 +3,7 @@ package shaders;
 import entities.Camera;
 import entities.Light;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 import toolbox.Maths;
@@ -24,6 +25,8 @@ public class StaticShader extends ShaderProgram {
     private int location_fogDensity;
     private int location_fogGradient;
     private int location_clipPlane;
+    private int location_numberOfRows;
+    private int location_textureOffset;
 
     public StaticShader() {
         super(VERTEX_FILE, FRAGMENT_FILE);
@@ -51,11 +54,21 @@ public class StaticShader extends ShaderProgram {
         location_skyColor = super.getUniformLocation("skyColor");
         location_fogDensity = super.getUniformLocation("fogDensity");
         location_fogGradient = super.getUniformLocation("fogGradient");
-        location_clipPlane = super.getUniformLocation("plane");
+        location_clipPlane = super.getUniformLocation("clipPlane");
+        location_numberOfRows = super.getUniformLocation("numberOfRows");
+        location_textureOffset = super.getUniformLocation("textureOffset");
     }
 
-    public void loadClipPlane(Vector4f plane) {
-        loadVector(location_clipPlane, plane);
+    public void loadNumberOfRows(int numberOfRows) {
+        super.loadFloat(location_numberOfRows, numberOfRows);
+    }
+
+    public void loadTextureOffset(float x, float y) {
+        super.load2DVector(location_textureOffset, new Vector2f(x, y));
+    }
+
+    public void loadClipPlane(Vector4f clipPlane) {
+        loadVector(location_clipPlane, clipPlane);
     }
 
     public void loadFogVariables(float density, float gradient) {
