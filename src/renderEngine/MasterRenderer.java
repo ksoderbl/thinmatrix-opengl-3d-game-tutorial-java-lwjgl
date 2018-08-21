@@ -28,11 +28,11 @@ public class MasterRenderer {
     private static final float SKY_BLUE = 0.6f;
 
     // 0.0035 -> 0.007
-    private static final float MAX_FOG_DENSITY = 0.0035f;
-    private static final float MIN_FOG_DENSITY = 0.0035f;
+    private static final float MAX_FOG_DENSITY = 0.0025f;
+    private static final float MIN_FOG_DENSITY = 0.0025f;
     // 1.5 -> 5.0
-    private static final float MAX_FOG_GRADIENT = 1.5f;
-    private static final float MIN_FOG_GRADIENT = 1.5f;
+    private static final float MAX_FOG_GRADIENT = 1.0f;
+    private static final float MIN_FOG_GRADIENT = 1.0f;
 
     private double fogTime = 0.0;
 

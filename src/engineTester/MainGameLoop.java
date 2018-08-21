@@ -221,62 +221,59 @@ public class MainGameLoop {
         fernModel.getTexture().setHasTransparency(true);
 
 
+
+
+
+        String heightMap = "heightmap";
+        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, heightMap);
+        //Terrain terrain2 = new Terrain(0, 0, loader, texturePack, blendMap, heightMap);
+        //Terrain terrain3 = new Terrain(-1, 0, loader, texturePack, blendMap, heightMap);
+        //Terrain terrain4 = new Terrain(-1, -1, loader, texturePack, blendMap, heightMap);
+        List<Terrain> terrains = new ArrayList<>();
+        terrains.add(terrain);
+        //terrains.add(terrain2);
+        //terrains.add(terrain3);
+        //terrains.add(terrain4);
+
+
+
         Light light = new Light(new Vector3f(3000,3000,2000), new Vector3f(1,1,1));
         List<Light> lights = new ArrayList<>();
         lights.add(light);
 
         List<Entity> entities = new ArrayList<Entity>();
-        Random random = new Random();
 
-        for (int i = 0; i < 0; i++) {
-            float x = random.nextFloat() * 800 - 50;
-            float y = random.nextFloat() * 100 - 50;
-            float z = random.nextFloat() * -400;
-            entities.add(new Entity(cubeModel, new Vector3f(x, y, z),
-                    random.nextFloat() * 180f, random.nextFloat() * 180f, 0f, 1f));
+        Random random = new Random(676452);
+
+        for (int i = 0; i < 400; i++) {
+            if (i % 20 == 0) {
+                float x = random.nextFloat() * 800 - 400;
+                float z = random.nextFloat() * -600;
+                float y = terrain.getHeightOfTerrain(x, z);
+                entities.add(new Entity(fernModel, new Vector3f(x, y, z),
+                        0, random.nextFloat() * 360, 0, 0.9f));
+            }
+
+            if (i % 5 == 0) {
+                float x = random.nextFloat() * 800 - 400;
+                float z = random.nextFloat() * -600;
+                float y = terrain.getHeightOfTerrain(x, z);
+                entities.add(new Entity(treeModel, new Vector3f(x, y, z),
+                        0, random.nextFloat() * 360, 0, random.nextFloat() * 3f + 6f));
+                x = random.nextFloat() * 800 - 400;
+                z = random.nextFloat() * -600;
+                y = terrain.getHeightOfTerrain(x, z);
+                entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z),
+                        0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
+
+                x = random.nextFloat() * 800 - 400;
+                z = random.nextFloat() * -600;
+                y = terrain.getHeightOfTerrain(x, z);
+                entities.add(new Entity(grassModel, new Vector3f(x, y, z),
+                        0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
+            }
         }
 
-        for (int i = 0; i < 100; i++) {
-            float x = random.nextFloat() * 800 - 400;
-            float y = 0;
-            float z = random.nextFloat() * -600;
-            entities.add(new Entity(treeModel, new Vector3f(x, y, z), 0, 0, 0, 10));
-        }
-
-        for (int i = 0; i < 100; i++) {
-            float x = random.nextFloat() * 800 - 400;
-            float y = 0;
-            float z = random.nextFloat() * -600;
-            entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z), 0, 0, 0, 1));
-        }
-
-        for (int i = 0; i < 100; i++) {
-            float x = random.nextFloat() * 800 - 400;
-            float y = 0;
-            float z = random.nextFloat() * -600;
-            entities.add(new Entity(grassModel, new Vector3f(x, y, z), 0, 0, 0, 1));
-        }
-
-        for (int i = 0; i < 100; i++) {
-            float x = random.nextFloat() * 800 - 400;
-            float y = 0;
-            float z = random.nextFloat() * -600;
-            entities.add(new Entity(fernModel, new Vector3f(x, y, z), 0, 0, 0, 0.6f));
-        }
-
-
-
-
-        String heightMap = "heightmap";
-        Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap, heightMap);
-        Terrain terrain2 = new Terrain(0, -1, loader, texturePack, blendMap, heightMap);
-        Terrain terrain3 = new Terrain(-1, 0, loader, texturePack, blendMap, heightMap);
-        Terrain terrain4 = new Terrain(-1, -1, loader, texturePack, blendMap, heightMap);
-        List<Terrain> terrains = new ArrayList<>();
-        terrains.add(terrain);
-        terrains.add(terrain2);
-        terrains.add(terrain3);
-        terrains.add(terrain4);
 
         MasterRenderer renderer = new MasterRenderer();
 
@@ -302,7 +299,7 @@ public class MainGameLoop {
         WaterShader waterShader = new WaterShader();
         WaterRenderer waterRenderer = new WaterRenderer(loader, waterShader, renderer.getProjectionMatrix(), fbos);
         List<WaterTile> waters = new ArrayList<>();
-        WaterTile water = new WaterTile(60, 60, 5f);
+        WaterTile water = new WaterTile(30, -30, 2f);
         waters.add(water);
 
         GuiTexture refrGui = new GuiTexture(fbos.getRefractionTexture(), new Vector2f( 0.75f, -0.75f), new Vector2f(0.25f, 0.25f));
@@ -315,8 +312,8 @@ public class MainGameLoop {
         //boolean fullScreen = false;
 
         while (!Display.isCloseRequested()) {
+            player.move(terrain); // TODO: find which terrain the player is on
             camera.move();
-            player.move();
 
             GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 
