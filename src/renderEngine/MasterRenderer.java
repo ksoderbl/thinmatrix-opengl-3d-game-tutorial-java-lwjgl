@@ -77,13 +77,11 @@ public class MasterRenderer {
             processEntity(entity);
         }
 
-        Light light = lights.get(0);
-
-        render(light, camera, clipPlane);
+        render(lights, camera, clipPlane);
     }
 
 
-    public void render(Light sun, Camera camera, Vector4f clipPlane) {
+    public void render(List<Light> lights, Camera camera, Vector4f clipPlane) {
         prepare();
 
         float f = (float)((Math.sin(fogTime) + 1.0) / 2.0);
@@ -96,7 +94,7 @@ public class MasterRenderer {
         shader.loadClipPlane(clipPlane);
         shader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
         shader.loadFogVariables(density, gradient);
-        shader.loadLight(sun);
+        shader.loadLights(lights);
         shader.loadViewMatrix(camera);
         renderer.render(entities);
         shader.stop();
@@ -105,7 +103,7 @@ public class MasterRenderer {
         terrainShader.loadClipPlane(clipPlane);
         terrainShader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
         terrainShader.loadFogVariables(density, gradient);
-        terrainShader.loadLight(sun);
+        terrainShader.loadLights(lights);
         terrainShader.loadViewMatrix(camera);
         terrainRenderer.render(terrains);
         terrainShader.stop();

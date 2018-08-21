@@ -53,145 +53,6 @@ public class MainGameLoop {
 
         //***************************************
 
-
-        float[] cubeVertices = {
-                -0.5f,0.5f,-0.5f, // 0
-                -0.5f,-0.5f,-0.5f,// 1
-                0.5f,-0.5f,-0.5f, // 2
-                0.5f,0.5f,-0.5f,  // 3
-
-                -0.5f,0.5f,0.5f,  // 4
-                -0.5f,-0.5f,0.5f, // 5
-                0.5f,-0.5f,0.5f,  // 6
-                0.5f,0.5f,0.5f,   // 7
-
-                0.5f,0.5f,-0.5f,  // 8  = 3
-                0.5f,-0.5f,-0.5f, // 9  = 2
-                0.5f,-0.5f,0.5f,  // 10 = 6
-                0.5f,0.5f,0.5f,   // 11 = 7
-
-                -0.5f,0.5f,-0.5f, // 12 = 0
-                -0.5f,-0.5f,-0.5f,// 13 = 1
-                -0.5f,-0.5f,0.5f, // 14 = 5
-                -0.5f,0.5f,0.5f,  // 15 = 4
-
-                -0.5f,0.5f,0.5f,  // 16 = 4
-                -0.5f,0.5f,-0.5f, // 17 = 0
-                0.5f,0.5f,-0.5f,  // 18 = 3
-                0.5f,0.5f,0.5f,   // 19 = 7
-
-                -0.5f,-0.5f,0.5f, // 20 = 5
-                -0.5f,-0.5f,-0.5f,// 21 = 1
-                0.5f,-0.5f,-0.5f, // 22 = 2
-                0.5f,-0.5f,0.5f   // 23 = 6
-
-        };
-
-        float[] cubeTextureCoords = {
-
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-
-                0,0,
-                0,1,
-                1,1,
-                1,0,
-
-                0,0,
-                0,1,
-                1,1,
-                1,0
-
-
-        };
-
-        float[] cubeNormals = {
-
-                0,0,-1,
-                0,0,-1,
-                0,0,-1,
-                0,0,-1,
-
-                0,0,1,
-                0,0,1,
-                0,0,1,
-                0,0,1,
-
-
-
-
-
-                1,0,0,
-                1,0,0,
-                1,0,0,
-                1,0,0,
-
-                -1,0,0,
-                -1,0,0,
-                -1,0,0,
-                -1,0,0,
-
-
-
-
-                0,1,0,
-                0,1,0,
-                0,1,0,
-                0,1,0,
-
-                0,-1,0,
-                0,-1,0,
-                0,-1,0,
-                0,-1,0
-
-        };
-
-
-        int[] cubeIndices = {
-                0,3,1,
-                3,2,1, // OK
-
-                4,5,7,
-                7,5,6, // OK
-
-                8,11,9,//8,9,11,
-                11,10,9,//11,9,10, // OK
-
-                12,13,15,
-                15,13,14, // OK
-
-                16,19,17, //16,17,19,
-                19, 18, 17, //19,17,18,
-
-                20,21,23,
-                23,21,22
-
-        };
-
-        RawModel cubeRawModel = loader.loadToVAO(cubeVertices, cubeTextureCoords, cubeNormals, cubeIndices);
-        TexturedModel cubeModel = new TexturedModel(cubeRawModel, new ModelTexture(loader.loadTexture("image")));
-        ModelTexture cubeTexture = cubeModel.getTexture();
-        cubeTexture.setShineDamper(1.0f);
-        cubeTexture.setReflectivity(1.0f);
-        //Entity cubeEntity = new Entity(cubeModel, new Vector3f(0, 0, -5), 0, 0,0, 1);
-
         ModelData dragonData = OBJFileLoader.loadOBJ("dragon");
         RawModel dragonRawModel = loader.loadToVAO(dragonData.getVertices(), dragonData.getTextureCoords(), dragonData.getNormals(), dragonData.getIndices());
         TexturedModel dragonModel = new TexturedModel(dragonRawModel, new ModelTexture(loader.loadTexture("stallTexture")));
@@ -201,9 +62,9 @@ public class MainGameLoop {
         Entity dragon = new Entity(dragonModel, new Vector3f(0, 0, -25), 0, 160,0, 1);
 
 
-        ModelData treeData = OBJFileLoader.loadOBJ("tree");
-        RawModel treeRawModel = loader.loadToVAO(treeData.getVertices(), treeData.getTextureCoords(), treeData.getNormals(), treeData.getIndices());
-        TexturedModel treeModel = new TexturedModel(treeRawModel, new ModelTexture(loader.loadTexture("tree")));
+        ModelData pineData = OBJFileLoader.loadOBJ("pine");
+        RawModel pineRawModel = loader.loadToVAO(pineData.getVertices(), pineData.getTextureCoords(), pineData.getNormals(), pineData.getIndices());
+        TexturedModel pineModel = new TexturedModel(pineRawModel, new ModelTexture(loader.loadTexture("pine")));
 
         ModelData lowPolyTreeData = OBJFileLoader.loadOBJ("lowPolyTree");
         RawModel lowPolyTreeRawModel = loader.loadToVAO(lowPolyTreeData.getVertices(), lowPolyTreeData.getTextureCoords(), lowPolyTreeData.getNormals(), lowPolyTreeData.getIndices());
@@ -233,12 +94,6 @@ public class MainGameLoop {
         //terrains.add(terrain3);
         //terrains.add(terrain4);
 
-
-
-        Light light = new Light(new Vector3f(3000,3000,2000), new Vector3f(1,1,1));
-        List<Light> lights = new ArrayList<>();
-        lights.add(light);
-
         List<Entity> entities = new ArrayList<Entity>();
 
         Random random = new Random(676452);
@@ -256,8 +111,8 @@ public class MainGameLoop {
                 float x = random.nextFloat() * 800 - 400;
                 float z = random.nextFloat() * -600;
                 float y = terrain.getHeightOfTerrain(x, z);
-                entities.add(new Entity(treeModel, new Vector3f(x, y, z),
-                        0, random.nextFloat() * 360, 0, random.nextFloat() * 3f + 6f));
+                entities.add(new Entity(pineModel, new Vector3f(x, y, z),
+                        0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
                 x = random.nextFloat() * 800 - 400;
                 z = random.nextFloat() * -600;
                 y = terrain.getHeightOfTerrain(x, z);
@@ -272,13 +127,18 @@ public class MainGameLoop {
             }
         }
 
+        Light light = new Light(new Vector3f(0,10000,-7000), new Vector3f(1,1,1));
+        List<Light> lights = new ArrayList<>();
+        lights.add(light);
+        lights.add(new Light(new Vector3f(-200,10, -200), new Vector3f(10, 0, 0)));
+        lights.add(new Light(new Vector3f(200,10, 200), new Vector3f(0, 10, 10)));
 
         MasterRenderer renderer = new MasterRenderer();
 
         ModelData playerData = OBJFileLoader.loadOBJ("person");
         RawModel playerRawModel = loader.loadToVAO(playerData.getVertices(), playerData.getTextureCoords(), playerData.getNormals(), playerData.getIndices());
         TexturedModel playerModel = new TexturedModel(playerRawModel, new ModelTexture(loader.loadTexture("playerTexture")));
-        Player player = new Player(playerModel, new Vector3f(100, 0, -50), 0, 0,0, 1);
+        Player player = new Player(playerModel, new Vector3f(0, 0, 0), 0, 0,0, 0.5f);
         entities.add(player);
 
         Camera camera = new Camera(player);
