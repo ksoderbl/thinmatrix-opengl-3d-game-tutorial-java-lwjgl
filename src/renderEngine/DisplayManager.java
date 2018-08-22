@@ -43,7 +43,7 @@ public class DisplayManager {
             //DisplayMode mode = Display.getDesktopDisplayMode();
             Display.setDisplayMode(mode);
             Display.create(new PixelFormat(), attribs);
-            Display.setTitle("Our First Display!");
+            Display.setTitle("OpenGL 3D Game Tutorial 26: Point Lights");
         } catch (LWJGLException e) {
             e.printStackTrace();
         }

@@ -28,11 +28,11 @@ public class MasterRenderer {
     private static final float SKY_BLUE = 0.6f;
 
     // 0.0035 -> 0.007
-    private static final float MAX_FOG_DENSITY = 0.0025f;
-    private static final float MIN_FOG_DENSITY = 0.0025f;
+    private static final float MAX_FOG_DENSITY = 0.007f;
+    private static final float MIN_FOG_DENSITY = 0.0015f;
     // 1.5 -> 5.0
-    private static final float MAX_FOG_GRADIENT = 1.0f;
-    private static final float MIN_FOG_GRADIENT = 1.0f;
+    private static final float MAX_FOG_GRADIENT = 5.0f;
+    private static final float MIN_FOG_GRADIENT = 1.5f;
 
     private double fogTime = 0.0;
 
@@ -84,11 +84,8 @@ public class MasterRenderer {
     public void render(List<Light> lights, Camera camera, Vector4f clipPlane) {
         prepare();
 
-        float f = (float)((Math.sin(fogTime) + 1.0) / 2.0);
-        fogTime += 0.01;
-
-        float density = f * (MAX_FOG_DENSITY - MIN_FOG_DENSITY) + MIN_FOG_DENSITY;
-        float gradient = f * (MAX_FOG_GRADIENT - MIN_FOG_GRADIENT) + MIN_FOG_GRADIENT;
+        float density = MIN_FOG_DENSITY;
+        float gradient = MAX_FOG_GRADIENT;
 
         shader.start();
         shader.loadClipPlane(clipPlane);
