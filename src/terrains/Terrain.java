@@ -16,8 +16,8 @@ import java.nio.Buffer;
 
 public class Terrain {
 
-    private static final float SIZE = 800;
-    private static final float MAX_HEIGHT = 40;
+    public static final float SIZE = 800;
+    public static final float MAX_HEIGHT = 40;
     private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
     private static final float HEIGHT_OFFSET = 0;
 

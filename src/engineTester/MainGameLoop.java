@@ -84,7 +84,7 @@ public class MainGameLoop {
         fernModel.getTexture().setHasTransparency(true);
 
         String heightMap = "heightmap";
-        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, heightMap);
+        Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap, heightMap);
         //Terrain terrain2 = new Terrain(0, 0, loader, texturePack, blendMap, heightMap);
         //Terrain terrain3 = new Terrain(-1, 0, loader, texturePack, blendMap, heightMap);
         //Terrain terrain4 = new Terrain(-1, -1, loader, texturePack, blendMap, heightMap);
@@ -100,27 +100,27 @@ public class MainGameLoop {
 
         for (int i = 0; i < 400; i++) {
             if (i % 1 == 0) {
-                float x = random.nextFloat() * 800 - 400;
-                float z = random.nextFloat() * -600;
+                float x = random.nextFloat() * Terrain.SIZE;
+                float z = random.nextFloat() * Terrain.SIZE;
                 float y = terrain.getHeightOfTerrain(x, z);
                 entities.add(new Entity(fernModel, random.nextInt(4), new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, 0.9f));
             }
 
             if (i % 5 == 0) {
-                float x = random.nextFloat() * 800 - 400;
-                float z = random.nextFloat() * -600;
+                float x = random.nextFloat() * Terrain.SIZE;
+                float z = random.nextFloat() * Terrain.SIZE;
                 float y = terrain.getHeightOfTerrain(x, z);
                 entities.add(new Entity(pineModel, new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
-                x = random.nextFloat() * 800 - 400;
-                z = random.nextFloat() * -600;
+                x = random.nextFloat() * Terrain.SIZE;
+                z = random.nextFloat() * Terrain.SIZE;
                 y = terrain.getHeightOfTerrain(x, z);
                 entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
 
-                x = random.nextFloat() * 800 - 400;
-                z = random.nextFloat() * -600;
+                x = random.nextFloat() * Terrain.SIZE;
+                z = random.nextFloat() * Terrain.SIZE;
                 y = terrain.getHeightOfTerrain(x, z);
                 entities.add(new Entity(grassModel, new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
@@ -130,25 +130,25 @@ public class MainGameLoop {
 
         List<Light> lights = new ArrayList<>();
         lights.add(new Light(new Vector3f(0,1000,-7000), new Vector3f(0.4f,0.4f,0.4f)));
-        lights.add(new Light(new Vector3f(185,10,-293), new Vector3f(2,0,0), new Vector3f(1,0.01f,0.002f)));
-        lights.add(new Light(new Vector3f(370,17,-300), new Vector3f(0,2,2), new Vector3f(1,0.01f,0.002f)));
-        lights.add(new Light(new Vector3f(293,7,-305), new Vector3f(2,2,0), new Vector3f(1,0.01f,0.002f)));
+        lights.add(new Light(new Vector3f(185,10,-293 + Terrain.SIZE), new Vector3f(2,0,0), new Vector3f(1,0.01f,0.002f)));
+        lights.add(new Light(new Vector3f(370,17,-300 + Terrain.SIZE), new Vector3f(0,2,2), new Vector3f(1,0.01f,0.002f)));
+        lights.add(new Light(new Vector3f(293,7,-305 + Terrain.SIZE), new Vector3f(2,2,0), new Vector3f(1,0.01f,0.002f)));
 
         ModelData lampData = OBJFileLoader.loadOBJ("lamp");
         RawModel lampRawModel = loader.loadToVAO(lampData.getVertices(), lampData.getTextureCoords(), lampData.getNormals(), lampData.getIndices());
         TexturedModel lampModel = new TexturedModel(lampRawModel, new ModelTexture(loader.loadTexture("lamp")));
         lampModel.getTexture().setUseFakeLighting(true);
 
-        entities.add(new Entity(lampModel, new Vector3f(185,-4.7f,-293), 0, 0, 0, 1));
-        entities.add(new Entity(lampModel, new Vector3f(370, 4.2f,-300), 0, 0, 0, 1));
-        entities.add(new Entity(lampModel, new Vector3f(293,-6.8f,-305), 0, 0, 0, 1));
+        entities.add(new Entity(lampModel, new Vector3f(185,-4.7f,-293 + Terrain.SIZE), 0, 0, 0, 1));
+        entities.add(new Entity(lampModel, new Vector3f(370, 4.2f,-300 + Terrain.SIZE), 0, 0, 0, 1));
+        entities.add(new Entity(lampModel, new Vector3f(293,-6.8f,-305 + Terrain.SIZE), 0, 0, 0, 1));
 
-        MasterRenderer renderer = new MasterRenderer();
+        MasterRenderer renderer = new MasterRenderer(loader);
 
         ModelData playerData = OBJFileLoader.loadOBJ("person");
         RawModel playerRawModel = loader.loadToVAO(playerData.getVertices(), playerData.getTextureCoords(), playerData.getNormals(), playerData.getIndices());
         TexturedModel playerModel = new TexturedModel(playerRawModel, new ModelTexture(loader.loadTexture("playerTexture")));
-        Player player = new Player(playerModel, new Vector3f(0, 0, 0), 0, 0,0, 0.5f);
+        Player player = new Player(playerModel, new Vector3f(Terrain.SIZE/2, 0, Terrain.SIZE/2), 0, 0,0, 0.5f);
         entities.add(player);
 
         Camera camera = new Camera(player);
@@ -167,7 +167,7 @@ public class MainGameLoop {
         WaterShader waterShader = new WaterShader();
         WaterRenderer waterRenderer = new WaterRenderer(loader, waterShader, renderer.getProjectionMatrix(), fbos);
         List<WaterTile> waters = new ArrayList<>();
-        WaterTile water = new WaterTile(30, -30, 2f);
+        WaterTile water = new WaterTile(Terrain.SIZE / 2, Terrain.SIZE / 2, 2f);
         waters.add(water);
 
         GuiTexture refrGui = new GuiTexture(fbos.getRefractionTexture(), new Vector2f( 0.75f, -0.75f), new Vector2f(0.25f, 0.25f));
