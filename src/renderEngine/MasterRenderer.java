@@ -6,6 +6,7 @@ import entities.Light;
 import models.TexturedModel;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector4f;
 import shaders.StaticShader;
@@ -71,7 +72,8 @@ public class MasterRenderer {
             List<Terrain> terrains,
             List<Light> lights,
             Camera camera,
-            Vector4f clipPlane) {
+            Vector4f clipPlane,
+            boolean useClipping) {
 
         for (Terrain terrain : terrains) {
             processTerrain(terrain);
@@ -81,15 +83,20 @@ public class MasterRenderer {
             processEntity(entity);
         }
 
-        render(lights, camera, clipPlane);
+        render(lights, camera, clipPlane, useClipping);
     }
 
 
-    public void render(List<Light> lights, Camera camera, Vector4f clipPlane) {
+    public void render(List<Light> lights, Camera camera, Vector4f clipPlane, boolean useClipping) {
         prepare();
 
         float density = MIN_FOG_DENSITY;
         float gradient = MAX_FOG_GRADIENT;
+
+        if (useClipping)
+            GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
+        else
+            GL11.glDisable(GL30.GL_CLIP_DISTANCE0);
 
         shader.start();
         shader.loadClipPlane(clipPlane);
@@ -108,6 +115,9 @@ public class MasterRenderer {
         terrainShader.loadViewMatrix(camera);
         terrainRenderer.render(terrains);
         terrainShader.stop();
+
+        if (useClipping)
+            GL11.glDisable(GL30.GL_CLIP_DISTANCE0);
 
         skyboxRenderer.render(camera);
 

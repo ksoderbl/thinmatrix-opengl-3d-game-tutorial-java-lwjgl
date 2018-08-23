@@ -170,8 +170,8 @@ public class MainGameLoop {
         WaterTile water = new WaterTile(Terrain.SIZE / 2, Terrain.SIZE / 2, 2f);
         waters.add(water);
 
-        GuiTexture refrGui = new GuiTexture(fbos.getRefractionTexture(), new Vector2f( 0.75f, -0.75f), new Vector2f(0.25f, 0.25f));
-        GuiTexture reflGui = new GuiTexture(fbos.getReflectionTexture(), new Vector2f(-0.75f, -0.75f), new Vector2f(0.25f, 0.25f));
+        GuiTexture refrGui = new GuiTexture(fbos.getRefractionTexture(), new Vector2f( 0.67f, -0.67f), new Vector2f(0.33f, 0.33f));
+        GuiTexture reflGui = new GuiTexture(fbos.getReflectionTexture(), new Vector2f(-0.67f, -0.67f), new Vector2f(0.33f, 0.33f));
         guiTextures.add(refrGui);
         guiTextures.add(reflGui);
 
@@ -183,27 +183,20 @@ public class MainGameLoop {
             player.move(terrain); // TODO: find which terrain the player is on
             camera.move();
 
-            GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
-
             fbos.bindReflectionFrameBuffer();
             float distance = 2 * (camera.getPosition().y - water.getHeight());
             camera.getPosition().y -= distance;
             camera.invertPitch();
-            renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, 1, 0, -water.getHeight()));
+            renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, 1, 0, -water.getHeight()), true);
             camera.getPosition().y += distance;
             camera.invertPitch();
 
             fbos.bindRefractionFrameBuffer();
-            renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, water.getHeight()));
-
+            renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, water.getHeight()), true);
             fbos.unbindCurrentFrameBuffer();
 
-            GL11.glDisable(GL30.GL_CLIP_DISTANCE0);
-
-            renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, 1000000));
+            renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, 1000000), false);
             waterRenderer.render(waters, camera);
-
-            //guiRenderer.render(guiTExtures);
 
             /*
             if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
