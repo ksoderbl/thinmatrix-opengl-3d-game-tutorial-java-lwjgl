@@ -1,11 +1,14 @@
 #version 330 core
 
 in vec4 clipSpace;
+//in float visibility;
 
 out vec4 out_Color;
 
 uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
+
+//uniform vec3 skyColor;
 
 void main(void) {
 
@@ -18,4 +21,6 @@ void main(void) {
     vec4 refractColor = texture(refractionTexture, refractTexCoords);
 
 	out_Color = mix(reflectColor, refractColor, 0.5);
+
+	//out_Color = mix(vec4(skyColor, 1.0), out_Color, visibility);
 }

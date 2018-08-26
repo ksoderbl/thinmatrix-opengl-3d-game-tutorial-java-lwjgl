@@ -25,13 +25,13 @@ public class MasterRenderer {
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 10000f;
 
-    private static final float SKY_RED = 0.5f;
-    private static final float SKY_GREEN = 0.55f;
-    private static final float SKY_BLUE = 0.6f;
+    private static final float SKY_RED = 0.5444f;
+    private static final float SKY_GREEN = 0.62f;
+    private static final float SKY_BLUE = 0.69f;
 
     // 0.0035 -> 0.007
     private static final float MAX_FOG_DENSITY = 0.007f;
-    private static final float MIN_FOG_DENSITY = 0.0015f;
+    private static final float MIN_FOG_DENSITY = 0.0035f;
     // 1.5 -> 5.0
     private static final float MAX_FOG_GRADIENT = 5.0f;
     private static final float MIN_FOG_GRADIENT = 1.5f;
@@ -119,7 +119,7 @@ public class MasterRenderer {
         if (useClipping)
             GL11.glDisable(GL30.GL_CLIP_DISTANCE0);
 
-        skyboxRenderer.render(camera);
+        skyboxRenderer.render(camera, SKY_RED, SKY_GREEN, SKY_BLUE);
 
         terrains.clear();
         entities.clear();

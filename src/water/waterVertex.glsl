@@ -3,6 +3,7 @@
 in vec2 position;
 
 out vec4 clipSpace;
+out float visibility;
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
