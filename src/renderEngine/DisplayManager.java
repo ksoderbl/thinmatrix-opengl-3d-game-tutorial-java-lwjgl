@@ -43,7 +43,7 @@ public class DisplayManager {
             //DisplayMode mode = Display.getDesktopDisplayMode();
             Display.setDisplayMode(mode);
             Display.create(new PixelFormat(), attribs);
-            Display.setTitle("OpenGL 3D Game Tutorial 28: Day/Night + OpenGL Water Tutorial 5: DuDv Maps");
+            Display.setTitle("OpenGL 3D Game Tutorial 28: Day/Night + OpenGL Water Tutorial 6: Fresnel Effect");
         } catch (LWJGLException e) {
             e.printStackTrace();
         }

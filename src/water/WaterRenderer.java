@@ -30,6 +30,7 @@ public class WaterRenderer {
     private float waterTiling = 6f;
 	private float moveFactor = 0f;
     private float waveStrength = 0.02f;
+    private float waterReflectivity = 0.5f;
 
 	private int dudvTexture;
 
@@ -70,6 +71,7 @@ public class WaterRenderer {
 		moveFactor %= 1;
 		shader.loadMoveFactor(moveFactor);
         shader.loadWaveStrength(waveStrength); // set waveStrength to 0 to remove the dudvMap distortion
+        shader.loadWaterReflectivity(waterReflectivity); // e.g.  0.5
 		GL30.glBindVertexArray(quad.getVaoID());
 		GL20.glEnableVertexAttribArray(0);
         GL13.glActiveTexture(GL13.GL_TEXTURE0);

@@ -2,6 +2,7 @@
 
 in vec4 clipSpace;
 in vec2 textureCoords;
+in vec3 toCameraVector;
 //in float visibility;
 
 out vec4 out_Color;
@@ -11,6 +12,7 @@ uniform sampler2D refractionTexture;
 uniform sampler2D dudvMap;
 uniform float waveStrength;
 uniform float moveFactor;
+uniform float waterReflectivity;
 
 //uniform vec3 skyColor;
 
@@ -41,7 +43,11 @@ void main(void) {
     vec4 reflectColor = texture(reflectionTexture, reflectTexCoords);
     vec4 refractColor = texture(refractionTexture, refractTexCoords);
 
-	out_Color = mix(reflectColor, refractColor, 0.5);
+    vec3 viewVector = normalize(toCameraVector);
+    float refractiveFactor = dot(viewVector, vec3(0.0, 1.0, 0.0));
+    refractiveFactor = pow(refractiveFactor, waterReflectivity);
+
+	out_Color = mix(reflectColor, refractColor, refractiveFactor);
 	// make water more blue
 	out_Color = mix(out_Color, vec4(0.0, 0.3, 0.5, 1.0), 0.2);
 
