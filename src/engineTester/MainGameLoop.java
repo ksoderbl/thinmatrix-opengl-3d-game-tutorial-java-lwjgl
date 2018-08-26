@@ -129,7 +129,7 @@ public class MainGameLoop {
 
 
         List<Light> lights = new ArrayList<>();
-        lights.add(new Light(new Vector3f(3000,3000,0), new Vector3f(1.0f,1.0f,1.0f)));
+        lights.add(new Light(new Vector3f(10000,3000,3000), new Vector3f(1.0f,1.0f,1.0f)));
         lights.add(new Light(new Vector3f(185,10,-293 + Terrain.SIZE), new Vector3f(2,0,0), new Vector3f(1,0.01f,0.002f)));
         lights.add(new Light(new Vector3f(370,17,-300 + Terrain.SIZE), new Vector3f(0,2,2), new Vector3f(1,0.01f,0.002f)));
         lights.add(new Light(new Vector3f(293,7,-305 + Terrain.SIZE), new Vector3f(2,2,0), new Vector3f(1,0.01f,0.002f)));
@@ -165,10 +165,21 @@ public class MainGameLoop {
 
         WaterFrameBuffers fbos = new WaterFrameBuffers();
         WaterShader waterShader = new WaterShader();
-        WaterRenderer waterRenderer = new WaterRenderer(loader, waterShader, renderer.getProjectionMatrix(), fbos);
+        WaterRenderer waterRenderer = new WaterRenderer(loader, waterShader, renderer.getProjectionMatrix(),
+                renderer.getNearPlane(), renderer.getFarPlane(), fbos);
         List<WaterTile> waters = new ArrayList<>();
-        WaterTile water = new WaterTile(Terrain.SIZE / 2, Terrain.SIZE / 2, 2f);
-        waters.add(water);
+
+        int maxWaterIndex = 3;
+        for (int j = -maxWaterIndex; j <= maxWaterIndex; j++) {
+            for (int i = -maxWaterIndex; i <= maxWaterIndex; i++) {
+                WaterTile water = new WaterTile(
+                        Terrain.SIZE / 2 + i * WaterTile.TILE_SIZE,
+                        Terrain.SIZE / 2 + j * WaterTile.TILE_SIZE,
+                        2f);
+                waters.add(water);
+            }
+        }
+        WaterTile water = waters.get(0);
 
         GuiTexture refrGui = new GuiTexture(fbos.getRefractionTexture(), new Vector2f( 0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
         GuiTexture reflGui = new GuiTexture(fbos.getReflectionTexture(), new Vector2f(-0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
@@ -180,19 +191,19 @@ public class MainGameLoop {
         //boolean fullScreen = false;
 
         while (!Display.isCloseRequested()) {
-            player.move(terrain); // TODO: find which terrain the player is on
+            player.move(terrain, water); // TODO: find which terrain the player is on
             camera.move();
 
             fbos.bindReflectionFrameBuffer();
             float distance = 2 * (camera.getPosition().y - water.getHeight());
             camera.getPosition().y -= distance;
             camera.invertPitch();
-            renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, 1, 0, -water.getHeight()), true);
+            renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, 1, 0, -water.getHeight()+0.5f), true);
             camera.getPosition().y += distance;
             camera.invertPitch();
 
             fbos.bindRefractionFrameBuffer();
-            renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, water.getHeight()), true);
+            renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, water.getHeight()+0.5f), true);
             fbos.unbindCurrentFrameBuffer();
 
             renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, 1000000), false);

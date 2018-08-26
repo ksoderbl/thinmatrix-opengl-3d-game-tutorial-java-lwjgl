@@ -8,6 +8,8 @@ import entities.Camera;
 
 public class WaterShader extends ShaderProgram {
 
+    private static final int MAX_LIGHTS = 4;
+
 	private final static String VERTEX_FILE = "src/water/waterVertex.glsl";
 	private final static String FRAGMENT_FILE = "src/water/waterFragment.glsl";
 
@@ -27,6 +29,10 @@ public class WaterShader extends ShaderProgram {
     private int location_lightPosition;
     private int location_shineDamper;
     private int location_reflectivity;
+    private int location_depthMap;
+    private int location_nearPlane;
+    private int location_farPlane;
+
 
 	public WaterShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);
@@ -55,6 +61,10 @@ public class WaterShader extends ShaderProgram {
         location_lightPosition = getUniformLocation("lightPosition");
         location_shineDamper = super.getUniformLocation("shineDamper");
         location_reflectivity = super.getUniformLocation("reflectivity");
+        location_depthMap = super.getUniformLocation("depthMap");
+        location_nearPlane = super.getUniformLocation("nearPlane");
+        location_farPlane = super.getUniformLocation("farPlane");
+
 	}
 
 	public void connectTextureUnits() {
@@ -62,6 +72,7 @@ public class WaterShader extends ShaderProgram {
         super.loadInt(location_refractionTexture, 1);
         super.loadInt(location_dudvMap, 2);
         super.loadInt(location_normalMap, 3);
+        super.loadInt(location_depthMap, 4);
     }
 
     public void loadShineVariables(float shineDamper, float reflectivity) {
@@ -73,6 +84,14 @@ public class WaterShader extends ShaderProgram {
     public void loadLight(Light sun) {
 	    super.loadVector(location_lightColor, sun.getColor());
         super.loadVector(location_lightPosition, sun.getPosition());
+    }
+
+    public void loadNearPlane(float nearPlane) {
+	    super.loadFloat(location_nearPlane, nearPlane);
+    }
+
+    public void loadFarPlane(float farPlane) {
+        super.loadFloat(location_farPlane, farPlane);
     }
 
     // 10.0: very reflective, 0.5: quite transparent

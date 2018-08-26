@@ -1,9 +1,11 @@
 package water;
 
 public class WaterTile {
-	
-	public static final float TILE_SIZE = 400; // was 800, thinmatrix has size 60 water tiles
-	
+
+	// tile scale, the 1:1 scale of the tile is 2x2
+	public static final float TILE_SCALE = 60;
+	public static final float TILE_SIZE = TILE_SCALE * 2;
+
 	private float height;
 	private float x,z;
 	

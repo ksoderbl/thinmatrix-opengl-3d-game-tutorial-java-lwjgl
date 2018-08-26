@@ -8,7 +8,7 @@ public class DisplayManager {
 
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 720;
-    private static final int FPS_CAP = 120;
+    private static final int FPS_CAP = 60;
 
     private static long lastFrameTime;
     private static float delta;
@@ -43,7 +43,7 @@ public class DisplayManager {
             //DisplayMode mode = Display.getDesktopDisplayMode();
             Display.setDisplayMode(mode);
             Display.create(new PixelFormat(), attribs);
-            Display.setTitle("OpenGL 3D Game Tutorial 28: Day/Night + OpenGL Water Tutorial 7: Normal Maps");
+            Display.setTitle("OpenGL 3D Game Tutorial 28: Day/Night + OpenGL Water Tutorial 8: Soft Edges (FINAL)");
         } catch (LWJGLException e) {
             e.printStackTrace();
         }

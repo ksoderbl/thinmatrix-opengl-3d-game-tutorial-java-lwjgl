@@ -23,23 +23,24 @@ public class WaterRenderer {
 
 	private static final String DUDV_MAP = "waterDUDV";
     private static final String NORMAL_MAP = "normalMap";
-	private static final float WAVE_SPEED = 0.03f;
+	private static final float WAVE_SPEED = 0.05f; // was 0.03
 
 	private RawModel quad;
 	private WaterShader shader;
 	private WaterFrameBuffers fbos;
 
-    private float waterTiling = 6f;
+    private float waterTiling = 8f; // was 4
 	private float moveFactor = 0f;
-    private float waveStrength = 0.02f;
-    private float waterReflectivity = 0.5f;
+    private float waveStrength = 0.04f; // was 0.04
+    private float waterReflectivity = 2f; // for fresnel effect, thinmatrix had 0.5
     private float shineDamper = 20.0f; // for normal maps
-    private float reflectivity = 0.6f; // for normal maps
+    private float reflectivity = 0.5f; // for normal maps
 
     private int dudvTexture;
 	private int normalMap;
 
-	public WaterRenderer(Loader loader, WaterShader shader, Matrix4f projectionMatrix, WaterFrameBuffers fbos) {
+	public WaterRenderer(Loader loader, WaterShader shader, Matrix4f projectionMatrix,
+                         float nearPlane, float farPlane, WaterFrameBuffers fbos) {
 		this.shader = shader;
 		this.fbos = fbos;
 		dudvTexture = loader.loadTexture(DUDV_MAP);
@@ -47,6 +48,8 @@ public class WaterRenderer {
 		shader.start();
 		shader.connectTextureUnits();
 		shader.loadProjectionMatrix(projectionMatrix);
+		shader.loadNearPlane(nearPlane);
+        shader.loadFarPlane(farPlane);
 		shader.stop();
 		setUpVAO(loader);
 	}
@@ -55,8 +58,8 @@ public class WaterRenderer {
 		prepareRender(camera, sun);
 		for (WaterTile tile : water) {
 			Matrix4f modelMatrix = Maths.createTransformationMatrix(
-					new Vector3f(tile.getX(), tile.getHeight(), tile.getZ()), 0, 0, 0,
-					WaterTile.TILE_SIZE);
+					new Vector3f(tile.getX(), tile.getHeight(), tile.getZ()),
+                    0, 0, 0, WaterTile.TILE_SCALE);
 			shader.loadModelMatrix(modelMatrix);
 			GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, quad.getVertexCount());
 		}
@@ -90,10 +93,17 @@ public class WaterRenderer {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, dudvTexture);
         GL13.glActiveTexture(GL13.GL_TEXTURE3);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, normalMap);
+        GL13.glActiveTexture(GL13.GL_TEXTURE4);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, fbos.getRefractionDepthTexture());
+
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glEnable(GL11.GL_BLEND);
     }
 	
-	private void unbind(){
-		GL20.glDisableVertexAttribArray(0);
+	private void unbind() {
+	    GL11.glDisable(GL11.GL_BLEND);
+
+	    GL20.glDisableVertexAttribArray(0);
 		GL30.glBindVertexArray(0);
 		shader.stop();
 	}
