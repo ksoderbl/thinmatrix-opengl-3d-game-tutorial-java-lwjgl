@@ -129,7 +129,7 @@ public class MainGameLoop {
 
 
         List<Light> lights = new ArrayList<>();
-        lights.add(new Light(new Vector3f(0,1000,-7000), new Vector3f(1.0f,1.0f,1.0f)));
+        lights.add(new Light(new Vector3f(3000,3000,0), new Vector3f(1.0f,1.0f,1.0f)));
         lights.add(new Light(new Vector3f(185,10,-293 + Terrain.SIZE), new Vector3f(2,0,0), new Vector3f(1,0.01f,0.002f)));
         lights.add(new Light(new Vector3f(370,17,-300 + Terrain.SIZE), new Vector3f(0,2,2), new Vector3f(1,0.01f,0.002f)));
         lights.add(new Light(new Vector3f(293,7,-305 + Terrain.SIZE), new Vector3f(2,2,0), new Vector3f(1,0.01f,0.002f)));
@@ -196,7 +196,7 @@ public class MainGameLoop {
             fbos.unbindCurrentFrameBuffer();
 
             renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, 1000000), false);
-            waterRenderer.render(waters, camera);
+            waterRenderer.render(waters, camera, lights.get(0));
 
             /*
             if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {

@@ -2,7 +2,7 @@ package water;
 
 public class WaterTile {
 	
-	public static final float TILE_SIZE = 2*60; // was 800, thinmatrix has size 60 water tiles
+	public static final float TILE_SIZE = 400; // was 800, thinmatrix has size 60 water tiles
 	
 	private float height;
 	private float x,z;
