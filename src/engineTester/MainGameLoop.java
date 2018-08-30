@@ -25,6 +25,7 @@ import terrains.Terrain;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
+import toolbox.MousePicker;
 import water.WaterFrameBuffers;
 import water.WaterRenderer;
 import water.WaterShader;
@@ -132,7 +133,7 @@ public class MainGameLoop {
         lights.add(new Light(new Vector3f(10000,3000,3000), new Vector3f(1.0f,1.0f,1.0f)));
         lights.add(new Light(new Vector3f(185,10,-293 + Terrain.SIZE), new Vector3f(2,0,0), new Vector3f(1,0.01f,0.002f)));
         lights.add(new Light(new Vector3f(370,17,-300 + Terrain.SIZE), new Vector3f(0,2,2), new Vector3f(1,0.01f,0.002f)));
-        lights.add(new Light(new Vector3f(293,7,-305 + Terrain.SIZE), new Vector3f(2,2,0), new Vector3f(1,0.01f,0.002f)));
+        //lights.add(new Light(new Vector3f(293,7,-305 + Terrain.SIZE), new Vector3f(2,2,0), new Vector3f(1,0.01f,0.002f)));
 
         ModelData lampData = OBJFileLoader.loadOBJ("lamp");
         RawModel lampRawModel = loader.loadToVAO(lampData.getVertices(), lampData.getTextureCoords(), lampData.getNormals(), lampData.getIndices());
@@ -186,13 +187,31 @@ public class MainGameLoop {
         guiTextures.add(refrGui);
         guiTextures.add(reflGui);
 
+        MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), terrain);
+        Entity lampEntity = new Entity(lampModel, new Vector3f(0, 0, 0), 0, 0, 0, 1);
+        entities.add(lampEntity);
+        Light light = new Light(new Vector3f(0, 14, 0), new Vector3f(3, 3, 0), new Vector3f(1,0.01f,0.002f));
+        lights.add(light);
+
         // *****************Game Loop Below********************
 
         //boolean fullScreen = false;
 
+        int loops = 0;
+
         while (!Display.isCloseRequested()) {
             player.move(terrain, water); // TODO: find which terrain the player is on
             camera.move();
+
+            picker.update();
+            Vector3f terrainPoint = picker.getCurrentTerrainPoint();
+            if ((loops % 60) == 0) {
+                System.out.println(terrainPoint);
+            }
+            if (terrainPoint != null) {
+                lampEntity.setPosition(terrainPoint);
+                light.setPosition(new Vector3f(terrainPoint.x, terrainPoint.y + 14, terrainPoint.z));
+            }
 
             fbos.bindReflectionFrameBuffer();
             float distance = 2 * (camera.getPosition().y - water.getHeight());
@@ -222,6 +241,8 @@ public class MainGameLoop {
 
             guiRenderer.render(guiTextures);
             DisplayManager.updateDisplay();
+
+            loops++;
         }
 
         waterShader.cleanUp();
