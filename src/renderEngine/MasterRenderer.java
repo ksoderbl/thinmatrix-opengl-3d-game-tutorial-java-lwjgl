@@ -25,9 +25,13 @@ public class MasterRenderer {
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 10000f;
 
-    private static final float SKY_RED = 0.5444f;
-    private static final float SKY_GREEN = 0.62f;
-    private static final float SKY_BLUE = 0.69f;
+    //private static final float SKY_RED = 0.5444f;
+    //private static final float SKY_GREEN = 0.62f;
+    //private static final float SKY_BLUE = 0.69f;
+    // weird color sky for tutorial 30 cel shading
+    private static final float SKY_RED = 0.9444f;
+    private static final float SKY_GREEN = 0.52f;
+    private static final float SKY_BLUE = 0.79f;
 
     // 0.0035 -> 0.007
     private static final float MAX_FOG_DENSITY = 0.007f;

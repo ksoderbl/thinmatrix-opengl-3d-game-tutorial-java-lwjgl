@@ -16,6 +16,8 @@ uniform float shineDamper;
 uniform float reflectivity;
 uniform vec3 skyColor;
 
+const float levels = 4.0; // tutorial 30 cel shading
+
 void main() {
     // unit surface normal - in world coordinates
     vec3 unitNormal = normalize(surfaceNormal);
@@ -33,6 +35,10 @@ void main() {
         float nDot1 = dot(unitNormal, unitLightVector);
         float brightness = max(nDot1, 0.0);
 
+        // cel shading
+        float level = floor(brightness * levels);
+        brightness = level / levels;
+
         // unit vector from light - in world coordinates
         vec3 lightDirection = -unitLightVector;
         // light is reflected from the surface in this direction
@@ -42,6 +48,11 @@ void main() {
         float specularFactor = dot(reflectedLightDirection, unitVectorToCamera);
         specularFactor = max(specularFactor, 0.0);
         float dampedFactor = pow(specularFactor, shineDamper);
+
+        // cel shading
+        level = floor(dampedFactor * levels);
+        dampedFactor = level / levels;
+
         totalDiffuse = totalDiffuse + (brightness * lightColor[i]) / attFactor;
         totalSpecular = totalSpecular + (dampedFactor * reflectivity * lightColor[i]) / attFactor;
     }

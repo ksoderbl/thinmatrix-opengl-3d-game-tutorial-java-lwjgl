@@ -71,6 +71,10 @@ public class MainGameLoop {
         RawModel lowPolyTreeRawModel = loader.loadToVAO(lowPolyTreeData.getVertices(), lowPolyTreeData.getTextureCoords(), lowPolyTreeData.getNormals(), lowPolyTreeData.getIndices());
         TexturedModel lowPolyTreeModel = new TexturedModel(lowPolyTreeRawModel, new ModelTexture(loader.loadTexture("lowPolyTree")));
 
+        ModelData bobbleTreeData = OBJFileLoader.loadOBJ("bobbleTree");
+        RawModel bobbleTreeRawModel = loader.loadToVAO(bobbleTreeData.getVertices(), bobbleTreeData.getTextureCoords(), bobbleTreeData.getNormals(), bobbleTreeData.getIndices());
+        TexturedModel bobbleTreeModel = new TexturedModel(bobbleTreeRawModel, new ModelTexture(loader.loadTexture("bobbleTree")));
+
         ModelData grassData = OBJFileLoader.loadOBJ("grassModel");
         RawModel grassRawModel = loader.loadToVAO(grassData.getVertices(), grassData.getTextureCoords(), grassData.getNormals(), grassData.getIndices());
         TexturedModel grassModel = new TexturedModel(grassRawModel, new ModelTexture(loader.loadTexture("grassTexture")));
@@ -83,6 +87,10 @@ public class MainGameLoop {
         RawModel fernRawModel = loader.loadToVAO(fernData.getVertices(), fernData.getTextureCoords(), fernData.getNormals(), fernData.getIndices());
         TexturedModel fernModel = new TexturedModel(fernRawModel, fernTextureAtlas);
         fernModel.getTexture().setHasTransparency(true);
+
+        ModelData toonRocksData = OBJFileLoader.loadOBJ("toonRocks");
+        RawModel toonRocksRawModel = loader.loadToVAO(toonRocksData.getVertices(), toonRocksData.getTextureCoords(), toonRocksData.getNormals(), toonRocksData.getIndices());
+        TexturedModel toonRocksModel = new TexturedModel(toonRocksRawModel, new ModelTexture(loader.loadTexture("toonRocks")));
 
         String heightMap = "heightmap";
         Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap, heightMap);
@@ -109,28 +117,43 @@ public class MainGameLoop {
             }
 
             if (i % 5 == 0) {
-                float x = random.nextFloat() * Terrain.SIZE;
-                float z = random.nextFloat() * Terrain.SIZE;
-                float y = terrain.getHeightOfTerrain(x, z);
+                float x, y, z;
+
+                /*x = random.nextFloat() * Terrain.SIZE;
+                z = random.nextFloat() * Terrain.SIZE;
+                y = terrain.getHeightOfTerrain(x, z);
                 entities.add(new Entity(pineModel, new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
+
                 x = random.nextFloat() * Terrain.SIZE;
                 z = random.nextFloat() * Terrain.SIZE;
                 y = terrain.getHeightOfTerrain(x, z);
                 entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z),
-                        0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
+                        0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));*/
 
                 x = random.nextFloat() * Terrain.SIZE;
                 z = random.nextFloat() * Terrain.SIZE;
                 y = terrain.getHeightOfTerrain(x, z);
                 entities.add(new Entity(grassModel, new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
+
+                x = random.nextFloat() * Terrain.SIZE;
+                z = random.nextFloat() * Terrain.SIZE;
+                y = terrain.getHeightOfTerrain(x, z);
+                entities.add(new Entity(toonRocksModel, new Vector3f(x, y, z),
+                        0, random.nextFloat() * 360, 0, random.nextFloat() * 2.0f + 1.0f));
+
+                x = random.nextFloat() * Terrain.SIZE;
+                z = random.nextFloat() * Terrain.SIZE;
+                y = terrain.getHeightOfTerrain(x, z);
+                entities.add(new Entity(bobbleTreeModel, new Vector3f(x, y, z),
+                        0, random.nextFloat() * 360, 0, random.nextFloat() * 0.5f + 0.5f));
             }
         }
 
 
         List<Light> lights = new ArrayList<>();
-        lights.add(new Light(new Vector3f(10000,3000,3000), new Vector3f(1.0f,1.0f,1.0f)));
+        lights.add(new Light(new Vector3f(10000,10000,3000), new Vector3f(1.0f,1.0f,1.0f)));
         lights.add(new Light(new Vector3f(185,10,-293 + Terrain.SIZE), new Vector3f(2,0,0), new Vector3f(1,0.01f,0.002f)));
         lights.add(new Light(new Vector3f(370,17,-300 + Terrain.SIZE), new Vector3f(0,2,2), new Vector3f(1,0.01f,0.002f)));
         //lights.add(new Light(new Vector3f(293,7,-305 + Terrain.SIZE), new Vector3f(2,2,0), new Vector3f(1,0.01f,0.002f)));
