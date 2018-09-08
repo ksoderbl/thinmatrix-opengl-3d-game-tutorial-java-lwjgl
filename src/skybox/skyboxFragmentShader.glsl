@@ -12,7 +12,7 @@ const float lowerLimit = 0.0;
 // 300 (not 30) because the FAR_PLANE variables is 10000 and not 1000
 const float upperLimit = 300.0;
 
-const float levels = 8.0; // tutorial 30 cel shading
+const float levels = 64.0; // tutorial 30 cel shading
 
 void main(void) {
         vec4 texture1 = texture(cubeMap, textureCoords);

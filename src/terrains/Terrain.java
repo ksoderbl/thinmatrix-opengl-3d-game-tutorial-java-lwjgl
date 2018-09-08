@@ -16,7 +16,7 @@ import java.nio.Buffer;
 
 public class Terrain {
 
-    public static final float SIZE = 800;
+    public static final float SIZE = 150; // I had 800
     public static final float MAX_HEIGHT = 40;
     private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
     private static final float HEIGHT_OFFSET = 0;
@@ -90,25 +90,31 @@ public class Terrain {
     private RawModel generateTerrain(Loader loader, String heightMap) {
 
         BufferedImage image = null;
+        String fileName = "res/" + heightMap + ".png";
         try {
-            image = ImageIO.read(new File("res/" + heightMap + ".png"));
+            image = ImageIO.read(new File(fileName));
         } catch (IOException e) {
+            System.err.println("Terrain: File not found: " + fileName);
             e.printStackTrace();
         }
         int VERTEX_COUNT = image.getHeight();
-        heights = new float[VERTEX_COUNT][VERTEX_COUNT];
         int count = VERTEX_COUNT * VERTEX_COUNT;
+        heights = new float[VERTEX_COUNT][VERTEX_COUNT];
         float[] vertices = new float[count * 3];
         float[] normals = new float[count * 3];
         float[] textureCoords = new float[count * 2];
+
+        // TODO: should this be (VERTEX_COUNT - 1) or (VERTEX_COUNT * 1) ???, (VERTEX_COUNT - 1) seems to be enough
+        //int[] indices = new int[6 * (VERTEX_COUNT - 1) * (VERTEX_COUNT * 1)];
         int[] indices = new int[6 * (VERTEX_COUNT - 1) * (VERTEX_COUNT - 1)];
+
         int vertexPointer = 0;
         for (int i = 0; i < VERTEX_COUNT; i++) {
             for (int j = 0; j < VERTEX_COUNT; j++) {
                 vertices[vertexPointer * 3] = (float) j / ((float) VERTEX_COUNT - 1) * SIZE;
                 float height = getHeight(j, i, image);
-                heights[j][i] = height;
                 vertices[vertexPointer * 3 + 1] = height;
+                heights[j][i] = height;
                 vertices[vertexPointer * 3 + 2] = (float) i / ((float) VERTEX_COUNT - 1) * SIZE;
                 Vector3f normal = calculateNormal(j, i, image);
                 normals[vertexPointer * 3] = normal.x;

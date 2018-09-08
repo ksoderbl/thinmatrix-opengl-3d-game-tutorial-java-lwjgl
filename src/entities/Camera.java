@@ -10,12 +10,13 @@ public class Camera {
     private final float MAX_DISTANCE_FROM_PLAYER = 1000;
     private final float MIN_PITCH = 3;
     private final float MAX_PITCH = 90 - MIN_PITCH;
-    private final float OFFSET_CAMERA_Y = 7;
+    private final float CAMERA_Y_OFFSET = 6;
+    private final float CAMERA_PITCH_OFFSET = 0; // ThinMatrix has 4
 
-    private float distanceFromPlayer = 50;
+    private float distanceFromPlayer = 35;
     private float angleAroundPlayer = 0;
 
-    private Vector3f position = new Vector3f(100, 35, 50);
+    private Vector3f position = new Vector3f(0, 0, 0);
     private float pitch = 20.0f; // high or low
     private float yaw = 0;   // left or right
     private float roll;  // tilt: 180 deg = upside down
@@ -42,6 +43,8 @@ public class Camera {
             System.err.println("Camera (pitch, yaw, roll) = (" + pitch + ", " + yaw + ", " + roll + ")");
             moves = 0;
         }
+
+        yaw %= 360;
     }
 
     public void invertPitch() {
@@ -70,15 +73,15 @@ public class Camera {
         float offsetZ = (float) (horizDistance * Math.cos(Math.toRadians(theta)));
         position.x = player.getPosition().x - offsetX;
         position.z = player.getPosition().z - offsetZ;
-        position.y = player.getPosition().y + verticDistance + OFFSET_CAMERA_Y;
+        position.y = player.getPosition().y + verticDistance + CAMERA_Y_OFFSET;
     }
 
     private float calculateHorizontalDistance() {
-        return (float) (distanceFromPlayer * Math.cos(Math.toRadians(pitch)));
+        return (float) (distanceFromPlayer * Math.cos(Math.toRadians(pitch + CAMERA_PITCH_OFFSET)));
     }
 
     private float calculateVerticalDistance() {
-        return (float) (distanceFromPlayer * Math.sin(Math.toRadians(pitch)));
+        return (float) (distanceFromPlayer * Math.sin(Math.toRadians(pitch + CAMERA_PITCH_OFFSET)));
     }
 
     private void calculateZoom() {
@@ -86,8 +89,8 @@ public class Camera {
         distanceFromPlayer -= zoomLevel;
         if (distanceFromPlayer < MIN_DISTANCE_FROM_PLAYER)
             distanceFromPlayer = MIN_DISTANCE_FROM_PLAYER;
-        if (distanceFromPlayer > MAX_DISTANCE_FROM_PLAYER)
-            distanceFromPlayer = MAX_DISTANCE_FROM_PLAYER;
+        //if (distanceFromPlayer > MAX_DISTANCE_FROM_PLAYER)
+        //    distanceFromPlayer = MAX_DISTANCE_FROM_PLAYER;
     }
 
     private void calculatePitch() {

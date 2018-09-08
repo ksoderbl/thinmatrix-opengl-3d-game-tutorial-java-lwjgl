@@ -3,14 +3,17 @@ package toolbox;
 import entities.Camera;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.util.vector.*;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
 import terrains.Terrain;
 
 // http://antongerdelan.net/opengl/raycasting.html
 public class MousePicker {
 
     private static final int RECURSION_COUNT = 200;
-    private static final float RAY_RANGE = 1000; // 600;
+    private static final float RAY_RANGE = 600;
 
     private Vector3f currentRay = new Vector3f();
 
@@ -37,7 +40,7 @@ public class MousePicker {
     }
 
     public void update() {
-        this.viewMatrix = Maths.createViewMatrix(camera);
+        viewMatrix = Maths.createViewMatrix(camera);
         currentRay = calculateMouseRay();
         if (intersectionInRange(0, RAY_RANGE, currentRay)) {
             currentTerrainPoint = binarySearch(0, 0, RAY_RANGE, currentRay);

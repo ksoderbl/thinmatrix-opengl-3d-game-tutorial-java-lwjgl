@@ -2,6 +2,9 @@ package objConverter;
 
 import org.lwjgl.util.vector.Vector3f;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Vertex {
 
     private static final int NO_INDEX = -1;
@@ -12,11 +15,31 @@ public class Vertex {
     private Vertex duplicateVertex = null;
     private int index;
     private float length;
+    private List<Vector3f> tangents = new ArrayList<Vector3f>();
+    private Vector3f averagedTangent = new Vector3f(0, 0, 0);
 
     public Vertex(int index,Vector3f position){
         this.index = index;
         this.position = position;
         this.length = position.length();
+    }
+
+    public void addTangent(Vector3f tangent) {
+        tangents.add(tangent);
+    }
+
+    public void averageTangents() {
+        if (tangents.isEmpty()) {
+            return;
+        }
+        for (Vector3f tangent : tangents) {
+            Vector3f.add(averagedTangent, tangent, averagedTangent);
+        }
+        averagedTangent.normalise();
+    }
+
+    public Vector3f getAverageTangent() {
+        return averagedTangent;
     }
 
     public int getIndex(){

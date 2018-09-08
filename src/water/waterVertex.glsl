@@ -1,10 +1,9 @@
-#version 330 core
+#version 140
 
 in vec2 position;
 
 out vec4 clipSpace;
 
-out float visibility;
 out vec2 textureCoords;
 out vec3 toCameraVector;
 out vec3 fromLightVector;

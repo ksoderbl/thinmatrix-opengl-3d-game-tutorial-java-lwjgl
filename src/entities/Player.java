@@ -9,10 +9,10 @@ import water.WaterTile;
 
 public class Player extends Entity {
 
-    public static final float RUN_SPEED = 20;   // units / second
+    public static final float RUN_SPEED = 40;   // units / second
     public static final float TURN_SPEED = 160; // degrees / second
     public static final float GRAVITY = -50;
-    public static final float JUMP_POWER = 30;
+    public static final float JUMP_POWER = 18;
 
     private float currentSpeed = 0;
     private float currentTurnSpeed = 0;
@@ -33,7 +33,7 @@ public class Player extends Entity {
         super.increasePosition(dx, 0, dz);
         upwardsSpeed += GRAVITY * DisplayManager.getFrameTimeSeconds();
         super.increasePosition(0, upwardsSpeed * DisplayManager.getFrameTimeSeconds(), 0);
-        float terrainHeight = terrain.getHeightOfTerrain(super.getPosition().x, super.getPosition().z);
+        float terrainHeight = terrain.getHeightOfTerrain(getPosition().x, getPosition().z);
         if (super.getPosition().y < terrainHeight) {
             upwardsSpeed = 0;
             isInAir = false;
@@ -60,21 +60,17 @@ public class Player extends Entity {
     private void checkInputs() {
         if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
             this.currentSpeed = RUN_SPEED;
-        }
-        else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
             this.currentSpeed = -RUN_SPEED;
-        }
-        else {
+        } else {
             this.currentSpeed = 0;
         }
 
         if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
             this.currentTurnSpeed = -TURN_SPEED;
-        }
-        else if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
             this.currentTurnSpeed = TURN_SPEED;
-        }
-        else {
+        } else {
             this.currentTurnSpeed = 0;
         }
 

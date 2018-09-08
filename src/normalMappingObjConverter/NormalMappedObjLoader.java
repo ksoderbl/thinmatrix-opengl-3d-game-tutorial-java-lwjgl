@@ -1,4 +1,4 @@
-package objConverter;
+package normalMappingObjConverter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +14,7 @@ import org.lwjgl.util.vector.Vector3f;
 import models.RawModel;
 import renderEngine.Loader;
 
-public class OBJFileLoader {
+public class NormalMappedObjLoader {
 
 	private static final String RES_LOC = "res/";
 
@@ -25,11 +25,11 @@ public class OBJFileLoader {
 		try {
 			isr = new FileReader(objFile);
 		} catch (FileNotFoundException e) {
-			System.err.println("OBJFileLoader: File not found: " + fileName);
+			System.err.println("NormalMappedOBJLoader: File not found: " + fileName);
 		}
 		BufferedReader reader = new BufferedReader(isr);
 		String line;
-		List<Vertex> vertices = new ArrayList<>();
+		List<VertexNM> vertices = new ArrayList<>();
 		List<Vector2f> textures = new ArrayList<>();
 		List<Vector3f> normals = new ArrayList<>();
 		List<Integer> indices = new ArrayList<>();
@@ -41,7 +41,7 @@ public class OBJFileLoader {
 					Vector3f vertex = new Vector3f((float) Float.valueOf(currentLine[1]),
 							(float) Float.valueOf(currentLine[2]),
 							(float) Float.valueOf(currentLine[3]));
-					Vertex newVertex = new Vertex(vertices.size(), vertex);
+					VertexNM newVertex = new VertexNM(vertices.size(), vertex);
 					vertices.add(newVertex);
 
 				} else if (line.startsWith("vt ")) {
@@ -64,9 +64,9 @@ public class OBJFileLoader {
 				String[] vertex1 = currentLine[1].split("/");
 				String[] vertex2 = currentLine[2].split("/");
 				String[] vertex3 = currentLine[3].split("/");
-				Vertex v0 = processVertex(vertex1, vertices, indices);
-				Vertex v1 = processVertex(vertex2, vertices, indices);
-				Vertex v2 = processVertex(vertex3, vertices, indices);
+				VertexNM v0 = processVertex(vertex1, vertices, indices);
+				VertexNM v1 = processVertex(vertex2, vertices, indices);
+				VertexNM v2 = processVertex(vertex3, vertices, indices);
 				calculateTangents(v0, v1, v2, textures);
 				line = reader.readLine();
 			}
@@ -82,13 +82,11 @@ public class OBJFileLoader {
 		float furthest = convertDataToArrays(vertices, textures, normals, verticesArray,
 				texturesArray, normalsArray, tangentsArray);
 		int[] indicesArray = convertIndicesListToArray(indices);
-		// ModelData data = new ModelData(verticesArray, texturesArray,
-		// normalsArray, tangentsArray, indicesArray,
-		// furthest);
-		return loader.loadToVAO(verticesArray, texturesArray, normalsArray, indicesArray);
+
+		return loader.loadToVAO(verticesArray, texturesArray, normalsArray, tangentsArray, indicesArray);
 	}
 
-	private static void calculateTangents(Vertex v0, Vertex v1, Vertex v2,
+	private static void calculateTangents(VertexNM v0, VertexNM v1, VertexNM v2,
 			List<Vector2f> textures) {
 		Vector3f delatPos1 = Vector3f.sub(v1.getPosition(), v0.getPosition(), null);
 		Vector3f delatPos2 = Vector3f.sub(v2.getPosition(), v0.getPosition(), null);
@@ -108,10 +106,10 @@ public class OBJFileLoader {
 		v2.addTangent(tangent);
 	}
 
-	private static Vertex processVertex(String[] vertex, List<Vertex> vertices,
+	private static VertexNM processVertex(String[] vertex, List<VertexNM> vertices,
 			List<Integer> indices) {
 		int index = Integer.parseInt(vertex[0]) - 1;
-		Vertex currentVertex = vertices.get(index);
+		VertexNM currentVertex = vertices.get(index);
 		int textureIndex = Integer.parseInt(vertex[1]) - 1;
 		int normalIndex = Integer.parseInt(vertex[2]) - 1;
 		if (!currentVertex.isSet()) {
@@ -133,12 +131,12 @@ public class OBJFileLoader {
 		return indicesArray;
 	}
 
-	private static float convertDataToArrays(List<Vertex> vertices, List<Vector2f> textures,
+	private static float convertDataToArrays(List<VertexNM> vertices, List<Vector2f> textures,
 			List<Vector3f> normals, float[] verticesArray, float[] texturesArray,
 			float[] normalsArray, float[] tangentsArray) {
 		float furthestPoint = 0;
 		for (int i = 0; i < vertices.size(); i++) {
-			Vertex currentVertex = vertices.get(i);
+			VertexNM currentVertex = vertices.get(i);
 			if (currentVertex.getLength() > furthestPoint) {
 				furthestPoint = currentVertex.getLength();
 			}
@@ -162,18 +160,18 @@ public class OBJFileLoader {
 		return furthestPoint;
 	}
 
-	private static Vertex dealWithAlreadyProcessedVertex(Vertex previousVertex, int newTextureIndex,
-			int newNormalIndex, List<Integer> indices, List<Vertex> vertices) {
+	private static VertexNM dealWithAlreadyProcessedVertex(VertexNM previousVertex, int newTextureIndex,
+			int newNormalIndex, List<Integer> indices, List<VertexNM> vertices) {
 		if (previousVertex.hasSameTextureAndNormal(newTextureIndex, newNormalIndex)) {
 			indices.add(previousVertex.getIndex());
 			return previousVertex;
 		} else {
-			Vertex anotherVertex = previousVertex.getDuplicateVertex();
+			VertexNM anotherVertex = previousVertex.getDuplicateVertex();
 			if (anotherVertex != null) {
 				return dealWithAlreadyProcessedVertex(anotherVertex, newTextureIndex,
 						newNormalIndex, indices, vertices);
 			} else {
-				Vertex duplicateVertex = new Vertex(vertices.size(), previousVertex.getPosition());
+				VertexNM duplicateVertex = new VertexNM(vertices.size(), previousVertex.getPosition());
 				duplicateVertex.setTextureIndex(newTextureIndex);
 				duplicateVertex.setNormalIndex(newNormalIndex);
 				previousVertex.setDuplicateVertex(duplicateVertex);
@@ -185,8 +183,8 @@ public class OBJFileLoader {
 		}
 	}
 
-	private static void removeUnusedVertices(List<Vertex> vertices) {
-		for (Vertex vertex : vertices) {
+	private static void removeUnusedVertices(List<VertexNM> vertices) {
+		for (VertexNM vertex : vertices) {
 			vertex.averageTangents();
 			if (!vertex.isSet()) {
 				vertex.setTextureIndex(0);

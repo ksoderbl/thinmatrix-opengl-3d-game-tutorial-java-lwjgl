@@ -1,4 +1,4 @@
-#version 330 core
+#version 140
 
 in vec4 clipSpace;
 in vec2 textureCoords;

@@ -3,6 +3,7 @@ package textures;
 public class ModelTexture {
 
     private int textureID;
+    private int normalMap;
 
     private float shineDamper = 1;
     private float reflectivity = 0;
@@ -13,12 +14,20 @@ public class ModelTexture {
     // OpenGL 3D Game Tutorial 23: Texture Atlases
     private int numberOfRows = 1;
 
-    public ModelTexture(int id) {
-        this.textureID = id;
+    public ModelTexture(int textureID) {
+        this.textureID = textureID;
     }
 
     public int getNumberOfRows() {
         return numberOfRows;
+    }
+
+    public int getNormalMap() {
+        return normalMap;
+    }
+
+    public void setNormalMap(int normalMap) {
+        this.normalMap = normalMap;
     }
 
     public void setNumberOfRows(int numberOfRows) {
@@ -42,7 +51,7 @@ public class ModelTexture {
     }
 
     public int getID() {
-        return this.textureID;
+        return textureID;
     }
 
     public float getShineDamper() {

@@ -23,7 +23,7 @@ uniform float shineDamper;
 uniform float reflectivity;
 uniform vec3 skyColor;
 
-const float levels = 4.0; // tutorial 30 cel shading
+const float levels = 32.0; // tutorial 30 cel shading
 
 void main() {
     // unit surface normal - in world coordinates
