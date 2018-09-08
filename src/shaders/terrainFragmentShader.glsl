@@ -1,4 +1,4 @@
-#version 150
+#version 140
 
 // outputs from vertexShader
 //in vec3 color;
@@ -23,7 +23,7 @@ uniform float shineDamper;
 uniform float reflectivity;
 uniform vec3 skyColor;
 
-const float levels = 32.0; // tutorial 30 cel shading
+//const float levels = 4.0; // tutorial 30 cel shading
 
 void main() {
     // unit surface normal - in world coordinates
@@ -38,12 +38,12 @@ void main() {
 
     // blending stuff (tutorial 17: multitexturing)
     float backTextureAmount = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
-    vec2 tiledCoords = pass_textureCoordinates * 40.0;
+    vec2 tiledCoords = pass_textureCoordinates * 30.0;
     vec4 backgroundTextureColor = texture(backgroundTexture, tiledCoords) * backTextureAmount;
     vec4 rTextureColor = texture(rTexture, tiledCoords) * blendMapColor.r;
     vec4 gTextureColor = texture(gTexture, tiledCoords) * blendMapColor.g;
     vec4 bTextureColor = texture(bTexture, tiledCoords) * blendMapColor.b;
-    vec4 totalColor = backgroundTextureColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
+    vec4 totalColor = backgroundTextureColor + rTextureColor + gTextureColor + bTextureColor;
 
     for (int i = 0; i < 4; i++) {
         float distance = length(toLightVector[i]);
@@ -54,8 +54,8 @@ void main() {
         float brightness = max(nDot1, 0.0);
 
         // cel shading
-        float level = floor(brightness * levels);
-        brightness = level / levels;
+        //float level = floor(brightness * levels);
+        //brightness = level / levels;
 
         // unit vector from light - in world coordinates
         vec3 lightDirection = -unitLightVector;
@@ -68,8 +68,8 @@ void main() {
         float dampedFactor = pow(specularFactor, shineDamper);
 
         // cel shading
-        level = floor(dampedFactor * levels);
-        dampedFactor = level / levels;
+        //level = floor(dampedFactor * levels);
+        //dampedFactor = level / levels;
 
         totalDiffuse = totalDiffuse + (brightness * lightColor[i]) / attFactor;
         totalSpecular = totalSpecular + (dampedFactor * reflectivity * lightColor[i]) / attFactor;

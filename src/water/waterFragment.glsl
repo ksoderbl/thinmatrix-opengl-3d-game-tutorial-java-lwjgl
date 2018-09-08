@@ -4,7 +4,6 @@ in vec4 clipSpace;
 in vec2 textureCoords;
 in vec3 toCameraVector;
 in vec3 fromLightVector;
-//in float visibility;
 
 out vec4 out_Color;
 
@@ -87,7 +86,7 @@ void main(void) {
 	out_Color = mix(reflectColor, refractColor, refractiveFactor);
 
 	// make water more blue, thinmatrix had (0.0, 0.3, 0.5, 1.0), 0.2
-	out_Color = mix(out_Color, vec4(0.0, 0.3, 0.5, 1.0), 0.2) + vec4(specularHighlights, 0.0);
+	out_Color = mix(out_Color, vec4(0.0, 0.2, 0.3, 1.0), 0.5) + vec4(specularHighlights, 0.0);
 
 	//out_Color = normalMapColor;
 

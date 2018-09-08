@@ -1,4 +1,4 @@
-#version 150
+#version 140
 
 // outputs from vertexShader
 in vec2 pass_textureCoordinates;
@@ -16,7 +16,7 @@ uniform float shineDamper;
 uniform float reflectivity;
 uniform vec3 skyColor;
 
-const float levels = 32.0; // tutorial 30 cel shading
+//const float levels = 4.0; // tutorial 30 cel shading
 
 void main() {
     // unit surface normal - in world coordinates
@@ -36,8 +36,8 @@ void main() {
         float brightness = max(nDot1, 0.0);
 
         // cel shading
-        float level = floor(brightness * levels);
-        brightness = level / levels;
+        //float level = floor(brightness * levels);
+        //brightness = level / levels;
 
         // unit vector from light - in world coordinates
         vec3 lightDirection = -unitLightVector;
@@ -50,8 +50,8 @@ void main() {
         float dampedFactor = pow(specularFactor, shineDamper);
 
         // cel shading
-        level = floor(dampedFactor * levels);
-        dampedFactor = level / levels;
+        //level = floor(dampedFactor * levels);
+        //dampedFactor = level / levels;
 
         totalDiffuse = totalDiffuse + (brightness * lightColor[i]) / attFactor;
         totalSpecular = totalSpecular + (dampedFactor * reflectivity * lightColor[i]) / attFactor;

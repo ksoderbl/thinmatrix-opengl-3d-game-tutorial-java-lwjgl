@@ -1,4 +1,4 @@
-#version 150
+#version 140
 
 in vec3 position;
 in vec2 textureCoordinates;
@@ -21,8 +21,6 @@ uniform float useFakeLighting;
 uniform float numberOfRows;
 uniform vec2 textureOffset;
 
-//const float fogDensity = 0.007;
-//const float fogGradient = 1.5;
 uniform float fogDensity;
 uniform float fogGradient;
 

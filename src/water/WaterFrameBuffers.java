@@ -19,7 +19,7 @@ import org.lwjgl.opengl.GL42;
 
 public class WaterFrameBuffers {
 
-    static final int divisor1 = 2; // was 4
+    static final int divisor1 = 4;
     static final int divisor2 = 1;
 
     protected static final int REFLECTION_WIDTH = 1280 / divisor1;
@@ -58,7 +58,7 @@ public class WaterFrameBuffers {
         bindFrameBuffer(refractionFrameBuffer,REFRACTION_WIDTH,REFRACTION_HEIGHT);
     }
     
-    public void unbindCurrentFrameBuffer() {//call to switch to default frame buffer
+    public void unbindCurrentFrameBuffer() {//call after rendering to texture
         GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
         GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
     }
@@ -98,7 +98,7 @@ public class WaterFrameBuffers {
     private int createFrameBuffer() {
         //generate name for frame buffer
         int frameBuffer = GL30.glGenFramebuffers();
-        //create the framebuffer
+        //generate name for frame buffer
         GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, frameBuffer);
         //indicate that we will always render to color attachment 0
         GL11.glDrawBuffer(GL30.GL_COLOR_ATTACHMENT0);

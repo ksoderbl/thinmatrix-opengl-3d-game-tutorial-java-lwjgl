@@ -146,9 +146,9 @@ public class MainGameLoop {
 
         //************ENTITIES*******************
 
-        Entity entity = new Entity(barrelModel, new Vector3f(75, 10, -75), 0, 0, 0, 1f);
-        Entity entity2 = new Entity(boulderModel, new Vector3f(85, 10, -75), 0, 0, 0, 1f);
-        Entity entity3 = new Entity(crateModel, new Vector3f(65, 10, -75), 0, 0, 0, 0.04f);
+        Entity entity = new Entity(barrelModel, new Vector3f(75, 0, -75), 0, 0, 0, 1f);
+        Entity entity2 = new Entity(boulderModel, new Vector3f(95, 0, -75), 0, 0, 0, 1f);
+        Entity entity3 = new Entity(crateModel, new Vector3f(55, 0, -75), 0, 0, 0, 0.04f);
         normalMapEntities.add(entity);
         normalMapEntities.add(entity2);
         normalMapEntities.add(entity3);
@@ -179,23 +179,6 @@ public class MainGameLoop {
         entities.add(new Entity(rocks, new Vector3f(75, 4.6f, -75), 0, 0, 0, 75));
 
         //*******************OTHER SETUP***************
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         /*
         Random random = new Random(676452);
@@ -371,9 +354,9 @@ public class MainGameLoop {
             }
             */
 
-            entity.increaseRotation(0, 1, 0);
-            entity2.increaseRotation(0, 1, 0);
-            entity3.increaseRotation(0, 1, 0);
+            entity.increaseRotation(0.1f, 0.2f, 0.3f);
+            entity2.increaseRotation(0.3f, 0.1f, 0.2f);
+            entity3.increaseRotation(0.2f, 0.3f, 0.1f);
 
             //render reflection texture
             buffers.bindReflectionFrameBuffer();
@@ -381,14 +364,14 @@ public class MainGameLoop {
             camera.getPosition().y -= distance;
             camera.invertPitch();
             //renderer.renderScene(entities, normalMapEntities, terrains, lights, camera, new Vector4f(0, 1, 0, -water.getHeight()+0.5f), true);
-            renderer.renderScene(entities, normalMapEntities, terrains, lights, camera, new Vector4f(0, 1, 0, -water.getHeight() + 1), true);
+            renderer.renderScene(entities, normalMapEntities, terrains, lights, camera, new Vector4f(0, 1, 0, -water.getHeight() + 0.1f), true);
             camera.getPosition().y += distance;
             camera.invertPitch();
 
             //render refraction texture
             buffers.bindRefractionFrameBuffer();
             //renderer.renderScene(entities, normalMapEntities, terrains, lights, camera, new Vector4f(0, -1, 0, water.getHeight()+0.5f), true);
-            renderer.renderScene(entities, normalMapEntities, terrains, lights, camera, new Vector4f(0, -1, 0, water.getHeight()), true);
+            renderer.renderScene(entities, normalMapEntities, terrains, lights, camera, new Vector4f(0, -1, 0, water.getHeight() + 0.1f), true);
             buffers.unbindCurrentFrameBuffer();
 
             //render to screen

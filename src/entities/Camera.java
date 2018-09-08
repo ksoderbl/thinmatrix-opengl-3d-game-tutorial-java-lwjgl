@@ -8,10 +8,12 @@ public class Camera {
 
     private final float MIN_DISTANCE_FROM_PLAYER = 5;
     private final float MAX_DISTANCE_FROM_PLAYER = 1000;
-    private final float MIN_PITCH = 3;
+    private final float MIN_PITCH = 0;
     private final float MAX_PITCH = 90 - MIN_PITCH;
     private final float CAMERA_Y_OFFSET = 6;
     private final float CAMERA_PITCH_OFFSET = 0; // ThinMatrix has 4
+    private final float ZOOM_LEVEL_FACTOR = 0.1f;
+    private final float PITCH_CHANGE_FACTOR = 0.2f;
 
     private float distanceFromPlayer = 35;
     private float angleAroundPlayer = 0;
@@ -85,7 +87,7 @@ public class Camera {
     }
 
     private void calculateZoom() {
-        float zoomLevel = Mouse.getDWheel() * 0.1f;
+        float zoomLevel = Mouse.getDWheel() * ZOOM_LEVEL_FACTOR;
         distanceFromPlayer -= zoomLevel;
         if (distanceFromPlayer < MIN_DISTANCE_FROM_PLAYER)
             distanceFromPlayer = MIN_DISTANCE_FROM_PLAYER;
@@ -95,12 +97,13 @@ public class Camera {
 
     private void calculatePitch() {
         if (Mouse.isButtonDown(1)) {
-            float pitchChange = Mouse.getDY() * 0.1f;
+            float pitchChange = Mouse.getDY() * PITCH_CHANGE_FACTOR;
             pitch -= pitchChange;
-            if (pitch < MIN_PITCH)
+            if (pitch < MIN_PITCH) {
                 pitch = MIN_PITCH;
-            if (pitch > MAX_PITCH)
+            } else if (pitch > MAX_PITCH) {
                 pitch = MAX_PITCH;
+            }
         }
     }
 

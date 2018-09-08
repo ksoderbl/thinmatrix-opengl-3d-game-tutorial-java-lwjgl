@@ -70,7 +70,7 @@ public class SkyboxRenderer {
     private int texture;
     private int nightTexture;
     private SkyboxShader shader;
-    private float time = 12000;
+    private float time = 0;
 
     public SkyboxRenderer(Loader loader, Matrix4f projectionMatrix) {
         cube = loader.loadToVAO(VERTICES, 3);
@@ -97,18 +97,18 @@ public class SkyboxRenderer {
     }
 
     private void bindTextures() {
-        time += DisplayManager.getFrameTimeSeconds() * 100; // 100 instead of 1000 to slow down a bit
+        time += DisplayManager.getFrameTimeSeconds() * 1000; // 100 instead of 1000 to slow down a bit
         time %= 24000;
         time = 12000;
         int texture1;
         int texture2;
         float blendFactor;
         if (time >= 0 && time < 5000) {
-            texture1 = nightTexture;
-            texture2 = nightTexture;
+            texture1 = texture; // was nightTexture
+            texture2 = texture; // was nightTexture
             blendFactor = (time - 0) / (5000 - 0);
         } else if (time >= 5000 && time < 8000) {
-            texture1 = nightTexture;
+            texture1 = texture; // was nightTexture
             texture2 = texture;
             blendFactor = (time - 5000) / (8000 - 5000);
         } else if (time >= 8000 && time < 21000) {
@@ -117,7 +117,7 @@ public class SkyboxRenderer {
             blendFactor = (time - 8000) / (21000 - 8000);
         } else {
             texture1 = texture;
-            texture2 = nightTexture;
+            texture2 = texture; // was nightTexture
             blendFactor = (time - 21000) / (24000 - 21000);
         }
 

@@ -42,7 +42,7 @@ public class StaticShader extends ShaderProgram {
         // let the shaders access the data in the vaos
         // the inputs to the shaders come from attributes in the vao
         super.bindAttribute(0, "position");
-        super.bindAttribute(1, "textureCoords");
+        super.bindAttribute(1, "textureCoordinates");
         super.bindAttribute(2, "normal");
     }
 

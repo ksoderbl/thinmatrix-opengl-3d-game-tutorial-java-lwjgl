@@ -23,13 +23,13 @@ public class WaterRenderer {
 
 	private static final String DUDV_MAP = "waterDUDV";
     private static final String NORMAL_MAP = "normalMap";
-	private static final float WAVE_SPEED = 0.05f; // was 0.03
+	private static final float WAVE_SPEED = 0.03f; // was 0.05
 
 	private RawModel quad;
 	private WaterShader shader;
 	private WaterFrameBuffers fbos;
 
-    private float waterTiling = 8f; // was 4
+    private float waterTiling = 4f; // was 4
 	private float moveFactor = 0f;
     private float waveStrength = 0.04f; // was 0.04
     private float waterReflectivity = 2f; // for fresnel effect, thinmatrix had 0.5

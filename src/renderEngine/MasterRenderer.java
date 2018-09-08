@@ -35,9 +35,9 @@ public class MasterRenderer {
 
     // 0.0035 -> 0.007
     private static final float MAX_FOG_DENSITY = 0.007f;
-    private static final float MIN_FOG_DENSITY = 0.0015f;
+    private static final float MIN_FOG_DENSITY = 0.000f;
     // 1.5 -> 5.0
-    private static final float MAX_FOG_GRADIENT = 2.0f;
+    private static final float MAX_FOG_GRADIENT = 5.0f;
     private static final float MIN_FOG_GRADIENT = 1.5f;
 
     private double fogTime = 0.0;
