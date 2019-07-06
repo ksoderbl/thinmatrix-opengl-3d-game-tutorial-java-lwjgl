@@ -321,25 +321,16 @@ public class MainGameLoop {
         }
         WaterTile water = waters.get(0);
         */
-
-        /*
-        int maxWaterIndex = 3;
-        for (int j = -maxWaterIndex; j <= maxWaterIndex; j++) {
-            for (int i = -maxWaterIndex; i <= maxWaterIndex; i++) {
-                WaterTile water = new WaterTile(
-                        Terrain.SIZE / 2 + i * WaterTile.TILE_SIZE,
-                        Terrain.SIZE / 2 + j * WaterTile.TILE_SIZE,
-                        2f);
-                waters.add(water);
-            }
-        }
-        WaterTile water = waters.get(0);
-        */
         
         WaterTile water = new WaterTile(75, -75, 0);
         waters.add(water);
         
-        ParticleSystem system = new ParticleSystem(50, 25, 0.4f, 4);
+        ParticleSystem system = new ParticleSystem(50, 25, 0.3f, 4, 1);
+        system.randomizeRotation();
+        system.setDirection(new Vector3f(0, 1, 0), 0.1f);
+        system.setLifeError(0.1f);
+        system.setSpeedError(0.4f);
+        system.setScaleError(0.8f);
 
         GuiTexture refrGui = new GuiTexture(buffers.getRefractionTexture(), new Vector2f( 0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
         GuiTexture reflGui = new GuiTexture(buffers.getReflectionTexture(), new Vector2f(-0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
@@ -372,6 +363,7 @@ public class MainGameLoop {
             //	new Particle(new Vector3f(player.getPosition()), new Vector3f(0, 30, 0), 1, 4, 0, 1);
             //}
             system.generateParticles(player.getPosition());
+            system.generateParticles(new Vector3f(500, 10, -300));
             
             ParticleMaster.update();
             
