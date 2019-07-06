@@ -15,6 +15,8 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
+import particles.ParticleMaster;
+import particles.ParticleSystem;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
@@ -44,10 +46,16 @@ public class MainGameLoop {
         DisplayManager.createDisplay();
         Loader loader = new Loader();
         TextMaster.init(loader);
+        MasterRenderer renderer = new MasterRenderer(loader);
+        ParticleMaster.init(loader, renderer.getProjectionMatrix());
         
         FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text = new GUIText("A sample string of text!", 8, font, new Vector2f(0.0f, 0.0f), 1.0f, true);
+        GUIText text = new GUIText(DisplayManager.title, 3, font, new Vector2f(0.0f, 0.0f), 1.0f, true);
         text.setColor(0.2f, 0.2f, 0.2f);
+        
+        //FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        //GUIText text2 = new GUIText("Press y to launch particles", 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
+        //text2.setColor(0.8f, 0.2f, 0.2f);
 
         // *********TERRAIN TEXTURE STUFF**********
 
@@ -257,7 +265,7 @@ public class MainGameLoop {
         Light sun = new Light(new Vector3f(10000, 10000, -10000), new Vector3f(1.3f, 1.3f, 1.3f));
         lights.add(sun);
 
-        MasterRenderer renderer = new MasterRenderer(loader);
+
 
         /*
         ModelData playerData = OBJFileLoader.loadOBJ("person");
@@ -304,7 +312,15 @@ public class MainGameLoop {
         WaterShader waterShader = new WaterShader();
         WaterRenderer waterRenderer = new WaterRenderer(loader, waterShader, renderer.getProjectionMatrix(),
                 renderer.getNearPlane(), renderer.getFarPlane(), buffers);
-        List<WaterTile> waters = new ArrayList<>();
+        List<WaterTile> waters = new ArrayList<WaterTile>();
+        /*
+        for (int i = 1; i < 5; i++) {
+        	for (int j = 1; j < 5; j++) {
+        		waters.add(new WaterTile(i * 160, -j * 160, 0));
+        	}
+        }
+        WaterTile water = waters.get(0);
+        */
 
         /*
         int maxWaterIndex = 3;
@@ -319,8 +335,11 @@ public class MainGameLoop {
         }
         WaterTile water = waters.get(0);
         */
+        
         WaterTile water = new WaterTile(75, -75, 0);
         waters.add(water);
+        
+        ParticleSystem system = new ParticleSystem(50, 25, 0.4f, 4);
 
         GuiTexture refrGui = new GuiTexture(buffers.getRefractionTexture(), new Vector2f( 0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
         GuiTexture reflGui = new GuiTexture(buffers.getReflectionTexture(), new Vector2f(-0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
@@ -347,8 +366,15 @@ public class MainGameLoop {
         while (!Display.isCloseRequested()) {
             player.move(terrain, water); // TODO: find which terrain the player is on
             camera.move();
-
             picker.update();
+            
+            //if (Keyboard.isKeyDown(Keyboard.KEY_Y)) {
+            //	new Particle(new Vector3f(player.getPosition()), new Vector3f(0, 30, 0), 1, 4, 0, 1);
+            //}
+            system.generateParticles(player.getPosition());
+            
+            ParticleMaster.update();
+            
             /*
             Vector3f terrainPoint = picker.getCurrentTerrainPoint();
             if ((loops % 60) == 0) {
@@ -386,6 +412,9 @@ public class MainGameLoop {
             renderer.renderScene(entities, normalMapEntities, terrains, lights, camera, new Vector4f(0, -1, 0, 1000000), false);
 
             waterRenderer.render(waters, camera, sun);
+            
+            ParticleMaster.renderParticles(camera);
+            
             guiRenderer.render(guiTextures);
             TextMaster.render();
             
@@ -396,6 +425,7 @@ public class MainGameLoop {
 
         //*********Clean Up Below**************
 
+        ParticleMaster.cleanUp();
         TextMaster.cleanUp();
 		buffers.cleanUp();
         waterShader.cleanUp();

@@ -27,8 +27,8 @@ public class ParticleShader extends ShaderProgram {
 		super.bindAttribute(0, "position");
 	}
 
-	protected void loadModelViewMatrix(Matrix4f modelView) {
-		super.loadMatrix(location_modelViewMatrix, modelView);
+	protected void loadModelViewMatrix(Matrix4f modelViewMatrix) {
+		super.loadMatrix(location_modelViewMatrix, modelViewMatrix);
 	}
 
 	protected void loadProjectionMatrix(Matrix4f projectionMatrix) {

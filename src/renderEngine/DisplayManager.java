@@ -17,6 +17,8 @@ public class DisplayManager {
 
     private static long lastFrameTime;
     private static float delta;
+    
+    public static String title = "OpenGL 3D Game Tutorial 34: Particle Effects";
 
     public static void createDisplay() {
 
@@ -48,7 +50,7 @@ public class DisplayManager {
             //DisplayMode mode = Display.getDesktopDisplayMode();
             Display.setDisplayMode(mode);
             Display.create(new PixelFormat(), attribs);
-            Display.setTitle("OpenGL 3D Game Tutorial 31: Normal Mapping + OpenGL Water Tutorial 8: Soft Edges (FINAL)");
+            Display.setTitle(title + " + OpenGL Water Tutorial 8: Soft Edges (FINAL)");
             GL11.glEnable(GL13.GL_MULTISAMPLE);
         } catch (LWJGLException e) {
             e.printStackTrace();

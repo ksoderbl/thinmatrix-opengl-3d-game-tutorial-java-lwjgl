@@ -13,26 +13,26 @@ uniform sampler2D fontAtlas;
 // these should be uniforms and passed in as a function of the font size used
 
 // large size chars
-const float width = 0.51;
-const float edge = 0.02;
+//const float width = 0.51;
+//const float edge = 0.02;
 
 // medium size chars
-//const float width = 0.5;
-//const float edge = 0.1;
+const float width = 0.5;
+const float edge = 0.1;
 
 // small size chars
 //const float width = 0.46;
 //const float edge = 0.19;
 
 // solid red edge
-//const float borderWidth = 0.7;
-//const float borderEdge = 0.1;
-//const vec2 offset = vec2(0.0, 0.0);
+const float borderWidth = 0.7;
+const float borderEdge = 0.1;
+const vec2 offset = vec2(0.0, 0.0);
 
 // glowing edge with offset
-const float borderWidth = 0.4;
-const float borderEdge = 0.5;
-const vec2 offset = vec2(0.003, 0.001);
+//const float borderWidth = 0.4;
+//const float borderEdge = 0.5;
+//const vec2 offset = vec2(0.003, 0.001);
 
 // no effect
 //const float borderWidth = 0.0;
