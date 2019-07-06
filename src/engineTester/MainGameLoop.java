@@ -15,7 +15,6 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
-import particles.ParticleMaster;
 import particles.ParticleSystem;
 import particles.ParticleTexture;
 import renderEngine.DisplayManager;
@@ -327,12 +326,12 @@ public class MainGameLoop {
         waters.add(water);
         
         ParticleTexture particleTexture = new ParticleTexture(loader.loadTexture("particleStar"), 1);
-        ParticleSystem system = new ParticleSystem(particleTexture, 50, 25, 0.3f, 4, 1);
-        system.randomizeRotation();
-        system.setDirection(new Vector3f(0, 1, 0), 0.1f);
+        ParticleSystem system = new ParticleSystem(particleTexture, 40, 10, 0.1f, 4, 1.6f);
+        //system.setDirection(new Vector3f(0, 1, 0), 0.1f);
         system.setLifeError(0.1f);
-        system.setSpeedError(0.4f);
-        system.setScaleError(0.8f);
+        system.setSpeedError(0.25f);
+        system.setScaleError(0.5f);
+        system.randomizeRotation();
 
         GuiTexture refrGui = new GuiTexture(buffers.getRefractionTexture(), new Vector2f( 0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
         GuiTexture reflGui = new GuiTexture(buffers.getReflectionTexture(), new Vector2f(-0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
