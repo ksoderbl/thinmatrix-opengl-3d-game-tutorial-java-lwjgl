@@ -18,7 +18,7 @@ public class DisplayManager {
     private static long lastFrameTime;
     private static float delta;
     
-    public static String title = "OpenGL 3D Game Tutorial 34: Particle Effects";
+    public static String title = "OpenGL 3D Game Tutorial 35: Animating Particle Textures";
 
     public static void createDisplay() {
 

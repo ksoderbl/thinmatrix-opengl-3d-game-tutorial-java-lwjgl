@@ -2,9 +2,10 @@
 
 out vec4 out_color;
 
+in vec2 textureCoords;
 
-void main(void){
+uniform sampler2D particleTexture;
 
-	out_color = vec4(1.0);
-
+void main(void) {
+	out_color = texture(particleTexture, textureCoords);
 }

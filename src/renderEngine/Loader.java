@@ -93,7 +93,7 @@ public class Loader {
         return textureID;
     }
 
-    public int loadGameTexture(String fileName) {
+    public int loadTexture(String fileName) {
     	return loadTexture(fileName, LOD_BIAS);
     }
 

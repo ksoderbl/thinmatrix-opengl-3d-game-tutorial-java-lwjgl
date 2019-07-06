@@ -14,11 +14,13 @@ public class Particle {
 	private float rotation;
 	private float scale;
 	
+	private ParticleTexture texture;
+	
 	private float elapsedTime = 0;
 
-	public Particle(Vector3f position, Vector3f velocity, float gravityEffect,
+	public Particle(ParticleTexture texture, Vector3f position, Vector3f velocity, float gravityEffect,
 			float lifeLength, float rotation, float scale) {
-		super();
+		this.texture = texture;
 		this.position = position;
 		this.velocity = velocity;
 		this.gravityEffect = gravityEffect;
@@ -27,20 +29,24 @@ public class Particle {
 		this.scale = scale;
 		ParticleMaster.addParticle(this);
 	}
+	
+	public ParticleTexture getTexture() {
+		return texture;
+	}
 
-	protected Vector3f getPosition() {
+	public Vector3f getPosition() {
 		return position;
 	}
 
-	protected float getRotation() {
+	public float getRotation() {
 		return rotation;
 	}
 
-	protected float getScale() {
+	public float getScale() {
 		return scale;
 	}
 
-	protected boolean update() {
+	public boolean update() {
 		velocity.y += Player.GRAVITY * gravityEffect * DisplayManager.getFrameTimeSeconds();
 		Vector3f change = new Vector3f(velocity);
 		change.scale(DisplayManager.getFrameTimeSeconds());

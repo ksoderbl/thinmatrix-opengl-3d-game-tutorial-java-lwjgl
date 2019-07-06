@@ -40,8 +40,8 @@ const vec2 offset = vec2(0.0, 0.0);
 //const vec2 offset = vec2(0.0, 0.0);
 
 
-
-const vec3 outlineColor = vec3(1.0, 0.0, 0.0);
+// this could also be a uniform variable
+const vec3 outlineColor = vec3(1.0, 1.0, 1.0);
 
 void main(void) {
 	float distance = 1.0 - texture(fontAtlas, pass_textureCoords).a;

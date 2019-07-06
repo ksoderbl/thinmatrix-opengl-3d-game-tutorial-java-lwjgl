@@ -43,8 +43,8 @@ public class WaterRenderer {
                          float nearPlane, float farPlane, WaterFrameBuffers fbos) {
 		this.shader = shader;
 		this.fbos = fbos;
-		dudvTexture = loader.loadGameTexture(DUDV_MAP);
-        normalMap = loader.loadGameTexture(NORMAL_MAP);
+		dudvTexture = loader.loadTexture(DUDV_MAP);
+        normalMap = loader.loadTexture(NORMAL_MAP);
 		shader.start();
 		shader.connectTextureUnits();
 		shader.loadProjectionMatrix(projectionMatrix);
