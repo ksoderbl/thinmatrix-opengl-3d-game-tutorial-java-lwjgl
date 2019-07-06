@@ -46,7 +46,7 @@ public class MainGameLoop {
         TextMaster.init(loader);
         
         FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text = new GUIText("Width: 0.51 Edge: 0.02", 8, font, new Vector2f(0.0f, 0.0f), 1.0f, true);
+        GUIText text = new GUIText("A sample string of text!", 8, font, new Vector2f(0.0f, 0.0f), 1.0f, true);
         text.setColor(0.2f, 0.2f, 0.2f);
 
         // *********TERRAIN TEXTURE STUFF**********
