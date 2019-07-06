@@ -15,6 +15,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
+import particles.ParticleMaster;
 import particles.ParticleSystem;
 import particles.ParticleTexture;
 import renderEngine.DisplayManager;
