@@ -55,7 +55,7 @@ public class MainGameLoop {
         text.setColor(0.2f, 0.2f, 0.8f);
         
         FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text2 = new GUIText("Star particles", 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
+        GUIText text2 = new GUIText("Animated particle texture", 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
         text2.setColor(0.8f, 0.2f, 0.2f);
 
         // *********TERRAIN TEXTURE STUFF**********
@@ -326,7 +326,7 @@ public class MainGameLoop {
         WaterTile water = new WaterTile(75, -75, 0);
         waters.add(water);
         
-        ParticleTexture particleTexture = new ParticleTexture(loader.loadTexture("particleStar"), 1);
+        ParticleTexture particleTexture = new ParticleTexture(loader.loadTexture("particleAtlas"), 4);
         ParticleSystem system = new ParticleSystem(particleTexture, 40, 10, 0.1f, 4, 1.6f);
         //system.setDirection(new Vector3f(0, 1, 0), 0.1f);
         system.setLifeError(0.1f);
