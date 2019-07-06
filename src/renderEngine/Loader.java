@@ -26,7 +26,7 @@ import de.matthiasmann.twl.utils.PNGDecoder.Format;
 
 public class Loader {
 
-    private final static float LOD_BIAS = -0.4f; // I had -1.4f
+    private final static float LOD_BIAS = -0.4f;
 
     private List<Integer> vaos = new ArrayList<>();
     private List<Integer> vbos = new ArrayList<>();
@@ -42,6 +42,15 @@ public class Loader {
         return new RawModel(vaoID, indices.length);
     }
 
+    // For OpenGL 3D Game Tutorial 32: Font Rendering
+    public int loadToVAO(float[] positions, float[] textureCoords) {
+        int vaoID = createVAO();
+        storeDataInAttributeList(0, 2, positions);
+        storeDataInAttributeList(1, 2, textureCoords);
+        unbindVAO();
+        return vaoID;
+    }
+    
     public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, float[] tangents, int[] indices) {
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
@@ -60,15 +69,14 @@ public class Loader {
         return new RawModel(vaoID, positions.length / dimensions);
     }
 
-
-    public int loadTexture(String fileName) {
+    public int loadTexture(String fileName, float lodBias) {
         Texture texture = null;
         fileName = "res/" + fileName + ".png";
         try {
             texture = TextureLoader.getTexture("PNG", new FileInputStream(fileName));
             GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
-            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, LOD_BIAS);
+            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, lodBias);
 		} catch (Exception e) {
 			e.printStackTrace();
             System.err.println("Loader: File not found: " + fileName);
@@ -85,6 +93,14 @@ public class Loader {
         return textureID;
     }
 
+    public int loadGameTexture(String fileName) {
+    	return loadTexture(fileName, LOD_BIAS);
+    }
+
+    public int loadFontTextureAtlas(String fileName) {
+    	return loadTexture("fonts/" + fileName, 0);
+    }
+    
     public void cleanUp() {
         for (int vao : vaos) {
             GL30.glDeleteVertexArrays(vao);

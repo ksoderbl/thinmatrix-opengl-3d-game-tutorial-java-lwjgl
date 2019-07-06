@@ -3,6 +3,8 @@ package fontMeshCreator;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
+import fontRendering.TextMaster;
+
 /**
  * Represents a piece of text in the game.
  * 
@@ -60,6 +62,7 @@ public class GUIText {
 		this.lineMaxSize = maxLineLength;
 		this.centerText = centered;
 		// load text
+		TextMaster.loadText(this);
 	}
 
 	/**
@@ -67,6 +70,7 @@ public class GUIText {
 	 */
 	public void remove() {
 		// remove text
+		TextMaster.removeText(this);
 	}
 
 	/**
@@ -86,14 +90,14 @@ public class GUIText {
 	 * @param b
 	 *            - blue value, between 0 and 1.
 	 */
-	public void setColour(float r, float g, float b) {
+	public void setColor(float r, float g, float b) {
 		colour.set(r, g, b);
 	}
 
 	/**
 	 * @return the colour of the text.
 	 */
-	public Vector3f getColour() {
+	public Vector3f getColor() {
 		return colour;
 	}
 
