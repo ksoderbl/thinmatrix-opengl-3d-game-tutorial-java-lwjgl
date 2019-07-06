@@ -326,11 +326,11 @@ public class MainGameLoop {
         WaterTile water = new WaterTile(75, -75, 0);
         waters.add(water);
         
-        ParticleTexture particleTexture = new ParticleTexture(loader.loadTexture("particleAtlas"), 4);
-        ParticleSystem system = new ParticleSystem(particleTexture, 40, 10, 0.1f, 4, 1.6f);
+        ParticleTexture particleTexture = new ParticleTexture(loader.loadTexture("particleAtlas"), 4, true);
+        ParticleSystem system = new ParticleSystem(particleTexture, 200, 5, 0.3f, 4, 2f);
         //system.setDirection(new Vector3f(0, 1, 0), 0.1f);
         system.setLifeError(0.1f);
-        system.setSpeedError(0.25f);
+        system.setSpeedError(0.1f);
         system.setScaleError(0.5f);
         system.randomizeRotation();
 
@@ -364,10 +364,12 @@ public class MainGameLoop {
             //if (Keyboard.isKeyDown(Keyboard.KEY_Y)) {
             //	new Particle(new Vector3f(player.getPosition()), new Vector3f(0, 30, 0), 1, 4, 0, 1);
             //}
-            system.generateParticles(player.getPosition());
-            system.generateParticles(new Vector3f(500, 10, -300));
+            //Vector3f systemPos = new Vector3f(player.getPosition());
+            //systemPos.setY(systemPos.getY() + 8f);
+            //system.generateParticles(systemPos);
+            system.generateParticles(new Vector3f(130, 50, -130));
             
-            ParticleMaster.update();
+            ParticleMaster.update(camera);
             
             /*
             Vector3f terrainPoint = picker.getCurrentTerrainPoint();
