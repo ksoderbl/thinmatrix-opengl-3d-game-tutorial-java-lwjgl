@@ -13,7 +13,7 @@ import renderEngine.Loader;
 
 // https://www.youtube.com/watch?v=VS8wlS9hF8E&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=2
 
-public class MainGameLoop1
+public class MainGameLoop01
 {
 	public static String title = "OpenGL 3D Game Tutorial 1";
 	public static String subTitle = "The Display";
@@ -36,8 +36,6 @@ public class MainGameLoop1
             
             DisplayManager.updateDisplay();
         }
-
-        //*********Clean Up Below**************
 
         TextMaster.cleanUp();
         loader.cleanUp();

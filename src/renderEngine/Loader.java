@@ -32,6 +32,15 @@ public class Loader {
     private List<Integer> vbos = new ArrayList<>();
     private List<Integer> textures = new ArrayList<>();
 
+    // For OpenGL 3D Game Tutorial 5: Coloring using Shaders
+    public RawModel loadToVAO(float[] positions, int[] indices) {
+		int vaoID = createVAO();
+		bindIndicesBuffer(indices);
+		storeDataInAttributeList(0, 3, positions);
+		unbindVAO();
+		return new RawModel(vaoID, indices.length);
+    }
+
     public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices) {
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
