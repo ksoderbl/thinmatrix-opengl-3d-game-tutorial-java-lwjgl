@@ -11,16 +11,14 @@ import org.lwjgl.opengl.PixelFormat;
 
 public class DisplayManager {
 
-    private static final int WIDTH = 1280;
-    private static final int HEIGHT = 720;
+    private static final int WIDTH = 1920;
+    private static final int HEIGHT = 1080;
     private static final int FPS_CAP = 60;
 
     private static long lastFrameTime;
     private static float delta;
-    
-    public static String title = "OpenGL 3D Game Tutorial 35: Animating Particle Textures";
 
-    public static void createDisplay() {
+    public static void createDisplay(String title) {
 
         ContextAttribs attribs = new ContextAttribs(3, 2)
                 .withForwardCompatible(true)
@@ -50,7 +48,7 @@ public class DisplayManager {
             //DisplayMode mode = Display.getDesktopDisplayMode();
             Display.setDisplayMode(mode);
             Display.create(new PixelFormat(), attribs);
-            Display.setTitle(title + " + OpenGL Water Tutorial 8: Soft Edges (FINAL)");
+            Display.setTitle(title);
             GL11.glEnable(GL13.GL_MULTISAMPLE);
         } catch (LWJGLException e) {
             e.printStackTrace();

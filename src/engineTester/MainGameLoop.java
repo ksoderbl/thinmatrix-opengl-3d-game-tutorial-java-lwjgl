@@ -41,17 +41,21 @@ import fontRendering.TextMaster;
 import guis.GuiRenderer;
 import guis.GuiTexture;
 
-public class MainGameLoop {
+public class MainGameLoop
+{
+	public static String title = "OpenGL 3D Game Tutorial 35";
+	public static String subTitle = "Animating Particle Textures";
+	
     public static void main(String[] args) {
 
-        DisplayManager.createDisplay();
+        DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         TextMaster.init(loader);
         MasterRenderer renderer = new MasterRenderer(loader);
         ParticleMaster.init(loader, renderer.getProjectionMatrix());
         
         FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text = new GUIText(DisplayManager.title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
+        GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
         text.setColor(0.2f, 0.2f, 0.8f);
         
         FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
