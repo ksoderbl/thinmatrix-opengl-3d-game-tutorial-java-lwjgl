@@ -72,7 +72,7 @@ public class OBJFileLoader {
 			}
 			reader.close();
 		} catch (IOException e) {
-			System.err.println("Error reading the file");
+			System.err.println("OBJFileLoader: Error reading the file: " + fileName);
 		}
 		removeUnusedVertices(vertices);
 		float[] verticesArray = new float[vertices.size() * 3];
