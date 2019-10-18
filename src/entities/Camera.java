@@ -8,9 +8,9 @@ public class Camera {
 
     private final float MIN_DISTANCE_FROM_PLAYER = 5;
     private final float MAX_DISTANCE_FROM_PLAYER = 1000;
-    private final float MIN_PITCH = 0;
-    private final float MAX_PITCH = 90 - MIN_PITCH;
-    private final float CAMERA_Y_OFFSET = 6;
+    private final float MIN_PITCH = -90;
+    private final float MAX_PITCH = 90;
+    private final float CAMERA_Y_OFFSET = 7;
     private final float CAMERA_PITCH_OFFSET = 0; // ThinMatrix has 4
     private final float ZOOM_LEVEL_FACTOR = 0.1f;
     private final float PITCH_CHANGE_FACTOR = 0.2f;
