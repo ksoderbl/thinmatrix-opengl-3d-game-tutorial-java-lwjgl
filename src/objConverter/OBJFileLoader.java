@@ -33,6 +33,10 @@ public class OBJFileLoader {
 		List<Vector2f> textures = new ArrayList<>();
 		List<Vector3f> normals = new ArrayList<>();
 		List<Integer> indices = new ArrayList<>();
+		int vCount = 0;
+		int vtCount = 0;
+		int vnCount = 0;
+		int fCount = 0;
 		try {
 			while (true) {
 				line = reader.readLine();
@@ -43,18 +47,21 @@ public class OBJFileLoader {
 							(float) Float.valueOf(currentLine[3]));
 					Vertex newVertex = new Vertex(vertices.size(), vertex);
 					vertices.add(newVertex);
+					vCount++;
 
 				} else if (line.startsWith("vt ")) {
 					String[] currentLine = line.split(" ");
 					Vector2f texture = new Vector2f((float) Float.valueOf(currentLine[1]),
 							(float) Float.valueOf(currentLine[2]));
 					textures.add(texture);
+					vtCount++;
 				} else if (line.startsWith("vn ")) {
 					String[] currentLine = line.split(" ");
 					Vector3f normal = new Vector3f((float) Float.valueOf(currentLine[1]),
 							(float) Float.valueOf(currentLine[2]),
 							(float) Float.valueOf(currentLine[3]));
 					normals.add(normal);
+					vnCount++;
 				} else if (line.startsWith("f ")) {
 					break;
 				}
@@ -69,11 +76,19 @@ public class OBJFileLoader {
 				Vertex v2 = processVertex(vertex3, vertices, indices);
 				calculateTangents(v0, v1, v2, textures);
 				line = reader.readLine();
+				fCount++;
 			}
 			reader.close();
 		} catch (IOException e) {
 			System.err.println("OBJFileLoader: Error reading the file: " + fileName);
 		}
+		
+		System.out.println("OBJFileLoader: loaded file: " + fileName);
+		System.out.println("OBJFileLoader: vertices: " + vCount);
+		System.out.println("OBJFileLoader: textureCoords: " + vtCount);
+		System.out.println("OBJFileLoader: normals: " + vnCount);
+		System.out.println("OBJFileLoader: faces: " + fCount);
+		
 		removeUnusedVertices(vertices);
 		float[] verticesArray = new float[vertices.size() * 3];
 		float[] texturesArray = new float[vertices.size() * 2];

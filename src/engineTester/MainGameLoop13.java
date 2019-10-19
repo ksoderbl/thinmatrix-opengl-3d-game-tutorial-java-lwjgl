@@ -1,6 +1,8 @@
 package engineTester;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.opengl.Display;
@@ -8,8 +10,9 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import entities.Camera08;
+import entities.Camera13;
 import entities.Entity;
+import entities.Light;
 import fontMeshCreator.FontType;
 import fontMeshCreator.GUIText;
 import fontRendering.TextMaster;
@@ -18,89 +21,95 @@ import models.TexturedModel;
 import objConverter.OBJFileLoader;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
-import renderEngine.Renderer08;
-import shaders.StaticShader08;
+import renderEngine.MasterRenderer13;
 import textures.ModelTexture;
 
-// Tutorial 9:
-// https://www.youtube.com/watch?v=KMWUjNE0fYI&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP
-// Tutorial 10:
-// https://www.youtube.com/watch?v=YKFYtekgnP8&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP
+// OpenGL 3D Game Tutorial 13: Optimizing
+// https://www.youtube.com/watch?v=X6KjDwA7mZg&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=13
 
-public class MainGameLoop10
+public class MainGameLoop13
 {
-	public static String title = "OpenGL 3D Game Tutorial 10";
-	public static String subTitle = "Loading 3D Models";
+	public static String title = "OpenGL 3D Game Tutorial 13";
+	public static String subTitle = "Optimizing";
 	public static String subSubTitle = "Press, w, a, s or d to move";
 	
     public static void main(String[] args) {
     	DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
-        StaticShader08 shader = new StaticShader08();
-        Renderer08 renderer = new Renderer08(shader);
+        Camera13 camera = new Camera13();
+        camera.getPosition().translate(0, 0, 25);
 
-        RawModel model = OBJFileLoader.loadOBJ("stall", loader);
-        ModelTexture texture = new ModelTexture(loader.loadTexture("stallTexture"));
+        RawModel model = OBJFileLoader.loadOBJ("dragon", loader);
+        ModelTexture texture = new ModelTexture(loader.loadTexture("white"));
         TexturedModel staticModel = new TexturedModel(model, texture);
+        texture.setShineDamper(10f);
+        texture.setReflectivity(1f);
         
         TextMaster.init(loader);
-        
         FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
         text.setColor(0.2f, 0.2f, 0.8f);
-        
         FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
         text2.setColor(0.8f, 0.2f, 0.2f);
-        
         FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
         text3.setColor(0.8f, 0.8f, 0.2f);
         
         
         // create some random entities 
-        Entity[] entities = new Entity[ 1000 ];
+        List<Entity> entities = new ArrayList<>();
         Random random = new Random();
         
-        for (int i = 0; i < entities.length; i++) {
-        	Vector3f translation = new Vector3f(
-        			((20 * random.nextFloat()) - 10) * 0.8f,
-        			((20 * random.nextFloat()) - 10) * 0.8f,
-        			-25f + ((20 * random.nextFloat()) - 10) * 0.8f);
+        for (int i = 0; i < 20; i++) {
+        	
+        	/*
+        	float x = ((10 * random.nextFloat()) - 5) * 0.8f;
+        	float y = ((10 * random.nextFloat()) - 5) * 0.8f;
+        	float z = -10f + ((10 * random.nextFloat()) - 5) * 0.8f;
             float rx = 0;
             float ry = 0; 
-            float rz = 360 * random.nextFloat();
+            float rz = 0; //360 * random.nextFloat();
             float tmp = random.nextFloat();
-            float scale = tmp * tmp * 0.1f;
+            float scale = 0.1f; //tmp * tmp * 0.1f;
+            */
+        	
+        	float x = random.nextFloat() * 100 - 50;
+        	float y = random.nextFloat() * 100 - 50; 
+        	float z = random.nextFloat() * -300; 
+            float rx = 0; //random.nextFloat() * 180f;
+            float ry = random.nextFloat() * 180f;
+            float rz = 0; //random.nextFloat() * 180f;
+            float scale = 1f;
 
-            entities[i] = new Entity(staticModel, translation, rx, ry, rz, scale);
+            entities.add(new Entity(staticModel, new Vector3f(x, y, z),
+            		rx, ry, rz, scale));
         }
         
-        Camera08 camera = new Camera08();
+        Light light = new Light(
+        		new Vector3f(3000, 2000, 3000),
+        		new Vector3f(1f, 1f, 1f)); // white light
+
+        MasterRenderer13 renderer = new MasterRenderer13();
         
         while (!Display.isCloseRequested()) {
-        	
-        	for (int i = 0; i < entities.length; i++) {
+        	int i = 0;
+        	for (Entity entity : entities) {
         		//entities[i].increasePosition(0, 0, 0.00001f*i);
-        		entities[i].increaseRotation(0.002f*i, 0.003f*i, 0.001f*i);
+        		entity.increaseRotation(0f, 0.4f*i, 0f);
+        		i++;
         	}
-
         	camera.move();
-        	renderer.prepare();
-        	shader.start();
-        	shader.loadViewMatrix(camera);
-        	for (int i = 0; i < entities.length; i++) {
-	            renderer.render(entities[i], shader);
+        	for (Entity entity : entities) {
+        		renderer.processEntity(entity);
         	}
-            shader.stop();
-            
+            renderer.render(light, camera);
         	TextMaster.render();
-        	            
             DisplayManager.updateDisplay();
         }
 
         TextMaster.cleanUp();
-        shader.cleanUp();
+        renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
     }

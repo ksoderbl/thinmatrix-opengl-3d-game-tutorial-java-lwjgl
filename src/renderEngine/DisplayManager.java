@@ -17,6 +17,9 @@ public class DisplayManager {
 
     private static long lastFrameTime;
     private static float delta;
+    
+    private static long oldNanoTime = 0;
+    private static double frames = 0;
 
     public static void createDisplay(String title) {
 
@@ -64,6 +67,20 @@ public class DisplayManager {
         long currentFrameTime = getCurrentTime();
         delta = (currentFrameTime - lastFrameTime) / 1000f;
         lastFrameTime = currentFrameTime;
+
+        // fps calculation
+        frames += 1;
+        long nanoTime = System.nanoTime();
+        long deltaTime = nanoTime - oldNanoTime;
+        if (deltaTime > 1000000000) {
+        	if (oldNanoTime > 0) {
+        		double seconds = deltaTime * 1e-9;
+        		double fps = frames / seconds;
+        		System.out.println("fps = " + fps);
+        		frames = 0;
+        	}
+        	oldNanoTime = nanoTime;
+        }
     }
 
     public static float getFrameTimeSeconds() {

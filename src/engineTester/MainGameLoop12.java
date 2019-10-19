@@ -82,9 +82,6 @@ public class MainGameLoop12
         
         while (!Display.isCloseRequested()) {
         	
-        	// disable depth test because TextMaster turns it on
-        	GL11.glDisable(GL11.GL_DEPTH_TEST);
-        	
         	for (int i = 0; i < entities.length; i++) {
         		//entities[i].increasePosition(0, 0, 0.00001f*i);
         		entities[i].increaseRotation(0, 0.1f*i, 0);
