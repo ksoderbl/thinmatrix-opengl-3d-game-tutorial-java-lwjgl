@@ -58,7 +58,7 @@ public class MainGameLoop11
         
         
         // create some random entities 
-        Entity[] entities = new Entity[ 100 ];
+        Entity[] entities = new Entity[ 20 ];
         Random random = new Random();
         
         for (int i = 0; i < entities.length; i++) {

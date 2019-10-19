@@ -57,7 +57,7 @@ public class MainGameLoop12
         
         
         // create some random entities 
-        Entity[] entities = new Entity[ 100 ];
+        Entity[] entities = new Entity[ 20 ];
         Random random = new Random();
         
         for (int i = 0; i < entities.length; i++) {
@@ -87,7 +87,7 @@ public class MainGameLoop12
         	
         	for (int i = 0; i < entities.length; i++) {
         		//entities[i].increasePosition(0, 0, 0.00001f*i);
-        		entities[i].increaseRotation(0, 0.03f*i, 0);
+        		entities[i].increaseRotation(0, 0.1f*i, 0);
         	}
         	
         	//light.getPosition().translate(
