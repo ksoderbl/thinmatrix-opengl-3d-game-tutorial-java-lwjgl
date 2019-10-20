@@ -1,5 +1,7 @@
 package textures;
 
+// OpenGL 3D Game Tutorial 17: Multitexturing
+
 public class TerrainTexturePack {
 
     private TerrainTexture backgroundTexture;

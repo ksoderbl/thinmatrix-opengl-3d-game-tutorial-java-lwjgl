@@ -14,10 +14,10 @@ import entities.Entity;
 import entities.Light;
 import models.TexturedModel;
 import shaders.StaticShader16;
-import shaders.TerrainShader16;
-import terrains.Terrain14;
+import shaders.TerrainShader17;
+import terrains.Terrain17;
 
-public class MasterRenderer16 {
+public class MasterRenderer17 {
 	
 	private static final float FOV = 70;
 	private static final float NEAR_PLANE = 0.1f;
@@ -40,17 +40,17 @@ public class MasterRenderer16 {
     private StaticShader16 shader = new StaticShader16();
     private EntityRenderer16 renderer;
     
-    private TerrainRenderer16 terrainRenderer;
-    private TerrainShader16 terrainShader = new TerrainShader16();
+    private TerrainRenderer17 terrainRenderer;
+    private TerrainShader17 terrainShader = new TerrainShader17();
 
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
-    private List<Terrain14> terrains = new ArrayList<>();
+    private List<Terrain17> terrains = new ArrayList<>();
     
-    public MasterRenderer16() {
+    public MasterRenderer17() {
     	enableCulling();
     	createProjectionMatrix();
     	renderer = new EntityRenderer16(shader, projectionMatrix);
-    	terrainRenderer = new TerrainRenderer16(terrainShader, projectionMatrix);
+    	terrainRenderer = new TerrainRenderer17(terrainShader, projectionMatrix);
     }
     
     public static void enableCulling() {
@@ -84,7 +84,7 @@ public class MasterRenderer16 {
         terrains.clear();
     }
     
-    public void processTerrain(Terrain14 terrain) {
+    public void processTerrain(Terrain17 terrain) {
     	terrains.add(terrain);
     }
 
