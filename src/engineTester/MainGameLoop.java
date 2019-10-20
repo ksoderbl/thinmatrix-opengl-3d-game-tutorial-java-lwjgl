@@ -5,32 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import models.RawModel;
-import models.TexturedModel;
-import normalMappingObjConverter.NormalMappedObjLoader;
-import objConverter.OBJFileLoader;
-
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
-import particles.ParticleMaster;
-import particles.ParticleSystem;
-import particles.ParticleTexture;
-import renderEngine.DisplayManager;
-import renderEngine.Loader;
-import renderEngine.MasterRenderer;
-import renderEngine.OBJLoader;
-import terrains.Terrain;
-import textures.ModelTexture;
-import textures.TerrainTexture;
-import textures.TerrainTexturePack;
-import toolbox.MousePicker;
-import water.WaterFrameBuffers;
-import water.WaterRenderer;
-import water.WaterShader;
-import water.WaterTile;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
@@ -40,6 +19,25 @@ import fontMeshCreator.GUIText;
 import fontRendering.TextMaster;
 import guis.GuiRenderer;
 import guis.GuiTexture;
+import models.RawModel;
+import models.TexturedModel;
+import normalMappingObjConverter.NormalMappedObjLoader;
+import objConverter.OBJFileLoader;
+import particles.ParticleMaster;
+import particles.ParticleSystem;
+import particles.ParticleTexture;
+import renderEngine.DisplayManager;
+import renderEngine.Loader;
+import renderEngine.MasterRenderer;
+import terrains.Terrain;
+import textures.ModelTexture;
+import textures.TerrainTexture;
+import textures.TerrainTexturePack;
+import toolbox.MousePicker;
+import water.WaterFrameBuffers;
+import water.WaterRenderer;
+import water.WaterShader;
+import water.WaterTile;
 
 public class MainGameLoop
 {
