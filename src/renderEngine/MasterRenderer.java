@@ -72,7 +72,7 @@ public class MasterRenderer {
     }
 
     public static void disableCulling() {
-        GL11.glEnable(GL11.GL_CULL_FACE);
+        GL11.glDisable(GL11.GL_CULL_FACE);
     }
 
     public void renderScene(
