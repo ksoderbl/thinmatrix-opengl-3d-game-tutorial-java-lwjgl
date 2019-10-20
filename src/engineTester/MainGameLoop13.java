@@ -38,12 +38,8 @@ public class MainGameLoop13
         Loader loader = new Loader();
         Camera13 camera = new Camera13();
         camera.getPosition().translate(0, 0, 25);
-
-        RawModel model = OBJFileLoader.loadOBJ("dragon", loader);
-        ModelTexture texture = new ModelTexture(loader.loadTexture("white"));
-        TexturedModel staticModel = new TexturedModel(model, texture);
-        texture.setShineDamper(10f);
-        texture.setReflectivity(1f);
+        
+        TexturedModel staticModel = loader.createTexturedModel("dragon", "white", 2, 1);
         
         TextMaster.init(loader);
         FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
@@ -75,7 +71,7 @@ public class MainGameLoop13
             */
         	
         	float x = random.nextFloat() * 100 - 50;
-        	float y = random.nextFloat() * 100 - 50; 
+        	float y = random.nextFloat() * 40 - 20; 
         	float z = random.nextFloat() * -300; 
             float rx = 0; //random.nextFloat() * 180f;
             float ry = random.nextFloat() * 180f;
@@ -96,7 +92,7 @@ public class MainGameLoop13
         	int i = 0;
         	for (Entity entity : entities) {
         		//entities[i].increasePosition(0, 0, 0.00001f*i);
-        		entity.increaseRotation(0f, 0.4f*i, 0f);
+        		entity.increaseRotation(0f, 0.02f*i, 0f);
         		i++;
         	}
         	camera.move();

@@ -38,11 +38,7 @@ public class MainGameLoop12
         StaticShader12 shader = new StaticShader12();
         Renderer12 renderer = new Renderer12(shader);
 
-        RawModel model = OBJFileLoader.loadOBJ("dragon", loader);
-        ModelTexture texture = new ModelTexture(loader.loadTexture("white"));
-        TexturedModel staticModel = new TexturedModel(model, texture);
-        texture.setShineDamper(2);
-        texture.setReflectivity(1.0f);
+        TexturedModel staticModel = loader.createTexturedModel("dragon", "white", 2, 1);
         
         TextMaster.init(loader);
         FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));

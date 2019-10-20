@@ -39,12 +39,6 @@ public class MainGameLoop14
         Camera13 camera = new Camera13();
         camera.getPosition().translate(0, 7, 0);
 
-        RawModel model = OBJFileLoader.loadOBJ("tree", loader);
-        ModelTexture texture = new ModelTexture(loader.loadTexture("tree"));
-        TexturedModel staticModel = new TexturedModel(model, texture);
-        texture.setShineDamper(10f);
-        texture.setReflectivity(1f);
-        
         TextMaster.init(loader);
         FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
@@ -55,9 +49,8 @@ public class MainGameLoop14
         FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
         text3.setColor(0.8f, 0.8f, 0.2f);
-        
-        
-        // create some random entities 
+
+        TexturedModel staticModel = loader.createTexturedModel("tree", "tree", 1, 0);
         List<Entity> entities = new ArrayList<>();
         Random random = new Random();
         

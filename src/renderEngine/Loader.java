@@ -7,8 +7,6 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import models.RawModel;
-
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -20,9 +18,13 @@ import org.lwjgl.opengl.GL30;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-import textures.TextureData;
 import de.matthiasmann.twl.utils.PNGDecoder;
 import de.matthiasmann.twl.utils.PNGDecoder.Format;
+import models.RawModel;
+import models.TexturedModel;
+import objConverter.OBJFileLoader;
+import textures.ModelTexture;
+import textures.TextureData;
 
 public class Loader {
 
@@ -220,5 +222,19 @@ public class Loader {
         buffer.put(data);
         buffer.flip();
         return buffer;
+    }
+
+    // allows creating textured models more easily in main game loop
+    public TexturedModel createTexturedModel(
+    		String objFileName,
+    		String textureFileName,
+    		float materialShineDamper,
+    		float materialReflectivity) {
+    	RawModel model = OBJFileLoader.loadOBJ(objFileName, this);
+        ModelTexture texture = new ModelTexture(this.loadTexture(textureFileName));
+        texture.setShineDamper(materialShineDamper);
+        texture.setReflectivity(materialReflectivity);
+        TexturedModel texturedModel = new TexturedModel(model, texture);
+        return texturedModel;
     }
 }
