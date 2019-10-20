@@ -20,8 +20,8 @@ uniform vec3 lightPosition;
 // Tutorial 15: Transparency
 uniform float useFakeLighting;
 // Tutorial 16: Fog
-const float density = 0.007;
-const float gradient = 1.5;
+uniform float skyDensity;
+uniform float skyGradient;
 
 void main(void)
 {
@@ -42,7 +42,7 @@ void main(void)
 
 	// Tutorial 16: Fog: distance of this vertex from camera
 	float distance = length(positionRelativeToCam.xyz);
-	visibility = exp(-pow((distance * density), gradient));
+	visibility = exp(-pow((distance * skyDensity), skyGradient));
 	visibility = clamp(visibility, 0.0, 1.0);
 
 	// pass position as color for testing	

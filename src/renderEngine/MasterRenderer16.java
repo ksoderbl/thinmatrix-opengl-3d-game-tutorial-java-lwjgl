@@ -26,6 +26,14 @@ public class MasterRenderer16 {
     public static final float SKY_RED = 0.5f;
     public static final float SKY_GREEN = 0.5f;
     public static final float SKY_BLUE = 0.5f;
+    
+    // OpenGL 3D Game Tutorial 16: Fog
+    // haze
+    //public static final float SKY_DENSITY = 0.0035f;
+    //public static final float SKY_GRADIENT = 5f;
+    // fog
+    public static final float SKY_DENSITY = 0.007f;
+    public static final float SKY_GRADIENT = 1.5f;
 	
 	private Matrix4f projectionMatrix;
 
@@ -59,6 +67,7 @@ public class MasterRenderer16 {
         
         shader.start();
         shader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
+        shader.loadSkyVariables(SKY_DENSITY, SKY_GRADIENT);
     	shader.loadLight(sun);
     	shader.loadViewMatrix(camera);
     	renderer.render(entities);
@@ -67,6 +76,7 @@ public class MasterRenderer16 {
         
     	terrainShader.start();
     	terrainShader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
+    	terrainShader.loadSkyVariables(SKY_DENSITY, SKY_GRADIENT);
         terrainShader.loadLight(sun);
     	terrainShader.loadViewMatrix(camera);
     	terrainRenderer.render(terrains);

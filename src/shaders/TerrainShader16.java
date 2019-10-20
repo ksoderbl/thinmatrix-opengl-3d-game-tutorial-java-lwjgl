@@ -20,6 +20,8 @@ public class TerrainShader16 extends ShaderProgram {
     private int location_shineDamper;
     private int location_reflectivity;
     private int location_skyColor;
+    private int location_skyDensity;
+    private int location_skyGradient;
 
     public TerrainShader16() {
         super(VERTEX_FILE, FRAGMENT_FILE);
@@ -42,7 +44,14 @@ public class TerrainShader16 extends ShaderProgram {
 		location_shineDamper = super.getUniformLocation("shineDamper");
 		location_reflectivity = super.getUniformLocation("reflectivity");
 		location_skyColor = super.getUniformLocation("skyColor");
+		location_skyDensity = super.getUniformLocation("skyDensity");
+		location_skyGradient = super.getUniformLocation("skyGradient");
 	}
+	
+    public void loadSkyVariables(float density, float gradient) {
+        super.loadFloat(location_skyDensity, density);
+        super.loadFloat(location_skyGradient, gradient);
+    }
 	
     public void loadSkyColor(float r, float g, float b) {
         super.loadVector(location_skyColor, new Vector3f(r, g, b));
