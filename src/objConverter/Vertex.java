@@ -35,7 +35,18 @@ public class Vertex {
         for (Vector3f tangent : tangents) {
             Vector3f.add(averagedTangent, tangent, averagedTangent);
         }
-        averagedTangent.normalise();
+//      Added length check because lowPolyTree.obj got:
+//      OBJFileLoader: loaded file: res/lowPolyTree.obj
+//      OBJFileLoader: vertices: 224
+//      OBJFileLoader: textureCoords: 257
+//      OBJFileLoader: normals: 182
+//      OBJFileLoader: faces: 432
+//      Exception in thread "main" java.lang.IllegalStateException: Zero length vector
+//      	at org.lwjgl.util.vector.Vector.normalise(Vector.java:91)
+//        	at objConverter.Vertex.averageTangents(Vertex.java:38)
+        if (averagedTangent.length() > 0.0f) {
+        	averagedTangent.normalise();
+        }
     }
 
     public Vector3f getAverageTangent() {

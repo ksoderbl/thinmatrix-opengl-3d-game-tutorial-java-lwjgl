@@ -107,7 +107,7 @@ public class MainGameLoop
         TexturedModel rocks = new TexturedModel(OBJFileLoader.loadOBJ("rocks", loader),
                 new ModelTexture(loader.loadTexture("rocks")));
 
-        ModelTexture fernTextureAtlas = new ModelTexture(loader.loadTexture("fern"));
+        ModelTexture fernTextureAtlas = new ModelTexture(loader.loadTexture("fern4"));
         fernTextureAtlas.setNumberOfRows(2);
 
         TexturedModel fern = new TexturedModel(OBJFileLoader.loadOBJ("fern", loader),
@@ -138,7 +138,7 @@ public class MainGameLoop
         //terrains.add(terrain3);
         //terrains.add(terrain4);
 
-        TexturedModel lamp = new TexturedModel(OBJLoader.loadObjModel("lamp", loader),
+        TexturedModel lamp = new TexturedModel(OBJFileLoader.loadOBJ("lamp", loader),
         		new ModelTexture(loader.loadTexture("lamp")));
         lamp.getTexture().setUseFakeLighting(true);
 
@@ -279,7 +279,7 @@ public class MainGameLoop
         Player player = new Player(playerModel, new Vector3f(Terrain.SIZE/2, 0, Terrain.SIZE/2), 0, 0,0, 0.5f);
         entities.add(player);
         */
-        RawModel playerRawModel = OBJLoader.loadObjModel("person", loader);
+        RawModel playerRawModel = OBJFileLoader.loadOBJ("person", loader);
         TexturedModel playerModel = new TexturedModel(playerRawModel, new ModelTexture(
                 loader.loadTexture("playerTexture")));
 

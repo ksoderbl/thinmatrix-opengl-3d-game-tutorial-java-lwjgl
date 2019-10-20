@@ -237,4 +237,20 @@ public class Loader {
         TexturedModel texturedModel = new TexturedModel(model, texture);
         return texturedModel;
     }
+    
+    public TexturedModel createTexturedModel(
+    		String objFileName,
+    		String textureFileName,
+    		float materialShineDamper,
+    		float materialReflectivity,
+    		boolean hasTransparency,
+    		boolean useFakeLighting
+    		) {
+        TexturedModel texturedModel = createTexturedModel(
+        		objFileName, textureFileName, materialShineDamper, materialReflectivity);
+        texturedModel.getTexture().setHasTransparency(hasTransparency);
+        texturedModel.getTexture().setUseFakeLighting(useFakeLighting);
+        return texturedModel;
+    }
+
 }

@@ -18,17 +18,17 @@ import fontRendering.TextMaster;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
-import renderEngine.MasterRenderer15;
+import renderEngine.MasterRenderer16;
 import terrains.Terrain14;
 import textures.ModelTexture;
 
-// OpenGL 3D Game Tutorial 15: Transparency
-// https://www.youtube.com/watch?v=ZyzXBYVvjsg&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=15
+// OpenGL 3D Game Tutorial 16: Fog
+// https://www.youtube.com/watch?v=qslBNLeSPUc&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=16
 
-public class MainGameLoop15
+public class MainGameLoop16
 {
-	public static String title = "OpenGL 3D Game Tutorial 15";
-	public static String subTitle = "Transparency";
+	public static String title = "OpenGL 3D Game Tutorial 16";
+	public static String subTitle = "Fog";
 	public static String subSubTitle = "Press, w, a, s or d to move";
 	
     public static void main(String[] args) {
@@ -48,17 +48,19 @@ public class MainGameLoop15
         GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
         text3.setColor(0.8f, 0.8f, 0.2f);
 
-        TexturedModel staticModel = loader.createTexturedModel("tree", "tree", 1, 0);
-        TexturedModel grassModel = loader.createTexturedModel("grassModel", "grassTexture", 1, 0);
-        grassModel.getTexture().setHasTransparency(true);
-        grassModel.getTexture().setUseFakeLighting(true);
-        TexturedModel fernModel = loader.createTexturedModel("fern", "fern1", 1, 0);
-        fernModel.getTexture().setHasTransparency(true);
+        TexturedModel treeModel = loader.createTexturedModel("tree", "tree", 1, 0);
+        TexturedModel lowPolyTreeModel = loader.createTexturedModel("lowPolyTree", "lowPolyTree", 1, 0);
+        TexturedModel grassModel = loader.createTexturedModel("grassModel", "grassTexture", 1, 0, true, true);
+        TexturedModel flowerModel = loader.createTexturedModel("grassModel", "flower", 1, 0, true, true);
+        TexturedModel fernModel = loader.createTexturedModel("fern", "fern1", 1, 0, true, false);
+        
         
         List<Entity> entities = new ArrayList<>();
         Random random = new Random();
         
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 200; i++) {
+        	
+        	// tree
         	float x = random.nextFloat() * 800 - 400;
         	float y = 0; 
         	float z = random.nextFloat() * -600; 
@@ -67,24 +69,43 @@ public class MainGameLoop15
             float rz = 4 * random.nextFloat() - 2;
             float scale = 3f;
             
-            entities.add(new Entity(staticModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+            entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
 
+            // low poly tree
+        	x = random.nextFloat() * 800 - 400;
+        	y = 0; 
+        	z = random.nextFloat() * -600; 
+            rx = 4 * random.nextFloat() - 2;
+            ry = random.nextFloat() * 360;
+            rz = 4 * random.nextFloat() - 2;
+            scale = 0.5f;
+            entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+            
+            // grass
             x = random.nextFloat() * 800 - 400;
         	z = random.nextFloat() * -600;
             rx = 0;
             ry = random.nextFloat() * 360;
             rz = 0;
             scale = 1f;
-
             entities.add(new Entity(grassModel, new Vector3f(x, y, z), rx, ry, rz, scale));
 
+            // flower
+            x = random.nextFloat() * 800 - 400;
+        	z = random.nextFloat() * -600;
+            rx = 0;
+            ry = random.nextFloat() * 360;
+            rz = 0;
+            scale = 1f;
+            entities.add(new Entity(flowerModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+
+            // fern
             x = random.nextFloat() * 800 - 400;
         	z = random.nextFloat() * -600;
             rx = 10 * random.nextFloat() - 5;
             ry = random.nextFloat() * 360;
             rz = 10 * random.nextFloat() - 5;
             scale = 0.6f;
-
             entities.add(new Entity(fernModel, new Vector3f(x, y, z), rx, ry, rz, scale));
         }
         
@@ -96,7 +117,7 @@ public class MainGameLoop15
         Terrain14 terrain = new Terrain14(0, -1, loader, terrainModelTexture);
         Terrain14 terrain2 = new Terrain14(-1, -1, loader, terrainModelTexture);
 
-        MasterRenderer15 renderer = new MasterRenderer15();
+        MasterRenderer16 renderer = new MasterRenderer16();
         
         int i = 0;
         
