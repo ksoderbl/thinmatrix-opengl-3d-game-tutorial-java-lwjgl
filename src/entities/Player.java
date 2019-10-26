@@ -1,13 +1,14 @@
 package entities;
 
-import models.TexturedModel;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
+
+import models.TexturedModel;
 import renderEngine.DisplayManager;
 import terrains.Terrain;
 import water.WaterTile;
 
-public class Player extends Entity {
+public class Player extends Entity  {
 
     public static final float RUN_SPEED = 40;   // units / second
     public static final float TURN_SPEED = 160; // degrees / second
