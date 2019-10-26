@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Random;
 
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 

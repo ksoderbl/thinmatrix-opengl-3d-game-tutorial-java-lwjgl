@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Random;
 
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -14,14 +13,11 @@ import entities.Light;
 import fontMeshCreator.FontType;
 import fontMeshCreator.GUIText;
 import fontRendering.TextMaster;
-import models.RawModel;
 import models.TexturedModel;
-import objConverter.OBJFileLoader;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.Renderer12;
 import shaders.StaticShader12;
-import textures.ModelTexture;
 
 // OpenGL 3D Game Tutorial 12: Specular Lighting
 // https://www.youtube.com/watch?v=GZ_1xOm-3qU&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=12
@@ -64,7 +60,6 @@ public class MainGameLoop12
             float rx = 0;
             float ry = 0; 
             float rz = 0; //360 * random.nextFloat();
-            float tmp = random.nextFloat();
             float scale = 0.1f; //tmp * tmp * 0.1f;
 
             entities[i] = new Entity(staticModel, translation, rx, ry, rz, scale);

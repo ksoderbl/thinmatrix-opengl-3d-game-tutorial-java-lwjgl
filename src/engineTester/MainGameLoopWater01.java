@@ -19,18 +19,21 @@ import fontRendering.TextMaster;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
-import renderEngine.MasterRenderer17;
+import renderEngine.MasterRendererWater01;
 import terrains.Terrain17;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
+import water.WaterRenderer01;
+import water.WaterShader01;
+import water.WaterTile01;
 
-// OpenGL 3D Game Tutorial 18: Player Movement
-// https://www.youtube.com/watch?v=d-kuzyCkjoQ&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=18
+// OpenGL Water Tutorial 1: Introduction
+// https://www.youtube.com/watch?v=HusvGeEDU_U&list=PLRIWtICgwaX23jiqVByUs0bqhnalNTNZh&index=1
 
-public class MainGameLoop18
+public class MainGameLoopWater01
 {
-	public static String title = "OpenGL 3D Game Tutorial 18";
-	public static String subTitle = "Player Movement";
+	public static String title = "OpenGL Water Tutorial 1";
+	public static String subTitle = "Introduction";
 	public static String subSubTitle = "Press, w, a, s or d to move player, arrow keys to move camera";
 	
     public static void main(String[] args) {
@@ -42,13 +45,13 @@ public class MainGameLoop18
         TextMaster.init(loader);
         FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
-        text.setColor(0.2f, 0.2f, 0.8f);
+        text.setColor(0.0f, 0.0f, 0.8f);
         FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
-        text2.setColor(0.8f, 0.2f, 0.2f);
+        text2.setColor(0.2f, 0.4f, 0.8f);
         FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
-        text3.setColor(0.8f, 0.8f, 0.2f);
+        text3.setColor(0.4f, 0.8f, 0.8f);
         
         // *********TERRAIN TEXTURE STUFF**********
 
@@ -137,27 +140,38 @@ public class MainGameLoop18
         		new Vector3f(20000, 40000, 20000),
         		new Vector3f(1f, 1f, 1f)); // white light
         
+        List<Light> lights = new ArrayList<Light>();
+        lights.add(light);
+        
         //ModelTexture terrainModelTexture = new ModelTexture(loader.loadTexture("grass"));
         Terrain17 terrain = new Terrain17(0, -1, loader, texturePack, blendMap);
         Terrain17 terrain2 = new Terrain17(-1, -1, loader, texturePack, blendMap);
+        
+        List<Terrain17> terrains = new ArrayList<Terrain17>();
+        terrains.add(terrain);
+        terrains.add(terrain2);
 
-        MasterRenderer17 renderer = new MasterRenderer17();
+        MasterRendererWater01 renderer = new MasterRendererWater01();
         
         int i = 0;
         
+        // Water
+        
+        WaterShader01 waterShader = new WaterShader01();
+        WaterRenderer01 waterRenderer = new WaterRenderer01(loader, waterShader, renderer.getProjectionMatrix());
+        List<WaterTile01> waters = new ArrayList<WaterTile01>();
+        waters.add(new WaterTile01(0, -150, 1));
+        
         while (!Display.isCloseRequested()) {
-        	camera.move();
         	player.move();
+        	camera.move();
         	
-        	for (Entity entity : entities) {
-        		renderer.processEntity(entity);
-        	}
-        	renderer.processTerrain(terrain);
-        	renderer.processTerrain(terrain2);
-        	
-            renderer.render(light, camera);
+        	renderer.renderScene(entities, terrains, lights, camera);
+        	waterRenderer.render(waters, camera);
+
         	TextMaster.render();
-            DisplayManager.updateDisplay();
+            
+        	DisplayManager.updateDisplay();
             
             Vector3f cameraPos = camera.getPosition();
             if ((i % 60) == 0)

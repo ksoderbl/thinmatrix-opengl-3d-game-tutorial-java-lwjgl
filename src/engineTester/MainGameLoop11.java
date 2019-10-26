@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Random;
 
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -69,7 +68,6 @@ public class MainGameLoop11
             float rx = 0;
             float ry = 0; 
             float rz = 0; //360 * random.nextFloat();
-            float tmp = random.nextFloat();
             float scale = 0.1f; //tmp * tmp * 0.1f;
 
             entities[i] = new Entity(staticModel, translation, rx, ry, rz, scale);

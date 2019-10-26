@@ -1,13 +1,12 @@
 package entities;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Camera35 implements Camera {
 
     private final float MIN_DISTANCE_FROM_PLAYER = 5;
-    private final float MAX_DISTANCE_FROM_PLAYER = 1000;
+    //private final float MAX_DISTANCE_FROM_PLAYER = 1000;
     private final float MIN_PITCH = -90;
     private final float MAX_PITCH = 90;
     private final float CAMERA_Y_OFFSET = 7;

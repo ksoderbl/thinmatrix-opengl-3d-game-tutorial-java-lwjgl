@@ -1,10 +1,6 @@
 package water;
 
-import java.security.Key;
 import java.util.List;
-
-import entities.Light;
-import models.RawModel;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -14,10 +10,12 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
+import entities.Camera;
+import entities.Light;
+import models.RawModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import toolbox.Maths;
-import entities.Camera;
 
 public class WaterRenderer {
 

@@ -8,7 +8,7 @@ import entities.Camera;
 
 public class WaterShader extends ShaderProgram {
 
-    private static final int MAX_LIGHTS = 4;
+    //private static final int MAX_LIGHTS = 4;
 
 	private final static String VERTEX_FILE = "src/water/waterVertex.glsl";
 	private final static String FRAGMENT_FILE = "src/water/waterFragment.glsl";

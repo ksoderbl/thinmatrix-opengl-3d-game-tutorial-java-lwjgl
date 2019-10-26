@@ -62,20 +62,20 @@ public class SkyboxRenderer {
         "skyRight", "skyLeft", "skyTop", "skyBottom", "skyBack", "skyFront"
     };
 
-    private static String[] NIGHT_TEXTURE_FILES = {
-        "nightRight", "nightLeft", "nightTop", "nightBottom", "nightBack", "nightFront"
-    };
+//    private static String[] NIGHT_TEXTURE_FILES = {
+//        "nightRight", "nightLeft", "nightTop", "nightBottom", "nightBack", "nightFront"
+//    };
 
     private RawModel cube;
     private int texture;
-    private int nightTexture;
+    //private int nightTexture;
     private SkyboxShader shader;
     private float time = 0;
 
     public SkyboxRenderer(Loader loader, Matrix4f projectionMatrix) {
         cube = loader.loadToVAO(VERTICES, 3);
         texture = loader.loadCubeMap(TEXTURE_FILES);
-        nightTexture = loader.loadCubeMap(NIGHT_TEXTURE_FILES);
+        //nightTexture = loader.loadCubeMap(NIGHT_TEXTURE_FILES);
         shader = new SkyboxShader();
         shader.start();
         shader.connectTextureUnits();

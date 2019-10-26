@@ -356,7 +356,7 @@ public class MainGameLoop
             }
         */
 
-        int loops = 0;
+        //int loops = 0;
 
         while (!Display.isCloseRequested()) {
             player.move(terrain, water); // TODO: find which terrain the player is on
@@ -418,7 +418,7 @@ public class MainGameLoop
             
             DisplayManager.updateDisplay();
 
-            loops++;
+            //loops++;
         }
 
         //*********Clean Up Below**************

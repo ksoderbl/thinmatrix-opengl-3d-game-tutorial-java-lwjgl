@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -16,13 +15,10 @@ import entities.Light;
 import fontMeshCreator.FontType;
 import fontMeshCreator.GUIText;
 import fontRendering.TextMaster;
-import models.RawModel;
 import models.TexturedModel;
-import objConverter.OBJFileLoader;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer13;
-import textures.ModelTexture;
 
 // OpenGL 3D Game Tutorial 13: Optimizing
 // https://www.youtube.com/watch?v=X6KjDwA7mZg&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=13

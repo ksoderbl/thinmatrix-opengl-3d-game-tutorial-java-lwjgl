@@ -1,15 +1,13 @@
 package water;
 
-public class WaterTile {
+public class WaterTile01 {
 
-	// tile scale, the 1:1 scale of the tile is 2x2
-	public static final float TILE_SCALE = 60;
-	public static final float TILE_SIZE = TILE_SCALE * 2;
+	public static final float TILE_SIZE = 60;
 
 	private float height;
 	private float x,z;
 	
-	public WaterTile(float centerX, float centerZ, float height){
+	public WaterTile01(float centerX, float centerZ, float height){
 		this.x = centerX;
 		this.z = centerZ;
 		this.height = height;
