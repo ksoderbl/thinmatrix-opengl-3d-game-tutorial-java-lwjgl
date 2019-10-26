@@ -60,7 +60,7 @@ public class MainGameLoop19
         TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grassy"));
         TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
         TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("pinkFlowers"));
-        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
+        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("mossPath256"));
 
         TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture,
                 rTexture, gTexture, bTexture);
