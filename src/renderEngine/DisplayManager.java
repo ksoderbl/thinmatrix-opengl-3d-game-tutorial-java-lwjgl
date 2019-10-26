@@ -11,9 +11,9 @@ import org.lwjgl.opengl.PixelFormat;
 
 public class DisplayManager {
 
-    private static final int WIDTH = 1920;
-    private static final int HEIGHT = 1080;
-    private static final int FPS_CAP = 60;
+    private static final int CREATE_WIDTH = 1920;
+    private static final int CREATE_HEIGHT = 1080;
+    private static final int FPS_CAP = 120;
 
     private static long lastFrameTime;
     private static float delta;
@@ -47,9 +47,10 @@ public class DisplayManager {
 
 
 
-            DisplayMode mode = new DisplayMode(WIDTH, HEIGHT);
+            DisplayMode mode = new DisplayMode(CREATE_WIDTH, CREATE_HEIGHT);
             //DisplayMode mode = Display.getDesktopDisplayMode();
             Display.setDisplayMode(mode);
+            Display.setResizable(true);
             Display.create(new PixelFormat(), attribs);
             Display.setTitle(title);
             GL11.glEnable(GL13.GL_MULTISAMPLE);
@@ -57,12 +58,17 @@ public class DisplayManager {
             e.printStackTrace();
         }
 
-        GL11.glViewport(0,0, WIDTH, HEIGHT);
+        GL11.glViewport(0,0, CREATE_WIDTH, CREATE_HEIGHT);
         lastFrameTime = getCurrentTime();
     }
 
     public static void updateDisplay() {
         Display.sync(FPS_CAP);
+        
+        if (Display.wasResized()) {
+        	GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
+        }
+        
         Display.update();
         long currentFrameTime = getCurrentTime();
         delta = (currentFrameTime - lastFrameTime) / 1000f;
