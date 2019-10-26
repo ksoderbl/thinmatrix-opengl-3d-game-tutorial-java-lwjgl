@@ -12,6 +12,7 @@ import org.lwjgl.util.vector.Vector3f;
 import entities.Camera18;
 import entities.Entity;
 import entities.Light;
+import entities.Player18;
 import fontMeshCreator.FontType;
 import fontMeshCreator.GUIText;
 import fontRendering.TextMaster;
@@ -23,20 +24,20 @@ import terrains.Terrain17;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 
-// OpenGL 3D Game Tutorial 18: Player Movement
+// OpenGL 3D Game Tutorial 18: Player18 Movement
 // https://www.youtube.com/watch?v=d-kuzyCkjoQ&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=18
 
 public class MainGameLoop18
 {
 	public static String title = "OpenGL 3D Game Tutorial 18";
 	public static String subTitle = "Player Movement";
-	public static String subSubTitle = "Press, w, a, s or d to move";
+	public static String subSubTitle = "Press, w, a, s or d to move player, arrow keys to move camera";
 	
     public static void main(String[] args) {
     	DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         Camera18 camera = new Camera18();
-        camera.getPosition().translate(0, 4, 0);
+        camera.getPosition().translate(0, 20, 0);
 
         TextMaster.init(loader);
         FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
@@ -128,6 +129,10 @@ public class MainGameLoop18
         	}
         }
         
+        TexturedModel playerModel = loader.createTexturedModel("stanfordBunny", "white", 10, 1);
+        Player18 player = new Player18(playerModel, new Vector3f(0, 4, -50), 0, 0, 0, 0.5f);
+        entities.add(player);
+        
         Light light = new Light(
         		new Vector3f(20000, 40000, 20000),
         		new Vector3f(1f, 1f, 1f)); // white light
@@ -141,13 +146,8 @@ public class MainGameLoop18
         int i = 0;
         
         while (!Display.isCloseRequested()) {
-        	//int i = 0;
-        	//for (Entity entity : entities) {
-        	//	//entities[i].increasePosition(0, 0, 0.00001f*i);
-        	//	entity.increaseRotation(0f, 0.4f*i, 0f);
-        	//	i++;
-        	//}
         	camera.move();
+        	player.move();
         	
         	for (Entity entity : entities) {
         		renderer.processEntity(entity);
