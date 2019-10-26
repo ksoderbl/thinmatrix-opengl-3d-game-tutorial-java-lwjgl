@@ -28,6 +28,7 @@ import textures.TextureData;
 
 public class Loader {
 
+	// OpenGL 3D Game Tutorial 20: Mipmapping: level of detail bias
     private final static float LOD_BIAS = -0.4f;
 
     private List<Integer> vaos = new ArrayList<>();
@@ -95,9 +96,11 @@ public class Loader {
         fileName = "res/" + fileName + ".png";
         try {
             texture = TextureLoader.getTexture("PNG", new FileInputStream(fileName));
+            // OpenGL 3D Game Tutorial 20: Mipmapping
             GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
             GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, lodBias);
+            // OpenGL 3D Game Tutorial 20: Mipmapping
 		} catch (Exception e) {
 			e.printStackTrace();
             System.err.println("Loader: File not found: " + fileName);

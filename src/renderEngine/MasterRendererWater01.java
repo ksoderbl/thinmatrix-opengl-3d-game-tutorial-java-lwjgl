@@ -29,11 +29,11 @@ public class MasterRendererWater01 {
     
     // OpenGL 3D Game Tutorial 16: Fog
     // haze
-    //public static final float SKY_DENSITY = 0.0035f;
-    //public static final float SKY_GRADIENT = 5f;
+    public static final float SKY_DENSITY = 0.0035f;
+    public static final float SKY_GRADIENT = 5f;
     // fog
-    public static final float SKY_DENSITY = 0.007f;
-    public static final float SKY_GRADIENT = 1.5f;
+    //public static final float SKY_DENSITY = 0.007f;
+    //public static final float SKY_GRADIENT = 1.5f;
 	
 	private Matrix4f projectionMatrix;
 
