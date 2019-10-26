@@ -2,7 +2,7 @@ package shaders;
 
 import org.lwjgl.util.vector.Matrix4f;
 
-import entities.Camera13;
+import entities.Camera;
 import entities.Light;
 import toolbox.Maths;
 
@@ -55,7 +55,7 @@ public class TerrainShader14 extends ShaderProgram {
 		super.loadVector(location_lightColor, light.getColor());
 	}
 	
-    public void loadViewMatrix(Camera13 camera) {
+    public void loadViewMatrix(Camera camera) {
         Matrix4f viewMatrix = Maths.createViewMatrix(camera.getPosition(), camera.getPitch(), camera.getYaw(), camera.getRoll());
         super.loadMatrix(location_viewMatrix, viewMatrix);
     }

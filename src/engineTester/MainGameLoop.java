@@ -10,7 +10,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
-import entities.Camera;
+import entities.Camera35;
 import entities.Entity;
 import entities.Light;
 import entities.Player;
@@ -284,7 +284,7 @@ public class MainGameLoop
         Player player = new Player(playerModel, new Vector3f(75, 5, -75), 0, 100, 0, 0.6f);
         entities.add(player);
 
-        Camera camera = new Camera(player);
+        Camera35 camera = new Camera35(player);
 
         List<GuiTexture> guiTextures = new ArrayList<>();
         /*

@@ -9,7 +9,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 
-import entities.Camera13;
+import entities.Camera;
 import entities.Entity;
 import entities.Light;
 import models.TexturedModel;
@@ -50,7 +50,7 @@ public class MasterRenderer15 {
         GL11.glDisable(GL11.GL_CULL_FACE);
     }
 
-    public void render(Light sun, Camera13 camera) {
+    public void render(Light sun, Camera camera) {
         prepare();
         
         shader.start();

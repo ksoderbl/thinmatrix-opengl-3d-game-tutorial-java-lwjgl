@@ -3,7 +3,7 @@ package entities;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-public class Camera08 {
+public class Camera08 implements Camera {
 
     private Vector3f position = new Vector3f(0, 0, 0);
     // high or low

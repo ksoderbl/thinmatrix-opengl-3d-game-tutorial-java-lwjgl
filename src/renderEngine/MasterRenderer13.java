@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import entities.Camera13;
+import entities.Camera;
 import entities.Entity;
 import entities.Light;
 import models.TexturedModel;
@@ -18,7 +18,7 @@ public class MasterRenderer13 {
 
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
 
-    public void render(Light sun, Camera13 camera) {
+    public void render(Light sun, Camera camera) {
         renderer.prepare();
         shader.start();
     	shader.loadLight(sun);

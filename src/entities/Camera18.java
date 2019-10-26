@@ -3,7 +3,7 @@ package entities;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 
-public class Camera13 implements Camera {
+public class Camera18 implements Camera {
 
     private Vector3f position = new Vector3f(0, 0, 0);
     // high or low
@@ -12,11 +12,13 @@ public class Camera13 implements Camera {
     private float yaw;
     private float roll;
 
-    public Camera13() {
+    public Camera18() {
 
     }
 
     public void move() {
+    	// TODO: support multiple cameras
+    	/*
     	if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
     		position.z -= 1f;
     	}
@@ -29,6 +31,7 @@ public class Camera13 implements Camera {
     	if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
     		position.x -= 1f;
     	}
+    	*/
     }
 
     public Vector3f getPosition() {
