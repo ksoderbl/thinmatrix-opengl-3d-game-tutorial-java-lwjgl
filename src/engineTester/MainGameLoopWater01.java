@@ -180,6 +180,7 @@ public class MainGameLoopWater01
             i++;
         }
 
+        waterShader.cleanUp();
         TextMaster.cleanUp();
         renderer.cleanUp();
         loader.cleanUp();
