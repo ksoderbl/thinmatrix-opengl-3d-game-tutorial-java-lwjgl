@@ -30,6 +30,7 @@ import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
 import terrains.Terrain;
+import terrains.Terrain35;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
@@ -129,7 +130,7 @@ public class MainGameLoop
         		new ModelTexture(loader.loadTexture("pine")));
         pine.getTexture().setHasTransparency(true);
 
-		Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "heightMapLake");
+		Terrain terrain = new Terrain35(0, -1, loader, texturePack, blendMap, "heightMapLake");
         		List<Terrain> terrains = new ArrayList<>();
         terrains.add(terrain);
         //terrains.add(terrain2);

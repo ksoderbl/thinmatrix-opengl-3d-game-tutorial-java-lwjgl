@@ -15,7 +15,7 @@ import entities.Light;
 import models.TexturedModel;
 import shaders.StaticShader13;
 import shaders.TerrainShader14;
-import terrains.Terrain14;
+import terrains.Terrain;
 
 public class MasterRenderer14 {
 	
@@ -32,7 +32,7 @@ public class MasterRenderer14 {
     private TerrainShader14 terrainShader = new TerrainShader14();
 
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
-    private List<Terrain14> terrains = new ArrayList<>();
+    private List<Terrain> terrains = new ArrayList<>();
     
     public MasterRenderer14() {
 		GL11.glEnable(GL11.GL_CULL_FACE);
@@ -60,7 +60,7 @@ public class MasterRenderer14 {
         terrains.clear();
     }
     
-    public void processTerrain(Terrain14 terrain) {
+    public void processTerrain(Terrain terrain) {
     	terrains.add(terrain);
     }
 

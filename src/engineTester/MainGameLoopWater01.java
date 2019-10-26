@@ -20,6 +20,7 @@ import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRendererWater01;
+import terrains.Terrain;
 import terrains.Terrain17;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
@@ -144,10 +145,10 @@ public class MainGameLoopWater01
         lights.add(light);
         
         //ModelTexture terrainModelTexture = new ModelTexture(loader.loadTexture("grass"));
-        Terrain17 terrain = new Terrain17(0, -1, loader, texturePack, blendMap);
-        Terrain17 terrain2 = new Terrain17(-1, -1, loader, texturePack, blendMap);
+        Terrain terrain = new Terrain17(0, -1, loader, texturePack, blendMap);
+        Terrain terrain2 = new Terrain17(-1, -1, loader, texturePack, blendMap);
         
-        List<Terrain17> terrains = new ArrayList<Terrain17>();
+        List<Terrain> terrains = new ArrayList<Terrain>();
         terrains.add(terrain);
         terrains.add(terrain2);
 

@@ -11,7 +11,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import models.RawModel;
 import shaders.TerrainShader17;
-import terrains.Terrain17;
+import terrains.Terrain;
 import textures.TerrainTexturePack;
 import toolbox.Maths;
 
@@ -27,8 +27,8 @@ public class TerrainRenderer17 {
         shader.stop();
     }
 
-    public void render(List<Terrain17> terrains) {
-        for (Terrain17 terrain:terrains) {
+    public void render(List<Terrain> terrains) {
+        for (Terrain terrain:terrains) {
         	prepareTerrain(terrain);
         	loadModelMatrix(terrain);
         	int vertexCount = terrain.getModel().getVertexCount();
@@ -38,7 +38,7 @@ public class TerrainRenderer17 {
         }
     }
 
-    public void prepareTerrain(Terrain17 terrain) {
+    public void prepareTerrain(Terrain terrain) {
     	RawModel rawModel = terrain.getModel();
     	GL30.glBindVertexArray(rawModel.getVaoID());
     	GL20.glEnableVertexAttribArray(0); // position
@@ -49,7 +49,7 @@ public class TerrainRenderer17 {
     }
     
     // OpenGL 3D Game Tutorial 17: Multitexturing
-    private void bindTextures(Terrain17 terrain) {
+    private void bindTextures(Terrain terrain) {
         TerrainTexturePack texturePack = terrain.getTexturePack();
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, texturePack.getBackgroundTexture().getTextureID());
@@ -71,7 +71,7 @@ public class TerrainRenderer17 {
     	GL30.glBindVertexArray(0);
     }
     
-    private void loadModelMatrix(Terrain17 terrain) {
+    private void loadModelMatrix(Terrain terrain) {
     	Vector3f translation = terrain.getPosition();
     	float rx = 0; //terrain.getRotX();
     	float ry = 0; //terrain.getRotY();

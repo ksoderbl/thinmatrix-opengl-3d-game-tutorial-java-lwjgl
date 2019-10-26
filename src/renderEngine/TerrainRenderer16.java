@@ -11,7 +11,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import models.RawModel;
 import shaders.TerrainShader16;
-import terrains.Terrain14;
+import terrains.Terrain;
 import textures.ModelTexture;
 import toolbox.Maths;
 
@@ -26,8 +26,8 @@ public class TerrainRenderer16 {
         shader.stop();
     }
 
-    public void render(List<Terrain14> terrains) {
-        for (Terrain14 terrain:terrains) {
+    public void render(List<Terrain> terrains) {
+        for (Terrain terrain:terrains) {
         	prepareTerrain(terrain);
         	loadModelMatrix(terrain);
         	int vertexCount = terrain.getModel().getVertexCount();
@@ -37,7 +37,7 @@ public class TerrainRenderer16 {
         }
     }
 
-    public void prepareTerrain(Terrain14 terrain) {
+    public void prepareTerrain(Terrain terrain) {
     	RawModel rawModel = terrain.getModel();
     	GL30.glBindVertexArray(rawModel.getVaoID());
     	GL20.glEnableVertexAttribArray(0); // position
@@ -57,7 +57,7 @@ public class TerrainRenderer16 {
     	GL30.glBindVertexArray(0);
     }
     
-    private void loadModelMatrix(Terrain14 terrain) {
+    private void loadModelMatrix(Terrain terrain) {
     	Vector3f translation = terrain.getPosition();
     	float rx = 0; //terrain.getRotX();
     	float ry = 0; //terrain.getRotY();

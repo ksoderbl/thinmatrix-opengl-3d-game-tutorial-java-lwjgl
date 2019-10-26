@@ -4,10 +4,11 @@ import org.lwjgl.util.vector.Vector3f;
 
 import models.RawModel;
 import renderEngine.Loader;
+import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 
-public class Terrain17 {
+public class Terrain17 implements Terrain {
 
     public static final float SIZE = 800;
     public static final int VERTEX_COUNT = 128;
@@ -42,12 +43,21 @@ public class Terrain17 {
         return model;
     }
     
+    // uses texture pack, so can return null
+    public ModelTexture getTexture() {
+    	return null;
+    }
+    
 	public TerrainTexturePack getTexturePack() {
 		return texturePack;
 	}
 
 	public TerrainTexture getBlendMap() {
 		return blendMap;
+	}
+	
+	public float getHeightOfTerrain(float worldX, float worldZ) {
+		return 0;
 	}
 
     private RawModel generateTerrain(Loader loader) {

@@ -15,7 +15,7 @@ import entities.Light;
 import models.TexturedModel;
 import shaders.StaticShader16;
 import shaders.TerrainShader17;
-import terrains.Terrain17;
+import terrains.Terrain;
 
 public class MasterRendererWater01 {
 	
@@ -44,7 +44,7 @@ public class MasterRendererWater01 {
     private TerrainShader17 terrainShader = new TerrainShader17();
 
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
-    private List<Terrain17> terrains = new ArrayList<>();
+    private List<Terrain> terrains = new ArrayList<>();
     
     public MasterRendererWater01() {
     	enableCulling();
@@ -62,11 +62,11 @@ public class MasterRendererWater01 {
         GL11.glDisable(GL11.GL_CULL_FACE);
     }
     
-    public void renderScene(List<Entity> entities, List<Terrain17> terrains, List<Light> lights, Camera camera) {
+    public void renderScene(List<Entity> entities, List<Terrain> terrains, List<Light> lights, Camera camera) {
     	for (Entity entity : entities) {
     		processEntity(entity);
     	}
-    	for (Terrain17 terrain : terrains) {
+    	for (Terrain terrain : terrains) {
     		processTerrain(terrain);
     	}
     	Light light = lights.get(0);
@@ -95,7 +95,7 @@ public class MasterRendererWater01 {
         terrains.clear();
     }
     
-    public void processTerrain(Terrain17 terrain) {
+    public void processTerrain(Terrain terrain) {
     	terrains.add(terrain);
     }
 
