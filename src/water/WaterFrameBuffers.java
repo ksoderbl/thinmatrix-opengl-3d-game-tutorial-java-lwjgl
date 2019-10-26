@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL32;
 
 public class WaterFrameBuffers {
 
-    static final int divisor1 = 4;
+    static final int divisor1 = 2;
     static final int divisor2 = 1;
 
     protected static final int REFLECTION_WIDTH = 1280 / divisor1;
