@@ -8,6 +8,7 @@ import java.util.Map;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
 import entities.Camera;
@@ -16,6 +17,7 @@ import entities.Light;
 import models.TexturedModel;
 import shaders.StaticShaderWater03;
 import shaders.TerrainShaderWater03;
+import skybox.Sky;
 import terrains.Terrain;
 
 public class MasterRendererWater03 {
@@ -64,7 +66,7 @@ public class MasterRendererWater03 {
     }
     
     public void renderScene(List<Entity> entities, List<Terrain> terrains,
-    		List<Light> lights, Camera camera, Vector4f clipPlane) {
+    		List<Light> lights, Sky sky, Camera camera, Vector4f clipPlane) {
     	for (Entity entity : entities) {
     		processEntity(entity);
     	}
@@ -72,16 +74,16 @@ public class MasterRendererWater03 {
     		processTerrain(terrain);
     	}
     	Light light = lights.get(0);
-        render(light, camera, clipPlane);
+        render(light, sky, camera, clipPlane);
     }
 
-    public void render(Light sun, Camera camera, Vector4f clipPlane) {
-        prepare();
+    public void render(Light sun, Sky sky, Camera camera, Vector4f clipPlane) {
+        prepare(sky);
         
         shader.start();
         shader.loadClipPlane(clipPlane);
-        shader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
-        shader.loadSkyVariables(SKY_DENSITY, SKY_GRADIENT);
+        shader.loadSkyColor(sky.getColor());
+        shader.loadSkyVariables(sky.getDensity(), sky.getGradient());
     	shader.loadLight(sun);
     	shader.loadViewMatrix(camera);
     	renderer.render(entities);
@@ -90,8 +92,8 @@ public class MasterRendererWater03 {
         
     	terrainShader.start();
     	terrainShader.loadClipPlane(clipPlane);
-    	terrainShader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
-    	terrainShader.loadSkyVariables(SKY_DENSITY, SKY_GRADIENT);
+    	terrainShader.loadSkyColor(sky.getColor());
+    	terrainShader.loadSkyVariables(sky.getDensity(), sky.getGradient());
         terrainShader.loadLight(sun);
     	terrainShader.loadViewMatrix(camera);
     	terrainRenderer.render(terrains);
@@ -120,9 +122,10 @@ public class MasterRendererWater03 {
         terrainShader.cleanUp();
     }
     
-    public void prepare() {
+    public void prepare(Sky sky) {
     	GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glClearColor(SKY_RED, SKY_GREEN, SKY_BLUE, 1);
+    	Vector3f skyColor = sky.getColor();
+        GL11.glClearColor(skyColor.x, skyColor.y, skyColor.z, 1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
     }
     

@@ -3,7 +3,7 @@ package entities;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
 
-public class Camera19 implements Camera {
+public class Camera22 implements Camera {
 
     private final float MIN_DISTANCE_FROM_PLAYER = 1;
     //private final float MAX_DISTANCE_FROM_PLAYER = 1000;
@@ -24,9 +24,9 @@ public class Camera19 implements Camera {
     private float roll;  // tilt: 180 deg = upside down
     private int moves = 0;
 
-    private Player19 player;
+    private Player22 player;
 
-    public Camera19(Player19 player) {
+    public Camera22(Player22 player) {
         this.player = player;
     }
 

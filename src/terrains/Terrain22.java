@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import models.RawModel;
@@ -13,8 +14,9 @@ import renderEngine.Loader;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
+import toolbox.Maths;
 
-public class Terrain21 implements Terrain {
+public class Terrain22 implements Terrain {
 
     public static final float SIZE = 800;
     public static final float MAX_HEIGHT = 40;
@@ -29,7 +31,7 @@ public class Terrain21 implements Terrain {
 
     private float[][] heights;
 
-    public Terrain21(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack,
+    public Terrain22(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack,
                    TerrainTexture blendMap, String heightMap) {
         this.texturePack = texturePack;
         this.blendMap = blendMap;
@@ -68,7 +70,32 @@ public class Terrain21 implements Terrain {
     }
 
     public float getHeightOfTerrain(float worldX, float worldZ) {
-    	return 0;
+        float terrainX = worldX - this.x;
+        float terrainZ = worldZ - this.z;
+        float gridSquareSize = SIZE / ((float)heights.length - 1);
+        int gridX = (int) Math.floor(terrainX / gridSquareSize);
+        int gridZ = (int) Math.floor(terrainZ / gridSquareSize);
+        if (gridX >= heights.length - 1 || gridZ >= heights.length - 1 || gridX < 0 || gridZ < 0) {
+            return 0;
+        }
+        float xCoord = (terrainX % gridSquareSize) / gridSquareSize;
+        float zCoord = (terrainZ % gridSquareSize) / gridSquareSize;
+        float answer;
+
+        if (xCoord <= (1 - zCoord)) {
+            answer = Maths.baryCentric(
+                new Vector3f(0, heights[gridX][gridZ], 0),
+                new Vector3f(1, heights[gridX + 1][gridZ], 0),
+                new Vector3f(0, heights[gridX][gridZ + 1], 1),
+                new Vector2f(xCoord, zCoord));
+        } else {
+            answer = Maths.baryCentric(
+                new Vector3f(1, heights[gridX + 1][gridZ], 0),
+                new Vector3f(1, heights[gridX + 1][gridZ + 1], 1),
+                new Vector3f(0, heights[gridX][gridZ + 1], 1),
+                new Vector2f(xCoord, zCoord));
+        }
+        return answer;
     }
 
     private RawModel generateTerrain(Loader loader, String heightMap) {

@@ -32,7 +32,7 @@ public class TerrainRendererWater03 {
         	prepareTerrain(terrain);
         	loadModelMatrix(terrain);
         	int vertexCount = terrain.getModel().getVertexCount();
-			//GL11.glDrawElements(GL11.GL_LINE_LOOP, vertexCount, GL11.GL_UNSIGNED_INT, 0);
+			//GL11.glDrawElements(GL11.GL_LINES, vertexCount, GL11.GL_UNSIGNED_INT, 0);
         	GL11.glDrawElements(GL11.GL_TRIANGLES, vertexCount, GL11.GL_UNSIGNED_INT, 0);
         	unbindTerrain();
         }
