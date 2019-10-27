@@ -81,7 +81,7 @@ public class StaticShader extends ShaderProgram {
     }
 
     public void loadClipPlane(Vector4f clipPlane) {
-        loadVector(location_clipPlane, clipPlane);
+        super.loadVector(location_clipPlane, clipPlane);
     }
 
     public void loadFogVariables(float density, float gradient) {

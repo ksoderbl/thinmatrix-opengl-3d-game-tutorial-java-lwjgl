@@ -30,6 +30,10 @@ public class Camera13 implements Camera {
     		position.x -= 1f;
     	}
     }
+    
+    public void invertPitch() {
+        this.pitch = -pitch;
+    }
 
     public Vector3f getPosition() {
         return position;
