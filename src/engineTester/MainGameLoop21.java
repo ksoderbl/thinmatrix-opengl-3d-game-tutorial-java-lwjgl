@@ -199,7 +199,7 @@ public class MainGameLoop21
         //Terrain terrain2 = new Terrain17(-1, -1, loader, texturePack, blendMap);
         
         List<Terrain> terrains = new ArrayList<Terrain>();
-		Terrain terrain = new Terrain21(0, -1, loader, texturePack, blendMap, "heightMap");
+		Terrain terrain = new Terrain21(0, -1, loader, texturePack, blendMap, "heightmap");
 		terrains.add(terrain);
 
         MasterRenderer21 renderer = new MasterRenderer21();
