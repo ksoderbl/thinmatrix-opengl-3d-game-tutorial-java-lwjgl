@@ -27,9 +27,11 @@ import guis.GuiTexture;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
-import renderEngine.MasterRendererWater03;
+import renderEngine.MasterRenderer21;
+import skybox.ClearSky;
+import skybox.Sky;
 import terrains.Terrain;
-import terrains.Terrain17;
+import terrains.Terrain21;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 import water.WaterFrameBuffers;
@@ -193,14 +195,14 @@ public class MainGameLoop21
         lights.add(light);
         
         //ModelTexture terrainModelTexture = new ModelTexture(loader.loadTexture("grass"));
-        Terrain terrain = new Terrain17(0, -1, loader, texturePack, blendMap);
-        Terrain terrain2 = new Terrain17(-1, -1, loader, texturePack, blendMap);
+        //Terrain terrain = new Terrain17(0, -1, loader, texturePack, blendMap);
+        //Terrain terrain2 = new Terrain17(-1, -1, loader, texturePack, blendMap);
         
         List<Terrain> terrains = new ArrayList<Terrain>();
-        terrains.add(terrain);
-        terrains.add(terrain2);
+		Terrain terrain = new Terrain21(0, -1, loader, texturePack, blendMap, "heightMap");
+		terrains.add(terrain);
 
-        MasterRendererWater03 renderer = new MasterRendererWater03();
+        MasterRenderer21 renderer = new MasterRenderer21();
         
         int i = 0;
         int cameraFrames = 0;
@@ -222,6 +224,8 @@ public class MainGameLoop21
         guiTextures.add(refrGui);
         guiTextures.add(reflGui);
         GuiRenderer guiRenderer = new GuiRenderer(loader);
+        
+        Sky sky = new ClearSky();
 
         //****************Game Loop Below*********************
         
@@ -252,19 +256,19 @@ public class MainGameLoop21
             // change position and pitch of camera to render the reflection 
             camera.getPosition().y -= distance;
             camera.invertPitch();
-        	renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, 1, 0, -water.getHeight()));
+        	renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, 1, 0, -water.getHeight()));
             camera.getPosition().y += distance;
             camera.invertPitch();
 
         	// render to refraction texture: set the clip plane to clip stuff below water
         	buffers.bindRefractionFrameBuffer();
-        	renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, water.getHeight()));
+        	renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, water.getHeight()));
         	
         	// render to screen: set the clip plane at a great height, so it won't clip anything
         	buffers.unbindCurrentFrameBuffer();
-        	renderer.renderScene(entities, terrains, lights, camera, new Vector4f(0, -1, 0, 1000000));
+        	renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, 1000000));
 
-        	waterRenderer.render(waters, camera);
+        	waterRenderer.render(waters, sky, camera);
         	guiRenderer.render(guiTextures);
 
         	TextMaster.render();

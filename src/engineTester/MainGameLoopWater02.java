@@ -25,6 +25,8 @@ import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRendererWater01;
+import skybox.FoggySky;
+import skybox.Sky;
 import terrains.Terrain;
 import terrains.Terrain17;
 import textures.TerrainTexture;
@@ -185,6 +187,8 @@ public class MainGameLoopWater02
         //guiTextures.add(refrGui);
         guiTextures.add(reflGui);
         GuiRenderer guiRenderer = new GuiRenderer(loader);
+        
+        Sky sky = new FoggySky();
 
         //****************Game Loop Below*********************
         
@@ -208,11 +212,11 @@ public class MainGameLoopWater02
         	//camera2.getPosition().translate(0, 0, -0.02f);
         	
         	fbos.bindReflectionFrameBuffer();
-        	renderer.renderScene(entities, terrains, lights, camera);
+        	renderer.renderScene(entities, terrains, lights, sky, camera);
         	fbos.unbindCurrentFrameBuffer();
         	
-        	renderer.renderScene(entities, terrains, lights, camera);
-        	waterRenderer.render(waters, camera);
+        	renderer.renderScene(entities, terrains, lights, sky, camera);
+        	waterRenderer.render(waters, sky, camera);
         	guiRenderer.render(guiTextures);
 
         	TextMaster.render();

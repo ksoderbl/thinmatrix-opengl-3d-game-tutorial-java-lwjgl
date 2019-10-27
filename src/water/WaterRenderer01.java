@@ -11,7 +11,7 @@ import org.lwjgl.util.vector.Vector3f;
 import entities.Camera;
 import models.RawModel;
 import renderEngine.Loader;
-import renderEngine.MasterRendererWater01;
+import skybox.Sky;
 import toolbox.Maths;
 
 public class WaterRenderer01 {
@@ -27,8 +27,8 @@ public class WaterRenderer01 {
 		setUpVAO(loader);
 	}
 
-	public void render(List<WaterTile01> water, Camera camera) {
-		prepareRender(camera);
+	public void render(List<WaterTile01> water, Sky sky, Camera camera) {
+		prepareRender(sky, camera);
 		for (WaterTile01 tile : water) {
 			Matrix4f modelMatrix = Maths.createTransformationMatrix(
 					new Vector3f(tile.getX(), tile.getHeight(), tile.getZ()),
@@ -39,11 +39,11 @@ public class WaterRenderer01 {
 		unbind();
 	}
 	
-	private void prepareRender(Camera camera) {
+	private void prepareRender(Sky sky, Camera camera) {
 		shader.start();
 		shader.loadViewMatrix(camera);
-        shader.loadSkyColor(MasterRendererWater01.SKY_RED, MasterRendererWater01.SKY_GREEN, MasterRendererWater01.SKY_BLUE);
-        shader.loadSkyVariables(MasterRendererWater01.SKY_DENSITY, MasterRendererWater01.SKY_GRADIENT);
+        shader.loadSkyColor(sky.getColor());
+        shader.loadSkyVariables(sky.getDensity(), sky.getGradient());
 		GL30.glBindVertexArray(quad.getVaoID());
 		GL20.glEnableVertexAttribArray(0);
     }

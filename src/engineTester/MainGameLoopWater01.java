@@ -20,6 +20,8 @@ import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRendererWater01;
+import skybox.FoggySky;
+import skybox.Sky;
 import terrains.Terrain;
 import terrains.Terrain17;
 import textures.TerrainTexture;
@@ -163,12 +165,16 @@ public class MainGameLoopWater01
         List<WaterTile01> waters = new ArrayList<WaterTile01>();
         waters.add(new WaterTile01(0, -150, 1));
         
+        Sky sky = new FoggySky();
+
+        //****************Game Loop Below*********************
+        
         while (!Display.isCloseRequested()) {
         	player.move();
         	camera.move();
         	
-        	renderer.renderScene(entities, terrains, lights, camera);
-        	waterRenderer.render(waters, camera);
+        	renderer.renderScene(entities, terrains, lights, sky, camera);
+        	waterRenderer.render(waters, sky, camera);
 
         	TextMaster.render();
             

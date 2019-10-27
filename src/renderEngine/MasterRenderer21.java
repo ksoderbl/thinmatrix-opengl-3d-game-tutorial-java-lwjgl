@@ -9,38 +9,41 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
 
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
 import models.TexturedModel;
-import shaders.StaticShader16;
-import shaders.TerrainShader17;
+import shaders.StaticShaderWater03;
+import shaders.TerrainShaderWater03;
 import skybox.Sky;
 import terrains.Terrain;
 
-public class MasterRendererWater01 {
+public class MasterRenderer21 {
 	
 	private static final float FOV = 70;
 	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 1000;
+	private static final float FAR_PLANE = 10000;
+	
+	// Sky variables moved to skybox
 	
 	private Matrix4f projectionMatrix;
 
-    private StaticShader16 shader = new StaticShader16();
-    private EntityRenderer16 renderer;
+    private StaticShaderWater03 shader = new StaticShaderWater03();
+    private EntityRendererWater03 renderer;
     
-    private TerrainRenderer17 terrainRenderer;
-    private TerrainShader17 terrainShader = new TerrainShader17();
+    private TerrainRendererWater03 terrainRenderer;
+    private TerrainShaderWater03 terrainShader = new TerrainShaderWater03();
 
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
     private List<Terrain> terrains = new ArrayList<>();
     
-    public MasterRendererWater01() {
+    public MasterRenderer21() {
     	enableCulling();
     	createProjectionMatrix();
-    	renderer = new EntityRenderer16(shader, projectionMatrix);
-    	terrainRenderer = new TerrainRenderer17(terrainShader, projectionMatrix);
+    	renderer = new EntityRendererWater03(shader, projectionMatrix);
+    	terrainRenderer = new TerrainRendererWater03(terrainShader, projectionMatrix);
     }
     
     public static void enableCulling() {
@@ -52,7 +55,8 @@ public class MasterRendererWater01 {
         GL11.glDisable(GL11.GL_CULL_FACE);
     }
     
-    public void renderScene(List<Entity> entities, List<Terrain> terrains, List<Light> lights, Sky sky, Camera camera) {
+    public void renderScene(List<Entity> entities, List<Terrain> terrains,
+    		List<Light> lights, Sky sky, Camera camera, Vector4f clipPlane) {
     	for (Entity entity : entities) {
     		processEntity(entity);
     	}
@@ -60,13 +64,14 @@ public class MasterRendererWater01 {
     		processTerrain(terrain);
     	}
     	Light light = lights.get(0);
-        render(light, sky, camera);
+        render(light, sky, camera, clipPlane);
     }
 
-    public void render(Light sun, Sky sky, Camera camera) {
+    public void render(Light sun, Sky sky, Camera camera, Vector4f clipPlane) {
         prepare(sky);
         
         shader.start();
+        shader.loadClipPlane(clipPlane);
         shader.loadSkyColor(sky.getColor());
         shader.loadSkyVariables(sky.getDensity(), sky.getGradient());
     	shader.loadLight(sun);
@@ -76,6 +81,7 @@ public class MasterRendererWater01 {
     	entities.clear();
         
     	terrainShader.start();
+    	terrainShader.loadClipPlane(clipPlane);
     	terrainShader.loadSkyColor(sky.getColor());
     	terrainShader.loadSkyVariables(sky.getDensity(), sky.getGradient());
         terrainShader.loadLight(sun);

@@ -72,6 +72,10 @@ public class TerrainShader17 extends ShaderProgram {
         super.loadFloat(location_skyDensity, density);
         super.loadFloat(location_skyGradient, gradient);
     }
+    
+    public void loadSkyColor(Vector3f skyColor) {
+        super.loadVector(location_skyColor, skyColor);
+    }
 	
     public void loadSkyColor(float r, float g, float b) {
         super.loadVector(location_skyColor, new Vector3f(r, g, b));
