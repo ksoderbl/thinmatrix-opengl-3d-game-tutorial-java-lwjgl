@@ -22,6 +22,7 @@ public class OBJFileLoader {
 		FileReader isr = null;
 		String fileName = RES_LOC + objFileName + ".obj";
 		File objFile = new File(fileName);
+		System.out.println("OBJFileLoader: loading file: " + fileName);
 		try {
 			isr = new FileReader(objFile);
 		} catch (FileNotFoundException e) {
@@ -83,7 +84,6 @@ public class OBJFileLoader {
 			System.err.println("OBJFileLoader: Error reading the file: " + fileName);
 		}
 		
-		System.out.println("OBJFileLoader: loaded file: " + fileName);
 		System.out.println("OBJFileLoader: vertices: " + vCount);
 		System.out.println("OBJFileLoader: textureCoords: " + vtCount);
 		System.out.println("OBJFileLoader: normals: " + vnCount);
@@ -126,6 +126,11 @@ public class OBJFileLoader {
 
 	private static Vertex processVertex(String[] vertex, List<Vertex> vertices,
 			List<Integer> indices) {
+		
+		//System.out.println("vertex[0] = " + vertex[0]);
+		//System.out.println("vertex[1] = " + vertex[1]);
+		//System.out.println("vertex[2] = " + vertex[2]);
+		
 		int index = Integer.parseInt(vertex[0]) - 1;
 		Vertex currentVertex = vertices.get(index);
 		int textureIndex = Integer.parseInt(vertex[1]) - 1;

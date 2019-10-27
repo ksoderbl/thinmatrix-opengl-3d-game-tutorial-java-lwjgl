@@ -5,7 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 public class Camera19 implements Camera {
 
-    private final float MIN_DISTANCE_FROM_PLAYER = 5;
+    private final float MIN_DISTANCE_FROM_PLAYER = 1;
     //private final float MAX_DISTANCE_FROM_PLAYER = 1000;
     private final float MIN_PITCH = -90;
     private final float MAX_PITCH = 90;

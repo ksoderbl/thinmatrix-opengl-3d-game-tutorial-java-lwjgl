@@ -53,10 +53,10 @@ public class MainGameLoopWater03
         TextMaster.init(loader);
         FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
-        text.setColor(0.0f, 0.0f, 0.8f);
+        text.setColor(0.2f, 0.2f, 0.8f);
         FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
-        text2.setColor(0.2f, 0.4f, 0.8f);
+        text2.setColor(0.8f, 0.2f, 0.2f);
         FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
         text3.setColor(0.4f, 0.8f, 0.8f);
