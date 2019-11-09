@@ -32,7 +32,7 @@ import skybox.ClearSky;
 import skybox.Sky;
 import terrains.Terrain;
 import terrains.World;
-import terrains.World22;
+import terrains.World23;
 import water.WaterFrameBuffers;
 import water.WaterRenderer01;
 import water.WaterShader01;
@@ -68,7 +68,7 @@ public class MainGameLoop23
 	        text3.setColor(0.2f, 0.8f, 0.2f);
         }
         
-        World world = new World22(loader);
+        World world = new World23(loader);
         List<Terrain> terrains = world.getTerrains();
 
         // *****************************************

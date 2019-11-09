@@ -16,10 +16,10 @@ import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 import toolbox.Maths;
 
-public class Terrain22 implements Terrain {
+public class Terrain23 implements Terrain {
 
-    public static final float SIZE = 800;
-    public static final float MAX_HEIGHT = 40;
+    public static final float SIZE = 20000; // Thinmatrix has 800
+    public static final float MAX_HEIGHT = 9000; // 40
     private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
     private static final float HEIGHT_OFFSET = 0;
 
@@ -31,7 +31,7 @@ public class Terrain22 implements Terrain {
 
     private float[][] heights;
 
-    public Terrain22(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack,
+    public Terrain23(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack,
                    TerrainTexture blendMap, String heightMap) {
         this.texturePack = texturePack;
         this.blendMap = blendMap;
