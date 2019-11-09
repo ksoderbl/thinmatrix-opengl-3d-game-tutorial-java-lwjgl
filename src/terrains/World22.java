@@ -26,15 +26,15 @@ public class World22 implements World {
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
         
         terrains = new ArrayList<Terrain>();
-		Terrain terrain1 = new Terrain22(0, 0, loader, texturePack, blendMap, "heightmap");
-		Terrain terrain2 = new Terrain22(-1, 0, loader, texturePack, blendMap, "heightmap");
-		Terrain terrain3 = new Terrain22(-1, -1, loader, texturePack, blendMap, "heightmap");
-		Terrain terrain4 = new Terrain22(0, -1, loader, texturePack, blendMap, "heightmap");
-		terrains.add(terrain1);
-		terrains.add(terrain2);
-		terrains.add(terrain3);
-		terrains.add(terrain4);
-
+        
+        for (int x = -4; x < 4; x++) {
+            for (int z = -4; z < 4; z++) {
+        		Terrain terrain = new Terrain22(x, z, loader, texturePack, blendMap, "heightmap");
+        		terrains.add(terrain);
+            }
+        }
+        
+        System.out.println("World: generated " + terrains.size() + " terrains.");
 	}
 	
 	public float getHeightOfTerrain(float worldX, float worldZ) {

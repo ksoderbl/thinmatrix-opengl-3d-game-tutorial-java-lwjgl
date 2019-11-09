@@ -7,8 +7,8 @@ public class ClearSky implements Sky {
     public static final float CLEAR_GREEN = 0.6f;
     public static final float CLEAR_BLUE  = 1.0f;
     
-    public static final float CLEAR_DENSITY = 0.0005f;
-    public static final float CLEAR_GRADIENT = 1f;
+    public static final float CLEAR_DENSITY = 0.00015f;
+    public static final float CLEAR_GRADIENT = 5f;
 
 	public float getRed() {
 		return CLEAR_RED;

@@ -18,8 +18,8 @@ import toolbox.Maths;
 
 public class Terrain22 implements Terrain {
 
-    public static final float SIZE = 800;
-    public static final float MAX_HEIGHT = 80;
+    public static final float SIZE = 20000; // Thinmatrix has 800
+    public static final float MAX_HEIGHT = 9000; // 40
     private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
     private static final float HEIGHT_OFFSET = 0;
 

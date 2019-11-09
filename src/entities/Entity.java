@@ -24,6 +24,8 @@ public class Entity {
         this.scale = scale;
     }
 
+    // OpenGL 3D Game Tutorial 23: Texture Atlases
+    // This constructor allows selecting the textureIndex to use, e.g. 0-3 for a 2x2 texture atlas.
     public Entity(TexturedModel model, int textureIndex, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
         this.textureIndex = textureIndex;
         this.model = model;
@@ -41,6 +43,7 @@ public class Entity {
         return offset;
     }
 
+    // OpenGL 3D Game Tutorial 23: Texture Atlases
     public float getTextureYOffset() {
         int row = textureIndex / model.getTexture().getNumberOfRows();
         float offset = (float)row/(float)model.getTexture().getNumberOfRows();

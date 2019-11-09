@@ -84,10 +84,11 @@ public class OBJFileLoader {
 			System.err.println("OBJFileLoader: Error reading the file: " + fileName);
 		}
 		
-		System.out.println("OBJFileLoader: vertices: " + vCount);
-		System.out.println("OBJFileLoader: textureCoords: " + vtCount);
-		System.out.println("OBJFileLoader: normals: " + vnCount);
-		System.out.println("OBJFileLoader: faces: " + fCount);
+		System.out.println("OBJFileLoader:"
+				+ " vertices: " + vCount
+				+ " textureCoords: " + vtCount
+				+ " normals: " + vnCount
+				+ " faces: " + fCount);
 		
 		removeUnusedVertices(vertices);
 		float[] verticesArray = new float[vertices.size() * 3];
