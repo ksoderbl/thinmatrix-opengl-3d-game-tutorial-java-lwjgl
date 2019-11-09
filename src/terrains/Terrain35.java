@@ -97,6 +97,14 @@ public class Terrain35 implements Terrain {
         }
         return answer;
     }
+    
+	public boolean containsPosition(float worldX, float worldZ) {
+		if (worldX < x || worldX >= x + SIZE)
+			return false;
+		if (worldZ < z || worldZ >= z + SIZE)
+			return false;
+		return true;
+	}
 
     private RawModel generateTerrain(Loader loader, String heightMap) {
 

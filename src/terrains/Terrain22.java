@@ -19,7 +19,7 @@ import toolbox.Maths;
 public class Terrain22 implements Terrain {
 
     public static final float SIZE = 800;
-    public static final float MAX_HEIGHT = 40;
+    public static final float MAX_HEIGHT = 80;
     private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
     private static final float HEIGHT_OFFSET = 0;
 
@@ -68,6 +68,14 @@ public class Terrain22 implements Terrain {
     public TerrainTexture getBlendMap() {
         return blendMap;
     }
+    
+	public boolean containsPosition(float worldX, float worldZ) {
+		if (worldX < x || worldX >= x + SIZE)
+			return false;
+		if (worldZ < z || worldZ >= z + SIZE)
+			return false;
+		return true;
+	}
 
     public float getHeightOfTerrain(float worldX, float worldZ) {
         float terrainX = worldX - this.x;

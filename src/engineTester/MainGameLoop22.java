@@ -32,6 +32,7 @@ import skybox.ClearSky;
 import skybox.Sky;
 import terrains.Terrain;
 import terrains.Terrain22;
+import terrains.World;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 import water.WaterFrameBuffers;
@@ -69,34 +70,8 @@ public class MainGameLoop22
 	        text3.setColor(0.2f, 0.8f, 0.2f);
         }
         
-        // *********TERRAIN TEXTURE STUFF**********
-
-        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grassy"));
-        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
-        //TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("pinkFlowers"));
-        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("rockDiffuse"));
-        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("mossPath256"));
-
-        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture,
-                rTexture, gTexture, bTexture);
-        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
-        
-        
-        // *********TERRAIN STUFF*****************
-        //ModelTexture terrainModelTexture = new ModelTexture(loader.loadTexture("grass"));
-        //Terrain terrain = new Terrain17(0, -1, loader, texturePack, blendMap);
-        //Terrain terrain2 = new Terrain17(-1, -1, loader, texturePack, blendMap);
-        
-        List<Terrain> terrains = new ArrayList<Terrain>();
-		Terrain terrain1 = new Terrain22(0, 0, loader, texturePack, blendMap, "heightmap");
-		Terrain terrain2 = new Terrain22(-1, 0, loader, texturePack, blendMap, "heightmap");
-		Terrain terrain3 = new Terrain22(-1, -1, loader, texturePack, blendMap, "heightmap");
-		Terrain terrain = new Terrain22(0, -1, loader, texturePack, blendMap, "heightmap");
-		//terrains.add(terrain1);
-		//terrains.add(terrain2);
-		//terrains.add(terrain3);
-		terrains.add(terrain);
-        
+        World world = new World(loader);
+        List<Terrain> terrains = world.getTerrains();
 
         // *****************************************
 
@@ -135,7 +110,7 @@ public class MainGameLoop22
                 // grass
                 x = random.nextFloat() * 400 - 200;
             	z = random.nextFloat() * -400;
-            	y = terrain.getHeightOfTerrain(x, z);
+            	y = world.getHeightOfTerrain(x, z);
                 rx = 0;
                 ry = random.nextFloat() * 360;
                 rz = 0;
@@ -145,7 +120,7 @@ public class MainGameLoop22
                 // flower
                 x = random.nextFloat() * 400 - 200;
             	z = random.nextFloat() * -400;
-            	y = terrain.getHeightOfTerrain(x, z);
+            	y = world.getHeightOfTerrain(x, z);
                 rx = 0;
                 ry = random.nextFloat() * 360;
                 rz = 0;
@@ -157,7 +132,7 @@ public class MainGameLoop22
 	            // fern
 	            x = random.nextFloat() * 400 - 400;
 	        	z = random.nextFloat() * -400;
-	        	y = terrain.getHeightOfTerrain(x, z);
+	        	y = world.getHeightOfTerrain(x, z);
 	            rx = 10 * random.nextFloat() - 5;
 	            ry = random.nextFloat() * 360;
 	            rz = 10 * random.nextFloat() - 5;
@@ -167,7 +142,7 @@ public class MainGameLoop22
 	            // low poly tree "bobble"
 	        	x = random.nextFloat() * 800 - 400;
 	        	z = random.nextFloat() * -600;
-	        	y = terrain.getHeightOfTerrain(x, z);
+	        	y = world.getHeightOfTerrain(x, z);
 	            rx = 4 * random.nextFloat() - 2;
 	            ry = random.nextFloat() * 360;
 	            rz = 4 * random.nextFloat() - 2;
@@ -177,7 +152,7 @@ public class MainGameLoop22
 	        	// tree
 	        	x = random.nextFloat() * 800 - 400;
 	        	z = random.nextFloat() * -600;
-	        	y = terrain.getHeightOfTerrain(x, z);
+	        	y = world.getHeightOfTerrain(x, z);
 	            rx = 4 * random.nextFloat() - 2;
 	            ry = random.nextFloat() * 360;
 	            rz = 4 * random.nextFloat() - 2;
@@ -187,7 +162,7 @@ public class MainGameLoop22
 	        	// pine
 	        	x = random.nextFloat() * 800;
 	        	z = random.nextFloat() * -600;
-	        	y = terrain.getHeightOfTerrain(x, z);
+	        	y = world.getHeightOfTerrain(x, z);
 	            rx = 4 * random.nextFloat() - 2;
 	            ry = random.nextFloat() * 360;
 	            rz = 4 * random.nextFloat() - 2;
@@ -199,7 +174,7 @@ public class MainGameLoop22
         
         
         TexturedModel playerModel = loader.createTexturedModel("person", "playerTexture", 1, 0);
-        Player22 player = new Player22(playerModel, new Vector3f(0, 0, -50), 0, 180, 0, 0.6f);
+        Player22 player = new Player22(playerModel, new Vector3f(0, 0, 0), 0, 180, 0, 0.6f);
         entities.add(player);
         
         Camera camera1 = new Camera22(player);
@@ -246,8 +221,7 @@ public class MainGameLoop22
         
         while (!Display.isCloseRequested()) {
         	
-        	// TODO: find out which terrain the player is standing on
-        	player.move(terrain);
+        	player.move(world);
         	
         	cameraFrames++;
         	// key C used to swap camera

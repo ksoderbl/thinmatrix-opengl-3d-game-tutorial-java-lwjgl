@@ -59,6 +59,14 @@ public class Terrain17 implements Terrain {
 	public float getHeightOfTerrain(float worldX, float worldZ) {
 		return 0;
 	}
+	
+	public boolean containsPosition(float worldX, float worldZ) {
+		if (worldX < x || worldX >= x + SIZE)
+			return false;
+		if (worldZ < z || worldZ >= z + SIZE)
+			return false;
+		return true;
+	}
 
     private RawModel generateTerrain(Loader loader) {
 

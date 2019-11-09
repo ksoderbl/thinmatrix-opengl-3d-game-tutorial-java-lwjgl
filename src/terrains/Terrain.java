@@ -19,4 +19,5 @@ public interface Terrain {
     public TerrainTexturePack getTexturePack();
     public TerrainTexture getBlendMap();
 	public float getHeightOfTerrain(float worldX, float worldZ);
+	public boolean containsPosition(float worldX, float worldZ);
 }

@@ -57,6 +57,14 @@ public class Terrain14 implements Terrain {
 		return 0;
 	}
 
+	public boolean containsPosition(float worldX, float worldZ) {
+		if (worldX < x || worldX >= x + SIZE)
+			return false;
+		if (worldZ < z || worldZ >= z + SIZE)
+			return false;
+		return true;
+	}
+
     private RawModel generateTerrain(Loader loader) {
 
         int count = VERTEX_COUNT * VERTEX_COUNT;
