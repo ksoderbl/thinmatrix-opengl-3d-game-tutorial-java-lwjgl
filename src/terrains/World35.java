@@ -9,6 +9,8 @@ import textures.TerrainTexturePack;
 
 public class World35 implements World {
 	
+	public static float WATER_HEIGHT = 0;
+	
 	List<Terrain> terrains;
 	
 	public World35(Loader loader) {
@@ -39,7 +41,7 @@ public class World35 implements World {
 
 		terrains = new ArrayList<Terrain>();
 		
-		Terrain terrain = new Terrain35(0, -1, loader, texturePack, blendMap, "heightMapLake");
+		Terrain terrain = new Terrain35(0, 0, loader, texturePack, blendMap, "heightMapLake");
 		terrains.add(terrain);
 		//terrains.add(terrain2);
 		//terrains.add(terrain3);
@@ -80,6 +82,10 @@ public class World35 implements World {
 		//System.out.println("getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
 		
 		return height;
+	}
+	
+	public float getHeightOfWater(float worldX, float worldZ) {
+		return WATER_HEIGHT;
 	}
 	
 	public List<Terrain> getTerrains() {

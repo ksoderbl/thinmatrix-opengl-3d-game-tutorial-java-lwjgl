@@ -15,10 +15,10 @@ import org.lwjgl.util.vector.Vector4f;
 
 import entities.Camera;
 import entities.Camera18;
-import entities.Camera19;
+import entities.CameraWater04;
 import entities.Entity;
 import entities.Light;
-import entities.Player19;
+import entities.PlayerWater04;
 import fontMeshCreator.FontType;
 import fontMeshCreator.GUIText;
 import fontRendering.TextMaster;
@@ -27,27 +27,26 @@ import guis.GuiTexture;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
-import renderEngine.MasterRenderer21;
+import renderEngine.MasterRenderer23;
 import skybox.ClearSky;
 import skybox.Sky;
 import terrains.Terrain;
-import terrains.Terrain21;
-import textures.TerrainTexture;
-import textures.TerrainTexturePack;
+import terrains.World;
+import terrains.WorldWater04;
 import water.WaterFrameBuffers;
-import water.WaterRenderer01;
-import water.WaterShader01;
+import water.WaterRenderer04;
+import water.WaterShader04;
 import water.WaterTile;
-import water.WaterTile01;
+import water.WaterTile04;
 
-// OpenGL 3D Game Tutorial 21: Terrain Height Maps
-// https://www.youtube.com/watch?v=O9v6olrHPwI&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=21
+// OpenGL Water Tutorial 4: Projective Texture Mapping
+// https://www.youtube.com/watch?v=GADTasvDOX4&list=PLRIWtICgwaX23jiqVByUs0bqhnalNTNZh&index=4
 
-public class MainGameLoop21
+public class MainGameLoopWater04
 {
-	public static String title = "OpenGL 3D Game Tutorial 21: Terrain Height Maps";
-	public static String subTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
-	public static String subSubTitle = "Use key c to swap to second camera, move it with arrow keys";
+	public static String title = "OpenGL Water Tutorial 4";
+	public static String subTitle = "Projective Texture Mapping"; //"Use keys w, a, s, d to move player, use mouse to control camera";
+	public static String subSubTitle = ""; //"Use key c to swap to second camera, move it with arrow keys";
 	
     public static void main(String[] args) {
     	DisplayManager.createDisplay(title + ": " + subTitle);
@@ -70,26 +69,19 @@ public class MainGameLoop21
 	        text3.setColor(0.2f, 0.8f, 0.2f);
         }
         
-        // *********TERRAIN TEXTURE STUFF**********
-
-        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grassy"));
-        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
-        //TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("pinkFlowers"));
-        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("rockDiffuse"));
-        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("mossPath256"));
-
-        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture,
-                rTexture, gTexture, bTexture);
-        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
+        float terrainSize = 10000;
+        float terrainMaxHeight = 1000;
+        World world = new WorldWater04(loader, terrainSize, terrainMaxHeight);
+        List<Terrain> terrains = world.getTerrains();
 
         // *****************************************
 
         TexturedModel treeModel = loader.createTexturedModel("tree", "tree", 1, 0);
-        TexturedModel lowPolyTreeModel = loader.createTexturedModel("lowPolyTree", "lowPolyTree", 1, 0);
+        TexturedModel lowPolyTreeModel = loader.createTexturedModel("lowPolyTree", "lowPolyTree4", 2, 1, 0, false, false);
         TexturedModel pineModel = loader.createTexturedModel("pine", "pine", 10, 0.5f);
         TexturedModel grassModel = loader.createTexturedModel("grassModel", "grassTexture", 1, 0, true, true);
         TexturedModel flowerModel = loader.createTexturedModel("grassModel", "flower", 1, 0, true, true);
-        TexturedModel fernModel = loader.createTexturedModel("fern", "fern1", 1, 0, true, false);
+        TexturedModel fernModel = loader.createTexturedModel("fern", "fern4", 2, 1, 0, true, false);
         TexturedModel rocksModel = loader.createTexturedModel("rocks", "rocks", 10, 1);
         TexturedModel boxModel = loader.createTexturedModel("box", "box", 10, 1);
         TexturedModel stallModel = loader.createTexturedModel("stall", "stallTexture", 15, 1);
@@ -99,23 +91,28 @@ public class MainGameLoop21
         
         List<Entity> entities = new ArrayList<>();
         
+        // these should take into account the terrain height
         entities.add(new Entity(rocksModel, new Vector3f(0, 0, 0), 0, 0, 0, 75));
         entities.add(new Entity(boxModel, new Vector3f(100, 10, -300), 0, 0, 0, 10));
         entities.add(new Entity(stallModel, new Vector3f(-50, 0, -250), 0, -50, 0, 2f));
         entities.add(new Entity(barrelModel, new Vector3f(-40, 3, -240), 0, 0, 0, 0.5f));
         entities.add(new Entity(exampleModel, new Vector3f(-30, 0, -230), 0, 0, 0, 1f));
         entities.add(new Entity(lampModel, new Vector3f(-30, 0, -220), 0, 0, 0, 1f));
+        Entity boxEntity = new Entity(boxModel, new Vector3f(225.5f, 5, -352.6f), 0, 25f, 0, 5f);
+        entities.add(boxEntity);
         
         Random random = new Random(676452);
 
-        for (int i = 0; i < 400; i++) {
+        for (int i = 0; i < 10000; i++) {
         	
         	float x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, scale = 1;
+        	int textureIndex = 0;
         	
         	if (i % 7 == 0) {
                 // grass
-                x = random.nextFloat() * 400 - 200;
-            	z = random.nextFloat() * -400;
+                x = random.nextFloat() * terrainSize - terrainSize / 2;
+            	z = random.nextFloat() * terrainSize - terrainSize / 2;
+            	y = world.getHeightOfTerrain(x, z);
                 rx = 0;
                 ry = random.nextFloat() * 360;
                 rz = 0;
@@ -123,8 +120,9 @@ public class MainGameLoop21
                 entities.add(new Entity(grassModel, new Vector3f(x, y, z), rx, ry, rz, scale));
 
                 // flower
-                x = random.nextFloat() * 400 - 200;
-            	z = random.nextFloat() * -400;
+                x = random.nextFloat() * terrainSize - terrainSize / 2;
+            	z = random.nextFloat() * terrainSize - terrainSize / 2;
+            	y = world.getHeightOfTerrain(x, z);
                 rx = 0;
                 ry = random.nextFloat() * 360;
                 rz = 0;
@@ -134,28 +132,31 @@ public class MainGameLoop21
 
         	if (i % 3 == 0) {
 	            // fern
-	            x = random.nextFloat() * 400 - 400;
-	        	z = random.nextFloat() * -400;
+        		textureIndex = random.nextInt(4);
+	            x = random.nextFloat() * terrainSize - terrainSize / 2;
+	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
+	        	y = world.getHeightOfTerrain(x, z);
 	            rx = 10 * random.nextFloat() - 5;
 	            ry = random.nextFloat() * 360;
 	            rz = 10 * random.nextFloat() - 5;
 	            scale = 0.9f;
-	            entities.add(new Entity(fernModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+	            entities.add(new Entity(fernModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
 	
 	            // low poly tree "bobble"
-	        	x = random.nextFloat() * 800 - 400;
-	        	y = 0; 
-	        	z = random.nextFloat() * -600; 
+	            textureIndex = random.nextInt(4);
+	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
+	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
+	        	y = world.getHeightOfTerrain(x, z);
 	            rx = 4 * random.nextFloat() - 2;
 	            ry = random.nextFloat() * 360;
 	            rz = 4 * random.nextFloat() - 2;
 	            scale = random.nextFloat() * 0.1f + 0.6f;
-	            entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+	            entities.add(new Entity(lowPolyTreeModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
 	
 	        	// tree
-	        	x = random.nextFloat() * 800 - 400;
-	        	y = 0; 
-	        	z = random.nextFloat() * -600; 
+	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
+	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
+	        	y = world.getHeightOfTerrain(x, z);
 	            rx = 4 * random.nextFloat() - 2;
 	            ry = random.nextFloat() * 360;
 	            rz = 4 * random.nextFloat() - 2;
@@ -163,9 +164,9 @@ public class MainGameLoop21
 	            entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
 
 	        	// pine
-	        	x = random.nextFloat() * 800;
-	        	y = 0; 
-	        	z = random.nextFloat() * -600; 
+	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
+	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
+	        	y = world.getHeightOfTerrain(x, z);
 	            rx = 4 * random.nextFloat() - 2;
 	            ry = random.nextFloat() * 360;
 	            rz = 4 * random.nextFloat() - 2;
@@ -177,43 +178,41 @@ public class MainGameLoop21
         
         
         TexturedModel playerModel = loader.createTexturedModel("person", "playerTexture", 1, 0);
-        Player19 player = new Player19(playerModel, new Vector3f(0, 0, -50), 0, 180, 0, 0.6f);
+        PlayerWater04 player = new PlayerWater04(playerModel, new Vector3f(0, 0, 0), 0, 180, 0, 0.6f);
         entities.add(player);
         
-        Camera19 camera1 = new Camera19(player);
+        Camera camera1 = new CameraWater04(player);
         camera1.getPosition().translate(0, 20, 0);
 
-        Camera18 camera2 = new Camera18();
+        Camera camera2 = new Camera18();
         camera2.getPosition().translate(0, 30, 0);
         
         Camera camera = camera1;
 
         Light light = new Light(
-        		new Vector3f(20000, 40000, 20000),
+        		new Vector3f(10000, 10000, -10000),
         		new Vector3f(1f, 1f, 1f)); // white light
         
         List<Light> lights = new ArrayList<Light>();
         lights.add(light);
         
-        //ModelTexture terrainModelTexture = new ModelTexture(loader.loadTexture("grass"));
-        //Terrain terrain = new Terrain17(0, -1, loader, texturePack, blendMap);
-        //Terrain terrain2 = new Terrain17(-1, -1, loader, texturePack, blendMap);
-        
-        List<Terrain> terrains = new ArrayList<Terrain>();
-		Terrain terrain = new Terrain21(0, -1, loader, texturePack, blendMap, "heightmap");
-		terrains.add(terrain);
-
-        MasterRenderer21 renderer = new MasterRenderer21();
+        MasterRenderer23 renderer = new MasterRenderer23();
         
         int i = 0;
         int cameraFrames = 0;
         
         // Water
         
-        WaterShader01 waterShader = new WaterShader01();
-        WaterRenderer01 waterRenderer = new WaterRenderer01(loader, waterShader, renderer.getProjectionMatrix());
+        WaterShader04 waterShader = new WaterShader04();
+        WaterRenderer04 waterRenderer = new WaterRenderer04(loader, waterShader, renderer.getProjectionMatrix());
         List<WaterTile> waters = new ArrayList<>();
-        WaterTile water = new WaterTile01(0, -150, 1);
+        WaterTile water = new WaterTile04(0, 0, WorldWater04.WATER_HEIGHT, terrainSize);
+        waters.add(water);
+        water = new WaterTile04(-1 * terrainSize, 0, WorldWater04.WATER_HEIGHT, terrainSize);
+        waters.add(water);
+        water = new WaterTile04(-1 * terrainSize, -1 * terrainSize, WorldWater04.WATER_HEIGHT, terrainSize);
+        waters.add(water);
+        water = new WaterTile04(0, -1 * terrainSize, WorldWater04.WATER_HEIGHT, terrainSize);
         waters.add(water);
         
         WaterFrameBuffers buffers = new WaterFrameBuffers();
@@ -231,7 +230,8 @@ public class MainGameLoop21
         //****************Game Loop Below*********************
         
         while (!Display.isCloseRequested()) {
-        	player.move();
+        	
+        	player.move(world);
         	
         	cameraFrames++;
         	// key C used to swap camera

@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 import models.RawModel;
@@ -13,28 +14,33 @@ import renderEngine.Loader;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
+import toolbox.Maths;
 
-public class Terrain21 implements Terrain {
+public class TerrainWater04 implements Terrain {
 
-    public static final float SIZE = 800;
-    public static final float MAX_HEIGHT = 40;
+    //public static final float SIZE = 20000; // Thinmatrix has 800
+    //public static final float MAX_HEIGHT = 9000; // 40
     private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
     private static final float HEIGHT_OFFSET = 0;
 
     private float x;
     private float z;
+    private float size;
+    private float maxHeight;
     private RawModel model;
     private TerrainTexturePack texturePack;
     private TerrainTexture blendMap;
 
     private float[][] heights;
 
-    public Terrain21(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack,
+    public TerrainWater04(int gridX, int gridZ, float size, float maxHeight, Loader loader, TerrainTexturePack texturePack,
                    TerrainTexture blendMap, String heightMap) {
         this.texturePack = texturePack;
         this.blendMap = blendMap;
-        this.x = gridX * SIZE;
-        this.z = gridZ * SIZE;
+        this.size = size;
+        this.maxHeight = maxHeight;
+        this.x = gridX * size;
+        this.z = gridZ * size;
         this.model = generateTerrain(loader, heightMap);
     }
 
@@ -47,7 +53,7 @@ public class Terrain21 implements Terrain {
     }
     
     public float getSize() {
-    	return SIZE;
+    	return size;
     }
     
     public Vector3f getPosition() {
@@ -70,18 +76,43 @@ public class Terrain21 implements Terrain {
     public TerrainTexture getBlendMap() {
         return blendMap;
     }
-
-    public float getHeightOfTerrain(float worldX, float worldZ) {
-    	return 0;
-    }
     
 	public boolean containsPosition(float worldX, float worldZ) {
-		if (worldX < x || worldX >= x + SIZE)
+		if (worldX < x || worldX >= x + size)
 			return false;
-		if (worldZ < z || worldZ >= z + SIZE)
+		if (worldZ < z || worldZ >= z + size)
 			return false;
 		return true;
 	}
+
+    public float getHeightOfTerrain(float worldX, float worldZ) {
+        float terrainX = worldX - this.x;
+        float terrainZ = worldZ - this.z;
+        float gridSquareSize = size / ((float)heights.length - 1);
+        int gridX = (int) Math.floor(terrainX / gridSquareSize);
+        int gridZ = (int) Math.floor(terrainZ / gridSquareSize);
+        if (gridX >= heights.length - 1 || gridZ >= heights.length - 1 || gridX < 0 || gridZ < 0) {
+            return 0;
+        }
+        float xCoord = (terrainX % gridSquareSize) / gridSquareSize;
+        float zCoord = (terrainZ % gridSquareSize) / gridSquareSize;
+        float answer;
+
+        if (xCoord <= (1 - zCoord)) {
+            answer = Maths.baryCentric(
+                new Vector3f(0, heights[gridX][gridZ], 0),
+                new Vector3f(1, heights[gridX + 1][gridZ], 0),
+                new Vector3f(0, heights[gridX][gridZ + 1], 1),
+                new Vector2f(xCoord, zCoord));
+        } else {
+            answer = Maths.baryCentric(
+                new Vector3f(1, heights[gridX + 1][gridZ], 0),
+                new Vector3f(1, heights[gridX + 1][gridZ + 1], 1),
+                new Vector3f(0, heights[gridX][gridZ + 1], 1),
+                new Vector2f(xCoord, zCoord));
+        }
+        return answer;
+    }
 
     private RawModel generateTerrain(Loader loader, String heightMap) {
 
@@ -108,11 +139,11 @@ public class Terrain21 implements Terrain {
         int vertexPointer = 0;
         for (int i = 0; i < VERTEX_COUNT; i++) {
             for (int j = 0; j < VERTEX_COUNT; j++) {
-                vertices[vertexPointer * 3] = (float) j / ((float) VERTEX_COUNT - 1) * SIZE;
+                vertices[vertexPointer * 3] = (float) j / ((float) VERTEX_COUNT - 1) * size;
                 float height = getHeight(j, i, image);
                 vertices[vertexPointer * 3 + 1] = height;
                 heights[j][i] = height;
-                vertices[vertexPointer * 3 + 2] = (float) i / ((float) VERTEX_COUNT - 1) * SIZE;
+                vertices[vertexPointer * 3 + 2] = (float) i / ((float) VERTEX_COUNT - 1) * size;
                 Vector3f normal = calculateNormal(j, i, image);
                 normals[vertexPointer * 3] = normal.x;
                 normals[vertexPointer * 3 + 1] = normal.y;
@@ -157,7 +188,7 @@ public class Terrain21 implements Terrain {
         float height = image.getRGB(x, z);
         height += MAX_PIXEL_COLOR / 2f;
         height /= MAX_PIXEL_COLOR / 2f;
-        height *= MAX_HEIGHT;
+        height *= maxHeight;
         height += HEIGHT_OFFSET;
         return height;
     }

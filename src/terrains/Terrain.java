@@ -13,6 +13,7 @@ public interface Terrain {
 	//getSize();
     public float getX();
     public float getZ();
+    public float getSize();
     public Vector3f getPosition();
     public RawModel getModel();
     public ModelTexture getTexture();

@@ -13,7 +13,7 @@ import org.lwjgl.util.vector.Vector4f;
 import entities.Camera35;
 import entities.Entity;
 import entities.Light;
-import entities.Player;
+import entities.Player35;
 import fontMeshCreator.FontType;
 import fontMeshCreator.GUIText;
 import fontRendering.TextMaster;
@@ -30,17 +30,14 @@ import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
 import terrains.Terrain;
-import terrains.Terrain35;
 import terrains.World;
 import terrains.World35;
 import textures.ModelTexture;
-import textures.TerrainTexture;
-import textures.TerrainTexturePack;
-import toolbox.MousePicker;
 import water.WaterFrameBuffers;
 import water.WaterRenderer;
 import water.WaterShader;
 import water.WaterTile;
+import water.WaterTile35;
 
 public class MainGameLoop35
 {
@@ -153,9 +150,9 @@ public class MainGameLoop35
 
         //************ENTITIES*******************
 
-        Entity entity = new Entity(barrelModel, new Vector3f(75, 0, -75), 0, 0, 0, 1f);
-        Entity entity2 = new Entity(boulderModel, new Vector3f(95, 0, -75), 0, 0, 0, 1f);
-        Entity entity3 = new Entity(crateModel, new Vector3f(55, 0, -75), 0, 0, 0, 0.04f);
+        Entity entity = new Entity(barrelModel, new Vector3f(75, 0, 75), 0, 0, 0, 1f);
+        Entity entity2 = new Entity(boulderModel, new Vector3f(95, 0, 75), 0, 0, 0, 1f);
+        Entity entity3 = new Entity(crateModel, new Vector3f(55, 0, 75), 0, 0, 0, 0.04f);
         normalMapEntities.add(entity);
         normalMapEntities.add(entity2);
         normalMapEntities.add(entity3);
@@ -164,8 +161,8 @@ public class MainGameLoop35
         for (int i = 0; i < 60; i++) {
             if (i % 3 == 0) {
                 float x = random.nextFloat() * 150;
-                float z = random.nextFloat() * -150;
-                if ((x > 50 && x < 100) || (z < -50 && z > -100)) {
+                float z = random.nextFloat() * 150;
+                if ((x > 50 && x < 100) || (z > 50 && z < 100)) {
                 } else {
                     float y = world.getHeightOfTerrain(x, z);
                     entities.add(new Entity(fern, 3, new Vector3f(x, y, z), 0,
@@ -174,8 +171,8 @@ public class MainGameLoop35
             }
             if (i % 2 == 0) {
                 float x = random.nextFloat() * 150;
-                float z = random.nextFloat() * -150;
-                if ((x > 50 && x < 100) || (z < -50 && z > -100)) {
+                float z = random.nextFloat() * 150;
+                if ((x > 50 && x < 100) || (z > 50 && z < 100)) {
                 } else {
                 	float y = world.getHeightOfTerrain(x, z);
                     entities.add(new Entity(pine, 1, new Vector3f(x, y, z), 0,
@@ -183,7 +180,7 @@ public class MainGameLoop35
                     }
             }
         }
-        entities.add(new Entity(rocks, new Vector3f(75, 4.6f, -75), 0, 0, 0, 75));
+        entities.add(new Entity(rocks, new Vector3f(75, 4.6f, 75), 0, 0, 0, 75));
 
         //*******************OTHER SETUP***************
 
@@ -269,7 +266,7 @@ public class MainGameLoop35
         TexturedModel playerModel = new TexturedModel(playerRawModel, new ModelTexture(
                 loader.loadTexture("playerTexture")));
 
-        Player player = new Player(playerModel, new Vector3f(75, 5, -75), 0, 100, 0, 0.6f);
+        Player35 player = new Player35(playerModel, new Vector3f(75, 5, 75), 0, 100, 0, 0.6f);
         entities.add(player);
 
         Camera35 camera = new Camera35(player);
@@ -303,7 +300,7 @@ public class MainGameLoop35
         WaterShader waterShader = new WaterShader();
         WaterRenderer waterRenderer = new WaterRenderer(loader, waterShader, renderer.getProjectionMatrix(),
                 renderer.getNearPlane(), renderer.getFarPlane(), buffers);
-        List<WaterTile> waters = new ArrayList<WaterTile>();
+        List<WaterTile> waters = new ArrayList<>();
         /*
         for (int i = 1; i < 5; i++) {
         	for (int j = 1; j < 5; j++) {
@@ -313,7 +310,7 @@ public class MainGameLoop35
         WaterTile water = waters.get(0);
         */
         
-        WaterTile water = new WaterTile(75, -75, 0);
+        WaterTile water = new WaterTile35(15, 15, World35.WATER_HEIGHT, 120);
         waters.add(water);
         
         ParticleTexture particleTexture = new ParticleTexture(loader.loadTexture("particleAtlas"), 4, true);
@@ -347,7 +344,7 @@ public class MainGameLoop35
         //int loops = 0;
 
         while (!Display.isCloseRequested()) {
-            player.move(world, water);
+            player.move(world);
             camera.move();
             //picker.update();
             
@@ -357,7 +354,7 @@ public class MainGameLoop35
             //Vector3f systemPos = new Vector3f(player.getPosition());
             //systemPos.setY(systemPos.getY() + 8f);
             //system.generateParticles(systemPos);
-            system.generateParticles(new Vector3f(130, 50, -130));
+            system.generateParticles(new Vector3f(130, 50, 130));
             
             ParticleMaster.update(camera);
             

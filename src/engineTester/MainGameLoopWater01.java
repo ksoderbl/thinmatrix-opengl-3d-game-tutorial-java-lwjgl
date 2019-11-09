@@ -28,6 +28,7 @@ import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 import water.WaterRenderer01;
 import water.WaterShader01;
+import water.WaterTile;
 import water.WaterTile01;
 
 // OpenGL Water Tutorial 1: Introduction
@@ -162,7 +163,7 @@ public class MainGameLoopWater01
         
         WaterShader01 waterShader = new WaterShader01();
         WaterRenderer01 waterRenderer = new WaterRenderer01(loader, waterShader, renderer.getProjectionMatrix());
-        List<WaterTile01> waters = new ArrayList<WaterTile01>();
+        List<WaterTile> waters = new ArrayList<>();
         waters.add(new WaterTile01(0, -150, 1));
         
         Sky sky = new FoggySky();

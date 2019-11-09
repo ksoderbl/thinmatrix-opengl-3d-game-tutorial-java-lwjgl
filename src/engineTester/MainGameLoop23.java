@@ -36,6 +36,7 @@ import terrains.World23;
 import water.WaterFrameBuffers;
 import water.WaterRenderer01;
 import water.WaterShader01;
+import water.WaterTile;
 import water.WaterTile01;
 
 // OpenGL 3D Game Tutorial 23: Texture Atlases
@@ -202,8 +203,8 @@ public class MainGameLoop23
         
         WaterShader01 waterShader = new WaterShader01();
         WaterRenderer01 waterRenderer = new WaterRenderer01(loader, waterShader, renderer.getProjectionMatrix());
-        List<WaterTile01> waters = new ArrayList<WaterTile01>();
-        WaterTile01 water = new WaterTile01(0, -150, 100);
+        List<WaterTile> waters = new ArrayList<>();
+        WaterTile water = new WaterTile01(0, -150, World23.WATER_HEIGHT);
         waters.add(water);
         
         WaterFrameBuffers buffers = new WaterFrameBuffers();

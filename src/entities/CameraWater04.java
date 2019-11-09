@@ -3,9 +3,9 @@ package entities;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
 
-public class Camera35 implements Camera {
+public class CameraWater04 implements Camera {
 
-    private final float MIN_DISTANCE_FROM_PLAYER = 5;
+    private final float MIN_DISTANCE_FROM_PLAYER = 1;
     //private final float MAX_DISTANCE_FROM_PLAYER = 1000;
     private final float MIN_PITCH = -90;
     private final float MAX_PITCH = 90;
@@ -15,7 +15,7 @@ public class Camera35 implements Camera {
     private final float PITCH_CHANGE_FACTOR = 0.2f;
     private final float ANGLE_AROUND_PLAYER_CHANGE_FACTOR = 0.3f;
 
-    private float distanceFromPlayer = 35;
+    private float distanceFromPlayer = 50;
     private float angleAroundPlayer = 0;
 
     private Vector3f position = new Vector3f(0, 0, 0);
@@ -24,9 +24,9 @@ public class Camera35 implements Camera {
     private float roll;  // tilt: 180 deg = upside down
     private int moves = 0;
 
-    private Player35 player;
+    private PlayerWater04 player;
 
-    public Camera35(Player35 player) {
+    public CameraWater04(PlayerWater04 player) {
         this.player = player;
     }
 
@@ -41,8 +41,8 @@ public class Camera35 implements Camera {
 
         moves++;
         if (moves >= 60) {
-            System.err.println("Camera at (" + position.x + ", " + position.y + ", " + position.z + ")");
-            System.err.println("Camera (pitch, yaw, roll) = (" + pitch + ", " + yaw + ", " + roll + ")");
+            //System.err.println("Camera at (" + position.x + ", " + position.y + ", " + position.z + ")");
+            //System.err.println("Camera (pitch, yaw, roll) = (" + pitch + ", " + yaw + ", " + roll + ")");
             moves = 0;
         }
 

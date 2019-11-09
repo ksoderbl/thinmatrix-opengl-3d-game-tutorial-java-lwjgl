@@ -6,7 +6,6 @@ import org.lwjgl.util.vector.Vector3f;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
 import terrains.World;
-import water.WaterTile;
 
 public class Player extends Entity  {
 
@@ -25,7 +24,7 @@ public class Player extends Entity  {
         super(model, position, rotX, rotY, rotZ, scale);
     }
 
-    public void move(World world, WaterTile water) {
+    public void move(World world) {
         checkInputs();
         super.increaseRotation(0, currentTurnSpeed * DisplayManager.getFrameTimeSeconds(), 0);
         float distance = currentSpeed * DisplayManager.getFrameTimeSeconds();
@@ -41,14 +40,15 @@ public class Player extends Entity  {
             super.getPosition().y = terrainHeight;
         }
 
-        // assume all low places are filled with water
-        // make player swim so the head stays above surface
-        float playerHeight = 5;
-        if (super.getPosition().y < water.getHeight() - playerHeight) {
-            upwardsSpeed = 0;
-            isInAir = false;
-            super.getPosition().y = water.getHeight() - playerHeight;
-        }
+    	// assume all low places are filled with water
+    	// make player swim so the head stays above surface
+    	float playerHeight = 5;
+    	float waterHeight = world.getHeightOfWater(getPosition().x, getPosition().z);
+    	if (super.getPosition().y < waterHeight - playerHeight) {
+    		upwardsSpeed = 0;
+    		isInAir = false;
+    		super.getPosition().y = waterHeight - playerHeight;
+    	}
     }
 
     private void jump() {

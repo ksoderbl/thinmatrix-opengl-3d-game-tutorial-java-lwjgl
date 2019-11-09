@@ -7,13 +7,13 @@ import renderEngine.Loader;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 
-public class World22 implements World {
+public class WorldWater04 implements World {
 	
-	public static float WATER_HEIGHT = 1;
+	public static float WATER_HEIGHT = -22.22f;
 	
 	List<Terrain> terrains;
 	
-	public World22(Loader loader) {
+	public WorldWater04(Loader loader, float terrainSize, float terrainMaxHeight) {
 		
         // *********TERRAIN TEXTURE STUFF**********
 
@@ -29,9 +29,9 @@ public class World22 implements World {
         
         terrains = new ArrayList<Terrain>();
         
-        for (int x = -4; x < 4; x++) {
-            for (int z = -4; z < 4; z++) {
-        		Terrain terrain = new Terrain22(x, z, loader, texturePack, blendMap, "heightmap");
+        for (int x = -2; x < 2; x++) {
+            for (int z = -2; z < 2; z++) {
+        		Terrain terrain = new TerrainWater04(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightmap");
         		terrains.add(terrain);
             }
         }
@@ -59,7 +59,7 @@ public class World22 implements World {
 			height = terrain.getHeightOfTerrain(worldX, worldZ);
 		}
 		
-		//System.out.println("getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
+		//System.out.println("World: getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
 		
 		return height;
 	}

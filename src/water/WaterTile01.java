@@ -1,15 +1,15 @@
 package water;
 
-public class WaterTile01 {
+public class WaterTile01 implements WaterTile {
 
 	public static final float TILE_SIZE = 60;
 
 	private float height;
 	private float x,z;
 	
-	public WaterTile01(float centerX, float centerZ, float height){
-		this.x = centerX;
-		this.z = centerZ;
+	public WaterTile01(float x, float z, float height) {
+		this.x = x;
+		this.z = z;
 		this.height = height;
 	}
 
@@ -23,5 +23,9 @@ public class WaterTile01 {
 
 	public float getZ() {
 		return z;
+	}
+	
+	public float getSize() {
+		return TILE_SIZE;
 	}
 }

@@ -48,6 +48,10 @@ public class Terrain35 implements Terrain {
         return z;
     }
     
+    public float getSize() {
+    	return SIZE;
+    }
+    
     public Vector3f getPosition() {
     	return new Vector3f(x, 0, z);
     }

@@ -57,7 +57,7 @@ public class WaterRenderer {
 		for (WaterTile tile : water) {
 			Matrix4f modelMatrix = Maths.createTransformationMatrix(
 					new Vector3f(tile.getX(), tile.getHeight(), tile.getZ()),
-                    0, 0, 0, WaterTile.TILE_SCALE);
+                    0, 0, 0, tile.getSize());
 			shader.loadModelMatrix(modelMatrix);
 			GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, quad.getVertexCount());
 		}
@@ -108,7 +108,13 @@ public class WaterRenderer {
 
 	private void setUpVAO(Loader loader) {
 		// Just x and z vertex positions here, y is set to 0 in v.shader
-		float[] vertices = { -1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1 };
+		float[] vertices = {
+				 0, 0,
+				 0, 1,
+				 1, 0,
+				 1, 0,
+				 0, 1,
+				 1, 1 };
 		quad = loader.loadToVAO(vertices, 2);
 	}
 

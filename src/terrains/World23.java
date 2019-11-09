@@ -9,6 +9,8 @@ import textures.TerrainTexturePack;
 
 public class World23 implements World {
 	
+	public static float WATER_HEIGHT = 1;
+	
 	List<Terrain> terrains;
 	
 	public World23(Loader loader) {
@@ -60,6 +62,10 @@ public class World23 implements World {
 		//System.out.println("getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
 		
 		return height;
+	}
+	
+	public float getHeightOfWater(float worldX, float worldZ) {
+		return WATER_HEIGHT;
 	}
 	
 	public List<Terrain> getTerrains() {

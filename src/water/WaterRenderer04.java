@@ -14,12 +14,12 @@ import renderEngine.Loader;
 import skybox.Sky;
 import toolbox.Maths;
 
-public class WaterRenderer01 {
+public class WaterRenderer04 {
 
 	private RawModel quad;
-	private WaterShader01 shader;
+	private WaterShader04 shader;
 
-	public WaterRenderer01(Loader loader, WaterShader01 shader, Matrix4f projectionMatrix) {
+	public WaterRenderer04(Loader loader, WaterShader04 shader, Matrix4f projectionMatrix) {
 		this.shader = shader;
 		shader.start();
 		shader.loadProjectionMatrix(projectionMatrix);
@@ -63,8 +63,6 @@ public class WaterRenderer01 {
 				 1, 0,
 				 0, 1,
 				 1, 1 };
-
-		//float[] vertices = { -1, -1, -1, 1, 1, -1, 1, -1, -1, 1, 1, 1 };
 		quad = loader.loadToVAO(vertices, 2);
 	}
 
