@@ -2,7 +2,7 @@
 
 in vec2 position;
 
-out vec2 textureCoords;
+out vec4 clipSpace;
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
@@ -19,9 +19,12 @@ void main(void)
 {
 	vec4 worldPosition = transformationMatrix * vec4(position.x, 0.0, position.y, 1.0);
 	vec4 positionRelativeToCam = viewMatrix * worldPosition;
-	gl_Position = projectionMatrix * positionRelativeToCam;
+	
+	clipSpace = projectionMatrix * positionRelativeToCam;
 
-	textureCoords = vec2(position.x / 2.0 + 0.5, position.y / 2.0 + 0.5);
+	gl_Position = clipSpace;
+
+	//textureCoords = vec2(position.x / 2.0 + 0.5, position.y / 2.0 + 0.5);
 	
 	// Tutorial 16: Fog: distance of this vertex from camera
 	float distance = length(positionRelativeToCam.xyz);

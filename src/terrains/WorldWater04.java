@@ -8,12 +8,12 @@ import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 
 public class WorldWater04 implements World {
-	
-	public static float WATER_HEIGHT = -22.22f;
+
+	float waterHeight;
 	
 	List<Terrain> terrains;
 	
-	public WorldWater04(Loader loader, float terrainSize, float terrainMaxHeight) {
+	public WorldWater04(Loader loader, float terrainSize, float terrainMaxHeight, float waterHeight) {
 		
         // *********TERRAIN TEXTURE STUFF**********
 
@@ -37,6 +37,8 @@ public class WorldWater04 implements World {
         }
         
         System.out.println("World: generated " + terrains.size() + " terrains.");
+        
+        this.waterHeight = waterHeight;
 	}
 	
 	public float getHeightOfTerrain(float worldX, float worldZ) {
@@ -65,7 +67,7 @@ public class WorldWater04 implements World {
 	}
 	
 	public float getHeightOfWater(float worldX, float worldZ) {
-		return WATER_HEIGHT;
+		return waterHeight;
 	}
 	
 	public List<Terrain> getTerrains() {

@@ -22,8 +22,6 @@ import entities.PlayerWater04;
 import fontMeshCreator.FontType;
 import fontMeshCreator.GUIText;
 import fontRendering.TextMaster;
-import guis.GuiRenderer;
-import guis.GuiTexture;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
@@ -45,8 +43,9 @@ import water.WaterTile04;
 public class MainGameLoopWater04
 {
 	public static String title = "OpenGL Water Tutorial 4";
-	public static String subTitle = "Projective Texture Mapping"; //"Use keys w, a, s, d to move player, use mouse to control camera";
-	public static String subSubTitle = ""; //"Use key c to swap to second camera, move it with arrow keys";
+	public static String subTitle = "Projective Texture Mapping"; //
+	public static String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
+	 //"Use key c to swap to second camera, move it with arrow keys";
 	
     public static void main(String[] args) {
     	DisplayManager.createDisplay(title + ": " + subTitle);
@@ -55,23 +54,24 @@ public class MainGameLoopWater04
         TextMaster.init(loader);
         if (title.length() > 0) {
 	        FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-	        GUIText text = new GUIText(title, 2.0f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
-	        text.setColor(0.2f, 0.2f, 0.8f);
+	        GUIText text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
+	        text.setColor(0.1f, 0.1f, 0.4f);
         }
         if (subTitle.length() > 0) {
         	FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        	GUIText text2 = new GUIText(subTitle, 1.5f, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
-        	text2.setColor(0.8f, 0.2f, 0.2f);
+        	GUIText text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
+        	text2.setColor(0.4f, 0.1f, 0.1f);
         }
         if (subSubTitle.length() > 0) {
 	        FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-	        GUIText text3 = new GUIText(subSubTitle, 1.25f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
-	        text3.setColor(0.2f, 0.8f, 0.2f);
+	        GUIText text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
+	        text3.setColor(0.1f, 0.4f, 0.1f);
         }
         
-        float terrainSize = 10000;
-        float terrainMaxHeight = 1000;
-        World world = new WorldWater04(loader, terrainSize, terrainMaxHeight);
+        float terrainSize = 20000;
+        float terrainMaxHeight = 7000;
+        float waterHeight = 0;
+        World world = new WorldWater04(loader, terrainSize, terrainMaxHeight, waterHeight);
         List<Terrain> terrains = world.getTerrains();
 
         // *****************************************
@@ -90,20 +90,45 @@ public class MainGameLoopWater04
         TexturedModel lampModel = loader.createTexturedModel("lamp", "lamp", 1, 0);
         
         List<Entity> entities = new ArrayList<>();
-        
-        // these should take into account the terrain height
+
+        float ex, ey, ez;
+ 
         entities.add(new Entity(rocksModel, new Vector3f(0, 0, 0), 0, 0, 0, 75));
-        entities.add(new Entity(boxModel, new Vector3f(100, 10, -300), 0, 0, 0, 10));
-        entities.add(new Entity(stallModel, new Vector3f(-50, 0, -250), 0, -50, 0, 2f));
-        entities.add(new Entity(barrelModel, new Vector3f(-40, 3, -240), 0, 0, 0, 0.5f));
-        entities.add(new Entity(exampleModel, new Vector3f(-30, 0, -230), 0, 0, 0, 1f));
-        entities.add(new Entity(lampModel, new Vector3f(-30, 0, -220), 0, 0, 0, 1f));
-        Entity boxEntity = new Entity(boxModel, new Vector3f(225.5f, 5, -352.6f), 0, 25f, 0, 5f);
+
+        ex = 100;
+        ez = 300;
+        ey = world.getHeightOfTerrain(ex, ez) + 5;
+        entities.add(new Entity(boxModel, new Vector3f(ex, ey, ez), 0, 0, 0, 10));
+
+        ex = -50;
+        ez = 250;
+        ey = world.getHeightOfTerrain(ex, ez);
+        entities.add(new Entity(stallModel, new Vector3f(ex, ey, ez), 0, -50, 0, 2f));
+
+        ex = -40;
+        ez = 240;
+        ey = world.getHeightOfTerrain(ex, ez) + 3;
+        entities.add(new Entity(barrelModel, new Vector3f(ex, ey, ez), 0, 0, 0, 0.5f));
+
+        ex = -30;
+        ez = 230;
+        ey = world.getHeightOfTerrain(ex, ez);
+        entities.add(new Entity(exampleModel, new Vector3f(ex, ey, ez), 0, 0, 0, 1f));
+
+        ex = -30;
+        ez = 220;
+        ey = world.getHeightOfTerrain(ex, ez);
+        entities.add(new Entity(lampModel, new Vector3f(ex, ey, ez), 0, 0, 0, 1f));
+
+        ex = 225;
+        ez = 352;
+        ey = world.getHeightOfTerrain(ex, ez) + 5;
+        Entity boxEntity = new Entity(boxModel, new Vector3f(ex, ey, ez), 0, 25f, 0, 5f);
         entities.add(boxEntity);
         
         Random random = new Random(676452);
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
         	
         	float x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, scale = 1;
         	int textureIndex = 0;
@@ -113,21 +138,25 @@ public class MainGameLoopWater04
                 x = random.nextFloat() * terrainSize - terrainSize / 2;
             	z = random.nextFloat() * terrainSize - terrainSize / 2;
             	y = world.getHeightOfTerrain(x, z);
-                rx = 0;
-                ry = random.nextFloat() * 360;
-                rz = 0;
-                scale = 1.8f;
-                entities.add(new Entity(grassModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+            	if (y > world.getHeightOfWater(x, z)) {
+	                rx = 0;
+	                ry = random.nextFloat() * 360;
+	                rz = 0;
+	                scale = 1.8f;
+	                entities.add(new Entity(grassModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+            	}
 
                 // flower
                 x = random.nextFloat() * terrainSize - terrainSize / 2;
             	z = random.nextFloat() * terrainSize - terrainSize / 2;
             	y = world.getHeightOfTerrain(x, z);
-                rx = 0;
-                ry = random.nextFloat() * 360;
-                rz = 0;
-                scale = 2.3f;
-                entities.add(new Entity(flowerModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+            	if (y > world.getHeightOfWater(x, z)) {
+	                rx = 0;
+	                ry = random.nextFloat() * 360;
+	                rz = 0;
+	                scale = 2.3f;
+	                entities.add(new Entity(flowerModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+            	}
         	}
 
         	if (i % 3 == 0) {
@@ -136,49 +165,59 @@ public class MainGameLoopWater04
 	            x = random.nextFloat() * terrainSize - terrainSize / 2;
 	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
 	        	y = world.getHeightOfTerrain(x, z);
-	            rx = 10 * random.nextFloat() - 5;
-	            ry = random.nextFloat() * 360;
-	            rz = 10 * random.nextFloat() - 5;
-	            scale = 0.9f;
-	            entities.add(new Entity(fernModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        	if (y > world.getHeightOfWater(x, z)) {
+		            rx = 10 * random.nextFloat() - 5;
+		            ry = random.nextFloat() * 360;
+		            rz = 10 * random.nextFloat() - 5;
+		            scale = 0.9f;
+		            entities.add(new Entity(fernModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        	}
 	
 	            // low poly tree "bobble"
 	            textureIndex = random.nextInt(4);
 	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
 	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
 	        	y = world.getHeightOfTerrain(x, z);
-	            rx = 4 * random.nextFloat() - 2;
-	            ry = random.nextFloat() * 360;
-	            rz = 4 * random.nextFloat() - 2;
-	            scale = random.nextFloat() * 0.1f + 0.6f;
-	            entities.add(new Entity(lowPolyTreeModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        	if (y > world.getHeightOfWater(x, z)) {
+		            rx = 4 * random.nextFloat() - 2;
+		            ry = random.nextFloat() * 360;
+		            rz = 4 * random.nextFloat() - 2;
+		            scale = random.nextFloat() * 0.1f + 0.6f;
+		            entities.add(new Entity(lowPolyTreeModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        	}
 	
 	        	// tree
 	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
 	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
 	        	y = world.getHeightOfTerrain(x, z);
-	            rx = 4 * random.nextFloat() - 2;
-	            ry = random.nextFloat() * 360;
-	            rz = 4 * random.nextFloat() - 2;
-	            scale = random.nextFloat() * 1f + 4f;
-	            entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        	if (y > world.getHeightOfWater(x, z)) {
+		            rx = 4 * random.nextFloat() - 2;
+		            ry = random.nextFloat() * 360;
+		            rz = 4 * random.nextFloat() - 2;
+		            scale = random.nextFloat() * 1f + 4f;
+		            entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        	}
 
 	        	// pine
 	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
 	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
 	        	y = world.getHeightOfTerrain(x, z);
-	            rx = 4 * random.nextFloat() - 2;
-	            ry = random.nextFloat() * 360;
-	            rz = 4 * random.nextFloat() - 2;
-	            scale = random.nextFloat() * 4f + 1f;
-	            entities.add(new Entity(pineModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-
+	        	if (y > world.getHeightOfWater(x, z)) {
+		            rx = 4 * random.nextFloat() - 2;
+		            ry = random.nextFloat() * 360;
+		            rz = 4 * random.nextFloat() - 2;
+		            scale = random.nextFloat() * 4f + 1f;
+		            entities.add(new Entity(pineModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        	}
         	}
         }
-        
+
+    	float px = 500f; //-2163f;
+    	float pz = 500f; //2972f;
+    	float py = world.getHeightOfTerrain(px, pz);
         
         TexturedModel playerModel = loader.createTexturedModel("person", "playerTexture", 1, 0);
-        PlayerWater04 player = new PlayerWater04(playerModel, new Vector3f(0, 0, 0), 0, 180, 0, 0.6f);
+        PlayerWater04 player = new PlayerWater04(playerModel, new Vector3f(px, py, pz), 0, 180, 0, 0.6f);
         entities.add(player);
         
         Camera camera1 = new CameraWater04(player);
@@ -202,30 +241,31 @@ public class MainGameLoopWater04
         int cameraFrames = 0;
         
         // Water
-        
-        WaterShader04 waterShader = new WaterShader04();
-        WaterRenderer04 waterRenderer = new WaterRenderer04(loader, waterShader, renderer.getProjectionMatrix());
-        List<WaterTile> waters = new ArrayList<>();
-        WaterTile water = new WaterTile04(0, 0, WorldWater04.WATER_HEIGHT, terrainSize);
-        waters.add(water);
-        water = new WaterTile04(-1 * terrainSize, 0, WorldWater04.WATER_HEIGHT, terrainSize);
-        waters.add(water);
-        water = new WaterTile04(-1 * terrainSize, -1 * terrainSize, WorldWater04.WATER_HEIGHT, terrainSize);
-        waters.add(water);
-        water = new WaterTile04(0, -1 * terrainSize, WorldWater04.WATER_HEIGHT, terrainSize);
-        waters.add(water);
-        
         WaterFrameBuffers buffers = new WaterFrameBuffers();
         
-        List<GuiTexture> guiTextures = new ArrayList<>();
-        GuiTexture refrGui = new GuiTexture(buffers.getRefractionTexture(), new Vector2f( 0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
-        GuiTexture reflGui = new GuiTexture(buffers.getReflectionTexture(), new Vector2f(-0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
-        //GuiTexture reflGui = new GuiTexture(buffers.getReflectionTexture(), new Vector2f(-0.6f, -0.6f), new Vector2f(0.4f, 0.4f));
-        guiTextures.add(refrGui);
-        guiTextures.add(reflGui);
-        GuiRenderer guiRenderer = new GuiRenderer(loader);
+        WaterShader04 waterShader = new WaterShader04();
+        WaterRenderer04 waterRenderer = new WaterRenderer04(loader, waterShader, renderer.getProjectionMatrix(), buffers);
+        List<WaterTile> waters = new ArrayList<>();
+        WaterTile water = new WaterTile04(0, 0, waterHeight, terrainSize);
+        waters.add(water);
+        water = new WaterTile04(-1 * terrainSize, 0, waterHeight, terrainSize);
+        waters.add(water);
+        water = new WaterTile04(-1 * terrainSize, -1 * terrainSize, waterHeight, terrainSize);
+        waters.add(water);
+        water = new WaterTile04(0, -1 * terrainSize, waterHeight, terrainSize);
+        waters.add(water);
         
-        Sky sky = new ClearSky();
+
+
+//        List<GuiTexture> guiTextures = new ArrayList<>();
+//        GuiTexture refrGui = new GuiTexture(buffers.getRefractionTexture(), new Vector2f( 0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
+//        GuiTexture reflGui = new GuiTexture(buffers.getReflectionTexture(), new Vector2f(-0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
+//        //GuiTexture reflGui = new GuiTexture(buffers.getReflectionTexture(), new Vector2f(-0.6f, -0.6f), new Vector2f(0.4f, 0.4f));
+//        guiTextures.add(refrGui);
+//        guiTextures.add(reflGui);
+//        GuiRenderer guiRenderer = new GuiRenderer(loader);
+        
+        Sky sky = new ClearSky(0.5f, 0.7f, 0.9f);
 
         //****************Game Loop Below*********************
         
@@ -270,7 +310,7 @@ public class MainGameLoopWater04
         	renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, 1000000));
 
         	waterRenderer.render(waters, sky, camera);
-        	guiRenderer.render(guiTextures);
+        	//guiRenderer.render(guiTextures);
 
         	TextMaster.render();
             

@@ -15,6 +15,9 @@ public class WaterShader04 extends ShaderProgram {
 	private int location_transformationMatrix;
 	private int location_viewMatrix;
 	private int location_projectionMatrix;
+	private int location_reflectionTexture;
+    private int location_refractionTexture;
+	
     private int location_skyColor;
     private int location_skyDensity;
     private int location_skyGradient;
@@ -33,10 +36,19 @@ public class WaterShader04 extends ShaderProgram {
 		location_projectionMatrix = getUniformLocation("projectionMatrix");
 		location_viewMatrix = getUniformLocation("viewMatrix");
 		location_transformationMatrix = getUniformLocation("transformationMatrix");
+		
+		location_reflectionTexture = getUniformLocation("reflectionTexture");
+        location_refractionTexture = getUniformLocation("refractionTexture");
+		
 		location_skyColor = super.getUniformLocation("skyColor");
 		location_skyDensity = super.getUniformLocation("skyDensity");
 		location_skyGradient = super.getUniformLocation("skyGradient");
 	}
+	
+	public void connectTextureUnits() {
+	    super.loadInt(location_reflectionTexture, 0);
+        super.loadInt(location_refractionTexture, 1);
+    }
 	
     public void loadSkyVariables(float density, float gradient) {
         super.loadFloat(location_skyDensity, density);
