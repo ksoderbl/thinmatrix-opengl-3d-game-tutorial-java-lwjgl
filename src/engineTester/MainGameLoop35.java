@@ -31,6 +31,8 @@ import renderEngine.Loader;
 import renderEngine.MasterRenderer;
 import terrains.Terrain;
 import terrains.Terrain35;
+import terrains.World;
+import terrains.World35;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
@@ -60,17 +62,9 @@ public class MainGameLoop35
         FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         GUIText text2 = new GUIText("Animated particle texture", 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
         text2.setColor(0.8f, 0.2f, 0.2f);
-
-        // *********TERRAIN TEXTURE STUFF**********
-
-        TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grassy2")); // was "grassy"
-        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("mud")); // was "dirt"
-        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("grassFlowers")); // was "pinkFlowers"
-        TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
-
-        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture,
-                rTexture, gTexture, bTexture);
-        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMapLake"));
+        
+        World world = new World35(loader);
+        List<Terrain> terrains = world.getTerrains();
 
         // *****************************************
 
@@ -130,13 +124,6 @@ public class MainGameLoop35
         		new ModelTexture(loader.loadTexture("pine")));
         pine.getTexture().setHasTransparency(true);
 
-		Terrain terrain = new Terrain35(0, -1, loader, texturePack, blendMap, "heightMapLake");
-        		List<Terrain> terrains = new ArrayList<>();
-        terrains.add(terrain);
-        //terrains.add(terrain2);
-        //terrains.add(terrain3);
-        //terrains.add(terrain4);
-
         TexturedModel lamp = new TexturedModel(OBJFileLoader.loadOBJ("lamp", loader),
         		new ModelTexture(loader.loadTexture("lamp")));
         lamp.getTexture().setUseFakeLighting(true);
@@ -180,7 +167,7 @@ public class MainGameLoop35
                 float z = random.nextFloat() * -150;
                 if ((x > 50 && x < 100) || (z < -50 && z > -100)) {
                 } else {
-                    float y = terrain.getHeightOfTerrain(x, z);
+                    float y = world.getHeightOfTerrain(x, z);
                     entities.add(new Entity(fern, 3, new Vector3f(x, y, z), 0,
                             random.nextFloat() * 360, 0, 0.9f));
                 }
@@ -190,7 +177,7 @@ public class MainGameLoop35
                 float z = random.nextFloat() * -150;
                 if ((x > 50 && x < 100) || (z < -50 && z > -100)) {
                 } else {
-                	float y = terrain.getHeightOfTerrain(x, z);
+                	float y = world.getHeightOfTerrain(x, z);
                     entities.add(new Entity(pine, 1, new Vector3f(x, y, z), 0,
                             random.nextFloat() * 360, 0, random.nextFloat() * 0.6f + 0.8f));
                     }
@@ -207,7 +194,7 @@ public class MainGameLoop35
             if (i % 1 == 0) {
                 float x = random.nextFloat() * Terrain.SIZE;
                 float z = random.nextFloat() * Terrain.SIZE;
-                float y = terrain.getHeightOfTerrain(x, z);
+                float y = world.getHeightOfTerrain(x, z);
                 entities.add(new Entity(fernModel, random.nextInt(4), new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, 0.9f));
             }
@@ -217,31 +204,31 @@ public class MainGameLoop35
 
                 x = random.nextFloat() * Terrain.SIZE;
                 z = random.nextFloat() * Terrain.SIZE;
-                y = terrain.getHeightOfTerrain(x, z);
+                y = world.getHeightOfTerrain(x, z);
                 entities.add(new Entity(pineModel, new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
 
                 x = random.nextFloat() * Terrain.SIZE;
                 z = random.nextFloat() * Terrain.SIZE;
-                y = terrain.getHeightOfTerrain(x, z);
+                y = world.getHeightOfTerrain(x, z);
                 entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
 
                 x = random.nextFloat() * Terrain.SIZE;
                 z = random.nextFloat() * Terrain.SIZE;
-                y = terrain.getHeightOfTerrain(x, z);
+                y = world.getHeightOfTerrain(x, z);
                 entities.add(new Entity(grassModel, new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
 
                 x = random.nextFloat() * Terrain.SIZE;
                 z = random.nextFloat() * Terrain.SIZE;
-                y = terrain.getHeightOfTerrain(x, z);
+                y = world.getHeightOfTerrain(x, z);
                 entities.add(new Entity(toonRocksModel, new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 2.0f + 1.0f));
 
                 x = random.nextFloat() * Terrain.SIZE;
                 z = random.nextFloat() * Terrain.SIZE;
-                y = terrain.getHeightOfTerrain(x, z);
+                y = world.getHeightOfTerrain(x, z);
                 entities.add(new Entity(bobbleTreeModel, new Vector3f(x, y, z),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 0.5f + 0.5f));
             }
@@ -301,7 +288,7 @@ public class MainGameLoop35
 
         GuiRenderer guiRenderer = new GuiRenderer(loader);
 
-        MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), terrain);
+        //TODO MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), terrain);
         /*
         Entity lampEntity = new Entity(lampModel, new Vector3f(0, 0, 0), 0, 0, 0, 1);
         entities.add(lampEntity);
@@ -360,9 +347,9 @@ public class MainGameLoop35
         //int loops = 0;
 
         while (!Display.isCloseRequested()) {
-            player.move(terrain, water); // TODO: find which terrain the player is on
+            player.move(world, water);
             camera.move();
-            picker.update();
+            //picker.update();
             
             //if (Keyboard.isKeyDown(Keyboard.KEY_Y)) {
             //	new Particle(new Vector3f(player.getPosition()), new Vector3f(0, 30, 0), 1, 4, 0, 1);
