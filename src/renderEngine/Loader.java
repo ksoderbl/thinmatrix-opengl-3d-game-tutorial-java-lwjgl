@@ -138,6 +138,7 @@ public class Loader {
         }
     }
 
+    // OpenGL 3D Game Tutorial 27: Skybox
     public int loadCubeMap(String[] textureFiles) {
         int texID = GL11.glGenTextures();
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
@@ -162,6 +163,7 @@ public class Loader {
         return texID;
     }
 
+    // OpenGL 3D Game Tutorial 27: Skybox
     private TextureData decodeTextureFile(String fileName) {
         int width = 0;
         int height = 0;

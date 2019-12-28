@@ -24,7 +24,7 @@ public class MasterRenderer {
 
     private static final float FOV = 70;
     private static final float NEAR_PLANE = 0.1f;
-    private static final float FAR_PLANE = 10000f; // thinmatrix has 1000
+    private static final float FAR_PLANE = 100000f; // thinmatrix has 1000
 
     //public static final float RED = // 0.1f; // 0.9444f; // 0.5444f;
     //public static final float GREEN = // 0.4f; // 0.52f; // 0.62f;
