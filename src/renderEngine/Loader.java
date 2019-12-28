@@ -84,6 +84,7 @@ public class Loader {
         return new RawModel(vaoID, indices.length);
     }
 
+    // For OpenGL 3D Game Tutorial 24: Rendering GUIs
     public RawModel loadToVAO(float[] positions, int dimensions) {
         int vaoID = createVAO();
         storeDataInAttributeList(0, dimensions, positions);
