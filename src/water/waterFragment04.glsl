@@ -14,9 +14,6 @@ uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
 
 void main(void) {
-
-	vec2 textureCoords = vec2(0.5, 0.5);
-
 	// OpenGL Water Tutorial 4: Projective Texture Mapping at 7:50
 	vec2 ndc = (clipSpace.xy / clipSpace.w) / 2.0 + 0.5;
 	vec2 refractTexCoords = vec2(ndc.x, ndc.y);
