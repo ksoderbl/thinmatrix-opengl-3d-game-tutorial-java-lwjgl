@@ -32,6 +32,7 @@ public class WaterShader08 extends ShaderProgram {
     
     private int location_lightColor[];
     private int location_lightPosition[];
+    private int location_attenuation[];
 	
     private int location_skyColor;
     private int location_skyDensity;
@@ -61,11 +62,15 @@ public class WaterShader08 extends ShaderProgram {
         location_normalMap = getUniformLocation("normalMap");
         location_depthMap = getUniformLocation("depthMap");
         
+		// OpenGL 3D Game Tutorial 25: Multiple Lights,
+		// OpenGL 3D Game Tutorial 26: Point Lights
 		location_lightPosition = new int[MAX_LIGHTS];
 		location_lightColor = new int[MAX_LIGHTS];
+		location_attenuation = new int[MAX_LIGHTS];
 		for (int i = 0; i < MAX_LIGHTS; i++) {
 			location_lightPosition[i] = super.getUniformLocation("lightPosition[" + i + "]");
 			location_lightColor[i] = super.getUniformLocation("lightColor[" + i + "]");
+			location_attenuation[i] = super.getUniformLocation("attenuation[" + i + "]");
 		}
 		
 		location_skyColor = super.getUniformLocation("skyColor");
@@ -86,15 +91,17 @@ public class WaterShader08 extends ShaderProgram {
 			if (i < lights.size()) {
 				super.loadVector(location_lightPosition[i], lights.get(i).getPosition());
 				super.loadVector(location_lightColor[i], lights.get(i).getColor());
+				super.loadVector(location_attenuation[i], lights.get(i).getAttenuation());
 			}
 			else {
 				super.loadVector(location_lightPosition[i], new Vector3f(0, 0, 0));
 				super.loadVector(location_lightColor[i], new Vector3f(0, 0, 0));
+				super.loadVector(location_attenuation[i], new Vector3f(1, 0, 0));
 			}
 		}
 	}
-
-    public void loadMoveFactor(float factor) {
+    
+	public void loadMoveFactor(float factor) {
 	    super.loadFloat(location_moveFactor, factor);
     }
     

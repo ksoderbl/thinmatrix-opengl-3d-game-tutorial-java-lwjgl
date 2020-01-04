@@ -26,7 +26,11 @@ const float waterReflectivity = 2.0;
 
 // OpenGL Water Tutorial 7: Normal Maps
 uniform sampler2D normalMap;
+
+// OpenGL 3D Game Tutorial 25: Multiple Lights
 uniform vec3 lightColor[4];
+// OpenGL 3D Game Tutorial 26: Point Lights
+uniform vec3 attenuation[4];
 
 // OpenGL Water Tutorial 8: Soft Edges (FINAL)
 //const float shineDamper = 20.0;
@@ -95,10 +99,15 @@ void main(void) {
 	vec3 totalSpecularHighlights = vec3(0.0);
 	
 	for (int i = 0; i < 4; i++) {
+		// OpenGL 3D Game Tutorial 26: Point Lights
+		// TODO: this was toLightVector, check if it is ok to use fromLightVector here, seems to work
+		float distance = length(fromLightVector[i]);
+		float attFactor = attenuation[i].x + (attenuation[i].y * distance) + (attenuation[i].z * distance * distance);
+	
 		vec3 reflectedLight = reflect(normalize(fromLightVector[i]), normal);
 		float specular = max(dot(reflectedLight, viewVector), 0.0);
 		specular = pow(specular, shineDamper);
-		totalSpecularHighlights = totalSpecularHighlights +  lightColor[i] * specular * reflectivity;
+		totalSpecularHighlights = totalSpecularHighlights + lightColor[i] * specular * reflectivity / attFactor;
 	}
 	
 	out_Color = mix(reflectColor, refractColor, refractiveFactor);

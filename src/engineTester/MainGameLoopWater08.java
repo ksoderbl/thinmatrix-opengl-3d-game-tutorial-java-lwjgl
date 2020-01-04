@@ -133,7 +133,7 @@ public class MainGameLoopWater08
         List<Light> lights = new ArrayList<Light>();
 
         // OpenGL 3D Game Tutorial 25: Multiple Lights
-        lights.add(new Light(new Vector3f(30000, 300, 0), new Vector3f(0.99f, 0.99f, 0.99f)));
+        lights.add(new Light(new Vector3f(30000, 300, 0), new Vector3f(0.59f, 0.59f, 0.59f)));
        
         ex = 1126.3969f;
         ez = 2621.307f;
