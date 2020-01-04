@@ -5,7 +5,7 @@ in vec2 position;
 out vec4 clipSpace;
 out vec2 textureCoords;
 out vec3 toCameraVector;
-out vec3 fromLightVector;
+out vec3 fromLightVector[4];
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
@@ -16,7 +16,7 @@ uniform vec3 cameraPosition;
 uniform float tiling;
 
 // OpenGL Water Tutorial 7: Normal Maps
-uniform vec3 lightPosition;
+uniform vec3 lightPosition[4];
 
 // Tutorial 16: Fog
 out float visibility;
@@ -35,7 +35,9 @@ void main(void)
 
 	textureCoords = vec2(position.x / 2.0 + 0.5, position.y / 2.0 + 0.5) * tiling;
 	toCameraVector = cameraPosition - worldPosition.xyz;
-	fromLightVector = worldPosition.xyz - lightPosition;
+	for (int i = 0; i < 4; i++) {
+		fromLightVector[i] = worldPosition.xyz - lightPosition[i];
+	}
 	
 	// Tutorial 16: Fog: distance of this vertex from camera
 	float distance = length(positionRelativeToCam.xyz);

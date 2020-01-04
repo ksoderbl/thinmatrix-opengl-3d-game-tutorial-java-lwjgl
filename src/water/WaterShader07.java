@@ -1,5 +1,7 @@
 package water;
 
+import java.util.List;
+
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -9,6 +11,8 @@ import shaders.ShaderProgram;
 import toolbox.Maths;
 
 public class WaterShader07 extends ShaderProgram {
+	
+	private static final int MAX_LIGHTS = 4;
 
 	private final static String VERTEX_FILE = "src/water/waterVertex07.glsl";
 	private final static String FRAGMENT_FILE = "src/water/waterFragment07.glsl";
@@ -24,8 +28,8 @@ public class WaterShader07 extends ShaderProgram {
     private int location_moveFactor;
     private int location_cameraPosition;
     private int location_normalMap;
-    private int location_lightColor;
-    private int location_lightPosition;
+    private int location_lightColor[];
+    private int location_lightPosition[];
 	
     private int location_skyColor;
     private int location_skyDensity;
@@ -53,8 +57,13 @@ public class WaterShader07 extends ShaderProgram {
         location_moveFactor = getUniformLocation("moveFactor");
         location_cameraPosition = getUniformLocation("cameraPosition");
         location_normalMap = getUniformLocation("normalMap");
-        location_lightColor = getUniformLocation("lightColor");
-        location_lightPosition = getUniformLocation("lightPosition");
+        
+		location_lightPosition = new int[MAX_LIGHTS];
+		location_lightColor = new int[MAX_LIGHTS];
+		for (int i = 0; i < MAX_LIGHTS; i++) {
+			location_lightPosition[i] = super.getUniformLocation("lightPosition[" + i + "]");
+			location_lightColor[i] = super.getUniformLocation("lightColor[" + i + "]");
+		}
 		
 		location_skyColor = super.getUniformLocation("skyColor");
 		location_skyDensity = super.getUniformLocation("skyDensity");
@@ -68,9 +77,17 @@ public class WaterShader07 extends ShaderProgram {
         super.loadInt(location_normalMap, 3);
     }
 	
-	public void loadLight(Light sun) {
-		super.loadVector(location_lightColor, sun.getColor());
-		super.loadVector(location_lightPosition, sun.getPosition());
+	public void loadLights(List<Light> lights) {
+		for (int i = 0; i < MAX_LIGHTS; i++) {
+			if (i < lights.size()) {
+				super.loadVector(location_lightPosition[i], lights.get(i).getPosition());
+				super.loadVector(location_lightColor[i], lights.get(i).getColor());
+			}
+			else {
+				super.loadVector(location_lightPosition[i], new Vector3f(0, 0, 0));
+				super.loadVector(location_lightColor[i], new Vector3f(0, 0, 0));
+			}
+		}
 	}
 
     public void loadMoveFactor(float factor) {

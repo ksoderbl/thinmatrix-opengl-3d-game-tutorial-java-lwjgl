@@ -70,7 +70,7 @@ public class WaterRenderer07 {
 		moveFactor %= 1;
 		shader.loadMoveFactor(moveFactor);
         shader.loadWaveStrength(waveStrength); // set waveStrength to 0 to remove the dudvMap distortion
-        shader.loadLight(lights.get(0)); //TODO
+        shader.loadLights(lights);
 
         shader.loadSkyColor(sky.getColor());
         shader.loadSkyVariables(sky.getDensity(), sky.getGradient());

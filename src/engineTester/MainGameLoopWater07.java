@@ -133,13 +133,13 @@ public class MainGameLoopWater07
         List<Light> lights = new ArrayList<Light>();
 
         // OpenGL 3D Game Tutorial 25: Multiple Lights
-        lights.add(new Light(new Vector3f(1000, 10000, 10000), new Vector3f(0.4f, 0.4f, 0.4f)));
+        lights.add(new Light(new Vector3f(1000, 10000, 10000), new Vector3f(0.99f, 0.99f, 0.99f)));
        
-        ex = 303.5754f;
-        ez = 655.96643f;
+        ex = 1126.3969f;
+        ez = 2621.307f;
         ey = world.getHeightOfTerrain(ex, ez);
         entities.add(new Entity(lampModel, new Vector3f(ex, ey, ez), 0, 0, 0, 1f));
-        lights.add(new Light(new Vector3f(ex, ey+14, ez), new Vector3f(2, 1, 1), new Vector3f(1, 0.01f, 0.002f)));
+        lights.add(new Light(new Vector3f(ex, ey+14, ez), new Vector3f(3, 1, 1), new Vector3f(1, 0.01f, 0.002f)));
 
         ex = 375.8717f;
         ez = 587.5373f;
@@ -156,7 +156,7 @@ public class MainGameLoopWater07
         
         Random random = new Random(676452);
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 2000; i++) {
         	
         	float x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, scale = 1;
         	int textureIndex = 0;

@@ -3,7 +3,7 @@
 in vec4 clipSpace;
 in vec2 textureCoords;
 in vec3 toCameraVector;
-in vec3 fromLightVector;
+in vec3 fromLightVector[4];
 
 // Tutorial 16: Fog
 in float visibility;
@@ -26,9 +26,11 @@ const float waterReflectivity = 2.0;
 
 // OpenGL Water Tutorial 7: Normal Maps
 uniform sampler2D normalMap;
-uniform vec3 lightColor;
-const float shineDamper = 20.0;
-const float reflectivity = 0.6;
+uniform vec3 lightColor[4];
+//const float shineDamper = 20.0;
+//const float reflectivity = 0.6;
+const float shineDamper = 100.0;
+const float reflectivity = 1.1;
 
 void main(void) {
 
@@ -66,10 +68,15 @@ void main(void) {
 	vec4 normalMapColor = texture(normalMap, distortedTexCoords);
 	vec3 normal = vec3(normalMapColor.r * 2.0 - 1.0, normalMapColor.b, normalMapColor.g * 2.0 - 1.0);
 	normal = normalize(normal);
-	vec3 reflectedLight = reflect(normalize(fromLightVector), normal);
-	float specular = max(dot(reflectedLight, viewVector), 0.0);
-	specular = pow(specular, shineDamper);
-	vec3 specularHighlights = lightColor * specular * reflectivity;
+	
+	vec3 totalSpecularHighlights = vec3(0.0);
+	
+	for (int i = 0; i < 4; i++) {
+		vec3 reflectedLight = reflect(normalize(fromLightVector[i]), normal);
+		float specular = max(dot(reflectedLight, viewVector), 0.0);
+		specular = pow(specular, shineDamper);
+		totalSpecularHighlights = totalSpecularHighlights +  lightColor[i] * specular * reflectivity;
+	}
 	
 	out_Color = mix(reflectColor, refractColor, refractiveFactor);
 	
@@ -77,7 +84,7 @@ void main(void) {
 	out_Color = mix(out_Color, vec4(0.0, 0.3, 0.5, 1.0), 0.2);
 	
 	// OpenGL Water Tutorial 7: Normal Maps	
-	out_Color = out_Color + vec4(specularHighlights, 0.0);
+	out_Color = out_Color + vec4(totalSpecularHighlights, 0.0);
 
 	// Tutorial 16: Fog
 	out_Color = mix(vec4(skyColor, 1), out_Color, visibility);
