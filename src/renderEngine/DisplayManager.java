@@ -21,7 +21,7 @@ public class DisplayManager {
     private static long oldNanoTime = 0;
     private static int frames = 0;
     
-    private static boolean vsync = false;
+    private static boolean vsync = true;
 
     public static void createDisplay(String title) {
 
@@ -99,6 +99,10 @@ public class DisplayManager {
 
     public static float getFrameTimeSeconds() {
         return delta;
+    }
+    
+    public static void setVSync(boolean value) {
+    	vsync = value;
     }
 
     public static void closeDisplay() {

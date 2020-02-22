@@ -85,6 +85,7 @@ public class MainGameLoop28
 	
     public MainGameLoop28() {
     	DisplayManager.createDisplay(title + ": " + subTitle);
+    	DisplayManager.setVSync(false);
 
         TextMaster.init(loader);
         if (title.length() > 0) {
