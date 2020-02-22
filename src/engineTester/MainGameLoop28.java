@@ -29,6 +29,7 @@ import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer27;
 import skybox.ClearSky;
+import skybox.FoggySky;
 import skybox.Sky;
 import terrains.Terrain;
 import terrains.World;
@@ -234,7 +235,8 @@ public class MainGameLoop28
         water = new WaterTile04(0, -1 * waterSize, waterHeight, waterSize);
         waters.add(water);
         
-        Sky sky = new ClearSky(0x63 / 255.0f, 0x8D / 255.0f, 0xAD / 255.0f);
+        //Sky sky = new ClearSky(0x63 / 255.0f, 0x8D / 255.0f, 0xAD / 255.0f);
+        Sky sky = new FoggySky(0x63 / 255.0f, 0x8D / 255.0f, 0xAD / 255.0f);
 
 //        List<GuiTexture> guiTextures = new ArrayList<>();
 //        GuiTexture refrGui = new GuiTexture(buffers.getRefractionTexture(), new Vector2f( 0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
