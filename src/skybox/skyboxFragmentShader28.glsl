@@ -5,9 +5,12 @@ out vec4 out_Color;
 
 uniform samplerCube cubeMap;
 uniform samplerCube cubeMap2;
+// 
 uniform float blendFactor;
 uniform vec3 skyColor;
+// use fog color below this height
 uniform float lowerLimit;
+// use skybox texture color above this height
 uniform float upperLimit;
 
 //const float levels = 10.0; // tutorial 30 cel shading
@@ -15,6 +18,7 @@ uniform float upperLimit;
 void main(void) {
         vec4 texture1 = texture(cubeMap, textureCoords);
         vec4 texture2 = texture(cubeMap2, textureCoords);
+        
         vec4 finalColor = mix(texture1, texture2, blendFactor);
 
         // cel shading
