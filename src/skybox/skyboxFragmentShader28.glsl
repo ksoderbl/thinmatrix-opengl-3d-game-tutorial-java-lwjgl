@@ -7,10 +7,8 @@ uniform samplerCube cubeMap;
 uniform samplerCube cubeMap2;
 uniform float blendFactor;
 uniform vec3 skyColor;
-
-const float lowerLimit = 0;
-// 300 (not 30) because the FAR_PLANE variables is 10000 and not 1000
-const float upperLimit = 50000.0;
+uniform float lowerLimit;
+uniform float upperLimit;
 
 //const float levels = 10.0; // tutorial 30 cel shading
 

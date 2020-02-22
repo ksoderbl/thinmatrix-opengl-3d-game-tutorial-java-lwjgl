@@ -82,6 +82,7 @@ public class SkyboxRenderer28 {
         shader.start();
         shader.connectTextureUnits();
         shader.loadProjectionMatrix(projectionMatrix);
+        shader.loadLimits(0f, SIZE);
         shader.stop();
     }
 
