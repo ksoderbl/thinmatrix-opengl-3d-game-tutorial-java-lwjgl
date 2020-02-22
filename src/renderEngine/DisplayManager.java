@@ -19,7 +19,9 @@ public class DisplayManager {
     private static float delta;
     
     private static long oldNanoTime = 0;
-    private static double frames = 0;
+    private static int frames = 0;
+    
+    private static boolean vsync = false;
 
     public static void createDisplay(String title) {
 
@@ -62,8 +64,12 @@ public class DisplayManager {
         lastFrameTime = getCurrentTime();
     }
 
-    public static void updateDisplay() {
-        Display.sync(FPS_CAP);
+    // returns number of frames drawn since fps printout
+    // 0 means fps was just printed out
+    public static int updateDisplay() {
+    	if (vsync) {
+    		Display.sync(FPS_CAP);
+    	}
         
         if (Display.wasResized()) {
         	GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
@@ -87,6 +93,8 @@ public class DisplayManager {
         	}
         	oldNanoTime = nanoTime;
         }
+        
+        return frames;
     }
 
     public static float getFrameTimeSeconds() {

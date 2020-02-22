@@ -57,10 +57,33 @@ public class MainGameLoop28
     float terrainMaxHeight = 2000;
     float waterSize = terrainSize;
     float waterHeight = 0;
+    
+    Random random = new Random(676452);
+    Loader loader = new Loader();
+    List<Entity> entities = new ArrayList<>();
+    
+    public void addEntity(World world, TexturedModel texturedModel, float rx, float rz, float scale) {
+    	int numTextureRows = texturedModel.getTexture().getNumberOfRows();
+    	int numSubTextures = numTextureRows * numTextureRows;
+    	
+	    float x = random.nextFloat() * terrainSize - terrainSize / 2;
+		float z = random.nextFloat() * terrainSize - terrainSize / 2;
+		float y = world.getHeightOfTerrain(x, z);
+		if (y > world.getHeightOfWater(x, z)) {
+	        float ry = random.nextFloat() * 360;
+	        
+	        if (numSubTextures > 1) {
+	        	int textureIndex = random.nextInt(numSubTextures);
+	        	entities.add(new Entity(texturedModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        }
+	        else {
+	        	entities.add(new Entity(texturedModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        }
+		}
+    }
 	
     public MainGameLoop28() {
     	DisplayManager.createDisplay(title + ": " + subTitle);
-        Loader loader = new Loader();
 
         TextMaster.init(loader);
         if (title.length() > 0) {
@@ -79,7 +102,6 @@ public class MainGameLoop28
 	        text3.setColor(0.1f, 0.4f, 0.1f);
         }
         
-
         World world = new WorldWater04(loader, terrainSize, terrainMaxHeight, waterHeight);
         List<Terrain> terrains = world.getTerrains();
 
@@ -98,7 +120,7 @@ public class MainGameLoop28
         TexturedModel exampleModel = loader.createTexturedModel("example", "white", 1, 0);
         TexturedModel lampModel = loader.createTexturedModel("lamp", "lamp", 1, 0, false, true);
         
-        List<Entity> entities = new ArrayList<>();
+        
 
         float ex, ey, ez;
  
@@ -160,90 +182,20 @@ public class MainGameLoop28
         entities.add(new Entity(lampModel, new Vector3f(ex, ey, ez), 0, 0, 0, 1f));
         lights.add(new Light(new Vector3f(ex, ey+14, ez), new Vector3f(0, 1, 2), new Vector3f(1, 0.01f, 0.002f)));
         
-        
-        Random random = new Random(676452);
-
         for (int i = 0; i < 2000; i++) {
-        	
-        	float x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, scale = 1;
-        	int textureIndex = 0;
-        	
-        	if (i % 7 == 0) {
-                // grass
-                x = random.nextFloat() * terrainSize - terrainSize / 2;
-            	z = random.nextFloat() * terrainSize - terrainSize / 2;
-            	y = world.getHeightOfTerrain(x, z);
-            	if (y > world.getHeightOfWater(x, z)) {
-	                rx = 0;
-	                ry = random.nextFloat() * 360;
-	                rz = 0;
-	                scale = 1.8f;
-	                entities.add(new Entity(grassModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-            	}
-
-                // flower
-                x = random.nextFloat() * terrainSize - terrainSize / 2;
-            	z = random.nextFloat() * terrainSize - terrainSize / 2;
-            	y = world.getHeightOfTerrain(x, z);
-            	if (y > world.getHeightOfWater(x, z)) {
-	                rx = 0;
-	                ry = random.nextFloat() * 360;
-	                rz = 0;
-	                scale = 2.3f;
-	                entities.add(new Entity(flowerModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-            	}
+        	if (i % 3 == 0) {
+        		addEntity(world, grassModel, 0, 0, 1.8f);
+        		addEntity(world, flowerModel, 0, 0, 2.3f);
         	}
 
-        	if (i % 3 == 0) {
-	            // fern
-        		textureIndex = random.nextInt(4);
-	            x = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	y = world.getHeightOfTerrain(x, z);
-	        	if (y > world.getHeightOfWater(x, z)) {
-		            rx = 10 * random.nextFloat() - 5;
-		            ry = random.nextFloat() * 360;
-		            rz = 10 * random.nextFloat() - 5;
-		            scale = 0.9f;
-		            entities.add(new Entity(fernModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
-	        	}
-	
+        	if (i % 2 == 0) {
+        		addEntity(world, fernModel, 10 * random.nextFloat() - 5, 10 * random.nextFloat() - 5, 0.9f);
+        		
 	            // low poly tree "bobble"
-	            textureIndex = random.nextInt(4);
-	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	y = world.getHeightOfTerrain(x, z);
-	        	if (y > world.getHeightOfWater(x, z)) {
-		            rx = 4 * random.nextFloat() - 2;
-		            ry = random.nextFloat() * 360;
-		            rz = 4 * random.nextFloat() - 2;
-		            scale = random.nextFloat() * 0.1f + 0.6f;
-		            entities.add(new Entity(lowPolyTreeModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
-	        	}
+        		addEntity(world, lowPolyTreeModel, 4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 0.1f + 0.6f);
 	
-	        	// tree
-	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	y = world.getHeightOfTerrain(x, z);
-	        	if (y > world.getHeightOfWater(x, z)) {
-		            rx = 4 * random.nextFloat() - 2;
-		            ry = random.nextFloat() * 360;
-		            rz = 4 * random.nextFloat() - 2;
-		            scale = random.nextFloat() * 1f + 4f;
-		            entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-	        	}
-
-	        	// pine
-	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	y = world.getHeightOfTerrain(x, z);
-	        	if (y > world.getHeightOfWater(x, z)) {
-		            rx = 4 * random.nextFloat() - 2;
-		            ry = random.nextFloat() * 360;
-		            rz = 4 * random.nextFloat() - 2;
-		            scale = random.nextFloat() * 4f + 1f;
-		            entities.add(new Entity(pineModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-	        	}
+        		addEntity(world, treeModel,  4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 1f + 4f);
+	        	addEntity(world, pineModel,  4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 4f + 1f);
         	}
         }
 
@@ -265,7 +217,6 @@ public class MainGameLoop28
 
         MasterRenderer27 renderer = new MasterRenderer27(loader);
         
-        int i = 0;
         int cameraFrames = 0;
         
         // Water
@@ -353,13 +304,13 @@ public class MainGameLoop28
 
         	TextMaster.render();
             
-        	DisplayManager.updateDisplay();
+        	// frames = 0 means a new second
+        	int frames = DisplayManager.updateDisplay();
             
             Vector3f cameraPos = camera.getPosition();
-            if ((i % 60) == 0) {
+            if (frames == 0) {
             	System.out.println("Camera Pos: (x = " + cameraPos.getX() + ", z = " + cameraPos.getZ() + ")");
             }
-            i++;
         }
 
         buffers.cleanUp();
