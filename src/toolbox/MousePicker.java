@@ -14,7 +14,7 @@ import terrains.World;
 // http://antongerdelan.net/opengl/raycasting.html
 public class MousePicker {
 
-    private static final int RECURSION_COUNT = 2000;
+    private static final int RECURSION_COUNT = 2000; // was 200
     private static final float RAY_RANGE = 10000; // was 600
 
     private Vector3f currentRay = new Vector3f();
