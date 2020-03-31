@@ -36,7 +36,7 @@ public class WorldWater04 implements World {
             }
         }
         
-        System.out.println("World: generated " + terrains.size() + " terrains.");
+        System.out.println("WorldWater04: generated " + terrains.size() + " terrains.");
         
         this.waterHeight = waterHeight;
 	}
@@ -61,7 +61,7 @@ public class WorldWater04 implements World {
 			height = terrain.getHeightOfTerrain(worldX, worldZ);
 		}
 		
-		//System.out.println("World: getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
+		//System.out.println("WorldWater04: getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
 		
 		return height;
 	}
@@ -72,5 +72,16 @@ public class WorldWater04 implements World {
 	
 	public List<Terrain> getTerrains() {
 		return terrains;
+	}
+	
+	public Terrain getTerrain(float worldX, float worldZ) {
+		// this could be optimized with a hash table
+		for (int i = 0; i < terrains.size(); i++) {
+			Terrain terrain = terrains.get(i);
+			if (terrain.containsPosition(worldX, worldZ)) {
+				return terrain;
+			}
+		}
+		return null;
 	}
 }

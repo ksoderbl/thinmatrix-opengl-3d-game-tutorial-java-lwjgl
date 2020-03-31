@@ -71,4 +71,8 @@ public class World22 implements World {
 	public List<Terrain> getTerrains() {
 		return terrains;
 	}
+	
+	public Terrain getTerrain(float worldX, float worldZ) {
+		return null;
+	}
 }

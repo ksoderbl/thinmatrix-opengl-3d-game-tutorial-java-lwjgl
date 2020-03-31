@@ -1,19 +1,21 @@
 package toolbox;
 
-import entities.Camera;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
+
+import entities.Camera;
 import terrains.Terrain;
+import terrains.World;
 
 // http://antongerdelan.net/opengl/raycasting.html
 public class MousePicker {
 
-    private static final int RECURSION_COUNT = 200;
-    private static final float RAY_RANGE = 600;
+    private static final int RECURSION_COUNT = 2000;
+    private static final float RAY_RANGE = 10000; // was 600
 
     private Vector3f currentRay = new Vector3f();
 
@@ -21,14 +23,14 @@ public class MousePicker {
     private Matrix4f viewMatrix;
     private Camera camera;
 
-    private Terrain terrain;
+    private World world;
     private Vector3f currentTerrainPoint;
 
-    public MousePicker(Camera camera, Matrix4f projectionMatrix, Terrain terrain) {
+    public MousePicker(Camera camera, Matrix4f projectionMatrix, World world) {
         this.camera = camera;
         this.projectionMatrix = projectionMatrix;
         this.viewMatrix = Maths.createViewMatrix(camera);
-        this.terrain = terrain;
+        this.world = world;
     }
 
     public Vector3f getCurrentTerrainPoint() {
@@ -141,6 +143,7 @@ public class MousePicker {
         //int x = worldX / Terrain.SIZE;
         //int z = worldZ / Terrain.SIZE;
         //return terrains[x][z];
-		return terrain;
+		//return terrain;
+		return world.getTerrain(worldX, worldZ);
 	}
 }

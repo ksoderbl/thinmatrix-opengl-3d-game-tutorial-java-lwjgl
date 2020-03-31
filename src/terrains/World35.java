@@ -61,25 +61,14 @@ public class World35 implements World {
 	
 	public float getHeightOfTerrain(float worldX, float worldZ) {
 		float height = 0;
-		Terrain terrain = null;
-
-		// find which terrain we are standing on
-		// this could be optimized with a hash table
-		for (int i = 0; i < terrains.size(); i++) {
-			Terrain t = terrains.get(i);
-			if (t.containsPosition(worldX, worldZ)) {
-				terrain = t;
-				//System.out.println("getHeightOfTerrain: i = " + i);
-				break;
-			}
-		}
-		
+		Terrain terrain = getTerrain(worldX, worldZ);
+	
 		// if we got a terrain, get terrain height
 		if (terrain != null) {
 			height = terrain.getHeightOfTerrain(worldX, worldZ);
 		}
 		
-		//System.out.println("getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
+		//System.out.println("World29: getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
 		
 		return height;
 	}
@@ -90,5 +79,16 @@ public class World35 implements World {
 	
 	public List<Terrain> getTerrains() {
 		return terrains;
+	}
+	
+	public Terrain getTerrain(float worldX, float worldZ) {
+		// this could be optimized with a hash table
+		for (int i = 0; i < terrains.size(); i++) {
+			Terrain terrain = terrains.get(i);
+			if (terrain.containsPosition(worldX, worldZ)) {
+				return terrain;
+			}
+		}
+		return null;
 	}
 }

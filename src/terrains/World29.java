@@ -7,13 +7,13 @@ import renderEngine.Loader;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 
-public class World23 implements World {
-	
-	public static float WATER_HEIGHT = 1;
+public class World29 implements World {
+
+	float waterHeight;
 	
 	List<Terrain> terrains;
 	
-	public World23(Loader loader) {
+	public World29(Loader loader, float terrainSize, float terrainMaxHeight, float waterHeight) {
 		
         // *********TERRAIN TEXTURE STUFF**********
 
@@ -31,41 +31,32 @@ public class World23 implements World {
         
         for (int x = -2; x < 2; x++) {
             for (int z = -2; z < 2; z++) {
-        		Terrain terrain = new Terrain23(x, z, loader, texturePack, blendMap, "heightmap");
+        		Terrain terrain = new TerrainWater04(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightmap");
         		terrains.add(terrain);
             }
         }
         
-        System.out.println("World: generated " + terrains.size() + " terrains.");
+        System.out.println("World29: generated " + terrains.size() + " terrains.");
+        
+        this.waterHeight = waterHeight;
 	}
 	
 	public float getHeightOfTerrain(float worldX, float worldZ) {
 		float height = 0;
-		Terrain terrain = null;
-
-		// find which terrain we are standing on
-		// this could be optimized with a hash table
-		for (int i = 0; i < terrains.size(); i++) {
-			Terrain t = terrains.get(i);
-			if (t.containsPosition(worldX, worldZ)) {
-				terrain = t;
-				//System.out.println("getHeightOfTerrain: i = " + i);
-				break;
-			}
-		}
-		
+		Terrain terrain = getTerrain(worldX, worldZ);
+	
 		// if we got a terrain, get terrain height
 		if (terrain != null) {
 			height = terrain.getHeightOfTerrain(worldX, worldZ);
 		}
 		
-		//System.out.println("getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
+		//System.out.println("World29: getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
 		
 		return height;
 	}
 	
 	public float getHeightOfWater(float worldX, float worldZ) {
-		return WATER_HEIGHT;
+		return waterHeight;
 	}
 	
 	public List<Terrain> getTerrains() {
@@ -73,6 +64,13 @@ public class World23 implements World {
 	}
 	
 	public Terrain getTerrain(float worldX, float worldZ) {
+		// this could be optimized with a hash table
+		for (int i = 0; i < terrains.size(); i++) {
+			Terrain terrain = terrains.get(i);
+			if (terrain.containsPosition(worldX, worldZ)) {
+				return terrain;
+			}
+		}
 		return null;
 	}
 }
