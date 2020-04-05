@@ -16,24 +16,31 @@ import entities.Light;
 import models.RawModel;
 import models.TexturedModel;
 import renderEngine.MasterRenderer;
+import skybox.Sky;
 import textures.ModelTexture;
 import toolbox.Maths;
 
 public class NormalMappingRenderer31 {
 
-	private NormalMappingShader shader;
+	private NormalMappingShader31 shader;
+	
+    // Tutorial 30: Cel Shading
+    private float shadingLevels = 10.0f;
 
 	public NormalMappingRenderer31(Matrix4f projectionMatrix) {
-		this.shader = new NormalMappingShader();
+		this.shader = new NormalMappingShader31();
 		shader.start();
 		shader.loadProjectionMatrix(projectionMatrix);
 		shader.connectTextureUnits();
 		shader.stop();
 	}
 
-	public void render(Map<TexturedModel, List<Entity>> entities, Vector4f clipPlane, List<Light> lights, Camera camera) {
+	public void render(Map<TexturedModel, List<Entity>> entities, Vector4f clipPlane, List<Light> lights, Sky sky, Camera camera) {
 		shader.start();
-		prepare(clipPlane, lights, camera);
+		
+    	shader.loadShadingLevels(shadingLevels);
+		
+		prepare(clipPlane, lights, sky, camera);
 		for (TexturedModel model : entities.keySet()) {
 			prepareTexturedModel(model);
 			List<Entity> batch = entities.get(model);
@@ -85,10 +92,9 @@ public class NormalMappingRenderer31 {
 		shader.loadOffset(entity.getTextureXOffset(), entity.getTextureYOffset());
 	}
 
-	private void prepare(Vector4f clipPlane, List<Light> lights, Camera camera) {
+	private void prepare(Vector4f clipPlane, List<Light> lights, Sky sky, Camera camera) {
 		shader.loadClipPlane(clipPlane);
-		//need to be public variables in MasterRenderer
-		shader.loadSkyColour(MasterRenderer.RED, MasterRenderer.GREEN, MasterRenderer.BLUE);
+		shader.loadSkyColor(sky.getColor());
 		Matrix4f viewMatrix = Maths.createViewMatrix(camera);
 		
 		shader.loadLights(lights, viewMatrix);

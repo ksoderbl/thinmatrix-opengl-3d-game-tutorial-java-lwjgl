@@ -104,7 +104,7 @@ public class MasterRenderer31 {
     	renderer.render(entities);
         shader.stop();
         
-        normalMapRenderer.render(normalMapEntities, clipPlane, lights, camera);
+        normalMapRenderer.render(normalMapEntities, clipPlane, lights, sky, camera);
         
     	terrainShader.start();
     	terrainShader.loadClipPlane(clipPlane);
