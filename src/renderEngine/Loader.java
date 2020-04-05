@@ -65,7 +65,7 @@ public class Loader {
         return new RawModel(vaoID, indices.length);
     }
 
-    // For OpenGL 3D Game Tutorial 32: Font Rendering
+    // OpenGL 3D Game Tutorial 32: Font Rendering
     public int loadToVAO(float[] positions, float[] textureCoords) {
         int vaoID = createVAO();
         storeDataInAttributeList(0, 2, positions);
@@ -74,6 +74,7 @@ public class Loader {
         return vaoID;
     }
     
+    // OpenGL 3D Game Tutorial 31: Normal Mapping
     public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, float[] tangents, int[] indices) {
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
@@ -85,7 +86,7 @@ public class Loader {
         return new RawModel(vaoID, indices.length);
     }
 
-    // For OpenGL 3D Game Tutorial 24: Rendering GUIs
+    // OpenGL 3D Game Tutorial 24: Rendering GUIs
     public RawModel loadToVAO(float[] positions, int dimensions) {
         int vaoID = createVAO();
         storeDataInAttributeList(0, dimensions, positions);

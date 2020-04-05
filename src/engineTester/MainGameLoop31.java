@@ -133,6 +133,7 @@ public class MainGameLoop31
         TexturedModel barrelModel = loader.createTexturedModel("barrel", "barrel", "barrelNormal", 10, 0.5f);
         TexturedModel crateModel = loader.createTexturedModel("crate", "crate", "crateNormal", 10, 0.5f);
         TexturedModel boulderModel = loader.createTexturedModel("boulder", "boulder", "boulderNormal", 10, 0.5f);
+        TexturedModel footBallModel = loader.createTexturedModel("foot", "foot", "footNormal", 10, 0.5f);
 
         //************ENTITIES*******************
 
@@ -155,8 +156,13 @@ public class MainGameLoop31
         ey = world.getHeightOfTerrain(ex, ez) + 5;
         Entity entity3 = new Entity(crateModel, new Vector3f(ex, ey, ez), 0, 0, 0, 0.04f);
         normalMapEntities.add(entity3);
-      
-        
+
+        ex = 155;
+        ez = 75;
+        ey = world.getHeightOfTerrain(ex, ez) + 5;
+        Entity entity4 = new Entity(footBallModel, new Vector3f(ex, ey, ez), 0, 0, 0, 1f);
+        normalMapEntities.add(entity4);
+       
         
         entities.add(new Entity(rocksModel, new Vector3f(0, 0, 0), 0, 0, 0, 75));
 
