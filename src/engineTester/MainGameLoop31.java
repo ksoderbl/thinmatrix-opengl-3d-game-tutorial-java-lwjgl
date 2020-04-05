@@ -55,8 +55,8 @@ public class MainGameLoop31
 	String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
 	 //"Use key c to swap to second camera, move it with arrow keys";
 	
-    float terrainSize = 10000;
-    float terrainMaxHeight = 3000;
+    float terrainSize = 4000;
+    float terrainMaxHeight = 500;
     float waterSize = terrainSize;
     float waterHeight = 0;
     
