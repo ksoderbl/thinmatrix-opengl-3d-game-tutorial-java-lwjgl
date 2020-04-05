@@ -68,4 +68,5 @@ void main(void)
 			
 	// Tutorial 16: Fog
 	out_Color = mix(vec4(skyColor, 1), out_Color, visibility);
+	// out_Color = normalMapValue;
 }

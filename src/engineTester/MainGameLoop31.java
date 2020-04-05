@@ -302,6 +302,12 @@ public class MainGameLoop31
         	       	
         	camera.move();
         	
+            //entity.increaseRotation(0.1f, 0.2f, 0.3f);
+            //entity2.increaseRotation(0.3f, 0.1f, 0.2f);
+            //entity3.increaseRotation(0.2f, 0.3f, 0.1f);
+        	float dt = DisplayManager.getFrameTimeSeconds();
+            entity4.increaseRotation(12f * dt , 20f * dt, 6f * dt);
+        	
             picker.update();
             Vector3f terrainPoint = picker.getCurrentTerrainPoint();
             if (terrainPoint != null) {
