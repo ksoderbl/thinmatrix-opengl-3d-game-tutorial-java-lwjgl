@@ -8,8 +8,8 @@ public class FoggySky implements Sky {
     public static final float FOG_BLUE  = 0.9f;
     
     // OpenGL 3D Game Tutorial 16: Fog
-    public static final float FOG_DENSITY = 0.0017f;
-    public static final float FOG_GRADIENT = 1.5f;
+    public static final float FOG_DENSITY = 0.001f;
+    public static final float FOG_GRADIENT = 3.0f;
     
     public float density = FOG_DENSITY;
     public float gradient = FOG_GRADIENT;

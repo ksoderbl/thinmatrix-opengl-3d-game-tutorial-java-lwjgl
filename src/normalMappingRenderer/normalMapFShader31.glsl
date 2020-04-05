@@ -65,6 +65,7 @@ void main(void)
 	}
 
 	out_Color =  vec4(totalDiffuse,1.0) * textureColor + vec4(totalSpecular,1.0);
-	out_Color = mix(vec4(skyColor,1.0),out_Color, visibility);
-
+			
+	// Tutorial 16: Fog
+	out_Color = mix(vec4(skyColor, 1), out_Color, visibility);
 }

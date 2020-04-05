@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
@@ -14,8 +13,7 @@ import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
 import entities.Camera;
-import entities.Camera18;
-import entities.CameraWater04;
+import entities.Camera31;
 import entities.Entity;
 import entities.Light;
 import entities.PlayerWater04;
@@ -28,7 +26,7 @@ import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer31;
-import skybox.ClearSky;
+import skybox.FoggySky;
 import skybox.Sky;
 import terrains.Terrain;
 import terrains.World;
@@ -57,15 +55,17 @@ public class MainGameLoop31
 	String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
 	 //"Use key c to swap to second camera, move it with arrow keys";
 	
-    float terrainSize = 20000;
-    float terrainMaxHeight = 2000;
+    float terrainSize = 10000;
+    float terrainMaxHeight = 3000;
     float waterSize = terrainSize;
     float waterHeight = 0;
     
-    Random random = new Random(676452);
+    Random random = new Random(676451);
     Loader loader = new Loader();
     List<Entity> entities = new ArrayList<>();
     List<Entity> normalMapEntities = new ArrayList<>();
+    
+    boolean vsync = true;
     
     public void addEntity(World world, TexturedModel texturedModel, float rx, float rz, float scale) {
     	int numTextureRows = texturedModel.getTexture().getNumberOfRows();
@@ -90,7 +90,7 @@ public class MainGameLoop31
     public MainGameLoop31() {
     	DisplayManager.createDisplay(title + ": " + subTitle);
         MasterRenderer31 renderer = new MasterRenderer31(loader);
-    	//DisplayManager.setVSync(false);
+    	DisplayManager.setVSync(vsync);
 
         TextMaster.init(loader);
         if (title.length() > 0) {
@@ -192,8 +192,8 @@ public class MainGameLoop31
         entities.add(boxEntity);
         
         //Sky sky = new ClearSky(0.39f, 0.55f, 0.68f);
-        Sky sky = new ClearSky(0.57f, 0.8f, 1.0f);
-        //Sky sky = new FoggySky(0.39f, 0.55f, 0.68f);
+        //Sky sky = new ClearSky(0.57f, 0.8f, 1.0f);
+        Sky sky = new FoggySky(0.39f, 0.55f, 0.68f);
         
         List<Light> lights = new ArrayList<Light>();
 
@@ -247,16 +247,9 @@ public class MainGameLoop31
         PlayerWater04 player = new PlayerWater04(playerModel, new Vector3f(px, py, pz), 0, 90, 0, 0.6f);
         entities.add(player);
         
-        Camera camera1 = new CameraWater04(player);
-        camera1.getPosition().translate(0, 20, 0);
-
-        Camera camera2 = new Camera18();
-        camera2.getPosition().translate(0, 30, 0);
-        
-        Camera camera = camera1;
-        
-        int cameraFrames = 0;
-        
+        Camera camera = new Camera31(player);
+        //camera.getPosition().translate(0, 20, 0);
+       
         // Water
         WaterFrameBuffers buffers = new WaterFrameBuffers();
         
@@ -300,19 +293,7 @@ public class MainGameLoop31
         while (!Display.isCloseRequested()) {
         	
         	player.move(world);
-        	
-        	cameraFrames++;
-        	// key C used to swap camera
-        	if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
-        		if (camera == camera1) {
-            		camera = camera2;
-            	}
-            	else if (camera == camera2) {
-        			camera = camera1;
-            	}
-        		cameraFrames = 0;
-        	}
-        	
+        	       	
         	camera.move();
         	
             picker.update();
@@ -321,8 +302,6 @@ public class MainGameLoop31
             	lampEntity.setPosition(terrainPoint);
             	lampLight.setPosition(new Vector3f(terrainPoint.x, terrainPoint.y + 14, terrainPoint.z));
             }
-        	
-        	//camera2.getPosition().translate(0, 0, -0.02f);
         	
         	GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 

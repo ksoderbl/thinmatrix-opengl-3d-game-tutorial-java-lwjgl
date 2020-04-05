@@ -18,8 +18,9 @@ uniform vec3 lightPositionEyeSpace[4];
 uniform float numberOfRows;
 uniform vec2 offset;
 
-const float density = 0;
-const float gradient = 5.0;
+// Tutorial 16: Fog
+uniform float skyDensity;
+uniform float skyGradient;
 
 uniform vec4 plane;
 
@@ -50,8 +51,8 @@ void main(void){
 	}
 	toCameraVector = toTangentSpace * (-positionRelativeToCam.xyz);
 	
+	// Tutorial 16: Fog: distance of this vertex from camera
 	float distance = length(positionRelativeToCam.xyz);
-	visibility = exp(-pow((distance*density),gradient));
-	visibility = clamp(visibility,0.0,1.0);
-	
+	visibility = exp(-pow((distance * skyDensity), skyGradient));
+	visibility = clamp(visibility, 0.0, 1.0);
 }

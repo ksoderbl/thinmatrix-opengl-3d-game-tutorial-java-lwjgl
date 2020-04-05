@@ -95,6 +95,7 @@ public class NormalMappingRenderer31 {
 	private void prepare(Vector4f clipPlane, List<Light> lights, Sky sky, Camera camera) {
 		shader.loadClipPlane(clipPlane);
 		shader.loadSkyColor(sky.getColor());
+		shader.loadSkyVariables(sky.getDensity(), sky.getGradient());
 		Matrix4f viewMatrix = Maths.createViewMatrix(camera);
 		
 		shader.loadLights(lights, viewMatrix);

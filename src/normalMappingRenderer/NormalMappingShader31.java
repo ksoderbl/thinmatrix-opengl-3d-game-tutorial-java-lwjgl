@@ -26,6 +26,8 @@ public class NormalMappingShader31 extends ShaderProgram {
 	private int location_shineDamper;
 	private int location_reflectivity;
 	private int location_skyColor;
+    private int location_skyDensity;
+    private int location_skyGradient;
 	private int location_numberOfRows;
 	private int location_offset;
 	private int location_plane;
@@ -54,6 +56,8 @@ public class NormalMappingShader31 extends ShaderProgram {
 		location_shineDamper = super.getUniformLocation("shineDamper");
 		location_reflectivity = super.getUniformLocation("reflectivity");
 		location_skyColor = super.getUniformLocation("skyColor");
+		location_skyDensity = super.getUniformLocation("skyDensity");
+		location_skyGradient = super.getUniformLocation("skyGradient");
 		location_numberOfRows = super.getUniformLocation("numberOfRows");
 		location_offset = super.getUniformLocation("offset");
 		location_plane = super.getUniformLocation("plane");
@@ -87,6 +91,11 @@ public class NormalMappingShader31 extends ShaderProgram {
 	protected void loadOffset(float x, float y){
 		super.load2DVector(location_offset, new Vector2f(x,y));
 	}
+
+    public void loadSkyVariables(float density, float gradient) {
+        super.loadFloat(location_skyDensity, density);
+        super.loadFloat(location_skyGradient, gradient);
+    }
 	
 	protected void loadSkyColor(Vector3f skyColor) {
         super.loadVector(location_skyColor, skyColor);
@@ -95,6 +104,7 @@ public class NormalMappingShader31 extends ShaderProgram {
 	protected void loadSkyColor(float r, float g, float b) {
         super.loadVector(location_skyColor, new Vector3f(r, g, b));
     }
+
 	
 	protected void loadShineVariables(float damper,float reflectivity){
 		super.loadFloat(location_shineDamper, damper);
