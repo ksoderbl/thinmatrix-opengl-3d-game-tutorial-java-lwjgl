@@ -22,6 +22,7 @@ import de.matthiasmann.twl.utils.PNGDecoder;
 import de.matthiasmann.twl.utils.PNGDecoder.Format;
 import models.RawModel;
 import models.TexturedModel;
+import normalMappingObjConverter.NormalMappedObjLoader;
 import objConverter.OBJFileLoader;
 import textures.ModelTexture;
 import textures.TextureData;
@@ -277,4 +278,20 @@ public class Loader {
         return texturedModel;
     }
 
+    // for OpenGL 3D Game Tutorial 31: Normal Mapping
+    public TexturedModel createTexturedModel(
+    		String objFileName,
+    		String textureFileName,
+    		String normalMapFileName,
+    		float materialShineDamper,
+    		float materialReflectivity) {
+    	RawModel model = NormalMappedObjLoader.loadOBJ(objFileName, this);
+        ModelTexture texture = new ModelTexture(this.loadTexture(textureFileName));
+        int normalMap = loadTexture(normalMapFileName);
+        texture.setNormalMap(normalMap);
+        texture.setShineDamper(materialShineDamper);
+        texture.setReflectivity(materialReflectivity);
+        TexturedModel texturedModel = new TexturedModel(model, texture);
+        return texturedModel;
+    }
 }
