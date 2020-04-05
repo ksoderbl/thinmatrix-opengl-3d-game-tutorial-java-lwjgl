@@ -12,8 +12,8 @@ uniform vec3 skyColor;
 uniform float lowerLimit;
 // use skybox texture color above this height
 uniform float upperLimit;
-
-const float shadingLevels = 10.0; // tutorial 30 cel shading
+// tutorial 30 cel shading
+uniform float shadingLevels;
 
 void main(void) {
         vec4 texture1 = texture(cubeMap, textureCoords);
@@ -22,7 +22,7 @@ void main(void) {
         vec4 finalColor = mix(texture1, texture2, blendFactor);
 
         // cel shading
-        if (shadingLevels > 0) {
+        if (shadingLevels > 0.1) {
 	        float amount = (finalColor.r + finalColor.g + finalColor.b) / 3.0;
 	        amount = floor(amount * shadingLevels) / shadingLevels;
 	        finalColor.rgb = amount * skyColor;

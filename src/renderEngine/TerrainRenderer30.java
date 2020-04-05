@@ -18,6 +18,9 @@ import toolbox.Maths;
 public class TerrainRenderer30 {
 
     private TerrainShader30 shader;
+    
+    // Tutorial 30: Cel Shading
+    private float shadingLevels = 10.0f;
 
     public TerrainRenderer30(TerrainShader30 shader, Matrix4f projectionMatrix) {
         this.shader = shader;
@@ -28,7 +31,10 @@ public class TerrainRenderer30 {
     }
 
     public void render(List<Terrain> terrains) {
-        for (Terrain terrain:terrains) {
+    	
+    	shader.loadShadingLevels(shadingLevels);
+        
+    	for (Terrain terrain:terrains) {
         	prepareTerrain(terrain);
         	loadModelMatrix(terrain);
         	int vertexCount = terrain.getModel().getVertexCount();

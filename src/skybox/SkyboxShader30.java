@@ -24,6 +24,7 @@ public class SkyboxShader30 extends ShaderProgram {
     private int location_blendFactor;
     private int location_lowerLimit;
     private int location_upperLimit;
+    private int location_shadingLevels;
 
     private float rotation = 0;
 
@@ -63,6 +64,10 @@ public class SkyboxShader30 extends ShaderProgram {
     	super.loadFloat(location_lowerLimit, lowerLimit);
     	super.loadFloat(location_upperLimit, upperLimit);
     }
+    
+    public void loadShadingLevels(float levels) {
+        super.loadFloat(location_shadingLevels, levels);
+    }
 
     @Override
     protected void getAllUniformLocations() {
@@ -74,6 +79,7 @@ public class SkyboxShader30 extends ShaderProgram {
         location_cubeMap2 = super.getUniformLocation("cubeMap2");
         location_lowerLimit = super.getUniformLocation("lowerLimit");
         location_upperLimit = super.getUniformLocation("upperLimit");
+        location_shadingLevels = super.getUniformLocation("shadingLevels");
     }
 
     @Override

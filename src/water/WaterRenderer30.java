@@ -37,6 +37,8 @@ public class WaterRenderer30 {
 	private int dudvTexture;
 	private int normalMap;
 	
+	private float shadingLevels = 10.0f;
+	
 	public WaterRenderer30(Loader loader, WaterShader30 shader, Matrix4f projectionMatrix,
 			WaterFrameBuffers fbos) {
 		this.shader = shader;
@@ -74,6 +76,8 @@ public class WaterRenderer30 {
 
         shader.loadSkyColor(sky.getColor());
         shader.loadSkyVariables(sky.getDensity(), sky.getGradient());
+        shader.loadShadingLevels(shadingLevels);
+       
 		GL30.glBindVertexArray(quad.getVaoID());
 		GL20.glEnableVertexAttribArray(0);
         GL13.glActiveTexture(GL13.GL_TEXTURE0);

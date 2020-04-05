@@ -14,7 +14,23 @@ import renderEngine.Loader;
 
 public class SkyboxRenderer30 {
 
-    private static final float SIZE = 50000f;
+    private static String[] TEXTURE_FILES = {
+        "skyRight", "skyLeft", "skyTop", "skyBottom", "skyBack", "skyFront"
+    };
+
+    private static String[] NIGHT_TEXTURE_FILES = {
+        "nightRight", "nightLeft", "nightTop", "nightBottom", "nightBack", "nightFront"
+    };
+
+    private RawModel cube;
+    private int texture;
+    private int nightTexture;
+    private SkyboxShader30 shader;
+    private float time = 0;
+    // Tutorial 30: Cel Shading
+    private float shadingLevels = 10.0f;
+	
+	private static final float SIZE = 50000f;
 
     private static final float[] VERTICES = {
         -SIZE, SIZE, -SIZE,
@@ -60,20 +76,6 @@ public class SkyboxRenderer30 {
         SIZE, -SIZE, SIZE
     };
 
-    private static String[] TEXTURE_FILES = {
-        "skyRight", "skyLeft", "skyTop", "skyBottom", "skyBack", "skyFront"
-    };
-
-    private static String[] NIGHT_TEXTURE_FILES = {
-        "nightRight", "nightLeft", "nightTop", "nightBottom", "nightBack", "nightFront"
-    };
-
-    private RawModel cube;
-    private int texture;
-    private int nightTexture;
-    private SkyboxShader30 shader;
-    private float time = 0;
-
     public SkyboxRenderer30(Loader loader, Matrix4f projectionMatrix) {
         cube = loader.loadToVAO(VERTICES, 3);
         texture = loader.loadCubeMap(TEXTURE_FILES);
@@ -82,7 +84,6 @@ public class SkyboxRenderer30 {
         shader.start();
         shader.connectTextureUnits();
         shader.loadProjectionMatrix(projectionMatrix);
-        shader.loadLimits(SIZE/50, SIZE/3);
         shader.stop();
     }
 
@@ -94,6 +95,8 @@ public class SkyboxRenderer30 {
         shader.start();
         shader.loadViewMatrix(camera);
         shader.loadSkyColor(r, g, b);
+        shader.loadLimits(SIZE/50, SIZE/3);
+        shader.loadShadingLevels(shadingLevels);
         GL30.glBindVertexArray(cube.getVaoID());
         GL20.glEnableVertexAttribArray(0);
         bindTextures();

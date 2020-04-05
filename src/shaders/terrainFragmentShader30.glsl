@@ -30,7 +30,7 @@ uniform float reflectivity;
 uniform vec3 skyColor;
 
 // Tutorial 30: Cel Shading
-const float shadingLevels = 10;
+uniform float shadingLevels;
 
 void main(void)
 {
@@ -63,7 +63,7 @@ void main(void)
 		
 		// Tutorial 30: Cel Shading
 		float level = 0;
-		if (shadingLevels > 0) {
+		if (shadingLevels > 0.1) {
 			level = floor(brightness * shadingLevels);
 			brightness = level / shadingLevels;
 		}
@@ -75,7 +75,7 @@ void main(void)
 		float dampedFactor = pow(specularFactor, shineDamper);
 		
 		// Tutorial 30: Cel Shading
-		if (shadingLevels > 0) {
+		if (shadingLevels > 0.1) {
 			level = floor(dampedFactor * shadingLevels);
 			dampedFactor = level / shadingLevels;
 		}

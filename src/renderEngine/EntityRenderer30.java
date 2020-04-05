@@ -21,6 +21,9 @@ public class EntityRenderer30 {
 	
 	private StaticShader30 shader;
 	
+    // Tutorial 30: Cel Shading
+    private float shadingLevels = 10.0f;
+	
 	public EntityRenderer30(StaticShader30 shader, Matrix4f projectionMatrix) {
 		this.shader = shader;
 		shader.start();
@@ -29,6 +32,8 @@ public class EntityRenderer30 {
 	}
     
     public void render(Map<TexturedModel, List<Entity>> entities) {
+    	
+    	shader.loadShadingLevels(shadingLevels);
     	
     	for (TexturedModel model : entities.keySet()) {
     		prepareTexturedModel(model);

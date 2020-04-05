@@ -43,7 +43,7 @@ const float reflectivity = 10;
 uniform sampler2D depthMap;
 
 // Tutorial 30: Cel Shading
-const float shadingLevels = 10;
+uniform float shadingLevels;
 
 void main(void) {
 
@@ -112,7 +112,7 @@ void main(void) {
 		
 		// Tutorial 30: Cel Shading
 		float level = 0;
-		if (shadingLevels > 0) {
+		if (shadingLevels > 0.1) {
 			level = floor(specular * shadingLevels);
 			specular = level / shadingLevels;
 		}

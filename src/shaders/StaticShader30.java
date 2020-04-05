@@ -36,7 +36,9 @@ public class StaticShader30 extends ShaderProgram {
     private int location_textureOffset;
     // OpenGL Water Tutorial 3: Clipping Planes
     private int location_clipPlane;
-
+    // OpenGL 3D Game Tutorial 30: Cel Shading
+    private int location_shadingLevels;
+    
     public StaticShader30() {
         super(VERTEX_FILE, FRAGMENT_FILE);
     }
@@ -72,8 +74,8 @@ public class StaticShader30 extends ShaderProgram {
 			location_lightPosition[i] = super.getUniformLocation("lightPosition[" + i + "]");
 			location_lightColor[i] = super.getUniformLocation("lightColor[" + i + "]");
 			location_attenuation[i] = super.getUniformLocation("attenuation[" + i + "]");
-			
 		}
+		location_shadingLevels = super.getUniformLocation("shadingLevels");
 	}
 	
     public void loadClipPlane(Vector4f clipPlane) {
@@ -137,4 +139,8 @@ public class StaticShader30 extends ShaderProgram {
 	public void loadProjectionMatrix(Matrix4f projection) {
 		super.loadMatrix(location_projectionMatrix, projection);
 	}
+	
+    public void loadShadingLevels(float levels) {
+        super.loadFloat(location_shadingLevels, levels);
+    }
 }
