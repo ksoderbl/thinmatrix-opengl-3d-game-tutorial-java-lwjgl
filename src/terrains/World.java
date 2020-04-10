@@ -13,5 +13,7 @@ public interface World {
 	public List<Terrain> getTerrains();
 	public List<WaterTile> getWaterTiles();
 	public Terrain getTerrain(float worldX, float worldZ);
+
+	// size of each terrain tile
 	public float getTerrainSize();
 }

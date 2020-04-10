@@ -84,7 +84,7 @@ public class MainGameLoop32
         
         float terrainMaxHeight = 520;
         float rocksYOffset = terrainMaxHeight * 0.4075f;
-        float waterHeight = terrainMaxHeight * 0.115f;
+        float waterHeight = terrainMaxHeight * 0.11f;
 
     	String title = tutorial.split(":")[0].trim();
     	String subTitle = tutorial.split(":")[1].trim();
@@ -161,16 +161,16 @@ public class MainGameLoop32
         Vector3f boxPosition = world.getTerrainPoint(100, 300, 5);
         entities.add(new Entity(boxModel, boxPosition, 10));
 
-        Vector3f stallPosition = world.getTerrainPoint(-50, 250, 5);
-        entities.add(new Entity(stallModel, stallPosition, 0, -50, 0, 2f));
+        Vector3f stallPosition = world.getTerrainPoint(50, 250, 0);
+        entities.add(new Entity(stallModel, stallPosition, 0, 50, 0, 2f));
 
-        Vector3f oldBarrelPosition = world.getTerrainPoint(-40, 240, 3);
+        Vector3f oldBarrelPosition = world.getTerrainPoint(40, 240, 3);
         entities.add(new Entity(oldBarrelModel, oldBarrelPosition, 0.5f));
 
-        Vector3f examplePosition = world.getTerrainPoint(-30, 230, 0);
+        Vector3f examplePosition = world.getTerrainPoint(30, 230, 0);
         entities.add(new Entity(exampleModel, examplePosition, 1f));
 
-        Vector3f lamp9Position = world.getTerrainPoint(-30, 220, 0);
+        Vector3f lamp9Position = world.getTerrainPoint(30, 220, 0);
         entities.add(new Entity(lampModel, lamp9Position, 1f));
 
         Vector3f box2Position = world.getTerrainPoint(225, 352, 5);
