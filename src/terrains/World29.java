@@ -8,6 +8,7 @@ import org.lwjgl.util.vector.Vector3f;
 import renderEngine.Loader;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
+import water.WaterTile;
 
 public class World29 implements World {
 
@@ -79,6 +80,11 @@ public class World29 implements World {
 				return terrain;
 			}
 		}
+		return null;
+	}
+	
+	// this class doesn't have handle water
+	public List<WaterTile> getWaterTiles() {
 		return null;
 	}
 }

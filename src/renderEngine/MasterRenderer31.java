@@ -16,7 +16,6 @@ import entities.Camera;
 import entities.Entity;
 import entities.Light;
 import models.TexturedModel;
-import normalMappingRenderer.NormalMappingRenderer;
 import normalMappingRenderer.NormalMappingRenderer31;
 import shaders.StaticShader30;
 import shaders.TerrainShader30;
