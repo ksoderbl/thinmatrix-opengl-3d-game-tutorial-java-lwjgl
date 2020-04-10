@@ -98,4 +98,9 @@ public class WorldWater04 implements World {
 	public List<WaterTile> getWaterTiles() {
 		return null;
 	}
+	
+	// not used
+	public float getTerrainSize() {
+		return 0;
+	}
 }

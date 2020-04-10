@@ -9,14 +9,18 @@ import renderEngine.Loader;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 import water.WaterTile;
+import water.WaterTile04;
 
-public class World29 implements World {
+public class World32 implements World {
 
 	float waterHeight;
+	float waterSize;
+	float terrainSize;
 	
-	List<Terrain> terrains;
+	List<Terrain> terrains = new ArrayList<>();
+    List<WaterTile> waterTiles = new ArrayList<>();
 	
-	public World29(Loader loader, float terrainSize, float terrainMaxHeight, float waterHeight) {
+	public World32(Loader loader, float terrainSize, float terrainMaxHeight, float waterHeight) {
 		
         // *********TERRAIN TEXTURE STUFF**********
 
@@ -26,22 +30,29 @@ public class World29 implements World {
         TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("rockDiffuse"));
         TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("mossPath256"));
 
-        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture,
-                rTexture, gTexture, bTexture);
-        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
+        TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
+        TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMapLake"));
         
-        terrains = new ArrayList<Terrain>();
+        this.terrainSize = terrainSize;
         
-        for (int x = -2; x < 2; x++) {
-            for (int z = -2; z < 2; z++) {
-        		Terrain terrain = new TerrainWater04(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightmap");
+        for (int x = 0; x < 1; x++) {
+            for (int z = 0; z < 1; z++) {
+        		Terrain terrain = new TerrainWater04(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightmapLake");
         		terrains.add(terrain);
             }
         }
         
-        System.out.println("World29: generated " + terrains.size() + " terrains.");
+        System.out.println("" + this.getClass().getName() + ": generated " + terrains.size() + " terrains.");
         
         this.waterHeight = waterHeight;
+        this.waterSize = terrainSize;
+
+        for (int x = 0; x < 1; x++) {
+            for (int z = 0; z < 1; z++) {
+            	WaterTile water = new WaterTile04(x * waterSize, z * waterSize, waterHeight, waterSize);
+        		waterTiles.add(water);
+            }
+        }
 	}
 	
 	public float getHeightOfTerrain(float worldX, float worldZ) {
@@ -53,7 +64,7 @@ public class World29 implements World {
 			height = terrain.getHeightOfTerrain(worldX, worldZ);
 		}
 		
-		//System.out.println("World29: getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
+		//System.out.println("" + this.getClass().getName() + ": getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
 		
 		return height;
 	}
@@ -83,14 +94,11 @@ public class World29 implements World {
 		return null;
 	}
 	
-	// this class doesn't have handle water
 	public List<WaterTile> getWaterTiles() {
-		return null;
+		return waterTiles;
 	}
 	
-	// not used
 	public float getTerrainSize() {
-		return 0;
+		return terrainSize;
 	}
-
 }

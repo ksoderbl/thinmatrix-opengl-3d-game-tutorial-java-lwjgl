@@ -1,7 +1,9 @@
 package terrains;
 
 import java.util.List;
+
 import org.lwjgl.util.vector.Vector3f;
+
 import water.WaterTile;
 
 public interface World {
@@ -11,4 +13,5 @@ public interface World {
 	public List<Terrain> getTerrains();
 	public List<WaterTile> getWaterTiles();
 	public Terrain getTerrain(float worldX, float worldZ);
+	public float getTerrainSize();
 }

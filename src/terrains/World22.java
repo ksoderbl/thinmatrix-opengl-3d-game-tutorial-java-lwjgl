@@ -91,4 +91,9 @@ public class World22 implements World {
 	public List<WaterTile> getWaterTiles() {
 		return null;
 	}
+	
+	// not used
+	public float getTerrainSize() {
+		return 0;
+	}
 }
