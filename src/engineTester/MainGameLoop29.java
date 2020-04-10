@@ -321,10 +321,8 @@ public class MainGameLoop29
             
         	// frames = 0 means a new second
         	int frames = DisplayManager.updateDisplay();
-            
-            Vector3f cameraPos = camera.getPosition();
             if (frames == 0) {
-            	System.out.println("Camera Pos: (x = " + cameraPos.getX() + ", z = " + cameraPos.getZ() + ")");
+            	camera.printPosition();
                 System.out.println("ray:          " + picker.getCurrentRay());
                 System.out.println("terrainPoint: " + picker.getCurrentTerrainPoint());
             }

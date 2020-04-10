@@ -3,6 +3,8 @@ package terrains;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.util.vector.Vector3f;
+
 import renderEngine.Loader;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
@@ -62,6 +64,12 @@ public class World23 implements World {
 		//System.out.println("getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
 		
 		return height;
+	}
+	
+	// return a point in space that is at worldX, worldZ, at yOffset units above the terrain
+	public Vector3f getTerrainPoint(float worldX, float worldZ, float yOffset) {
+        float y = getHeightOfTerrain(worldX, worldZ) + yOffset;
+        return new Vector3f(worldX, y, worldZ);
 	}
 	
 	public float getHeightOfWater(float worldX, float worldZ) {

@@ -347,9 +347,8 @@ public class MainGameLoop27
             
         	DisplayManager.updateDisplay();
             
-            Vector3f cameraPos = camera.getPosition();
             if ((i % 60) == 0) {
-            	System.out.println("Camera Pos: (x = " + cameraPos.getX() + ", z = " + cameraPos.getZ() + ")");
+            	camera.printPosition();
             }
             i++;
         }

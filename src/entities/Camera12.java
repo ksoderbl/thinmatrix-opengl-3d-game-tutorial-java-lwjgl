@@ -50,4 +50,8 @@ public class Camera12 implements Camera {
     public float getRoll() {
         return roll;
     }
+
+    public void printPosition() {
+    	System.out.println("Camera Pos: (" + position.getX() + ", " + position.getY() + ", " + position.getZ() + ")");
+    }
 }

@@ -108,9 +108,9 @@ public class MainGameLoop14
         	TextMaster.render();
             DisplayManager.updateDisplay();
             
-            Vector3f cameraPos = camera.getPosition();
-            if ((i % 60) == 0)
-            	System.out.println("Camera Pos: (x = " + cameraPos.getX() + ", z = " + cameraPos.getZ() + ")");
+            if ((i % 60) == 0) {
+            	camera.printPosition();
+            }
             i++;
         }
 

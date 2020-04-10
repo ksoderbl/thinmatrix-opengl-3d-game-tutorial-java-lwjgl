@@ -69,6 +69,10 @@ public class Camera35 implements Camera {
         return roll;
     }
 
+    public void printPosition() {
+    	System.out.println("Camera Pos: (" + position.getX() + ", " + position.getY() + ", " + position.getZ() + ")");
+    }
+
     public void calculateCameraPosition(float horizDistance, float verticDistance) {
         float theta = player.getRotY() + angleAroundPlayer;
         float offsetX = (float) (horizDistance * Math.sin(Math.toRadians(theta)));

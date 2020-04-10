@@ -9,4 +9,5 @@ public interface Camera {
     public float getPitch();
     public float getYaw();
     public float getRoll();
+    public void printPosition();
 }
