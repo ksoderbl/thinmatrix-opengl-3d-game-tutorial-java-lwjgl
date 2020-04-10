@@ -32,7 +32,7 @@ import terrains.World;
 import terrains.World32;
 import toolbox.MousePicker;
 import water.WaterFrameBuffers;
-import water.WaterRenderer30;
+import water.WaterRenderer32;
 import water.WaterShader30;
 
 // OpenGL 3D Game Tutorial 32: Font Rendering
@@ -234,7 +234,7 @@ public class MainGameLoop32
         WaterFrameBuffers buffers = new WaterFrameBuffers();
         
         WaterShader30 waterShader = new WaterShader30();
-        WaterRenderer30 waterRenderer = new WaterRenderer30(loader, waterShader, renderer.getProjectionMatrix(), buffers);
+        WaterRenderer32 waterRenderer = new WaterRenderer32(loader, waterShader, renderer.getProjectionMatrix(), buffers, 0);
 
         List<GuiTexture> guiTextures = new ArrayList<>();
         //GuiTexture refrGui = new GuiTexture(buffers.getRefractionTexture(), new Vector2f( 0.8f, -0.8f), new Vector2f(0.2f, 0.2f));
