@@ -26,7 +26,6 @@ import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer31;
-import skybox.FoggySky;
 import skybox.Sky;
 import terrains.Terrain;
 import terrains.World;
@@ -197,9 +196,7 @@ public class MainGameLoop31
         Entity boxEntity = new Entity(boxModel, new Vector3f(ex, ey, ez), 0, 25f, 0, 5f);
         entities.add(boxEntity);
         
-        //Sky sky = new ClearSky(0.39f, 0.55f, 0.68f);
-        //Sky sky = new ClearSky(0.57f, 0.8f, 1.0f);
-        Sky sky = new FoggySky(0.39f, 0.55f, 0.68f);
+        Sky sky = new Sky(0.388f, 0.552f, 0.678f, 0.001f, 3f);
         
         List<Light> lights = new ArrayList<Light>();
 

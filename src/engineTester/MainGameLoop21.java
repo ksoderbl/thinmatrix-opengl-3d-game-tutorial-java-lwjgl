@@ -28,7 +28,6 @@ import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer21;
-import skybox.ClearSky;
 import skybox.Sky;
 import terrains.Terrain;
 import terrains.Terrain21;
@@ -226,7 +225,7 @@ public class MainGameLoop21
         guiTextures.add(reflGui);
         GuiRenderer guiRenderer = new GuiRenderer(loader);
         
-        Sky sky = new ClearSky();
+        Sky sky = new Sky(0.2f, 0.6f, 1f, 0.00015f, 7f);
 
         //****************Game Loop Below*********************
         

@@ -25,7 +25,6 @@ import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRendererWater01;
-import skybox.FoggySky;
 import skybox.Sky;
 import terrains.Terrain;
 import terrains.Terrain17;
@@ -189,7 +188,7 @@ public class MainGameLoopWater02
         guiTextures.add(reflGui);
         GuiRenderer guiRenderer = new GuiRenderer(loader);
         
-        Sky sky = new FoggySky();
+        Sky sky = new Sky(0.5f, 0.7f, 0.9f, 0.001f, 3f);
 
         //****************Game Loop Below*********************
         
