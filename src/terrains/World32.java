@@ -9,7 +9,7 @@ import renderEngine.Loader;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
 import water.WaterTile;
-import water.WaterTile04;
+import water.WaterTile32;
 
 public class World32 implements World {
 
@@ -17,12 +17,20 @@ public class World32 implements World {
 	float waterSize;
 	float terrainSize;
 	
+	float xSize;
+	float zSize;
+	
 	List<Terrain> terrains = new ArrayList<>();
     List<WaterTile> waterTiles = new ArrayList<>();
 	
 	public World32(Loader loader, float terrainSize, float terrainMaxHeight, float waterHeight) {
 		
         // *********TERRAIN TEXTURE STUFF**********
+		int xTiles = 1;
+		int zTiles = 1;
+		
+		xSize = terrainSize * xTiles;
+		zSize = terrainSize * zTiles;
 
         TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grassy"));
         TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
@@ -35,9 +43,9 @@ public class World32 implements World {
         
         this.terrainSize = terrainSize;
         
-        for (int x = 0; x < 1; x++) {
-            for (int z = 0; z < 1; z++) {
-        		Terrain terrain = new TerrainWater04(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightmapLake");
+        for (int x = 0; x < xTiles; x++) {
+            for (int z = 0; z < zTiles; z++) {
+        		Terrain terrain = new Terrain32(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightmapLake");
         		terrains.add(terrain);
             }
         }
@@ -47,9 +55,9 @@ public class World32 implements World {
         this.waterHeight = waterHeight;
         this.waterSize = terrainSize;
 
-        for (int x = 0; x < 1; x++) {
-            for (int z = 0; z < 1; z++) {
-            	WaterTile water = new WaterTile04(x * waterSize, z * waterSize, waterHeight, waterSize);
+        for (int x = 0; x < xTiles; x++) {
+            for (int z = 0; z < zTiles; z++) {
+            	WaterTile water = new WaterTile32(x * waterSize, z * waterSize, waterHeight, waterSize);
         		waterTiles.add(water);
             }
         }
@@ -100,5 +108,13 @@ public class World32 implements World {
 	
 	public float getTerrainSize() {
 		return terrainSize;
+	}
+	
+	public float getXSize() {
+		return xSize;
+	}
+	
+	public float getZSize() {
+		return zSize;
 	}
 }

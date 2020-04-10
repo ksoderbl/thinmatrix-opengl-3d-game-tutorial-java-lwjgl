@@ -13,10 +13,10 @@ import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
 import entities.Camera;
-import entities.Camera31;
+import entities.Camera32;
 import entities.Entity;
 import entities.Light;
-import entities.PlayerWater04;
+import entities.Player32;
 import fontMeshCreator.FontType;
 import fontMeshCreator.GUIText;
 import fontRendering.TextMaster;
@@ -25,7 +25,7 @@ import guis.GuiTexture;
 import models.TexturedModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
-import renderEngine.MasterRenderer31;
+import renderEngine.MasterRenderer32;
 import skybox.Sky;
 import terrains.Terrain;
 import terrains.World;
@@ -62,27 +62,25 @@ public class MainGameLoop32
     	int numTextureRows = texturedModel.getTexture().getNumberOfRows();
     	int numSubTextures = numTextureRows * numTextureRows;
     	
-    	float terrainSize = world.getTerrainSize();
-	    float x = random.nextFloat() * terrainSize - terrainSize / 2;
-		float z = random.nextFloat() * terrainSize - terrainSize / 2;
-		float y = world.getHeightOfTerrain(x, z);
-		if (y > world.getHeightOfWater(x, z)) {
+    	Vector3f position = world.getTerrainPoint(random.nextFloat() * world.getXSize(), random.nextFloat() * world.getZSize(), 0);
+		
+		if (position.y > world.getHeightOfWater(position.x, position.z) + 4) {
 	        float ry = random.nextFloat() * 360;
 	        
 	        if (numSubTextures > 1) {
 	        	int textureIndex = random.nextInt(numSubTextures);
-	        	entities.add(new Entity(texturedModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        	entities.add(new Entity(texturedModel, textureIndex, position, rx, ry, rz, scale));
 	        }
 	        else {
-	        	entities.add(new Entity(texturedModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+	        	entities.add(new Entity(texturedModel, position, rx, ry, rz, scale));
 	        }
 		}
     }
 	
     public MainGameLoop32() {
-        float terrainSize = 2000;
+        float terrainSize = 1000;
         
-        float terrainMaxHeight = 520;
+        float terrainMaxHeight = 320;
         float rocksYOffset = terrainMaxHeight * 0.4075f;
         float waterHeight = terrainMaxHeight * 0.11f;
 
@@ -90,7 +88,7 @@ public class MainGameLoop32
     	String subTitle = tutorial.split(":")[1].trim();
     	
     	DisplayManager.createDisplay(tutorial);
-        MasterRenderer31 renderer = new MasterRenderer31(loader);
+        MasterRenderer32 renderer = new MasterRenderer32(loader);
     	DisplayManager.setVSync(vsync);
 
         TextMaster.init(loader);
@@ -153,6 +151,10 @@ public class MainGameLoop32
         Vector3f footballPosition = world.getTerrainPoint(155, 75, 5);
         Entity entity4 = new Entity(footballModel, footballPosition, 1f);
         normalMapEntities.add(entity4);
+        
+        // add some more boulders
+        
+        
        
         // the position of this should be at the center of the terrain tiles
         Vector3f rocksPosition = world.getTerrainPoint(terrainSize/2, terrainSize/2, rocksYOffset);
@@ -222,10 +224,10 @@ public class MainGameLoop32
 
     	Vector3f playerPosition = world.getTerrainPoint(0, 0, 0);
         TexturedModel playerModel = loader.createTexturedModel("person", "playerTexture", 1, 0);
-        PlayerWater04 player = new PlayerWater04(playerModel, playerPosition, 0, 45, 0, 0.6f);
+        Player32 player = new Player32(playerModel, playerPosition, 0, 45, 0, 0.6f);
         entities.add(player);
         
-        Camera camera = new Camera31(player);
+        Camera camera = new Camera32(player);
         //camera.getPosition().translate(0, 20, 0);
        
         // Water

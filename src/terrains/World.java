@@ -16,4 +16,6 @@ public interface World {
 
 	// size of each terrain tile
 	public float getTerrainSize();
+	public float getXSize();
+	public float getZSize();
 }

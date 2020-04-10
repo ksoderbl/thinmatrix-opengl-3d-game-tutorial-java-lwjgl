@@ -110,4 +110,12 @@ public class World35 implements World {
 	public float getTerrainSize() {
 		return 0;
 	}
+	
+	public float getXSize() {
+		return 0;
+	}
+	
+	public float getZSize() {
+		return 0;
+	}
 }
