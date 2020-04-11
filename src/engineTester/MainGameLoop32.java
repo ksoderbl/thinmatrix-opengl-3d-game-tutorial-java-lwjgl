@@ -77,11 +77,11 @@ public class MainGameLoop32
     }
 	
     public MainGameLoop32() {
-        boolean vsync = false;
+        boolean vsync = true;
     	
         float terrainSize = 1600;
         
-        float terrainMaxHeight = 160;
+        float terrainMaxHeight = 100;
         float rocksYOffset = terrainMaxHeight * 0.4075f;
         float waterHeight = terrainMaxHeight * 0.03f;
         
@@ -91,7 +91,7 @@ public class MainGameLoop32
         
         // for/haze
         float airDensity = 0.002f;
-        float airGradient = 3.5f;
+        float airGradient = 2.5f;
 
     	String title = tutorial.split(":")[0].trim();
     	String subTitle = tutorial.split(":")[1].trim();
@@ -336,11 +336,11 @@ public class MainGameLoop32
         	
         	guiRenderer.render(guiTextures);
         	
-        	if (t < 5.0f) {
+        	if (t < 15.0f) {
         		// do nothing
         	}
-        	if (t > 5.0f && t < 20f) {
-        		float v = 0.5f * (t - 5.0f) * (t - 5.0f);
+        	if (t > 15.0f && t < 30f) {
+        		float v = 0.01f * (t - 5.0f) * (t - 5.0f);
 	        	text.increasePosition(v * dt, 0f);
 	        	text2.increasePosition(v * dt, 0f);
 	        	text3.increasePosition(v * dt, 0f);
