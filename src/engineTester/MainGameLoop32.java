@@ -102,18 +102,18 @@ public class MainGameLoop32
 
         TextMaster.init(loader);
 
-        FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        FontType font = new FontType(loader.loadFontTextureAtlas("arial"), new File("res/fonts/arial.fnt"));
       	FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
       	FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
       	
         GUIText text, text2, text3;
 
-        text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
-        text.setColor(0.1f, 0.1f, 0.4f);
-       	text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
-       	text2.setColor(0.4f, 0.1f, 0.1f);
-        text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
-        text3.setColor(0.1f, 0.4f, 0.1f);
+        text = new GUIText(title, 2f, font, new Vector2f(0.0f, 0.7f), 0.5f, true);
+        text.setColor(0.2f, 0.2f, 0.5f);
+       	text2 = new GUIText(subTitle, 1.5f, font2, new Vector2f(0.0f, 0.8f), 0.5f, true);
+       	text2.setColor(0.5f, 0.2f, 0.2f);
+        text3 = new GUIText(subSubTitle, 1f, font3, new Vector2f(0.0f, 0.9f), 0.5f, true);
+        text3.setColor(0.2f, 0.5f, 0.2f);
         
         World world = new World32(loader, terrainSize, terrainMaxHeight, terrainSize * 0.8f, waterHeight);
         List<Terrain> terrains = world.getTerrains();
@@ -209,7 +209,7 @@ public class MainGameLoop32
         Entity boxEntity = new Entity(boxModel, box2Position, 0, 25f, 0, 5f);
         entities.add(boxEntity);
         
-        Sky sky = new Sky(0.3f, .5f, .8f, airDensity, airGradient);       
+        Sky sky = new Sky(0.2f, .7f, .7f, airDensity, airGradient);       
         
         List<Light> lights = new ArrayList<Light>();
 
@@ -336,14 +336,25 @@ public class MainGameLoop32
         	
         	guiRenderer.render(guiTextures);
         	
-        	if (t < 15.0f) {
-        		// do nothing
-        	}
         	if (t > 15.0f && t < 30f) {
-        		float v = 0.01f * (t - 5.0f) * (t - 5.0f);
+        		float v = -0.01f * (t - 5.0f) * (t - 5.0f);
 	        	text.increasePosition(v * dt, 0f);
 	        	text2.increasePosition(v * dt, 0f);
 	        	text3.increasePosition(v * dt, 0f);
+        	}
+        	if (t >= 30f) {
+        		if (text != null) {
+        			TextMaster.removeText(text);
+        			text = null;
+        		}
+        		if (text2 != null) {
+        			TextMaster.removeText(text2);
+        			text2 = null;
+        		}
+        		if (text3 != null) {
+        			TextMaster.removeText(text3);
+        			text3 = null;
+        		}
         	}
 
         	TextMaster.render();

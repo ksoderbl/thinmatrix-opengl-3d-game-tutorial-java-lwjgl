@@ -29,7 +29,7 @@ public class WaterRenderer32 {
 	private WaterFrameBuffers fbos;
 	
 	// tiling has to be huge since the water tiles are huge
-	private float tiling = 22f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
+	private float tiling = 122f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
 	private float waveStrength = 0.004f; // 0.02 before water tutorial 8
 	
 	private float moveFactor = 0f;
