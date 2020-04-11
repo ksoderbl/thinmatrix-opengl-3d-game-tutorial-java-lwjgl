@@ -98,7 +98,12 @@ public class MetaFile {
 	 * @return The value of the variable.
 	 */
 	private int getValueOfVariable(String variable) {
-		return Integer.parseInt(values.get(variable));
+		String value = values.get(variable);
+		//System.out.println("value of " + variable + " is '" + value + "'");
+		if (value == null) {
+			return 0;
+		}
+		return Integer.parseInt(value);
 	}
 
 	/**
