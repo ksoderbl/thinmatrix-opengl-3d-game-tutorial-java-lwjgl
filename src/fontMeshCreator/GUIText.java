@@ -110,6 +110,11 @@ public class GUIText {
 		return numberOfLines;
 	}
 
+	public void increasePosition(float dx, float dy) {
+        this.position.x += dx;
+        this.position.y += dy;
+    }
+	
 	/**
 	 * @return The position of the top-left corner of the text in screen-space.
 	 *         (0, 0) is the top left corner of the screen, (1, 1) is the bottom

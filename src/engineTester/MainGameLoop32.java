@@ -85,13 +85,13 @@ public class MainGameLoop32
         float rocksYOffset = terrainMaxHeight * 0.4075f;
         float waterHeight = terrainMaxHeight * 0.05f;
         
-        float playerX = terrainSize * 0.3f;
-        float playerZ = terrainSize * 0.3f;
-        float playerDir = 0;
+        float playerX = 1368.5f; //terrainSize * 0.3f;
+        float playerZ = 419.1f; //terrainSize * 0.3f;
+        float playerDir = 270;
         
         // for/haze
         float airDensity = 0.002f;
-        float airGradient = 6.5f;
+        float airGradient = 3.5f;
 
     	String title = tutorial.split(":")[0].trim();
     	String subTitle = tutorial.split(":")[1].trim();
@@ -101,21 +101,19 @@ public class MainGameLoop32
     	DisplayManager.setVSync(vsync);
 
         TextMaster.init(loader);
-        if (title.length() > 0) {
-	        FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-	        GUIText text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
-	        text.setColor(0.1f, 0.1f, 0.4f);
-        }
-        if (subTitle.length() > 0) {
-        	FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        	GUIText text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
-        	text2.setColor(0.4f, 0.1f, 0.1f);
-        }
-        if (subSubTitle.length() > 0) {
-	        FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-	        GUIText text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
-	        text3.setColor(0.1f, 0.4f, 0.1f);
-        }
+
+        FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+      	FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+      	FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+      	
+        GUIText text, text2, text3;
+
+        text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
+        text.setColor(0.1f, 0.1f, 0.4f);
+       	text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
+       	text2.setColor(0.4f, 0.1f, 0.1f);
+        text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
+        text3.setColor(0.1f, 0.4f, 0.1f);
         
         World world = new World32(loader, terrainSize, terrainMaxHeight, terrainSize * 0.8f, waterHeight);
         List<Terrain> terrains = world.getTerrains();
@@ -279,6 +277,8 @@ public class MainGameLoop32
 
         //****************Game Loop Below*********************
         
+        float t = 0f;
+        
         while (!Display.isCloseRequested()) {
         	
         	player.move(world);
@@ -289,6 +289,9 @@ public class MainGameLoop32
             //entity2.increaseRotation(0.3f, 0.1f, 0.2f);
             //entity3.increaseRotation(0.2f, 0.3f, 0.1f);
         	float dt = DisplayManager.getFrameTimeSeconds();
+        	t += dt;
+        	//System.out.println("time: " + t);
+        	
             entity4.increaseRotation(12f * dt , 20f * dt, 6f * dt);
         	
             picker.update();
@@ -321,6 +324,16 @@ public class MainGameLoop32
         	waterRenderer.render(world.getWaterTiles(), sky, camera, lights);
         	
         	guiRenderer.render(guiTextures);
+        	
+        	if (t < 5.0f) {
+        		// do nothing
+        	}
+        	if (t > 5.0f && t < 20f) {
+        		float v = 0.5f * (t - 5.0f) * (t - 5.0f);
+	        	text.increasePosition(v * dt, 0f);
+	        	text2.increasePosition(v * dt, 0f);
+	        	text3.increasePosition(v * dt, 0f);
+        	}
 
         	TextMaster.render();
             
