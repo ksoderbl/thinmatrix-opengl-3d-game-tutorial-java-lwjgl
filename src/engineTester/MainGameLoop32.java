@@ -77,13 +77,13 @@ public class MainGameLoop32
     }
 	
     public MainGameLoop32() {
-        boolean vsync = true;
+        boolean vsync = false;
     	
         float terrainSize = 1600;
         
-        float terrainMaxHeight = 260;
+        float terrainMaxHeight = 160;
         float rocksYOffset = terrainMaxHeight * 0.4075f;
-        float waterHeight = terrainMaxHeight * 0.05f;
+        float waterHeight = terrainMaxHeight * 0.03f;
         
         float playerX = 1368.5f; //terrainSize * 0.3f;
         float playerZ = 419.1f; //terrainSize * 0.3f;
@@ -160,20 +160,31 @@ public class MainGameLoop32
         normalMapEntities.add(entity4);
         
         // add some more boulders
-        //int count = 0;
+        int count = 0;
         for (int i = 0; i < 300; i++) {
-            Vector3f position = world.getTerrainPoint(random.nextFloat() * world.getXSize(), random.nextFloat() * world.getZSize(), random.nextFloat() * -6);
+            Vector3f position = world.getTerrainPoint(random.nextFloat() * world.getXSize(), random.nextFloat() * world.getZSize(), random.nextFloat() * -3);
             
-            //if (position.y > world.getHeightOfWater(position.x, position.z) - 14) {
-            //	count++;
+            if (position.y > world.getHeightOfWater(position.x, position.z) - 6) {
+            	count++;
 	            Entity boulder = new Entity(boulderModel, position,
 	            		random.nextFloat() * 360.0f, random.nextFloat() * 360.0f, random.nextFloat() * 360.0f, random.nextFloat() * 1.0f + 1f);
 	            normalMapEntities.add(boulder);
-            //}
+            }
         }
-        //System.out.println("count: " + count);
-        
-        
+        System.out.println("boulders: " + count);
+        // add some stones close to the shoreline
+        count = 0;
+        for (int i = 0; i < 50000; i++) {
+            Vector3f position = world.getTerrainPoint(random.nextFloat() * world.getXSize(), random.nextFloat() * world.getZSize(), -1);
+            float h = world.getHeightOfWater(position.x, position.z);
+            if (position.y > h - 3 && position.y < h + 3) {
+            	count++;
+	            Entity boulder = new Entity(boulderModel, position,
+	            		160 + random.nextFloat() * 40.0f, random.nextFloat() * 360.0f, 10 + random.nextFloat() * 10.0f, random.nextFloat() * 0.5f + 0.2f);
+	            normalMapEntities.add(boulder);
+            }
+        }
+        System.out.println("stones: " + count);
        
         // the position of this should be at the center of the terrain tiles
         Vector3f rocksPosition = world.getTerrainPoint(terrainSize/2, terrainSize/2, rocksYOffset);
