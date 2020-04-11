@@ -22,17 +22,17 @@ public class WaterRenderer32 {
 	private static final String DUDV_MAP = "waterDUDV";
 	private static final String NORMAL_MAP = "normalMap";
 	
-	private static final float WAVE_SPEED = 0.03f;
+	private static final float WAVE_SPEED = 0.05f;
 
 	private RawModel quad;
 	private WaterShader30 shader;
 	private WaterFrameBuffers fbos;
 	
 	// tiling has to be huge since the water tiles are huge
-	private float tiling = 100f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
+	private float tiling = 22f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
+	private float waveStrength = 0.004f; // 0.02 before water tutorial 8
 	
 	private float moveFactor = 0f;
-	private float waveStrength = 0.04f; // 0.02 before water tutorial 8
 	
 	private int dudvTexture;
 	private int normalMap;

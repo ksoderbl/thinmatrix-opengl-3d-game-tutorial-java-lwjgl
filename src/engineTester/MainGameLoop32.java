@@ -46,15 +46,14 @@ import water.WaterShader30;
 
 public class MainGameLoop32
 {
-    boolean vsync = true;
-	
+
 	String tutorial = "OpenGL 3D Game Tutorial 32: Font Rendering";
 	String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
 	 //"Use key c to swap to second camera, move it with arrow keys";
 
     List<Entity> entities = new ArrayList<>();
     List<Entity> normalMapEntities = new ArrayList<>();
-    Random random = new Random(676451);
+    Random random = new Random(67645);
     Loader loader = new Loader();
 
     
@@ -78,11 +77,21 @@ public class MainGameLoop32
     }
 	
     public MainGameLoop32() {
-        float terrainSize = 1000;
+        boolean vsync = true;
+    	
+        float terrainSize = 1600;
         
-        float terrainMaxHeight = 320;
+        float terrainMaxHeight = 260;
         float rocksYOffset = terrainMaxHeight * 0.4075f;
         float waterHeight = terrainMaxHeight * 0.05f;
+        
+        float playerX = terrainSize * 0.3f;
+        float playerZ = terrainSize * 0.3f;
+        float playerDir = 0;
+        
+        // for/haze
+        float airDensity = 0.002f;
+        float airGradient = 6.5f;
 
     	String title = tutorial.split(":")[0].trim();
     	String subTitle = tutorial.split(":")[1].trim();
@@ -153,6 +162,18 @@ public class MainGameLoop32
         normalMapEntities.add(entity4);
         
         // add some more boulders
+        //int count = 0;
+        for (int i = 0; i < 300; i++) {
+            Vector3f position = world.getTerrainPoint(random.nextFloat() * world.getXSize(), random.nextFloat() * world.getZSize(), random.nextFloat() * -6);
+            
+            //if (position.y > world.getHeightOfWater(position.x, position.z) - 14) {
+            //	count++;
+	            Entity boulder = new Entity(boulderModel, position,
+	            		random.nextFloat() * 360.0f, random.nextFloat() * 360.0f, random.nextFloat() * 360.0f, random.nextFloat() * 1.0f + 1f);
+	            normalMapEntities.add(boulder);
+            //}
+        }
+        //System.out.println("count: " + count);
         
         
        
@@ -179,7 +200,7 @@ public class MainGameLoop32
         Entity boxEntity = new Entity(boxModel, box2Position, 0, 25f, 0, 5f);
         entities.add(boxEntity);
         
-        Sky sky = new Sky(0.5f, .7f, .9f, 0.0001f, 1f);
+        Sky sky = new Sky(0.3f, .5f, .8f, airDensity, airGradient);       
         
         List<Light> lights = new ArrayList<Light>();
 
@@ -197,7 +218,7 @@ public class MainGameLoop32
         entities.add(new Entity(lampModel, lamp2Position, 1f));
         lights.add(new Light(light2Position, new Vector3f(1, 2, 0), new Vector3f(1, 0.01f, 0.002f)));
 
-        Vector3f lamp3Position = world.getTerrainPoint(62.69772f, 16.70355f, 0);
+        Vector3f lamp3Position = world.getTerrainPoint(362.69772f, 316.70355f, 0);
         Vector3f light3Position = new Vector3f(lamp3Position.x, lamp3Position.y + 14, lamp3Position.z);
         Entity lamp3Entity = new Entity(lampModel, lamp3Position, 1f);
         entities.add(lamp3Entity);
@@ -206,12 +227,12 @@ public class MainGameLoop32
         
         for (int i = 0; i < 200; i++) {
         	if (i % 3 == 0) {
-        		addEntity(world, grassModel, 0, 0, 1.8f);
-        		addEntity(world, flowerModel, 0, 0, 2.3f);
+        		addEntity(world, grassModel, 0, 0, random.nextFloat() * 0.8f + 1.0f);
+        		addEntity(world, flowerModel, 0, 0, random.nextFloat() * 0.8f + 1.5f);
         	}
 
         	if (i % 2 == 0) {
-        		addEntity(world, fernModel, 10 * random.nextFloat() - 5, 10 * random.nextFloat() - 5, 0.9f);
+        		addEntity(world, fernModel, 10 * random.nextFloat() - 5, 10 * random.nextFloat() - 5, random.nextFloat() * 0.5f + 0.4f);
         		
 	            // low poly tree "bobble"
         		addEntity(world, lowPolyTreeModel, 4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 0.1f + 0.6f);
@@ -223,9 +244,9 @@ public class MainGameLoop32
         	}
         }
 
-    	Vector3f playerPosition = world.getTerrainPoint(0, 0, 0);
+    	Vector3f playerPosition = world.getTerrainPoint(playerX, playerZ, 0);
         TexturedModel playerModel = loader.createTexturedModel("person", "playerTexture", 1, 0);
-        Player32 player = new Player32(playerModel, playerPosition, 0, 45, 0, 0.6f);
+        Player32 player = new Player32(playerModel, playerPosition, 0, playerDir, 0, 0.6f);
         entities.add(player);
         
         Camera camera = new Camera32(player);
@@ -271,11 +292,11 @@ public class MainGameLoop32
             entity4.increaseRotation(12f * dt , 20f * dt, 6f * dt);
         	
             picker.update();
-            Vector3f terrainPoint = picker.getCurrentTerrainPoint();
-            if (terrainPoint != null) {
-            	lamp3Entity.setPosition(terrainPoint);
-            	lamp3Light.setPosition(new Vector3f(terrainPoint.x, terrainPoint.y + 14, terrainPoint.z));
-            }
+//            Vector3f terrainPoint = picker.getCurrentTerrainPoint();
+//            if (terrainPoint != null) {
+//            	lamp3Entity.setPosition(terrainPoint);
+//            	lamp3Light.setPosition(new Vector3f(terrainPoint.x, terrainPoint.y + 14, terrainPoint.z));
+//            }
         	
         	GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 

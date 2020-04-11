@@ -26,8 +26,8 @@ public class World32 implements World {
 	public World32(Loader loader, float terrainSize, float terrainMaxHeight, float waterSize, float waterHeight) {
 		
         // *********TERRAIN TEXTURE STUFF**********
-		int xTiles = 2;
-		int zTiles = 2;
+		int xTiles = 1;
+		int zTiles = 1;
 		
 		xSize = terrainSize * xTiles;
 		zSize = terrainSize * zTiles;
