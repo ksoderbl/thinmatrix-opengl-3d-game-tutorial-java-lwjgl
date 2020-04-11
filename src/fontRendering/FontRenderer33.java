@@ -50,12 +50,12 @@ public class FontRenderer33 {
 		GL20.glEnableVertexAttribArray(1);
 		shader.loadColor(text.getColor());
 		shader.loadTranslation(text.getPosition());
-		shader.loadWidth(0.5f);
-		shader.loadEdge(0.1f);
-		shader.loadBorderWidth(0.7f);
-		shader.loadBorderEdge(0.1f);
-		shader.loadOffset(new Vector2f(0.0f, 0.0f));
-		shader.loadOutlineColor(new Vector3f(1.0f, 1.0f, 1.0f));
+		shader.loadWidth(text.getWidth()); // 0.5f
+		shader.loadEdge(text.getEdge()); // 0.1f
+		shader.loadBorderWidth(text.getBorderWidth()); // 0.7f
+		shader.loadBorderEdge(text.getBorderEdge()); // 0.1f
+		shader.loadOffset(text.getOffset()); //new Vector2f(0.0f, 0.0f));
+		shader.loadOutlineColor(text.getOutlineColor()); //new Vector3f(1.0f, 1.0f, 1.0f));
 		GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, text.getVertexCount());
 		GL20.glDisableVertexAttribArray(0);
 		GL20.glDisableVertexAttribArray(1);

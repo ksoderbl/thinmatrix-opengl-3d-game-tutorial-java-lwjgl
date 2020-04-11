@@ -102,18 +102,32 @@ public class MainGameLoop33
 
         TextMaster33.init(loader);
 
-        FontType33 font = new FontType33(loader.loadFontTextureAtlas("arial"), new File("res/fonts/arial.fnt"));
+        FontType33 font = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
       	FontType33 font2 = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
       	FontType33 font3 = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
       	
         GUIText33 text, text2, text3;
 
         text = new GUIText33(title, 2f, font, new Vector2f(0.0f, 0.7f), 0.5f, true);
-        text.setColor(0.2f, 0.2f, 0.5f);
-       	text2 = new GUIText33(subTitle, 1.5f, font2, new Vector2f(0.0f, 0.8f), 0.5f, true);
-       	text2.setColor(0.5f, 0.2f, 0.2f);
-        text3 = new GUIText33(subSubTitle, 1f, font3, new Vector2f(0.0f, 0.9f), 0.5f, true);
-        text3.setColor(0.2f, 0.5f, 0.2f);
+        text.setColor(1f, 1f, 1f);
+        text.setOutlineColor(0f, 0f, 1f);
+        text.setWidth(0.55f);
+        text.setEdge(0.2f);
+        text.setOffset(new Vector2f(0.0f, 0.0f));
+
+        text2 = new GUIText33(subTitle, 1.8f, font2, new Vector2f(0.0f, 0.8f), 0.5f, true);
+       	text2.setColor(1f, 1f, 1f);
+       	text2.setOutlineColor(1f, 0f, 0f);
+       	text2.setWidth(0.3f);
+       	text2.setEdge(0.3f);
+        text2.setOffset(new Vector2f(0.004f, 0.005f));
+        
+       	text3 = new GUIText33(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.9f), 0.5f, true);
+        text3.setColor(1f, 1f, 0f);
+        text3.setOutlineColor(0f, 0f, 0f);
+        text3.setWidth(0.2f);
+        text3.setEdge(0.4f);
+        text3.setOffset(new Vector2f(0.002f, 0.003f));
         
         World world = new World32(loader, terrainSize, terrainMaxHeight, terrainSize * 0.8f, waterHeight);
         List<Terrain> terrains = world.getTerrains();
@@ -337,11 +351,18 @@ public class MainGameLoop33
         	guiRenderer.render(GuiTextures);
         	
         	if (t > 15.0f && t < 30f) {
-        		float v = -0.01f * (t - 5.0f) * (t - 5.0f);
+        		float v = -0.2f * (t - 15.0f) * (t - 15.0f);
 	        	text.increasePosition(v * dt, 0f);
+        	}
+        	if (t > 15.5f && t < 30f) {
+        		float v = -0.3f * (t - 15.5f) * (t - 15.5f);
 	        	text2.increasePosition(v * dt, 0f);
+        	}
+        	if (t > 16.0f && t < 30f) {
+        		float v = -0.4f * (t - 16.0f) * (t - 16.0f);
 	        	text3.increasePosition(v * dt, 0f);
         	}
+
         	if (t >= 30f) {
         		if (text != null) {
         			TextMaster33.removeText(text);

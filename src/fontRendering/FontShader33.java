@@ -24,13 +24,6 @@ public class FontShader33 extends ShaderProgram{
 		super(VERTEX_FILE, FRAGMENT_FILE);
 	}
 
-//	uniform float width;        // 0.5
-//	uniform float edge;         // 0.1
-//	uniform float borderWidth;  // 0.7
-//	uniform float borderEdge;   // 0.1
-//	uniform vec2 offset;        // vec2(0.0, 0.0)
-//	uniform vec3 outlineColor;  // vec3(1.0, 1.0, 1.0);
-	
 	@Override
 	protected void getAllUniformLocations() {
 		location_color = super.getUniformLocation("color");
