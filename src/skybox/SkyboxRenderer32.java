@@ -26,7 +26,7 @@ public class SkyboxRenderer32 {
     private int texture;
     private int nightTexture;
     private SkyboxShader30 shader;
-    private float time = 0;
+    private float time = 8000;
     // Tutorial 30: Cel Shading
     private float shadingLevels;
 	

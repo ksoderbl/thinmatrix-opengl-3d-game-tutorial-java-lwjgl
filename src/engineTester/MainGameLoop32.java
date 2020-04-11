@@ -82,7 +82,7 @@ public class MainGameLoop32
         
         float terrainMaxHeight = 320;
         float rocksYOffset = terrainMaxHeight * 0.4075f;
-        float waterHeight = terrainMaxHeight * 0.11f;
+        float waterHeight = terrainMaxHeight * 0.05f;
 
     	String title = tutorial.split(":")[0].trim();
     	String subTitle = tutorial.split(":")[1].trim();
@@ -108,7 +108,7 @@ public class MainGameLoop32
 	        text3.setColor(0.1f, 0.4f, 0.1f);
         }
         
-        World world = new World32(loader, terrainSize, terrainMaxHeight, waterHeight);
+        World world = new World32(loader, terrainSize, terrainMaxHeight, terrainSize * 0.8f, waterHeight);
         List<Terrain> terrains = world.getTerrains();
 
         // *****************************************
@@ -179,12 +179,13 @@ public class MainGameLoop32
         Entity boxEntity = new Entity(boxModel, box2Position, 0, 25f, 0, 5f);
         entities.add(boxEntity);
         
-        Sky sky = new Sky(0.388f, 0.552f, 0.678f, 0.0001f, 1f);
+        Sky sky = new Sky(0.5f, .7f, .9f, 0.0001f, 1f);
         
         List<Light> lights = new ArrayList<Light>();
 
         // OpenGL 3D Game Tutorial 25: Multiple Lights
-        lights.add(new Light(new Vector3f(30000, 300, 0), new Vector3f(0.39f, 0.55f, 0.68f)));
+        Light sun = new Light(new Vector3f(3000, 3000, 3000), new Vector3f(1.3f, 1.3f, 1.3f)); 
+        lights.add(sun);
        
         Vector3f lamp1Position = world.getTerrainPoint(126.3969f, 621.307f, 0);
         Vector3f light1Position = new Vector3f(lamp1Position.x, lamp1Position.y + 14, lamp1Position.z); 

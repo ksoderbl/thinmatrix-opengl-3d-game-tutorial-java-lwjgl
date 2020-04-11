@@ -23,11 +23,11 @@ public class World32 implements World {
 	List<Terrain> terrains = new ArrayList<>();
     List<WaterTile> waterTiles = new ArrayList<>();
 	
-	public World32(Loader loader, float terrainSize, float terrainMaxHeight, float waterHeight) {
+	public World32(Loader loader, float terrainSize, float terrainMaxHeight, float waterSize, float waterHeight) {
 		
         // *********TERRAIN TEXTURE STUFF**********
-		int xTiles = 1;
-		int zTiles = 1;
+		int xTiles = 2;
+		int zTiles = 2;
 		
 		xSize = terrainSize * xTiles;
 		zSize = terrainSize * zTiles;
@@ -53,11 +53,15 @@ public class World32 implements World {
         System.out.println("" + this.getClass().getName() + ": generated " + terrains.size() + " terrains.");
         
         this.waterHeight = waterHeight;
-        this.waterSize = terrainSize;
+        this.waterSize = waterSize;
 
+        // tiles are assumed to be square
+        float offset = (terrainSize - waterSize) * 0.5f;
+        
         for (int x = 0; x < xTiles; x++) {
             for (int z = 0; z < zTiles; z++) {
-            	WaterTile water = new WaterTile32(x * waterSize, z * waterSize, waterHeight, waterSize);
+            	// center the water tile on the terrain tile
+            	WaterTile water = new WaterTile32(x * terrainSize + offset, z * terrainSize + offset, waterHeight, waterSize);
         		waterTiles.add(water);
             }
         }
