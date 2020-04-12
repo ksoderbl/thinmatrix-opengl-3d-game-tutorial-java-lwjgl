@@ -91,8 +91,8 @@ public class MainGameLoop35
         float playerDir = 270;
         
         // for/haze
-        float airDensity = 0.002f;
-        float airGradient = 2.5f;
+        float airDensity = 0.001f;
+        float airGradient = 1.5f;
 
     	String title = tutorial.split(":")[0].trim();
     	String subTitle = tutorial.split(":")[1].trim();
@@ -196,10 +196,10 @@ public class MainGameLoop35
         System.out.println("boulders: " + count);
         // add some stones close to the shoreline
         count = 0;
-        for (int i = 0; i < 50000; i++) {
+        for (int i = 0; i < 10000; i++) {
             Vector3f position = world.getTerrainPoint(random.nextFloat() * world.getXSize(), random.nextFloat() * world.getZSize(), -1);
             float h = world.getHeightOfWater(position.x, position.z);
-            if (position.y > h - 3 && position.y < h + 3) {
+            if (position.y > h - 5 && position.y < h + 5) {
             	count++;
 	            Entity boulder = new Entity(boulderModel, position,
 	            		160 + random.nextFloat() * 40.0f, random.nextFloat() * 360.0f, 10 + random.nextFloat() * 10.0f, random.nextFloat() * 0.5f + 0.2f);
@@ -309,7 +309,7 @@ public class MainGameLoop35
         MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), world);
         
         ParticleTexture35 particleTexture = new ParticleTexture35(loader.loadTexture("particleStar"), 1);
-        ParticleSystem35 system = new ParticleSystem35(particleTexture, 40, 15, 0.1f, 1, 1.6f);
+        ParticleSystem35 system = new ParticleSystem35(particleTexture, 40, 15, 0.1f, 5, 1.6f);
         system.randomizeRotation();
         system.setDirection(new Vector3f(0, 1, 0), 0.1f);
         system.setLifeError(0.1f);
