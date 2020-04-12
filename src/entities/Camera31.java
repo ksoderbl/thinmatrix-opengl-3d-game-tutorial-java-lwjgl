@@ -15,7 +15,7 @@ public class Camera31 implements Camera {
     private final float PITCH_CHANGE_FACTOR = 0.2f;
     private final float ANGLE_AROUND_PLAYER_CHANGE_FACTOR = 0.3f;
 
-    private float distanceFromPlayer = 5;
+    private float distanceFromPlayer = 50;
     private float angleAroundPlayer = 0;
 
     private Vector3f position = new Vector3f(0, 0, 0);

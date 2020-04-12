@@ -11,11 +11,11 @@ public class Camera32 implements Camera {
     private final float MAX_PITCH = 90;
     private final float CAMERA_Y_OFFSET = 7;
     private final float CAMERA_PITCH_OFFSET = 0; // ThinMatrix has 4
-    private final float ZOOM_LEVEL_FACTOR = 0.5f; // was 0.1f
+    private final float ZOOM_LEVEL_FACTOR = 0.1f;
     private final float PITCH_CHANGE_FACTOR = 0.2f;
     private final float ANGLE_AROUND_PLAYER_CHANGE_FACTOR = 0.3f;
 
-    private float distanceFromPlayer = 5;
+    private float distanceFromPlayer = 50;
     private float angleAroundPlayer = 0;
 
     private Vector3f position = new Vector3f(0, 0, 0);
