@@ -384,7 +384,7 @@ public class MainGameLoop33
         		}
         	}
         	
-        	text.setWidth((float)Math.abs(Math.cos(0.2*t)*1f)-0.4f);
+        	text.setWidth((float)Math.abs(0.2f*Math.cos(0.5*t)*1f)+0.4f);
         	text2.setEdge((float)Math.abs(Math.sin(2*t)*3f)*0.1f+0.2f);
         	text3.setBorderWidth((float)Math.abs(Math.sin(0.4*t))*0.4f);
 
