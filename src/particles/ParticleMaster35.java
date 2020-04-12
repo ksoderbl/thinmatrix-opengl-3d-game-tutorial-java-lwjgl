@@ -36,7 +36,7 @@ public class ParticleMaster35 {
 					}
 				}
 			}
-			//InsertionSort.sortHighToLow(list);
+			InsertionSort35.sortHighToLow(list);
 		}
 	}
 	

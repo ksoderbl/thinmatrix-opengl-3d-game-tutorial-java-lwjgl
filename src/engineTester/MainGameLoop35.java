@@ -309,7 +309,7 @@ public class MainGameLoop35
         MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), world);
         
         ParticleTexture35 particleTexture = new ParticleTexture35(loader.loadTexture("particleAtlas"), 4, true);
-        ParticleSystem35 system = new ParticleSystem35(particleTexture, 40, 15, 0.1f, 5, 1.6f);
+        ParticleSystem35 system = new ParticleSystem35(particleTexture, 140, 20, 0.3f, 5, 4f);
         system.randomizeRotation();
         system.setDirection(new Vector3f(0, 1, 0), 0.1f);
         system.setLifeError(0.1f);
@@ -332,7 +332,8 @@ public class MainGameLoop35
 //            if (Keyboard.isKeyDown(Keyboard.KEY_Y)) {
 //            	new Particle34(new Vector3f(player.getPosition()), new Vector3f(0, 30, 0), 1, 4, 0, 1);
 //            }
-            system.generateParticles(player.getPosition());
+            Vector3f pos = player.getPosition();
+            system.generateParticles(new Vector3f(pos.x, pos.y + 10, pos.z));
             system.generateParticles(new Vector3f(terrainSize/3, 10, terrainSize/3));
             ParticleMaster35.update(camera);
             
