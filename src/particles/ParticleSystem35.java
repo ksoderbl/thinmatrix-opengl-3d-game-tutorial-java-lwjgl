@@ -18,7 +18,7 @@ public class ParticleSystem35 {
 	private float directionDeviation = 0;
 	
 	private ParticleTexture35 texture;
-	
+
 	private Random random = new Random();
 
 	public ParticleSystem35(ParticleTexture35 texture, float pps, float speed, float gravityComplient, float lifeLength, float scale) {

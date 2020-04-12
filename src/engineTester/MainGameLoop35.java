@@ -142,7 +142,7 @@ public class MainGameLoop35
 
         // *****************************************
 
-        TexturedModel treeModel = loader.createTexturedModel("tree", "tree", 1, 0);
+        //TexturedModel treeModel = loader.createTexturedModel("tree", "tree", 1, 0);
         TexturedModel lowPolyTreeModel = loader.createTexturedModel("lowPolyTree", "lowPolyTree4", 2, 1, 0, false, false);
         TexturedModel pineModel = loader.createTexturedModel("pine", "pine", 10, 0.5f);
         TexturedModel grassModel = loader.createTexturedModel("grassModel", "grassTexture", 1, 0, true, true);
@@ -268,7 +268,7 @@ public class MainGameLoop35
 	            // low poly tree "bobble"
         		addEntity(world, lowPolyTreeModel, 4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 0.1f + 0.6f);
 	
-        		addEntity(world, treeModel,  4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 1f + 4f);
+        		//addEntity(world, treeModel,  4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 1f + 4f);
 	        	addEntity(world, pineModel,  4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 4f + 1f);
 	        	
 	        	addEntity(world, toonRocksModel, 0, 0, 4 * random.nextFloat());
@@ -308,7 +308,7 @@ public class MainGameLoop35
         
         MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), world);
         
-        ParticleTexture35 particleTexture = new ParticleTexture35(loader.loadTexture("particleStar"), 1);
+        ParticleTexture35 particleTexture = new ParticleTexture35(loader.loadTexture("particleStar"), 1, true);
         ParticleSystem35 system = new ParticleSystem35(particleTexture, 40, 15, 0.1f, 1, 1.6f);
         system.randomizeRotation();
         system.setDirection(new Vector3f(0, 1, 0), 0.1f);
@@ -334,7 +334,7 @@ public class MainGameLoop35
 //            }
             system.generateParticles(player.getPosition());
             system.generateParticles(new Vector3f(terrainSize/3, 10, terrainSize/3));
-            ParticleMaster35.update();
+            ParticleMaster35.update(camera);
             
             //entity.increaseRotation(0.1f, 0.2f, 0.3f);
             //entity2.increaseRotation(0.3f, 0.1f, 0.2f);

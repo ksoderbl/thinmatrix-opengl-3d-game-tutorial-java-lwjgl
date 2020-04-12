@@ -21,14 +21,14 @@ public class ParticleMaster35 {
 		renderer = new ParticleRenderer35(loader, projectionMatrix);
 	}
 	
-	public static void update() {
+	public static void update(Camera camera) {
 		Iterator<Entry<ParticleTexture35, List<Particle35>>> mapIterator = particles.entrySet().iterator();
 		while (mapIterator.hasNext()) {
 			List<Particle35> list = mapIterator.next().getValue();
 			Iterator<Particle35> iterator = list.iterator();
 			while (iterator.hasNext()) {
 				Particle35 p = iterator.next();
-				boolean stillActive = p.update();
+				boolean stillActive = p.update(camera);
 				if (!stillActive) {
 					iterator.remove();
 					if (list.isEmpty()) {
@@ -36,6 +36,7 @@ public class ParticleMaster35 {
 					}
 				}
 			}
+			//InsertionSort.sortHighToLow(list);
 		}
 	}
 	

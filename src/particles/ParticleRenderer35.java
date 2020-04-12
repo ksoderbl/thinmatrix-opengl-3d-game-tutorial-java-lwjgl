@@ -3,6 +3,8 @@ package particles;
 import java.util.List;
 import java.util.Map;
 
+import models.RawModel;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -10,10 +12,9 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
-import entities.Camera;
-import models.RawModel;
 import renderEngine.Loader;
 import toolbox.Maths;
+import entities.Camera;
 
 public class ParticleRenderer35 {
 	
@@ -34,11 +35,18 @@ public class ParticleRenderer35 {
 		Matrix4f viewMatrix = Maths.createViewMatrix(camera);
 		prepare();
 		for (ParticleTexture35 texture : particles.keySet()) {
-//			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-//			GL13.glActiveTexture(GL13.GL_TEXTURE0);
-//			GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getTextureID());
+			if (texture.usesAdditiveBlending()) {
+				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
+			} else {
+				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			}
+			GL13.glActiveTexture(GL13.GL_TEXTURE0);
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture.getTextureID());
 			for (Particle35 particle : particles.get(texture)) {
-				updateModelViewMatrix(particle.getPosition(), particle.getRotation(), particle.getScale(), viewMatrix);
+				updateModelViewMatrix(particle.getPosition(), particle.getRotation(),
+						particle.getScale(), viewMatrix);
+				shader.loadTextureCoordInfo(particle.getTexOffset1(), particle.getTexOffset2(),
+						texture.getNumberOfRows(), particle.getBlend());
 				GL11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, quad.getVertexCount());
 			}
 		}
@@ -54,7 +62,6 @@ public class ParticleRenderer35 {
 		Matrix4f.translate(position, modelMatrix, modelMatrix);
 		// Sets the rotation 3x3 part of the model matrix to the transpose
 		// of the 3x3 rotation part of the view matrix.
-		// See video OpenGL 3D Game Tutorial 34: Particle Effects at about 8 minutes.
 		modelMatrix.m00 = viewMatrix.m00;
 		modelMatrix.m01 = viewMatrix.m10;
 		modelMatrix.m02 = viewMatrix.m20;
@@ -74,14 +81,13 @@ public class ParticleRenderer35 {
 		shader.start();
 		GL30.glBindVertexArray(quad.getVaoID());
 		GL20.glEnableVertexAttribArray(0);
-//		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glDepthMask(false);
 	}
 	
 	private void finishRendering() {
 		GL11.glDepthMask(true);
-//		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glDisable(GL11.GL_BLEND);
 		GL20.glDisableVertexAttribArray(0);
 		GL30.glBindVertexArray(0);
 		shader.stop();
