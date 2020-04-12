@@ -12,7 +12,7 @@ public class ParticleTexture36 {
 		this.additive = additive;
 	}
 
-	public boolean usesAdditiveBlending() {
+	public boolean isAdditive() {
 		return additive;
 	}
 	

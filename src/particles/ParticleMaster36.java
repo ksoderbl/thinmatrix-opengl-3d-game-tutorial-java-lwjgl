@@ -24,7 +24,8 @@ public class ParticleMaster36 {
 	public static void update(Camera camera) {
 		Iterator<Entry<ParticleTexture36, List<Particle36>>> mapIterator = particles.entrySet().iterator();
 		while (mapIterator.hasNext()) {
-			List<Particle36> list = mapIterator.next().getValue();
+			Entry<ParticleTexture36, List<Particle36>> entry = mapIterator.next();
+			List<Particle36> list = entry.getValue();
 			Iterator<Particle36> iterator = list.iterator();
 			while (iterator.hasNext()) {
 				Particle36 p = iterator.next();
@@ -36,7 +37,9 @@ public class ParticleMaster36 {
 					}
 				}
 			}
-			InsertionSort36.sortHighToLow(list);
+			if (!entry.getKey().isAdditive()) {
+				InsertionSort36.sortHighToLow(list);
+			}
 		}
 	}
 	

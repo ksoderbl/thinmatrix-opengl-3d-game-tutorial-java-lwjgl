@@ -15,6 +15,8 @@ public class Particle36 {
 	private float lifeLength;
 	private float rotation;
 	private float scale;
+
+	private float elapsedTime = 0;
 	
 	private ParticleTexture36 texture;
 	
@@ -22,8 +24,30 @@ public class Particle36 {
 	private Vector2f texOffset2 = new Vector2f();
 	private float blend;
 	
-	private float elapsedTime = 0;
 	private float distance; // distance squared to camera
+	
+	private Vector3f reusableChange = new Vector3f();
+	
+	// TODO: at 24 minutes
+	//private boolean alive = false;
+
+	// TODO
+	public Particle36() {
+		
+	}
+	
+	// TODO
+	public void setActive(ParticleTexture36 texture, Vector3f position, Vector3f velocity, float gravityEffect,
+			float lifeLength, float rotation, float scale) {
+		//alive = true;
+		this.texture = texture;
+		this.position = position;
+		this.velocity = velocity;
+		this.gravityEffect = gravityEffect;
+		this.lifeLength = lifeLength;
+		this.rotation = rotation;
+		this.scale = scale;
+	}
 
 	public Particle36(ParticleTexture36 texture, Vector3f position, Vector3f velocity, float gravityEffect,
 			float lifeLength, float rotation, float scale) {
@@ -71,9 +95,9 @@ public class Particle36 {
 
 	public boolean update(Camera camera) {
 		velocity.y += Player.GRAVITY * gravityEffect * DisplayManager.getFrameTimeSeconds();
-		Vector3f change = new Vector3f(velocity);
-		change.scale(DisplayManager.getFrameTimeSeconds());
-		Vector3f.add(change, position, position);
+		reusableChange.set(velocity);
+		reusableChange.scale(DisplayManager.getFrameTimeSeconds());
+		Vector3f.add(reusableChange, position, position);
 		distance = Vector3f.sub(camera.getPosition(), position, null).lengthSquared();
 		updateTextureCoordInfo();
 		elapsedTime += DisplayManager.getFrameTimeSeconds();
