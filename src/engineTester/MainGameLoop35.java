@@ -13,10 +13,10 @@ import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
 import entities.Camera;
-import entities.Camera32;
+import entities.Camera35;
 import entities.Entity;
 import entities.Light;
-import entities.Player32;
+import entities.Player35;
 import fontMeshCreator.FontType33;
 import fontMeshCreator.GUIText33;
 import fontRendering.TextMaster33;
@@ -86,9 +86,9 @@ public class MainGameLoop35
         float rocksYOffset = terrainMaxHeight * 0.4075f;
         float waterHeight = terrainMaxHeight * 0.02f;
         
-        float playerX = 1368.5f; //terrainSize * 0.3f;
-        float playerZ = 419.1f; //terrainSize * 0.3f;
-        float playerDir = 270;
+        float playerX = 20;
+        float playerZ = 30;
+        float playerDir = 45;
         
         // for/haze
         float airDensity = 0.001f;
@@ -277,10 +277,10 @@ public class MainGameLoop35
 
     	Vector3f playerPosition = world.getTerrainPoint(playerX, playerZ, 0);
         TexturedModel playerModel = loader.createTexturedModel("person", "playerTexture", 1, 0);
-        Player32 player = new Player32(playerModel, playerPosition, 0, playerDir, 0, 0.6f);
+        Player35 player = new Player35(playerModel, playerPosition, 0, playerDir, 0, 0.6f);
         entities.add(player);
         
-        Camera camera = new Camera32(player);
+        Camera camera = new Camera35(player);
         //camera.getPosition().translate(0, 20, 0);
        
         // Water
@@ -307,14 +307,62 @@ public class MainGameLoop35
         GuiRenderer guiRenderer = new GuiRenderer(loader);
         
         MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), world);
-        
-        ParticleTexture35 particleTexture = new ParticleTexture35(loader.loadTexture("particleAtlas"), 4, true);
-        ParticleSystem35 system = new ParticleSystem35(particleTexture, 140, 20, 0.3f, 5, 4f);
+
+    	ParticleTexture35 particleStarTexture = new ParticleTexture35(loader.loadTexture("particleStar"), 1, true);
+    	ParticleTexture35 particleAtlasTexture = new ParticleTexture35(loader.loadTexture("particleAtlas"), 4, true);
+    	ParticleTexture35 particleCosmicTexture = new ParticleTexture35(loader.loadTexture("cosmic"), 4, true);
+    	ParticleTexture35 particleSmokeTexture = new ParticleTexture35(loader.loadTexture("smoke"), 8, false);
+    	ParticleTexture35 particleFireTexture = new ParticleTexture35(loader.loadTexture("fire"), 8, true);
+
+        ParticleSystem35 system = new ParticleSystem35(particleAtlasTexture, 140, 20, 0.3f, 5, 4f);
         system.randomizeRotation();
         system.setDirection(new Vector3f(0, 1, 0), 0.1f);
         system.setLifeError(0.1f);
         system.setSpeedError(0.25f);
         system.setScaleError(0.5f);
+
+    	ParticleSystem35 fireSystem = new ParticleSystem35(particleAtlasTexture, 50, 4, -0.01f, 1.2f, 5);
+    	fireSystem.randomizeRotation();
+    	fireSystem.setDirection(new Vector3f(0, 1, 0), 0.2f);
+    	fireSystem.setLifeError(0.5f);
+    	fireSystem.setSpeedError(0.5f);
+    	fireSystem.setScaleError(0.5f);
+
+    	ParticleSystem35 smokeSystem = new ParticleSystem35(particleSmokeTexture, 50, 1, -0.01f, 5, 8.0f);
+    	smokeSystem.setDirection(new Vector3f(0, 1, 0), 1.0f);
+    	smokeSystem.setLifeError(3.1f);
+    	smokeSystem.setSpeedError(1.25f);
+    	smokeSystem.setScaleError(2.5f);
+    	smokeSystem.randomizeRotation();
+
+    	ParticleSystem35 starSystem = new ParticleSystem35(particleStarTexture, 100, 20, 0.8f, 7, 2);
+    	starSystem.setDirection(new Vector3f(0, 1, 0), 0.3f);
+    	starSystem.setLifeError(0.1f);
+    	starSystem.setSpeedError(0.25f);
+    	starSystem.setScaleError(0.5f);
+    	starSystem.randomizeRotation();
+
+    	ParticleSystem35 cosmicSystem = new ParticleSystem35(particleCosmicTexture, 50, 50, 0.3f, 3, 5);
+    	cosmicSystem.setDirection(new Vector3f(0, 1, 0), 0.8f);
+    	cosmicSystem.setLifeError(0.1f);
+    	cosmicSystem.setSpeedError(0.25f);
+    	cosmicSystem.setScaleError(0.5f);
+    	cosmicSystem.randomizeRotation();
+
+    	ParticleSystem35 atlasSystem = new ParticleSystem35(particleAtlasTexture, 50, 50, 0.4f, 6, 4);
+    	atlasSystem.setDirection(new Vector3f(0, 1, 0), 0.6f);
+    	atlasSystem.setLifeError(0.2f);
+    	atlasSystem.setSpeedError(0.5f);
+    	atlasSystem.setScaleError(0.25f);
+    	atlasSystem.randomizeRotation();
+    	
+		Vector3f smokePosition = world.getTerrainPoint(190.0f, 130.0f, 10f);
+		Vector3f firePosition = world.getTerrainPoint(footballPosition.x, footballPosition.z, 7);
+		Vector3f starPosition = world.getTerrainPoint(300.0f, 400.0f, 30);
+		Vector3f cosmicPosition = world.getTerrainPoint(420.0f, 270.0f, 40);
+		Vector3f atlasPosition = world.getTerrainPoint(420.0f, 270.0f, 50);
+
+
 
         //****************Game Loop Below*********************
         
@@ -329,12 +377,16 @@ public class MainGameLoop35
 //          	lamp3Entity.setPosition(terrainPoint);
 //          	lamp3Light.setPosition(new Vector3f(terrainPoint.x, terrainPoint.y + 14, terrainPoint.z));
 //          }
-//            if (Keyboard.isKeyDown(Keyboard.KEY_Y)) {
-//            	new Particle34(new Vector3f(player.getPosition()), new Vector3f(0, 30, 0), 1, 4, 0, 1);
-//            }
-            Vector3f pos = player.getPosition();
-            system.generateParticles(new Vector3f(pos.x, pos.y + 10, pos.z));
+//            Vector3f pos = player.getPosition();
+//            system.generateParticles(new Vector3f(pos.x, pos.y + 10, pos.z));
             system.generateParticles(new Vector3f(terrainSize/3, 10, terrainSize/3));
+            
+    		smokeSystem.generateParticles(smokePosition);
+    		fireSystem.generateParticles(firePosition);
+    		starSystem.generateParticles(starPosition);
+    		cosmicSystem.generateParticles(cosmicPosition);
+    		atlasSystem.generateParticles(atlasPosition);
+            
             ParticleMaster35.update(camera);
             
             //entity.increaseRotation(0.1f, 0.2f, 0.3f);
