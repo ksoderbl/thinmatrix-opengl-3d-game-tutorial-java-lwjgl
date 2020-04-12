@@ -29,7 +29,7 @@ public class DisplayManager {
     
     public static void createDisplay(String title, int width, int height) {
 
-        ContextAttribs attribs = new ContextAttribs(3, 2)
+        ContextAttribs attribs = new ContextAttribs(3, 3)
                 .withForwardCompatible(true)
                 .withProfileCore(true);
 
