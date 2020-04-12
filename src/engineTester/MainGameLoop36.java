@@ -23,9 +23,9 @@ import fontRendering.TextMaster33;
 import guis.GuiRenderer;
 import guis.GuiTexture;
 import models.TexturedModel;
-import particles.ParticleMaster35;
-import particles.ParticleSystem35;
-import particles.ParticleTexture35;
+import particles.ParticleMaster36;
+import particles.ParticleSystem36;
+import particles.ParticleTexture36;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer32;
@@ -38,7 +38,7 @@ import water.WaterFrameBuffers;
 import water.WaterRenderer32;
 import water.WaterShader30;
 
-// https://www.youtube.com/watch?v=POEzdiqEESo&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=35
+// https://www.youtube.com/watch?v=Rm-By2NJsrc&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=36
 
 // Hiero: A bitmap font packing tool
 // https://libgdx.badlogicgames.com/tools.html
@@ -46,9 +46,9 @@ import water.WaterShader30;
 // http://www.angelcode.com/products/bmfont/
 // https://github.com/libgdx/libgdx/wiki/Bitmap-fonts
 
-public class MainGameLoop35
+public class MainGameLoop36
 {
-	String tutorial = "OpenGL 3D Game Tutorial 35: Animating Particle Textures";
+	String tutorial = "OpenGL 3D Game Tutorial 36: Instanced Rendering";
 	String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
 	 //"Use key c to swap to second camera, move it with arrow keys";
 
@@ -77,7 +77,7 @@ public class MainGameLoop35
 		}
     }
 	
-    public MainGameLoop35() {
+    public MainGameLoop36() {
         boolean vsync = true;
     	
         float terrainSize = 1600;
@@ -102,7 +102,7 @@ public class MainGameLoop35
 
     	TextMaster33.init(loader);
     	MasterRenderer32 renderer = new MasterRenderer32(loader);
-    	ParticleMaster35.init(loader, renderer.getProjectionMatrix());
+    	ParticleMaster36.init(loader, renderer.getProjectionMatrix());
 
         FontType33 font = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
       	FontType33 font2 = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
@@ -308,48 +308,48 @@ public class MainGameLoop35
         
         MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), world);
 
-    	ParticleTexture35 particleStarTexture = new ParticleTexture35(loader.loadTexture("particleStar"), 1, true);
-    	ParticleTexture35 particleAtlasTexture = new ParticleTexture35(loader.loadTexture("particleAtlas"), 4, true);
-    	ParticleTexture35 particleCosmicTexture = new ParticleTexture35(loader.loadTexture("cosmic"), 4, true);
-    	ParticleTexture35 particleSmokeTexture = new ParticleTexture35(loader.loadTexture("smoke"), 8, false);
-    	ParticleTexture35 particleFireTexture = new ParticleTexture35(loader.loadTexture("fire"), 8, true);
+    	ParticleTexture36 particleStarTexture = new ParticleTexture36(loader.loadTexture("particleStar"), 1, true);
+    	ParticleTexture36 particleAtlasTexture = new ParticleTexture36(loader.loadTexture("particleAtlas"), 4, true);
+    	ParticleTexture36 particleCosmicTexture = new ParticleTexture36(loader.loadTexture("cosmic"), 4, true);
+    	ParticleTexture36 particleSmokeTexture = new ParticleTexture36(loader.loadTexture("smoke"), 8, false);
+    	ParticleTexture36 particleFireTexture = new ParticleTexture36(loader.loadTexture("fire"), 8, true);
 
-        ParticleSystem35 system = new ParticleSystem35(particleAtlasTexture, 140, 20, 0.3f, 5, 4f);
+        ParticleSystem36 system = new ParticleSystem36(particleAtlasTexture, 140, 20, 0.3f, 5, 4f);
         system.randomizeRotation();
         system.setDirection(new Vector3f(0, 1, 0), 0.1f);
         system.setLifeError(0.1f);
         system.setSpeedError(0.25f);
         system.setScaleError(0.5f);
 
-    	ParticleSystem35 fireSystem = new ParticleSystem35(particleFireTexture, 50, 4, -0.01f, 1.2f, 5);
+    	ParticleSystem36 fireSystem = new ParticleSystem36(particleFireTexture, 50, 4, -0.01f, 1.2f, 5);
     	fireSystem.randomizeRotation();
     	fireSystem.setDirection(new Vector3f(0, 1, 0), 0.2f);
     	fireSystem.setLifeError(0.5f);
     	fireSystem.setSpeedError(0.5f);
     	fireSystem.setScaleError(0.5f);
 
-    	ParticleSystem35 smokeSystem = new ParticleSystem35(particleSmokeTexture, 50, 1, -0.01f, 5, 8.0f);
+    	ParticleSystem36 smokeSystem = new ParticleSystem36(particleSmokeTexture, 50, 1, -0.01f, 5, 8.0f);
     	smokeSystem.setDirection(new Vector3f(0, 1, 0), 1.0f);
     	smokeSystem.setLifeError(3.1f);
     	smokeSystem.setSpeedError(1.25f);
     	smokeSystem.setScaleError(2.5f);
     	smokeSystem.randomizeRotation();
 
-    	ParticleSystem35 starSystem = new ParticleSystem35(particleStarTexture, 100, 20, 0.8f, 7, 2);
+    	ParticleSystem36 starSystem = new ParticleSystem36(particleStarTexture, 100, 20, 0.8f, 7, 2);
     	starSystem.setDirection(new Vector3f(0, 1, 0), 0.3f);
     	starSystem.setLifeError(0.1f);
     	starSystem.setSpeedError(0.25f);
     	starSystem.setScaleError(0.5f);
     	starSystem.randomizeRotation();
 
-    	ParticleSystem35 cosmicSystem = new ParticleSystem35(particleCosmicTexture, 50, 50, 0.3f, 3, 5);
+    	ParticleSystem36 cosmicSystem = new ParticleSystem36(particleCosmicTexture, 50, 50, 0.3f, 3, 5);
     	cosmicSystem.setDirection(new Vector3f(0, 1, 0), 0.8f);
     	cosmicSystem.setLifeError(0.1f);
     	cosmicSystem.setSpeedError(0.25f);
     	cosmicSystem.setScaleError(0.5f);
     	cosmicSystem.randomizeRotation();
 
-    	ParticleSystem35 atlasSystem = new ParticleSystem35(particleAtlasTexture, 50, 50, 0.4f, 6, 4);
+    	ParticleSystem36 atlasSystem = new ParticleSystem36(particleAtlasTexture, 50, 50, 0.4f, 6, 4);
     	atlasSystem.setDirection(new Vector3f(0, 1, 0), 0.6f);
     	atlasSystem.setLifeError(0.2f);
     	atlasSystem.setSpeedError(0.5f);
@@ -387,7 +387,7 @@ public class MainGameLoop35
     		cosmicSystem.generateParticles(cosmicPosition);
     		atlasSystem.generateParticles(atlasPosition);
             
-            ParticleMaster35.update(camera);
+            ParticleMaster36.update(camera);
             
             //entity.increaseRotation(0.1f, 0.2f, 0.3f);
             //entity2.increaseRotation(0.3f, 0.1f, 0.2f);
@@ -421,7 +421,7 @@ public class MainGameLoop35
 
         	waterRenderer.render(world.getWaterTiles(), sky, camera, lights);
         	
-        	ParticleMaster35.renderParticles(camera);
+        	ParticleMaster36.renderParticles(camera);
         	guiRenderer.render(GuiTextures);
         	
         	if (t > 15.0f && t < 30f) {
@@ -470,7 +470,7 @@ public class MainGameLoop35
             }
         }
 
-        ParticleMaster35.cleanUp();
+        ParticleMaster36.cleanUp();
         buffers.cleanUp();
         waterShader.cleanUp();
         TextMaster33.cleanUp();
@@ -481,6 +481,6 @@ public class MainGameLoop35
     }
 
 	public static void main(String[] args) {
-		new MainGameLoop35();
+		new MainGameLoop36();
 	}
 }
