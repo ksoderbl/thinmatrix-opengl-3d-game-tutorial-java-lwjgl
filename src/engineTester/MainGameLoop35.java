@@ -308,7 +308,7 @@ public class MainGameLoop35
         
         MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), world);
         
-        ParticleTexture35 particleTexture = new ParticleTexture35(loader.loadTexture("particleStar"), 1);
+        ParticleTexture35 particleTexture = new ParticleTexture35(loader.loadTexture("particleAtlas"), 4, true);
         ParticleSystem35 system = new ParticleSystem35(particleTexture, 40, 15, 0.1f, 5, 1.6f);
         system.randomizeRotation();
         system.setDirection(new Vector3f(0, 1, 0), 0.1f);
