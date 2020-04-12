@@ -340,13 +340,13 @@ public class MainGameLoop33
             // change position and pitch of camera to render the reflection 
             camera.getPosition().y -= distance;
             camera.invertPitch();
-        	renderer.renderScene(entities, normalMapEntities, terrains, lights, sky, camera, new Vector4f(0, 1, 0, -world.getHeightOfWater(0, 0)+1f), true);
+        	renderer.renderScene(entities, normalMapEntities, terrains, lights, sky, camera, new Vector4f(0, 1, 0, -world.getHeightOfWater(0, 0)), true);
             camera.getPosition().y += distance;
             camera.invertPitch();
 
         	// render to refraction texture: set the clip plane to clip stuff below water
         	buffers.bindRefractionFrameBuffer();
-        	renderer.renderScene(entities, normalMapEntities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, world.getHeightOfWater(0, 0)+1f), true);
+        	renderer.renderScene(entities, normalMapEntities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, world.getHeightOfWater(0, 0)), true);
         	
         	// render to screen: set the clip plane at a great height, so it won't clip anything
         	buffers.unbindCurrentFrameBuffer();
