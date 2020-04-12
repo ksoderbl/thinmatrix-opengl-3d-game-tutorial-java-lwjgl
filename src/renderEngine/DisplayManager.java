@@ -76,6 +76,7 @@ public class DisplayManager {
     	}
         
         if (Display.wasResized()) {
+        	// TODO: create a new projection matrix here?
         	GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
         }
         
