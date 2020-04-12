@@ -311,7 +311,12 @@ public class MainGameLoop34
         MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), world);
         
         
-        ParticleSystem34 system = new ParticleSystem34(50, 25, 0.3f, 4);
+        ParticleSystem34 system = new ParticleSystem34(50, 25, 0.3f, 4, 1);
+        system.randomizeRotation();
+        system.setDirection(new Vector3f(0, 1, 0), 0.1f);
+        system.setLifeError(0.1f);
+        system.setSpeedError(0.4f);
+        system.setScaleError(0.8f);
 
         //****************Game Loop Below*********************
         
@@ -330,6 +335,7 @@ public class MainGameLoop34
 //            	new Particle34(new Vector3f(player.getPosition()), new Vector3f(0, 30, 0), 1, 4, 0, 1);
 //            }
             system.generateParticles(player.getPosition());
+            system.generateParticles(new Vector3f(terrainSize/3, 10, terrainSize/3));
             ParticleMaster34.update(camera);
             
             //entity.increaseRotation(0.1f, 0.2f, 0.3f);
