@@ -23,8 +23,9 @@ import fontRendering.TextMaster33;
 import guis.GuiRenderer;
 import guis.GuiTexture;
 import models.TexturedModel;
-import particles.ParticleMaster34;
-import particles.ParticleSystem34;
+import particles.ParticleMaster35;
+import particles.ParticleSystem35;
+import particles.ParticleTexture35;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer32;
@@ -101,7 +102,7 @@ public class MainGameLoop35
 
     	TextMaster33.init(loader);
     	MasterRenderer32 renderer = new MasterRenderer32(loader);
-    	ParticleMaster34.init(loader, renderer.getProjectionMatrix());
+    	ParticleMaster35.init(loader, renderer.getProjectionMatrix());
 
         FontType33 font = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
       	FontType33 font2 = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
@@ -307,13 +308,13 @@ public class MainGameLoop35
         
         MousePicker picker = new MousePicker(camera, renderer.getProjectionMatrix(), world);
         
-        
-        ParticleSystem34 system = new ParticleSystem34(50, 25, 0.3f, 4, 1);
+        ParticleTexture35 particleTexture = new ParticleTexture35(loader.loadTexture("particleStar"), 1);
+        ParticleSystem35 system = new ParticleSystem35(particleTexture, 40, 15, 0.1f, 1, 1.6f);
         system.randomizeRotation();
         system.setDirection(new Vector3f(0, 1, 0), 0.1f);
         system.setLifeError(0.1f);
-        system.setSpeedError(0.4f);
-        system.setScaleError(0.8f);
+        system.setSpeedError(0.25f);
+        system.setScaleError(0.5f);
 
         //****************Game Loop Below*********************
         
@@ -333,7 +334,7 @@ public class MainGameLoop35
 //            }
             system.generateParticles(player.getPosition());
             system.generateParticles(new Vector3f(terrainSize/3, 10, terrainSize/3));
-            ParticleMaster34.update(camera);
+            ParticleMaster35.update();
             
             //entity.increaseRotation(0.1f, 0.2f, 0.3f);
             //entity2.increaseRotation(0.3f, 0.1f, 0.2f);
@@ -367,7 +368,7 @@ public class MainGameLoop35
 
         	waterRenderer.render(world.getWaterTiles(), sky, camera, lights);
         	
-        	ParticleMaster34.renderParticles(camera);
+        	ParticleMaster35.renderParticles(camera);
         	guiRenderer.render(GuiTextures);
         	
         	if (t > 15.0f && t < 30f) {
@@ -416,7 +417,7 @@ public class MainGameLoop35
             }
         }
 
-        ParticleMaster34.cleanUp();
+        ParticleMaster35.cleanUp();
         buffers.cleanUp();
         waterShader.cleanUp();
         TextMaster33.cleanUp();

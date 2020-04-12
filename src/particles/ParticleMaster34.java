@@ -1,16 +1,13 @@
 package particles;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.lwjgl.util.vector.Matrix4f;
 
-import renderEngine.Loader;
 import entities.Camera;
+import renderEngine.Loader;
 
 public class ParticleMaster34 {
 
@@ -21,11 +18,11 @@ public class ParticleMaster34 {
 		renderer = new ParticleRenderer34(loader, projectionMatrix);
 	}
 	
-	public static void update(Camera camera) {
+	public static void update() {
 		Iterator<Particle34> iterator = particles.iterator();
 		while (iterator.hasNext()) {
 			Particle34 p = iterator.next();
-			boolean stillActive = p.update(camera);
+			boolean stillActive = p.update();
 			if (!stillActive) {
 				iterator.remove();
 			}

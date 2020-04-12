@@ -5,7 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 import entities.Player;
 import renderEngine.DisplayManager;
 
-public class Particle34 {
+public class Particle35 {
 
 	private Vector3f position;
 	private Vector3f velocity;
@@ -14,17 +14,24 @@ public class Particle34 {
 	private float rotation;
 	private float scale;
 	
+	private ParticleTexture35 texture;
+	
 	private float elapsedTime = 0;
 
-	public Particle34(Vector3f position, Vector3f velocity, float gravityEffect,
+	public Particle35(ParticleTexture35 texture, Vector3f position, Vector3f velocity, float gravityEffect,
 			float lifeLength, float rotation, float scale) {
+		this.texture = texture;
 		this.position = position;
 		this.velocity = velocity;
 		this.gravityEffect = gravityEffect;
 		this.lifeLength = lifeLength;
 		this.rotation = rotation;
 		this.scale = scale;
-		ParticleMaster34.addParticle(this);
+		ParticleMaster35.addParticle(this);
+	}
+	
+	public ParticleTexture35 getTexture() {
+		return texture;
 	}
 
 	public Vector3f getPosition() {

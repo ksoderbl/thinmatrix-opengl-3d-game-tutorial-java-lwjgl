@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
@@ -24,7 +23,6 @@ import fontRendering.TextMaster33;
 import guis.GuiRenderer;
 import guis.GuiTexture;
 import models.TexturedModel;
-import particles.Particle34;
 import particles.ParticleMaster34;
 import particles.ParticleSystem34;
 import renderEngine.DisplayManager;
@@ -336,7 +334,7 @@ public class MainGameLoop34
 //            }
             system.generateParticles(player.getPosition());
             system.generateParticles(new Vector3f(terrainSize/3, 10, terrainSize/3));
-            ParticleMaster34.update(camera);
+            ParticleMaster34.update();
             
             //entity.increaseRotation(0.1f, 0.2f, 0.3f);
             //entity2.increaseRotation(0.3f, 0.1f, 0.2f);
