@@ -11,8 +11,8 @@ import org.lwjgl.opengl.PixelFormat;
 
 public class DisplayManager {
 
-    private static final int CREATE_WIDTH = 1920;
-    private static final int CREATE_HEIGHT = 1080;
+    private static final int CREATE_WIDTH = 1080;
+    private static final int CREATE_HEIGHT = 720;
     private static final int FPS_CAP = 60;
 
     private static long lastFrameTime;
@@ -24,6 +24,10 @@ public class DisplayManager {
     private static boolean vsync = true;
 
     public static void createDisplay(String title) {
+    	createDisplay(title, CREATE_WIDTH, CREATE_HEIGHT);
+    }
+    
+    public static void createDisplay(String title, int width, int height) {
 
         ContextAttribs attribs = new ContextAttribs(3, 2)
                 .withForwardCompatible(true)
@@ -49,7 +53,7 @@ public class DisplayManager {
 
 
 
-            DisplayMode mode = new DisplayMode(CREATE_WIDTH, CREATE_HEIGHT);
+            DisplayMode mode = new DisplayMode(width, height);
             //DisplayMode mode = Display.getDesktopDisplayMode();
             Display.setDisplayMode(mode);
             Display.setResizable(true);
@@ -60,7 +64,7 @@ public class DisplayManager {
             e.printStackTrace();
         }
 
-        GL11.glViewport(0,0, CREATE_WIDTH, CREATE_HEIGHT);
+        GL11.glViewport(0,0, width, height);
         lastFrameTime = getCurrentTime();
     }
 
