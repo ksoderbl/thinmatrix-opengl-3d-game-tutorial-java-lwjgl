@@ -314,9 +314,9 @@ public class MainGameLoop36
     	ParticleTexture36 particleSmokeTexture = new ParticleTexture36(loader.loadTexture("smoke"), 8, false);
     	ParticleTexture36 particleFireTexture = new ParticleTexture36(loader.loadTexture("fire"), 8, true);
 
-        ParticleSystem36 system = new ParticleSystem36(particleAtlasTexture, 140, 20, 0.3f, 5, 4f);
+        ParticleSystem36 system = new ParticleSystem36(particleAtlasTexture, 1000, 50, 0.3f, 1f, 2f);
         system.randomizeRotation();
-        system.setDirection(new Vector3f(0, 1, 0), 0.1f);
+        system.setDirection(new Vector3f(0, 1, 0), 0.9f);
         system.setLifeError(0.1f);
         system.setSpeedError(0.25f);
         system.setScaleError(0.5f);
@@ -342,15 +342,15 @@ public class MainGameLoop36
     	starSystem.setScaleError(0.5f);
     	starSystem.randomizeRotation();
 
-    	ParticleSystem36 cosmicSystem = new ParticleSystem36(particleCosmicTexture, 50, 50, 0.3f, 3, 5);
+    	ParticleSystem36 cosmicSystem = new ParticleSystem36(particleCosmicTexture, 50, 150, 1.3f, 3, 5);
     	cosmicSystem.setDirection(new Vector3f(0, 1, 0), 0.8f);
     	cosmicSystem.setLifeError(0.1f);
     	cosmicSystem.setSpeedError(0.25f);
     	cosmicSystem.setScaleError(0.5f);
     	cosmicSystem.randomizeRotation();
 
-    	ParticleSystem36 atlasSystem = new ParticleSystem36(particleAtlasTexture, 50, 50, 0.4f, 6, 4);
-    	atlasSystem.setDirection(new Vector3f(0, 1, 0), 0.6f);
+    	ParticleSystem36 atlasSystem = new ParticleSystem36(particleAtlasTexture, 50, 50, 1.4f, 6, 4);
+    	atlasSystem.setDirection(new Vector3f(0, 1, 0), 0.2f);
     	atlasSystem.setLifeError(0.2f);
     	atlasSystem.setSpeedError(0.5f);
     	atlasSystem.setScaleError(0.25f);
@@ -359,8 +359,8 @@ public class MainGameLoop36
 		Vector3f smokePosition = world.getTerrainPoint(190.0f, 130.0f, 10f);
 		Vector3f firePosition = world.getTerrainPoint(footballPosition.x, footballPosition.z, 10);
 		Vector3f starPosition = world.getTerrainPoint(300.0f, 400.0f, 30);
-		Vector3f cosmicPosition = world.getTerrainPoint(420.0f, 270.0f, 40);
-		Vector3f atlasPosition = world.getTerrainPoint(420.0f, 270.0f, 50);
+		Vector3f cosmicPosition = world.getTerrainPoint(420.0f, 20.0f, 40);
+		Vector3f atlasPosition = world.getTerrainPoint(20.0f, 270.0f, 50);
 
 
 
@@ -379,7 +379,7 @@ public class MainGameLoop36
 //          }
 //            Vector3f pos = player.getPosition();
 //            system.generateParticles(new Vector3f(pos.x, pos.y + 10, pos.z));
-            system.generateParticles(new Vector3f(terrainSize/3, 10, terrainSize/3));
+            system.generateParticles(new Vector3f(terrainSize/6, 100, terrainSize/6));
             
     		smokeSystem.generateParticles(smokePosition);
     		fireSystem.generateParticles(firePosition);
