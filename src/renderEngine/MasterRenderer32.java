@@ -26,10 +26,11 @@ import terrains.Terrain;
 public class MasterRenderer32 {
 	
 	// TODO: change these to variables
-	// TODO: increase NEAR_PLANE, see comments in DisplayManager
+	// DONE: increase NEAR_PLANE, see comments in DisplayManager
 	
 	private static final float FOV = 70;
-	private static final float NEAR_PLANE = 0.1f;
+	// was 0.1f, which caused the water coastline to fluctuate when zooming out
+	private static final float NEAR_PLANE = 1f;
 	private static final float FAR_PLANE = 100000;
 	
 	// Sky variables moved to skybox
