@@ -86,6 +86,8 @@ public class MainGameLoop37
         int terrainVertexCount = 128;
         
         float rocksYOffset = terrainMaxHeight * 0.4075f;
+        
+        float waterSize = terrainSize;
         float waterHeight = terrainMaxHeight * 0.02f;
         
         float playerX = 300;
@@ -139,7 +141,7 @@ public class MainGameLoop37
         text3.setBorderEdge(0.55f);
         text3.setOffset(new Vector2f(0.003f, 0.003f));
         
-        World world = new World37(loader, terrainSize, terrainMaxHeight, terrainVertexCount, terrainSize * 0.8f, waterHeight);
+        World world = new World37(loader, terrainSize, terrainMaxHeight, terrainVertexCount, waterSize, waterHeight);
         List<Terrain> terrains = world.getTerrains();
 
         // *****************************************

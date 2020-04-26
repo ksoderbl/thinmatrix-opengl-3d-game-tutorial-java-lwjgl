@@ -28,7 +28,7 @@ public class World37 implements World {
 	public World37(Loader loader, float terrainSize, float terrainMaxHeight, int terrainVertexCount, float waterSize, float waterHeight) {
 		
         // *********TERRAIN TEXTURE STUFF**********
-		int xTiles = 2;
+		int xTiles = 3;
 		int zTiles = 2;
 		
 		xSize = terrainSize * xTiles;
