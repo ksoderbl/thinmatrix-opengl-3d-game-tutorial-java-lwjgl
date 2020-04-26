@@ -31,9 +31,9 @@ public class WaterRenderer37 {
     private float waterTiling = 20f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
 	private float moveFactor = 0f;
     private float waveStrength = 0.04f; // 0.02 before water tutorial 8
-    private float waterReflectivity = 2f; // for fresnel effect, thinmatrix had 0.5
-    private float shineDamper = 10.0f; // for normal maps
-    private float reflectivity = 0.1f; // for normal maps
+    private float waterReflectivity = 2.0f; // for fresnel effect, thinmatrix had 0.5
+    private float shineDamper = 20.0f; // for normal maps
+    private float reflectivity = 0.5f; // for normal maps
 	
 	private int dudvTexture;
 	private int normalMap;

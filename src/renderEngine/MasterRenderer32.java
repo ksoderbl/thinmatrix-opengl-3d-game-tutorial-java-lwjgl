@@ -31,7 +31,7 @@ public class MasterRenderer32 {
 	private static final float FOV = 70;
 	// was 0.1f, which caused the water coastline to fluctuate when zooming out
 	private static final float NEAR_PLANE = 1f;
-	private static final float FAR_PLANE = 100000;
+	private static final float FAR_PLANE = 100000f;
 	
 	// Sky variables moved to skybox
 	

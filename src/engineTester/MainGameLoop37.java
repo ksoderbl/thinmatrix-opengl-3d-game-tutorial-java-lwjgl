@@ -88,8 +88,8 @@ public class MainGameLoop37
         float rocksYOffset = terrainMaxHeight * 0.4075f;
         float waterHeight = terrainMaxHeight * 0.02f;
         
-        float playerX = 20;
-        float playerZ = 30;
+        float playerX = 300;
+        float playerZ = 300;
         float playerDir = 45;
         
         // for/haze
