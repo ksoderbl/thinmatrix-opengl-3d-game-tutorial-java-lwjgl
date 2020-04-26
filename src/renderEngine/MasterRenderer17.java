@@ -14,8 +14,8 @@ import entities.Entity;
 import entities.Light;
 import models.TexturedModel;
 import shaders.StaticShader16;
-import shaders.TerrainShader17;
 import terrains.Terrain;
+import terrains.TerrainShader17;
 
 public class MasterRenderer17 {
 	

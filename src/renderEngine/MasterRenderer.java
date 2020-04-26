@@ -1,24 +1,25 @@
 package renderEngine;
 
-import entities.Camera;
-import entities.Entity;
-import entities.Light;
-import models.TexturedModel;
-import normalMappingRenderer.NormalMappingRenderer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector4f;
+
+import entities.Camera;
+import entities.Entity;
+import entities.Light;
+import models.TexturedModel;
+import normalMappingRenderer.NormalMappingRenderer;
 import shaders.StaticShader;
-import shaders.TerrainShader;
 import skybox.SkyboxRenderer;
 import terrains.Terrain;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import terrains.TerrainShader;
 
 public class MasterRenderer {
 

@@ -1,4 +1,4 @@
-package shaders;
+package terrains;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.lwjgl.util.vector.Vector4f;
 
 import entities.Camera;
 import entities.Light;
+import shaders.ShaderProgram;
 import toolbox.Maths;
 
 public class TerrainShader30 extends ShaderProgram {
@@ -15,8 +16,8 @@ public class TerrainShader30 extends ShaderProgram {
 	// OpenGL 3D Game Tutorial 25: Multiple Lights
 	private static final int MAX_LIGHTS = 4;
 
-    private static final String VERTEX_FILE = "src/shaders/terrainVertexShader30.glsl";
-    private static final String FRAGMENT_FILE = "src/shaders/terrainFragmentShader30.glsl";
+    private static final String VERTEX_FILE = "src/terrains/terrainVertexShader30.glsl";
+    private static final String FRAGMENT_FILE = "src/terrains/terrainFragmentShader30.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;

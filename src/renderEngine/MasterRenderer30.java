@@ -16,10 +16,10 @@ import entities.Entity;
 import entities.Light;
 import models.TexturedModel;
 import shaders.StaticShader30;
-import shaders.TerrainShader30;
 import skybox.Sky;
 import skybox.SkyboxRenderer30;
 import terrains.Terrain;
+import terrains.TerrainShader30;
 
 public class MasterRenderer30 {
 	

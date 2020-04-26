@@ -16,9 +16,9 @@ import entities.Entity;
 import entities.Light;
 import models.TexturedModel;
 import shaders.StaticShader26;
-import shaders.TerrainShader26;
 import skybox.Sky;
 import terrains.Terrain;
+import terrains.TerrainShader26;
 
 public class MasterRenderer26 {
 	

@@ -1,4 +1,6 @@
-package shaders;
+package terrains;
+
+import java.util.List;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
@@ -6,18 +8,22 @@ import org.lwjgl.util.vector.Vector4f;
 
 import entities.Camera;
 import entities.Light;
+import shaders.ShaderProgram;
 import toolbox.Maths;
 
-public class TerrainShaderWater03 extends ShaderProgram {
+public class TerrainShader25 extends ShaderProgram {
+	
+	// OpenGL 3D Game Tutorial 25: Multiple Lights
+	private static final int MAX_LIGHTS = 4;
 
-    private static final String VERTEX_FILE = "src/shaders/terrainVertexShaderWater03.glsl";
-    private static final String FRAGMENT_FILE = "src/shaders/terrainFragmentShaderWater03.glsl";
+    private static final String VERTEX_FILE = "src/terrains/terrainVertexShader25.glsl";
+    private static final String FRAGMENT_FILE = "src/terrains/terrainFragmentShader25.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;
     private int location_viewMatrix;
-    private int location_lightPosition;
-    private int location_lightColor;
+    private int location_lightPosition[];
+    private int location_lightColor[];
     private int location_shineDamper;
     private int location_reflectivity;
     // OpenGL 3D Game Tutorial 16: Fog
@@ -33,7 +39,7 @@ public class TerrainShaderWater03 extends ShaderProgram {
     // OpenGL Water Tutorial 3: Clipping Planes
     private int location_clipPlane;
 
-    public TerrainShaderWater03() {
+    public TerrainShader25() {
         super(VERTEX_FILE, FRAGMENT_FILE);
     }
 
@@ -49,8 +55,6 @@ public class TerrainShaderWater03 extends ShaderProgram {
 		location_transformationMatrix = super.getUniformLocation("transformationMatrix");
 		location_projectionMatrix = super.getUniformLocation("projectionMatrix");
 		location_viewMatrix = super.getUniformLocation("viewMatrix");
-		location_lightPosition = super.getUniformLocation("lightPosition");
-		location_lightColor = super.getUniformLocation("lightColor");
 		location_shineDamper = super.getUniformLocation("shineDamper");
 		location_reflectivity = super.getUniformLocation("reflectivity");
 		location_skyColor = super.getUniformLocation("skyColor");
@@ -62,6 +66,14 @@ public class TerrainShaderWater03 extends ShaderProgram {
 		location_bTexture = super.getUniformLocation("bTexture");
 		location_blendMap = super.getUniformLocation("blendMap");
 		location_clipPlane = super.getUniformLocation("clipPlane");
+		
+		// OpenGL 3D Game Tutorial 25: Multiple Lights
+		location_lightPosition = new int[MAX_LIGHTS];
+		location_lightColor = new int[MAX_LIGHTS];
+		for (int i = 0; i < MAX_LIGHTS; i++) {
+			location_lightPosition[i] = super.getUniformLocation("lightPosition[" + i + "]");
+			location_lightColor[i] = super.getUniformLocation("lightColor[" + i + "]");
+		}
 	}
 	
     public void connectTextureUnits() {
@@ -98,9 +110,17 @@ public class TerrainShaderWater03 extends ShaderProgram {
 		super.loadMatrix(location_transformationMatrix, matrix);
 	}
 	
-	public void loadLight(Light light) {
-		super.loadVector(location_lightPosition, light.getPosition());
-		super.loadVector(location_lightColor, light.getColor());
+	public void loadLights(List<Light> lights) {
+		for (int i = 0; i < MAX_LIGHTS; i++) {
+			if (i < lights.size()) {
+				super.loadVector(location_lightPosition[i], lights.get(i).getPosition());
+				super.loadVector(location_lightColor[i], lights.get(i).getColor());
+			}
+			else {
+				super.loadVector(location_lightPosition[i], new Vector3f(0, 0, 0));
+				super.loadVector(location_lightColor[i], new Vector3f(0, 0, 0));
+			}
+		}
 	}
 	
     public void loadViewMatrix(Camera camera) {

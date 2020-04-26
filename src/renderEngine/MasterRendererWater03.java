@@ -16,9 +16,9 @@ import entities.Entity;
 import entities.Light;
 import models.TexturedModel;
 import shaders.StaticShaderWater03;
-import shaders.TerrainShaderWater03;
 import skybox.Sky;
 import terrains.Terrain;
+import terrains.TerrainShaderWater03;
 
 public class MasterRendererWater03 {
 	

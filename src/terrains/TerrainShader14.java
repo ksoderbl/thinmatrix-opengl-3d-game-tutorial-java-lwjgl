@@ -1,15 +1,16 @@
-package shaders;
+package terrains;
 
 import org.lwjgl.util.vector.Matrix4f;
 
 import entities.Camera;
 import entities.Light;
+import shaders.ShaderProgram;
 import toolbox.Maths;
 
 public class TerrainShader14 extends ShaderProgram {
 
-    private static final String VERTEX_FILE = "src/shaders/terrainVertexShader14.glsl";
-    private static final String FRAGMENT_FILE = "src/shaders/terrainFragmentShader14.glsl";
+    private static final String VERTEX_FILE = "src/terrains/terrainVertexShader14.glsl";
+    private static final String FRAGMENT_FILE = "src/terrains/terrainFragmentShader14.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;

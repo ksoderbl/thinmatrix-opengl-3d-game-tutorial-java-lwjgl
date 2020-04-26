@@ -18,10 +18,10 @@ import entities.Light;
 import models.TexturedModel;
 import normalMappingRenderer.NormalMappingRenderer32;
 import shaders.StaticShader30;
-import shaders.TerrainShader30;
 import skybox.Sky;
 import skybox.SkyboxRenderer32;
 import terrains.Terrain;
+import terrains.TerrainShader30;
 
 public class MasterRenderer32 {
 	

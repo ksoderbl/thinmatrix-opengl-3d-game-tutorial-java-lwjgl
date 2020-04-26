@@ -1,16 +1,17 @@
-package shaders;
+package terrains;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
 import entities.Camera;
 import entities.Light;
+import shaders.ShaderProgram;
 import toolbox.Maths;
 
-public class TerrainShader17 extends ShaderProgram {
+public class TerrainShader16 extends ShaderProgram {
 
-    private static final String VERTEX_FILE = "src/shaders/terrainVertexShader17.glsl";
-    private static final String FRAGMENT_FILE = "src/shaders/terrainFragmentShader17.glsl";
+    private static final String VERTEX_FILE = "src/terrains/terrainVertexShader16.glsl";
+    private static final String FRAGMENT_FILE = "src/terrains/terrainFragmentShader16.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;
@@ -19,18 +20,11 @@ public class TerrainShader17 extends ShaderProgram {
     private int location_lightColor;
     private int location_shineDamper;
     private int location_reflectivity;
-    // OpenGL 3D Game Tutorial 16: Fog
     private int location_skyColor;
     private int location_skyDensity;
     private int location_skyGradient;
-    // OpenGL 3D Game Tutorial 17: Multitexturing
-    private int location_backgroundTexture;
-    private int location_rTexture;
-    private int location_gTexture;
-    private int location_bTexture;
-    private int location_blendMap;
 
-    public TerrainShader17() {
+    public TerrainShader16() {
         super(VERTEX_FILE, FRAGMENT_FILE);
     }
 
@@ -53,28 +47,11 @@ public class TerrainShader17 extends ShaderProgram {
 		location_skyColor = super.getUniformLocation("skyColor");
 		location_skyDensity = super.getUniformLocation("skyDensity");
 		location_skyGradient = super.getUniformLocation("skyGradient");
-		location_backgroundTexture = super.getUniformLocation("backgroundTexture");
-		location_rTexture = super.getUniformLocation("rTexture");
-		location_gTexture = super.getUniformLocation("gTexture");
-		location_bTexture = super.getUniformLocation("bTexture");
-		location_blendMap = super.getUniformLocation("blendMap");
 	}
-	
-    public void connectTextureUnits() {
-        super.loadInt(location_backgroundTexture, 0);
-        super.loadInt(location_rTexture, 1);
-        super.loadInt(location_gTexture, 2);
-        super.loadInt(location_bTexture, 3);
-        super.loadInt(location_blendMap, 4);
-    }
 	
     public void loadSkyVariables(float density, float gradient) {
         super.loadFloat(location_skyDensity, density);
         super.loadFloat(location_skyGradient, gradient);
-    }
-    
-    public void loadSkyColor(Vector3f skyColor) {
-        super.loadVector(location_skyColor, skyColor);
     }
 	
     public void loadSkyColor(float r, float g, float b) {
