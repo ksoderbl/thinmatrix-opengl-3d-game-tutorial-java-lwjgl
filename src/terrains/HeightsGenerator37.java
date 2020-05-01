@@ -6,15 +6,20 @@ public class HeightsGenerator37 {
 
 	private float amplitude;
 	private int octaves = 3;
-	private float roughness = (1f/3f);
+	private float roughness = (1f/9f);
 	
 	private Random random = new Random();
 	private int seed;
+	private int xOffset = 0;
+	private int zOffset = 0;
 	
-	public HeightsGenerator37(float maxHeight) {
-		this.seed = random.nextInt(1000000000);
+	// only works with POSITIVE gridX and gridZ values!
+	public HeightsGenerator37(int gridX, int gridZ, int vertexCount, int seed, float maxHeight) {
+		this.seed = seed; //random.nextInt(1000000000);
 		// not correct, but fix later ?
 		this.amplitude = maxHeight;
+		xOffset = gridX * (vertexCount - 1);
+		zOffset = gridZ * (vertexCount - 1);
 	}
 
 //	public float generateHeight (int x, int z) {
@@ -26,12 +31,13 @@ public class HeightsGenerator37 {
 	
 	public float generateHeight (int x, int z) {
 		float total = 0;
-		float d = (float) Math.pow(2, octaves - 1);
+		// added * 4 to make terrain flatter
+		float d = (float) Math.pow(2, octaves - 1) * 4f;
 		
 		for (int i = 0; i < octaves; i++) {
 			float freq = (float) (Math.pow(2,  i) / d);
 			float amp = (float) Math.pow(roughness,  i) * amplitude;
-			total += getInterpolatedNoise(x * freq, z  * freq) * amp;
+			total += getInterpolatedNoise((x+xOffset) * freq, (z+zOffset) * freq) * amp;
 		}
 		
 		return total;
@@ -72,7 +78,7 @@ public class HeightsGenerator37 {
 			+ getNoise(x, z - 1)
 			+ getNoise(x, z + 1)
 			) / 8f;
-		float center = getNoise(x, z) / 4;
+		float center = getNoise(x, z) / 4f;
 		return corners + sides + center;
 	}
 	

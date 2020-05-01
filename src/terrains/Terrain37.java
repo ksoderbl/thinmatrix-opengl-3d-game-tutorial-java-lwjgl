@@ -3,6 +3,7 @@ package terrains;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -20,8 +21,8 @@ public class Terrain37 implements Terrain {
 
     //public static final float SIZE = 20000; // Thinmatrix has 800
     //public static final float MAX_HEIGHT = 9000; // 40
-    private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
-    private static final float HEIGHT_OFFSET = 0;
+    //private static final float MAX_PIXEL_COLOR = 256 * 256 * 256;
+    //private static final float HEIGHT_OFFSET = 0;
 
     private float x;
     private float z;
@@ -31,6 +32,10 @@ public class Terrain37 implements Terrain {
     private TerrainTexturePack texturePack;
     private TerrainTexture blendMap;
     private int vertexCount;
+    private int gridX;
+    private int gridZ;
+    
+    private static final int SEED = new Random().nextInt(1000000000);
 
     private float[][] heights;
 
@@ -43,6 +48,8 @@ public class Terrain37 implements Terrain {
         this.x = gridX * size;
         this.z = gridZ * size;
         this.vertexCount = vertexCount;
+        this.gridX = gridX;
+        this.gridZ = gridZ;
         this.model = generateTerrain(loader, heightMap, vertexCount, maxHeight);
     }
 
@@ -118,7 +125,7 @@ public class Terrain37 implements Terrain {
 
     private RawModel generateTerrain(Loader loader, String heightMap, int vertexCount, float maxHeight) {
     	
-    	HeightsGenerator37 generator = new HeightsGenerator37(maxHeight);
+    	HeightsGenerator37 generator = new HeightsGenerator37(gridX, gridZ, vertexCount, SEED, maxHeight);
 
         BufferedImage image = null;
         String fileName = "res/" + heightMap + ".png";

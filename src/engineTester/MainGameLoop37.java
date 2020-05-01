@@ -85,7 +85,7 @@ public class MainGameLoop37
         float terrainMaxHeight = 100;
         int terrainVertexCount = 128;
         
-        float rocksYOffset = terrainMaxHeight * 0.4075f;
+        //float rocksYOffset = terrainMaxHeight * 0.4075f;
         
         float waterSize = terrainSize;
         float waterHeight = terrainMaxHeight * 0.02f;
@@ -152,7 +152,7 @@ public class MainGameLoop37
         TexturedModel grassModel = loader.createTexturedModel("grassModel", "grassTexture", 1, 0, true, true);
         TexturedModel flowerModel = loader.createTexturedModel("grassModel", "flower", 1, 0, true, true);
         TexturedModel fernModel = loader.createTexturedModel("fern", "fern4", 2, 1, 0, true, false);
-        TexturedModel rocksModel = loader.createTexturedModel("rocks", "rocks", 10, 1);
+        //TexturedModel rocksModel = loader.createTexturedModel("rocks", "rocks", 10, 1);
         TexturedModel toonRocksModel = loader.createTexturedModel("toonRocks", "toonRocks", 10, 1);
         TexturedModel boxModel = loader.createTexturedModel("box", "box", 10, 1);
         TexturedModel stallModel = loader.createTexturedModel("stall", "stallTexture", 15, 1);
@@ -213,8 +213,8 @@ public class MainGameLoop37
         System.out.println("stones: " + count);
        
         // the position of this should be at the center of the terrain tiles
-        Vector3f rocksPosition = world.getTerrainPoint(terrainSize/2, terrainSize/2, rocksYOffset);
-        entities.add(new Entity(rocksModel, rocksPosition, (terrainSize-1)/2));
+        //Vector3f rocksPosition = world.getTerrainPoint(terrainSize/2, terrainSize/2, rocksYOffset);
+        //entities.add(new Entity(rocksModel, rocksPosition, (terrainSize-1)/2));
 
         Vector3f boxPosition = world.getTerrainPoint(100, 300, 5);
         entities.add(new Entity(boxModel, boxPosition, 10));
