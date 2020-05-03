@@ -35,7 +35,8 @@ public class Terrain37 implements Terrain {
     private int gridX;
     private int gridZ;
     
-    private static final int SEED = new Random().nextInt(1000000000);
+    // hard coded seed to get the same result every time
+    private static final int SEED = 431; //new Random().nextInt(1000000000);
 
     private float[][] heights;
 
@@ -50,7 +51,15 @@ public class Terrain37 implements Terrain {
         this.vertexCount = vertexCount;
         this.gridX = gridX;
         this.gridZ = gridZ;
+        
+        long nanoTime1 = System.nanoTime();
         this.model = generateTerrain(loader, heightMap, vertexCount, maxHeight);
+        long nanoTime2 = System.nanoTime();
+        float delta = (nanoTime2 - nanoTime1) / 1e3f;
+        
+        System.out.println("Terrain37: generateTerrain took " + delta + " microseconds");
+        
+        
     }
 
     public float getX() {
@@ -179,6 +188,9 @@ public class Terrain37 implements Terrain {
                 indices[pointer++] = bottomRight;
             }
         }
+        
+        generator.getInfo();
+        
         return loader.loadToVAO(vertices, textureCoords, normals, indices);
     }
 

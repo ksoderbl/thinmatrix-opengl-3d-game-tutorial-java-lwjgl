@@ -95,8 +95,8 @@ public class MainGameLoop37
         float playerDir = 45;
         
         // for/haze
-        float airDensity = 0.0001f;
-        float airGradient = 1.0f;
+        float airDensity = 0.0005f;
+        float airGradient = 1.5f;
 
     	String title = tutorial.split(":")[0].trim();
     	String subTitle = tutorial.split(":")[1].trim();
