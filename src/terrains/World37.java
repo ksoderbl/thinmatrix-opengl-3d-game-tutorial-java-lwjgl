@@ -25,11 +25,9 @@ public class World37 implements World {
 	List<Terrain> terrains = new ArrayList<>();
     List<WaterTile> waterTiles = new ArrayList<>();
 	
-	public World37(Loader loader, float terrainSize, float terrainMaxHeight, int terrainVertexCount, float waterSize, float waterHeight) {
+	public World37(Loader loader, int xTiles, int zTiles, float terrainSize, float terrainMaxHeight, int terrainVertexCount, float waterSize) {
 		
         // *********TERRAIN TEXTURE STUFF**********
-		int xTiles = 3;
-		int zTiles = 2;
 		
 		xSize = terrainSize * xTiles;
 		zSize = terrainSize * zTiles;
@@ -45,29 +43,26 @@ public class World37 implements World {
         
         this.terrainSize = terrainSize;
         this.terrainVertexCount = terrainVertexCount;
+
+        // tiles are assumed to be square
+        float waterOffset = (terrainSize - waterSize) * 0.5f;
+        //this.waterHeight = waterHeight;
+        this.waterSize = waterSize;
         
         for (int x = 0; x < xTiles; x++) {
             for (int z = 0; z < zTiles; z++) {
         		Terrain terrain = new Terrain37(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightmapLake", terrainVertexCount);
         		terrains.add(terrain);
+            	// center the water tile on the terrain tile
+        		waterHeight = terrain.getHeightOfWater();
+        		System.out.println("===> waterHeight = " + waterHeight);
+            	WaterTile water = new WaterTile32(x * terrainSize + waterOffset, z * terrainSize + waterOffset, waterHeight, waterSize);
+        		waterTiles.add(water);
             }
         }
         
         System.out.println("" + this.getClass().getName() + ": generated " + terrains.size() + " terrains.");
         
-        this.waterHeight = waterHeight;
-        this.waterSize = waterSize;
-
-        // tiles are assumed to be square
-        float offset = (terrainSize - waterSize) * 0.5f;
-        
-        for (int x = 0; x < xTiles; x++) {
-            for (int z = 0; z < zTiles; z++) {
-            	// center the water tile on the terrain tile
-            	WaterTile water = new WaterTile32(x * terrainSize + offset, z * terrainSize + offset, waterHeight, waterSize);
-        		waterTiles.add(water);
-            }
-        }
 	}
 	
 	public float getHeightOfTerrain(float worldX, float worldZ) {

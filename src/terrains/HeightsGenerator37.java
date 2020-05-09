@@ -1,5 +1,6 @@
 package terrains;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class HeightsGenerator37 {
@@ -12,23 +13,62 @@ public class HeightsGenerator37 {
 	private int seed;
 	private int xOffset = 0;
 	private int zOffset = 0;
+	private int vertexCount;
+	
+	private int stepSize = 1;
 	
 	private int xmin = Integer.MAX_VALUE;
 	private int xmax = Integer.MIN_VALUE;
 	private int zmin = Integer.MAX_VALUE;
 	private int zmax = Integer.MIN_VALUE;
+
 	private int getNoiseCalls = 0;
 	private int getNoise1Calls = 0;
 	private int getSmoothNoiseCalls = 0;
 	private int getInterpolatedNoiseCalls = 0;
+	private int generateHeightCalls = 0;
+	
+//	private float[][] noiseTable;
+	
+	private Worldmap worldMap;
+	private float maxHeight;
 	
 	// only works with POSITIVE gridX and gridZ values!
 	public HeightsGenerator37(int gridX, int gridZ, int vertexCount, int seed, float maxHeight) {
-		this.seed = seed; //random.nextInt(1000000000);
+		this.seed = seed;
 		// not correct, but fix later ?
 		this.amplitude = maxHeight;
+		this.vertexCount = vertexCount;
+		
 		xOffset = gridX * (vertexCount - 1);
 		zOffset = gridZ * (vertexCount - 1);
+		
+		this.maxHeight = maxHeight;
+		int xSize = vertexCount;
+		int ySize = vertexCount;
+		int iterations = 20200;
+		int numContinents = 5;
+		double percentWater = 75.0;
+		long seed1 = 422923;
+		long seed2 = 212921;
+
+		
+		long t1 = System.nanoTime();
+		worldMap = new Worldmap(xSize, ySize, iterations, numContinents, percentWater, seed1, seed2, maxHeight);
+		long t2 = System.nanoTime();
+		System.out.println("t2 - t1 = " + (t2 - t1) * 1e-6 + " ms");
+		worldMap.printOut();
+		
+		// generate noise table
+		//noiseTable = new float[vertexCount+2*stepSize][vertexCount+2*stepSize];
+		
+		//int stepSize = 1;
+
+//		for (int z = -stepSize; z < vertexCount * stepSize + stepSize; z++) {
+//			for (int x = -stepSize; x < vertexCount * stepSize + stepSize; x++) {
+//				noiseTable[x + stepSize][z + stepSize] = getNoise1(x, z);
+//			}
+//		}
 	}
 
 	public void getInfo() {
@@ -40,30 +80,34 @@ public class HeightsGenerator37 {
 		System.out.println("getNoise1() calls: " + getNoise1Calls);
 		System.out.println("getSmoothNoise() calls: " + getSmoothNoiseCalls);
 		System.out.println("getInterpolatedNoise() calls: " + getInterpolatedNoiseCalls);
+		System.out.println("generateHeightCalls() calls: " + generateHeightCalls);
 	}
 
+	public float generateHeight (int x, int z) {
+		return (float) worldMap.getHeightAt(x, z);
+	}
+
+	public float getWaterHeight() {
+		return (float) worldMap.getWaterHeightAt(0, 0); // x and z does not matter here at the moment
+	}
 	
 	
 //	public float generateHeight (int x, int z) {
-//		float total = getInterpolatedNoise(x/4f, z/4f) * amplitude;
-//		total += getInterpolatedNoise(x/2f, z/2f) * amplitude/3f;
-//		total += getInterpolatedNoise(x, z) * amplitude/9f;
+//		
+//		generateHeightCalls++;
+//		
+//		float total = 0;
+//		// added * 4 to make terrain flatter
+//		float d = (float) Math.pow(2, octaves - 1); // * 4f;
+//		
+//		for (int i = 0; i < octaves; i++) {
+//			float freq = (float) (Math.pow(2,  i) / d);
+//			float amp = (float) Math.pow(roughness,  i) * amplitude;
+//			total += getInterpolatedNoise((x + xOffset) * freq, (z + zOffset) * freq) * amp;
+//		}
+//		
 //		return total;
 //	}
-	
-	public float generateHeight (int x, int z) {
-		float total = 0;
-		// added * 4 to make terrain flatter
-		float d = (float) Math.pow(2, octaves - 1) * 4f;
-		
-		for (int i = 0; i < octaves; i++) {
-			float freq = (float) (Math.pow(2,  i) / d);
-			float amp = (float) Math.pow(roughness,  i) * amplitude;
-			total += getInterpolatedNoise((x+xOffset) * freq, (z+zOffset) * freq) * amp;
-		}
-		
-		return total;
-	}
 	
 	private float getInterpolatedNoise(float x, float z) {
 		
@@ -111,6 +155,18 @@ public class HeightsGenerator37 {
 	}
 	
 	public float getNoise(int x, int z) {
+		
+		getNoiseCalls++;
+		
+//		x -= xOffset;
+//		z -= zOffset;
+//
+//		return noiseTable[x+stepSize][z+stepSize];
+		
+		return getNoise1(x, z);
+	}
+	
+	public float getNoise1(int x, int z) {
 		if (x < xmin) {
 			xmin = x;
 		}

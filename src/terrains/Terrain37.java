@@ -34,6 +34,7 @@ public class Terrain37 implements Terrain {
     private int vertexCount;
     private int gridX;
     private int gridZ;
+    private float waterHeight;
     
     // hard coded seed to get the same result every time
     private static final int SEED = 431; //new Random().nextInt(1000000000);
@@ -51,6 +52,7 @@ public class Terrain37 implements Terrain {
         this.vertexCount = vertexCount;
         this.gridX = gridX;
         this.gridZ = gridZ;
+        this.waterHeight = 0;
         
         long nanoTime1 = System.nanoTime();
         this.model = generateTerrain(loader, heightMap, vertexCount, maxHeight);
@@ -58,8 +60,6 @@ public class Terrain37 implements Terrain {
         float delta = (nanoTime2 - nanoTime1) / 1e3f;
         
         System.out.println("Terrain37: generateTerrain took " + delta + " microseconds");
-        
-        
     }
 
     public float getX() {
@@ -93,6 +93,10 @@ public class Terrain37 implements Terrain {
 
     public TerrainTexture getBlendMap() {
         return blendMap;
+    }
+    
+    public float getHeightOfWater() {
+    	return waterHeight;
     }
     
 	public boolean containsPosition(float worldX, float worldZ) {
@@ -135,6 +139,8 @@ public class Terrain37 implements Terrain {
     private RawModel generateTerrain(Loader loader, String heightMap, int vertexCount, float maxHeight) {
     	
     	HeightsGenerator37 generator = new HeightsGenerator37(gridX, gridZ, vertexCount, SEED, maxHeight);
+    	
+        this.waterHeight = generator.getWaterHeight();
 
         BufferedImage image = null;
         String fileName = "res/" + heightMap + ".png";

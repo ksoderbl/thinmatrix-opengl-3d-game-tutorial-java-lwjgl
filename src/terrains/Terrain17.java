@@ -64,6 +64,10 @@ public class Terrain17 implements Terrain {
 		return 0;
 	}
 	
+	public float getHeightOfWater() {
+		return 0;
+	}
+	
 	public boolean containsPosition(float worldX, float worldZ) {
 		if (worldX < x || worldX >= x + SIZE)
 			return false;

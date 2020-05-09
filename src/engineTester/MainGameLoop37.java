@@ -81,22 +81,25 @@ public class MainGameLoop37
     public MainGameLoop37() {
         boolean vsync = true;
     	
-        float terrainSize = 1000;
-        float terrainMaxHeight = 100;
-        int terrainVertexCount = 128;
+		int xTiles = 1;
+		int zTiles = 1;
         
+        float terrainSize = 8192;
+        int terrainVertexCount = 512;
+        float terrainMaxHeight = 300;
+       
         //float rocksYOffset = terrainMaxHeight * 0.4075f;
         
         float waterSize = terrainSize;
-        float waterHeight = terrainMaxHeight * 0.02f;
+        //float waterHeight = terrainMaxHeight * 0.02f;
         
-        float playerX = 300;
-        float playerZ = 300;
+        float playerX = 200;
+        float playerZ = 200;
         float playerDir = 45;
         
         // for/haze
-        float airDensity = 0.0005f;
-        float airGradient = 1.5f;
+        float airDensity = 0.0000f;
+        float airGradient = 1.1f;
 
     	String title = tutorial.split(":")[0].trim();
     	String subTitle = tutorial.split(":")[1].trim();
@@ -141,7 +144,7 @@ public class MainGameLoop37
         text3.setBorderEdge(0.55f);
         text3.setOffset(new Vector2f(0.003f, 0.003f));
         
-        World world = new World37(loader, terrainSize, terrainMaxHeight, terrainVertexCount, waterSize, waterHeight);
+        World world = new World37(loader, xTiles, zTiles, terrainSize, terrainMaxHeight, terrainVertexCount, waterSize);
         List<Terrain> terrains = world.getTerrains();
 
         // *****************************************

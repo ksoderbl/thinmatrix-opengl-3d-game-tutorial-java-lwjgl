@@ -21,4 +21,5 @@ public interface Terrain {
     public TerrainTexture getBlendMap();
 	public float getHeightOfTerrain(float worldX, float worldZ);
 	public boolean containsPosition(float worldX, float worldZ);
+    public float getHeightOfWater();
 }

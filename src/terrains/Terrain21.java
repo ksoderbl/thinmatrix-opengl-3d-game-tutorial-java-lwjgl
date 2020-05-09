@@ -74,7 +74,11 @@ public class Terrain21 implements Terrain {
     public float getHeightOfTerrain(float worldX, float worldZ) {
     	return 0;
     }
-    
+
+	public float getHeightOfWater() {
+		return 0;
+	}
+
 	public boolean containsPosition(float worldX, float worldZ) {
 		if (worldX < x || worldX >= x + SIZE)
 			return false;

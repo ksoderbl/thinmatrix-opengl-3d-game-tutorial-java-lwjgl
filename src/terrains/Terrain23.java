@@ -80,6 +80,10 @@ public class Terrain23 implements Terrain {
 			return false;
 		return true;
 	}
+	
+	public float getHeightOfWater() {
+		return 0;
+	}
 
     public float getHeightOfTerrain(float worldX, float worldZ) {
         float terrainX = worldX - this.x;
