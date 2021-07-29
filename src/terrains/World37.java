@@ -51,7 +51,7 @@ public class World37 implements World {
         
         for (int x = 0; x < xTiles; x++) {
             for (int z = 0; z < zTiles; z++) {
-        		Terrain terrain = new Terrain37(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightmapLake", terrainVertexCount);
+        		Terrain terrain = new Terrain37(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightMapLake", terrainVertexCount);
         		terrains.add(terrain);
             	// center the water tile on the terrain tile
         		waterHeight = terrain.getHeightOfWater();

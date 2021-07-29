@@ -45,7 +45,7 @@ public class World32 implements World {
         
         for (int x = 0; x < xTiles; x++) {
             for (int z = 0; z < zTiles; z++) {
-        		Terrain terrain = new Terrain32(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightmapLake");
+        		Terrain terrain = new Terrain32(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightMapLake");
         		terrains.add(terrain);
             }
         }
