@@ -24,12 +24,12 @@ import shaders.StaticShader12;
 
 public class MainGameLoop12
 {
-	public static String title = "OpenGL 3D Game Tutorial 12";
-	public static String subTitle = "Specular Lighting";
-	public static String subSubTitle = "Press, w, a, s or d to move";
-	
+    public static String title = "OpenGL 3D Game Tutorial 12";
+    public static String subTitle = "Specular Lighting";
+    public static String subSubTitle = "Press, w, a, s or d to move";
+    
     public static void main(String[] args) {
-    	DisplayManager.createDisplay(title + ": " + subTitle);
+        DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         StaticShader12 shader = new StaticShader12();
         Renderer12 renderer = new Renderer12(shader);
@@ -53,10 +53,10 @@ public class MainGameLoop12
         Random random = new Random();
         
         for (int i = 0; i < entities.length; i++) {
-        	Vector3f translation = new Vector3f(
-        			((10 * random.nextFloat()) - 5) * 0.8f,
-        			((10 * random.nextFloat()) - 5) * 0.8f,
-        			-10f + ((10 * random.nextFloat()) - 5) * 0.8f);
+            Vector3f translation = new Vector3f(
+                    ((10 * random.nextFloat()) - 5) * 0.8f,
+                    ((10 * random.nextFloat()) - 5) * 0.8f,
+                    -10f + ((10 * random.nextFloat()) - 5) * 0.8f);
             float rx = 0;
             float ry = 0; 
             float rz = 0; //360 * random.nextFloat();
@@ -66,38 +66,38 @@ public class MainGameLoop12
         }
         
         Light light = new Light(
-        		new Vector3f(0, 0, -10),
-        		new Vector3f(1f, 1f, 1f)); // white light
+                new Vector3f(0, 0, -10),
+                new Vector3f(1f, 1f, 1f)); // white light
         
         Camera12 camera = new Camera12();
         
         while (!Display.isCloseRequested()) {
-        	
-        	for (int i = 0; i < entities.length; i++) {
-        		//entities[i].increasePosition(0, 0, 0.00001f*i);
-        		entities[i].increaseRotation(0, 0.1f*i, 0);
-        	}
-        	
-        	//light.getPosition().translate(
-        	//		((10 * random.nextFloat()) - 5) / 10f,
-        	//		((10 * random.nextFloat()) - 5) / 10f,
-			//		((10 * random.nextFloat()) - 5) / 10f);
+            
+            for (int i = 0; i < entities.length; i++) {
+                //entities[i].increasePosition(0, 0, 0.00001f*i);
+                entities[i].increaseRotation(0, 0.1f*i, 0);
+            }
+            
+            //light.getPosition().translate(
+            //        ((10 * random.nextFloat()) - 5) / 10f,
+            //        ((10 * random.nextFloat()) - 5) / 10f,
+            //        ((10 * random.nextFloat()) - 5) / 10f);
 
-        	camera.move();
-        	renderer.prepare();
-        	shader.start();
-        	shader.loadLight(light);
-        	shader.loadViewMatrix(camera);
-        	for (int i = 0; i < entities.length; i++) {
-        		//if (i == 0) {
-        		//	entities[i].setPosition(light.getPosition());
-        		//}
-	            renderer.render(entities[i], shader);
-        	}
+            camera.move();
+            renderer.prepare();
+            shader.start();
+            shader.loadLight(light);
+            shader.loadViewMatrix(camera);
+            for (int i = 0; i < entities.length; i++) {
+                //if (i == 0) {
+                //    entities[i].setPosition(light.getPosition());
+                //}
+                renderer.render(entities[i], shader);
+            }
             shader.stop();
             
-        	TextMaster.render();
-        	            
+            TextMaster.render();
+                        
             DisplayManager.updateDisplay();
         }
 

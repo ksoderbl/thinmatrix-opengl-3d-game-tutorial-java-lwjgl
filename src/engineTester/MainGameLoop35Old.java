@@ -41,9 +41,9 @@ import water.WaterTile35;
 
 public class MainGameLoop35Old
 {
-	public static String title = "OpenGL 3D Game Tutorial 35, Old Implementation";
-	public static String subTitle = "Animating Particle Textures";
-	
+    public static String title = "OpenGL 3D Game Tutorial 35, Old Implementation";
+    public static String subTitle = "Animating Particle Textures";
+    
     public static void main(String[] args) {
 
         DisplayManager.createDisplay(title + ": " + subTitle);
@@ -118,11 +118,11 @@ public class MainGameLoop35Old
         */
 
         TexturedModel pine = new TexturedModel(OBJFileLoader.loadOBJ("pine", loader),
-        		new ModelTexture(loader.loadTexture("pine")));
+                new ModelTexture(loader.loadTexture("pine")));
         pine.getTexture().setHasTransparency(true);
 
         TexturedModel lamp = new TexturedModel(OBJFileLoader.loadOBJ("lamp", loader),
-        		new ModelTexture(loader.loadTexture("lamp")));
+                new ModelTexture(loader.loadTexture("lamp")));
         lamp.getTexture().setUseFakeLighting(true);
 
         List<Entity> entities = new ArrayList<>();
@@ -136,8 +136,8 @@ public class MainGameLoop35Old
         barrelModel.getTexture().setShineDamper(10);
         barrelModel.getTexture().setReflectivity(0.5f);
 
-		TexturedModel crateModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("crate", loader),
-				new ModelTexture(loader.loadTexture("crate")));
+        TexturedModel crateModel = new TexturedModel(NormalMappedObjLoader.loadOBJ("crate", loader),
+                new ModelTexture(loader.loadTexture("crate")));
         crateModel.getTexture().setNormalMap(loader.loadTexture("crateNormal"));
         crateModel.getTexture().setShineDamper(10);
         crateModel.getTexture().setReflectivity(0.5f);
@@ -174,7 +174,7 @@ public class MainGameLoop35Old
                 float z = random.nextFloat() * 150;
                 if ((x > 50 && x < 100) || (z > 50 && z < 100)) {
                 } else {
-                	float y = world.getHeightOfTerrain(x, z);
+                    float y = world.getHeightOfTerrain(x, z);
                     entities.add(new Entity(pine, 1, new Vector3f(x, y, z), 0,
                             random.nextFloat() * 360, 0, random.nextFloat() * 0.6f + 0.8f));
                     }
@@ -303,9 +303,9 @@ public class MainGameLoop35Old
         List<WaterTile> waters = new ArrayList<>();
         /*
         for (int i = 1; i < 5; i++) {
-        	for (int j = 1; j < 5; j++) {
-        		waters.add(new WaterTile(i * 160, -j * 160, 0));
-        	}
+            for (int j = 1; j < 5; j++) {
+                waters.add(new WaterTile(i * 160, -j * 160, 0));
+            }
         }
         WaterTile water = waters.get(0);
         */
@@ -349,7 +349,7 @@ public class MainGameLoop35Old
             //picker.update();
             
             //if (Keyboard.isKeyDown(Keyboard.KEY_Y)) {
-            //	new Particle(new Vector3f(player.getPosition()), new Vector3f(0, 30, 0), 1, 4, 0, 1);
+            //    new Particle(new Vector3f(player.getPosition()), new Vector3f(0, 30, 0), 1, 4, 0, 1);
             //}
             //Vector3f systemPos = new Vector3f(player.getPosition());
             //systemPos.setY(systemPos.getY() + 8f);
@@ -410,7 +410,7 @@ public class MainGameLoop35Old
 
         ParticleMaster.cleanUp();
         TextMaster.cleanUp();
-		buffers.cleanUp();
+        buffers.cleanUp();
         waterShader.cleanUp();
         guiRenderer.cleanUp();
         renderer.cleanUp();

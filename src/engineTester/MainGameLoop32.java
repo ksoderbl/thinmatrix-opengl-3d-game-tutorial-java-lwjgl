@@ -47,9 +47,9 @@ import water.WaterShader30;
 public class MainGameLoop32
 {
 
-	String tutorial = "OpenGL 3D Game Tutorial 32: Font Rendering";
-	String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
-	 //"Use key c to swap to second camera, move it with arrow keys";
+    String tutorial = "OpenGL 3D Game Tutorial 32: Font Rendering";
+    String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
+     //"Use key c to swap to second camera, move it with arrow keys";
 
     List<Entity> entities = new ArrayList<>();
     List<Entity> normalMapEntities = new ArrayList<>();
@@ -58,27 +58,27 @@ public class MainGameLoop32
 
     
     public void addEntity(World world, TexturedModel texturedModel, float rx, float rz, float scale) {
-    	int numTextureRows = texturedModel.getTexture().getNumberOfRows();
-    	int numSubTextures = numTextureRows * numTextureRows;
-    	
-    	Vector3f position = world.getTerrainPoint(random.nextFloat() * world.getXSize(), random.nextFloat() * world.getZSize(), 0);
-		
-		if (position.y > world.getHeightOfWater(position.x, position.z) + 4) {
-	        float ry = random.nextFloat() * 360;
-	        
-	        if (numSubTextures > 1) {
-	        	int textureIndex = random.nextInt(numSubTextures);
-	        	entities.add(new Entity(texturedModel, textureIndex, position, rx, ry, rz, scale));
-	        }
-	        else {
-	        	entities.add(new Entity(texturedModel, position, rx, ry, rz, scale));
-	        }
-		}
+        int numTextureRows = texturedModel.getTexture().getNumberOfRows();
+        int numSubTextures = numTextureRows * numTextureRows;
+        
+        Vector3f position = world.getTerrainPoint(random.nextFloat() * world.getXSize(), random.nextFloat() * world.getZSize(), 0);
+        
+        if (position.y > world.getHeightOfWater(position.x, position.z) + 4) {
+            float ry = random.nextFloat() * 360;
+            
+            if (numSubTextures > 1) {
+                int textureIndex = random.nextInt(numSubTextures);
+                entities.add(new Entity(texturedModel, textureIndex, position, rx, ry, rz, scale));
+            }
+            else {
+                entities.add(new Entity(texturedModel, position, rx, ry, rz, scale));
+            }
+        }
     }
-	
+    
     public MainGameLoop32() {
         boolean vsync = true;
-    	
+        
         float terrainSize = 1600;
         
         float terrainMaxHeight = 100;
@@ -93,25 +93,25 @@ public class MainGameLoop32
         float airDensity = 0.002f;
         float airGradient = 2.5f;
 
-    	String title = tutorial.split(":")[0].trim();
-    	String subTitle = tutorial.split(":")[1].trim();
-    	
-    	DisplayManager.createDisplay(tutorial);
+        String title = tutorial.split(":")[0].trim();
+        String subTitle = tutorial.split(":")[1].trim();
+        
+        DisplayManager.createDisplay(tutorial);
         MasterRenderer32 renderer = new MasterRenderer32(loader);
-    	DisplayManager.setVSync(vsync);
+        DisplayManager.setVSync(vsync);
 
         TextMaster.init(loader);
 
         FontType font = new FontType(loader.loadFontTextureAtlas("arial"), new File("res/fonts/arial.fnt"));
-      	FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-      	FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-      	
+          FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+          FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+          
         GUIText text, text2, text3;
 
         text = new GUIText(title, 2f, font, new Vector2f(0.0f, 0.7f), 0.5f, true);
         text.setColor(0.2f, 0.2f, 0.5f);
-       	text2 = new GUIText(subTitle, 1.5f, font2, new Vector2f(0.0f, 0.8f), 0.5f, true);
-       	text2.setColor(0.5f, 0.2f, 0.2f);
+           text2 = new GUIText(subTitle, 1.5f, font2, new Vector2f(0.0f, 0.8f), 0.5f, true);
+           text2.setColor(0.5f, 0.2f, 0.2f);
         text3 = new GUIText(subSubTitle, 1f, font3, new Vector2f(0.0f, 0.9f), 0.5f, true);
         text3.setColor(0.2f, 0.5f, 0.2f);
         
@@ -165,10 +165,10 @@ public class MainGameLoop32
             Vector3f position = world.getTerrainPoint(random.nextFloat() * world.getXSize(), random.nextFloat() * world.getZSize(), random.nextFloat() * -3);
             
             if (position.y > world.getHeightOfWater(position.x, position.z) - 6) {
-            	count++;
-	            Entity boulder = new Entity(boulderModel, position,
-	            		random.nextFloat() * 360.0f, random.nextFloat() * 360.0f, random.nextFloat() * 360.0f, random.nextFloat() * 1.0f + 1f);
-	            normalMapEntities.add(boulder);
+                count++;
+                Entity boulder = new Entity(boulderModel, position,
+                        random.nextFloat() * 360.0f, random.nextFloat() * 360.0f, random.nextFloat() * 360.0f, random.nextFloat() * 1.0f + 1f);
+                normalMapEntities.add(boulder);
             }
         }
         System.out.println("boulders: " + count);
@@ -178,10 +178,10 @@ public class MainGameLoop32
             Vector3f position = world.getTerrainPoint(random.nextFloat() * world.getXSize(), random.nextFloat() * world.getZSize(), -1);
             float h = world.getHeightOfWater(position.x, position.z);
             if (position.y > h - 3 && position.y < h + 3) {
-            	count++;
-	            Entity boulder = new Entity(boulderModel, position,
-	            		160 + random.nextFloat() * 40.0f, random.nextFloat() * 360.0f, 10 + random.nextFloat() * 10.0f, random.nextFloat() * 0.5f + 0.2f);
-	            normalMapEntities.add(boulder);
+                count++;
+                Entity boulder = new Entity(boulderModel, position,
+                        160 + random.nextFloat() * 40.0f, random.nextFloat() * 360.0f, 10 + random.nextFloat() * 10.0f, random.nextFloat() * 0.5f + 0.2f);
+                normalMapEntities.add(boulder);
             }
         }
         System.out.println("stones: " + count);
@@ -235,25 +235,25 @@ public class MainGameLoop32
         lights.add(lamp3Light);
         
         for (int i = 0; i < 200; i++) {
-        	if (i % 3 == 0) {
-        		addEntity(world, grassModel, 0, 0, random.nextFloat() * 0.8f + 1.0f);
-        		addEntity(world, flowerModel, 0, 0, random.nextFloat() * 0.8f + 1.5f);
-        	}
+            if (i % 3 == 0) {
+                addEntity(world, grassModel, 0, 0, random.nextFloat() * 0.8f + 1.0f);
+                addEntity(world, flowerModel, 0, 0, random.nextFloat() * 0.8f + 1.5f);
+            }
 
-        	if (i % 2 == 0) {
-        		addEntity(world, fernModel, 10 * random.nextFloat() - 5, 10 * random.nextFloat() - 5, random.nextFloat() * 0.5f + 0.4f);
-        		
-	            // low poly tree "bobble"
-        		addEntity(world, lowPolyTreeModel, 4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 0.1f + 0.6f);
-	
-        		addEntity(world, treeModel,  4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 1f + 4f);
-	        	addEntity(world, pineModel,  4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 4f + 1f);
-	        	
-	        	addEntity(world, toonRocksModel, 0, 0, 4 * random.nextFloat());
-        	}
+            if (i % 2 == 0) {
+                addEntity(world, fernModel, 10 * random.nextFloat() - 5, 10 * random.nextFloat() - 5, random.nextFloat() * 0.5f + 0.4f);
+                
+                // low poly tree "bobble"
+                addEntity(world, lowPolyTreeModel, 4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 0.1f + 0.6f);
+    
+                addEntity(world, treeModel,  4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 1f + 4f);
+                addEntity(world, pineModel,  4 * random.nextFloat() - 2, 4 * random.nextFloat() - 2, random.nextFloat() * 4f + 1f);
+                
+                addEntity(world, toonRocksModel, 0, 0, 4 * random.nextFloat());
+            }
         }
 
-    	Vector3f playerPosition = world.getTerrainPoint(playerX, playerZ, 0);
+        Vector3f playerPosition = world.getTerrainPoint(playerX, playerZ, 0);
         TexturedModel playerModel = loader.createTexturedModel("person", "playerTexture", 1, 0);
         Player32 player = new Player32(playerModel, playerPosition, 0, playerDir, 0, 0.6f);
         entities.add(player);
@@ -291,79 +291,79 @@ public class MainGameLoop32
         float t = 0f;
         
         while (!Display.isCloseRequested()) {
-        	
-        	player.move(world);
-        	       	
-        	camera.move();
-        	
+            
+            player.move(world);
+                       
+            camera.move();
+            
             //entity.increaseRotation(0.1f, 0.2f, 0.3f);
             //entity2.increaseRotation(0.3f, 0.1f, 0.2f);
             //entity3.increaseRotation(0.2f, 0.3f, 0.1f);
-        	float dt = DisplayManager.getFrameTimeSeconds();
-        	t += dt;
-        	//System.out.println("time: " + t);
-        	
+            float dt = DisplayManager.getFrameTimeSeconds();
+            t += dt;
+            //System.out.println("time: " + t);
+            
             entity4.increaseRotation(12f * dt , 20f * dt, 6f * dt);
-        	
+            
             picker.update();
 //            Vector3f terrainPoint = picker.getCurrentTerrainPoint();
 //            if (terrainPoint != null) {
-//            	lamp3Entity.setPosition(terrainPoint);
-//            	lamp3Light.setPosition(new Vector3f(terrainPoint.x, terrainPoint.y + 14, terrainPoint.z));
+//                lamp3Entity.setPosition(terrainPoint);
+//                lamp3Light.setPosition(new Vector3f(terrainPoint.x, terrainPoint.y + 14, terrainPoint.z));
 //            }
-        	
-        	GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
+            
+            GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 
-        	// render to reflection texture: set the clip plane to clip stuff above water
-        	buffers.bindReflectionFrameBuffer();
+            // render to reflection texture: set the clip plane to clip stuff above water
+            buffers.bindReflectionFrameBuffer();
             float distance = 2 * (camera.getPosition().y - world.getHeightOfWater(0, 0));
             // change position and pitch of camera to render the reflection 
             camera.getPosition().y -= distance;
             camera.invertPitch();
-        	renderer.renderScene(entities, normalMapEntities, terrains, lights, sky, camera, new Vector4f(0, 1, 0, -world.getHeightOfWater(0, 0)+1f), true);
+            renderer.renderScene(entities, normalMapEntities, terrains, lights, sky, camera, new Vector4f(0, 1, 0, -world.getHeightOfWater(0, 0)+1f), true);
             camera.getPosition().y += distance;
             camera.invertPitch();
 
-        	// render to refraction texture: set the clip plane to clip stuff below water
-        	buffers.bindRefractionFrameBuffer();
-        	renderer.renderScene(entities, normalMapEntities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, world.getHeightOfWater(0, 0)+1f), true);
-        	
-        	// render to screen: set the clip plane at a great height, so it won't clip anything
-        	buffers.unbindCurrentFrameBuffer();
-        	renderer.renderScene(entities, normalMapEntities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, 1000000), false);
-
-        	waterRenderer.render(world.getWaterTiles(), sky, camera, lights);
-        	
-        	guiRenderer.render(guiTextures);
-        	
-        	if (t > 15.0f && t < 30f) {
-        		float v = -0.01f * (t - 5.0f) * (t - 5.0f);
-	        	text.increasePosition(v * dt, 0f);
-	        	text2.increasePosition(v * dt, 0f);
-	        	text3.increasePosition(v * dt, 0f);
-        	}
-        	if (t >= 30f) {
-        		if (text != null) {
-        			TextMaster.removeText(text);
-        			text = null;
-        		}
-        		if (text2 != null) {
-        			TextMaster.removeText(text2);
-        			text2 = null;
-        		}
-        		if (text3 != null) {
-        			TextMaster.removeText(text3);
-        			text3 = null;
-        		}
-        	}
-
-        	TextMaster.render();
+            // render to refraction texture: set the clip plane to clip stuff below water
+            buffers.bindRefractionFrameBuffer();
+            renderer.renderScene(entities, normalMapEntities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, world.getHeightOfWater(0, 0)+1f), true);
             
-        	// frames = 0 means a new second
-        	int frames = DisplayManager.updateDisplay();
+            // render to screen: set the clip plane at a great height, so it won't clip anything
+            buffers.unbindCurrentFrameBuffer();
+            renderer.renderScene(entities, normalMapEntities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, 1000000), false);
+
+            waterRenderer.render(world.getWaterTiles(), sky, camera, lights);
+            
+            guiRenderer.render(guiTextures);
+            
+            if (t > 15.0f && t < 30f) {
+                float v = -0.01f * (t - 5.0f) * (t - 5.0f);
+                text.increasePosition(v * dt, 0f);
+                text2.increasePosition(v * dt, 0f);
+                text3.increasePosition(v * dt, 0f);
+            }
+            if (t >= 30f) {
+                if (text != null) {
+                    TextMaster.removeText(text);
+                    text = null;
+                }
+                if (text2 != null) {
+                    TextMaster.removeText(text2);
+                    text2 = null;
+                }
+                if (text3 != null) {
+                    TextMaster.removeText(text3);
+                    text3 = null;
+                }
+            }
+
+            TextMaster.render();
+            
+            // frames = 0 means a new second
+            int frames = DisplayManager.updateDisplay();
             
             if (frames == 0) {
-            	camera.printPosition();
+                camera.printPosition();
                 System.out.println("ray:          " + picker.getCurrentRay());
                 System.out.println("terrainPoint: " + picker.getCurrentTerrainPoint());
             }
@@ -378,7 +378,7 @@ public class MainGameLoop32
         DisplayManager.closeDisplay();
     }
 
-	public static void main(String[] args) {
-		new MainGameLoop32();
-	}
+    public static void main(String[] args) {
+        new MainGameLoop32();
+    }
 }

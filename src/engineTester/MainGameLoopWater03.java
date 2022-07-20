@@ -44,12 +44,12 @@ import water.WaterTile01;
 
 public class MainGameLoopWater03
 {
-	public static String title = "OpenGL Water Tutorial 3: Clipping Planes";
-	public static String subTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
-	public static String subSubTitle = "Use key c to swap to second camera, move it with arrow keys";
-	
+    public static String title = "OpenGL Water Tutorial 3: Clipping Planes";
+    public static String subTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
+    public static String subSubTitle = "Use key c to swap to second camera, move it with arrow keys";
+    
     public static void main(String[] args) {
-    	DisplayManager.createDisplay(title + ": " + subTitle);
+        DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
 
         TextMaster.init(loader);
@@ -87,13 +87,13 @@ public class MainGameLoopWater03
         Random random = new Random(676452);
         
         for (int i = 0; i < 400; i++) {
-        	
-        	float x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, scale = 1;
-        	
-        	if (i % 7 == 0) {
+            
+            float x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, scale = 1;
+            
+            if (i % 7 == 0) {
                 // grass
                 x = random.nextFloat() * 400 - 200;
-            	z = random.nextFloat() * -400;
+                z = random.nextFloat() * -400;
                 rx = 0;
                 ry = random.nextFloat() * 360;
                 rz = 0;
@@ -102,44 +102,44 @@ public class MainGameLoopWater03
 
                 // flower
                 x = random.nextFloat() * 400 - 200;
-            	z = random.nextFloat() * -400;
+                z = random.nextFloat() * -400;
                 rx = 0;
                 ry = random.nextFloat() * 360;
                 rz = 0;
                 scale = 2.3f;
                 entities.add(new Entity(flowerModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-        	}
+            }
 
-        	if (i % 3 == 0) {
-	            // fern
-	            x = random.nextFloat() * 400 - 400;
-	        	z = random.nextFloat() * -400;
-	            rx = 10 * random.nextFloat() - 5;
-	            ry = random.nextFloat() * 360;
-	            rz = 10 * random.nextFloat() - 5;
-	            scale = 0.9f;
-	            entities.add(new Entity(fernModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-	
-	            // low poly tree "bobble"
-	        	x = random.nextFloat() * 800 - 400;
-	        	y = 0; 
-	        	z = random.nextFloat() * -600; 
-	            rx = 4 * random.nextFloat() - 2;
-	            ry = random.nextFloat() * 360;
-	            rz = 4 * random.nextFloat() - 2;
-	            scale = random.nextFloat() * 0.1f + 0.6f;
-	            entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-	
-	        	// tree
-	        	x = random.nextFloat() * 800 - 400;
-	        	y = 0; 
-	        	z = random.nextFloat() * -600; 
-	            rx = 4 * random.nextFloat() - 2;
-	            ry = random.nextFloat() * 360;
-	            rz = 4 * random.nextFloat() - 2;
-	            scale = random.nextFloat() * 1f + 4f;
-	            entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-        	}
+            if (i % 3 == 0) {
+                // fern
+                x = random.nextFloat() * 400 - 400;
+                z = random.nextFloat() * -400;
+                rx = 10 * random.nextFloat() - 5;
+                ry = random.nextFloat() * 360;
+                rz = 10 * random.nextFloat() - 5;
+                scale = 0.9f;
+                entities.add(new Entity(fernModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+    
+                // low poly tree "bobble"
+                x = random.nextFloat() * 800 - 400;
+                y = 0; 
+                z = random.nextFloat() * -600; 
+                rx = 4 * random.nextFloat() - 2;
+                ry = random.nextFloat() * 360;
+                rz = 4 * random.nextFloat() - 2;
+                scale = random.nextFloat() * 0.1f + 0.6f;
+                entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+    
+                // tree
+                x = random.nextFloat() * 800 - 400;
+                y = 0; 
+                z = random.nextFloat() * -600; 
+                rx = 4 * random.nextFloat() - 2;
+                ry = random.nextFloat() * 360;
+                rz = 4 * random.nextFloat() - 2;
+                scale = random.nextFloat() * 1f + 4f;
+                entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+            }
         }
         entities.add(new Entity(rocksModel, new Vector3f(0, 0, 0), 0, 0, 0, 75));
         
@@ -156,8 +156,8 @@ public class MainGameLoopWater03
         Camera camera = camera1;
 
         Light light = new Light(
-        		new Vector3f(20000, 40000, 20000),
-        		new Vector3f(1f, 1f, 1f)); // white light
+                new Vector3f(20000, 40000, 20000),
+                new Vector3f(1f, 1f, 1f)); // white light
         
         List<Light> lights = new ArrayList<Light>();
         lights.add(light);
@@ -165,14 +165,14 @@ public class MainGameLoopWater03
         //ModelTexture terrainModelTexture = new ModelTexture(loader.loadTexture("grass"));
         
         List<Terrain> terrains = new ArrayList<Terrain>();
-		Terrain terrain1 = new Terrain22(0, 0, loader, texturePack, blendMap, "heightmap");
-		Terrain terrain2 = new Terrain22(-1, 0, loader, texturePack, blendMap, "heightmap");
-		Terrain terrain3 = new Terrain22(-1, -1, loader, texturePack, blendMap, "heightmap");
-		Terrain terrain4 = new Terrain22(0, -1, loader, texturePack, blendMap, "heightmap");
-		terrains.add(terrain1);
-		terrains.add(terrain2);
-		terrains.add(terrain3);
-		terrains.add(terrain4);
+        Terrain terrain1 = new Terrain22(0, 0, loader, texturePack, blendMap, "heightmap");
+        Terrain terrain2 = new Terrain22(-1, 0, loader, texturePack, blendMap, "heightmap");
+        Terrain terrain3 = new Terrain22(-1, -1, loader, texturePack, blendMap, "heightmap");
+        Terrain terrain4 = new Terrain22(0, -1, loader, texturePack, blendMap, "heightmap");
+        terrains.add(terrain1);
+        terrains.add(terrain2);
+        terrains.add(terrain3);
+        terrains.add(terrain4);
 
         MasterRendererWater03 renderer = new MasterRendererWater03();
         
@@ -202,53 +202,53 @@ public class MainGameLoopWater03
         //****************Game Loop Below*********************
         
         while (!Display.isCloseRequested()) {
-        	player.move();
-        	
-        	cameraFrames++;
-        	// key C used to swap camera
-        	if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
-        		if (camera == camera1) {
-            		camera = camera2;
-            	}
-            	else if (camera == camera2) {
-        			camera = camera1;
-            	}
-        		cameraFrames = 0;
-        	}
-        	
-        	camera.move();
-        	
-        	//camera2.getPosition().translate(0, 0, -0.02f);
-        	
-        	GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
+            player.move();
+            
+            cameraFrames++;
+            // key C used to swap camera
+            if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
+                if (camera == camera1) {
+                    camera = camera2;
+                }
+                else if (camera == camera2) {
+                    camera = camera1;
+                }
+                cameraFrames = 0;
+            }
+            
+            camera.move();
+            
+            //camera2.getPosition().translate(0, 0, -0.02f);
+            
+            GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 
-        	// render to reflection texture: set the clip plane to clip stuff above water
-        	buffers.bindReflectionFrameBuffer();
+            // render to reflection texture: set the clip plane to clip stuff above water
+            buffers.bindReflectionFrameBuffer();
             float distance = 2 * (camera.getPosition().y - water.getHeight());
             // change position and pitch of camera to render the reflection 
             camera.getPosition().y -= distance;
             camera.invertPitch();
-        	renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, 1, 0, -water.getHeight()));
+            renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, 1, 0, -water.getHeight()));
             camera.getPosition().y += distance;
             camera.invertPitch();
 
-        	// render to refraction texture: set the clip plane to clip stuff below water
-        	buffers.bindRefractionFrameBuffer();
-        	renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, water.getHeight()));
-        	
-        	// render to screen: set the clip plane at a great height, so it won't clip anything
-        	buffers.unbindCurrentFrameBuffer();
-        	renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, 1000000));
-
-        	waterRenderer.render(waters, sky, camera);
-        	guiRenderer.render(guiTextures);
-
-        	TextMaster.render();
+            // render to refraction texture: set the clip plane to clip stuff below water
+            buffers.bindRefractionFrameBuffer();
+            renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, water.getHeight()));
             
-        	DisplayManager.updateDisplay();
+            // render to screen: set the clip plane at a great height, so it won't clip anything
+            buffers.unbindCurrentFrameBuffer();
+            renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, 1000000));
+
+            waterRenderer.render(waters, sky, camera);
+            guiRenderer.render(guiTextures);
+
+            TextMaster.render();
+            
+            DisplayManager.updateDisplay();
             
             if ((i % 60) == 0) {
-            	camera.printPosition();
+                camera.printPosition();
             }
             i++;
         }

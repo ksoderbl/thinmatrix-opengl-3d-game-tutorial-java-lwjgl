@@ -21,11 +21,11 @@ import terrains.Terrain;
 import terrains.TerrainShaderWater03;
 
 public class MasterRendererWater03 {
-	
-	private static final float FOV = 70;
-	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 1000;
-	
+    
+    private static final float FOV = 70;
+    private static final float NEAR_PLANE = 0.1f;
+    private static final float FAR_PLANE = 1000;
+    
     public static final float SKY_RED   = 0.6f;
     public static final float SKY_GREEN = 0.7f;
     public static final float SKY_BLUE  = 0.8f;
@@ -37,8 +37,8 @@ public class MasterRendererWater03 {
     // fog
     //public static final float SKY_DENSITY = 0.007f;
     //public static final float SKY_GRADIENT = 1.5f;
-	
-	private Matrix4f projectionMatrix;
+    
+    private Matrix4f projectionMatrix;
 
     private StaticShaderWater03 shader = new StaticShaderWater03();
     private EntityRendererWater03 renderer;
@@ -50,10 +50,10 @@ public class MasterRendererWater03 {
     private List<Terrain> terrains = new ArrayList<>();
     
     public MasterRendererWater03() {
-    	enableCulling();
-    	createProjectionMatrix();
-    	renderer = new EntityRendererWater03(shader, projectionMatrix);
-    	terrainRenderer = new TerrainRendererWater03(terrainShader, projectionMatrix);
+        enableCulling();
+        createProjectionMatrix();
+        renderer = new EntityRendererWater03(shader, projectionMatrix);
+        terrainRenderer = new TerrainRendererWater03(terrainShader, projectionMatrix);
     }
     
     public static void enableCulling() {
@@ -66,14 +66,14 @@ public class MasterRendererWater03 {
     }
     
     public void renderScene(List<Entity> entities, List<Terrain> terrains,
-    		List<Light> lights, Sky sky, Camera camera, Vector4f clipPlane) {
-    	for (Entity entity : entities) {
-    		processEntity(entity);
-    	}
-    	for (Terrain terrain : terrains) {
-    		processTerrain(terrain);
-    	}
-    	Light light = lights.get(0);
+            List<Light> lights, Sky sky, Camera camera, Vector4f clipPlane) {
+        for (Entity entity : entities) {
+            processEntity(entity);
+        }
+        for (Terrain terrain : terrains) {
+            processTerrain(terrain);
+        }
+        Light light = lights.get(0);
         render(light, sky, camera, clipPlane);
     }
 
@@ -84,25 +84,25 @@ public class MasterRendererWater03 {
         shader.loadClipPlane(clipPlane);
         shader.loadSkyColor(sky.getColor());
         shader.loadSkyVariables(sky.getDensity(), sky.getGradient());
-    	shader.loadLight(sun);
-    	shader.loadViewMatrix(camera);
-    	renderer.render(entities);
+        shader.loadLight(sun);
+        shader.loadViewMatrix(camera);
+        renderer.render(entities);
         shader.stop();
-    	entities.clear();
+        entities.clear();
         
-    	terrainShader.start();
-    	terrainShader.loadClipPlane(clipPlane);
-    	terrainShader.loadSkyColor(sky.getColor());
-    	terrainShader.loadSkyVariables(sky.getDensity(), sky.getGradient());
+        terrainShader.start();
+        terrainShader.loadClipPlane(clipPlane);
+        terrainShader.loadSkyColor(sky.getColor());
+        terrainShader.loadSkyVariables(sky.getDensity(), sky.getGradient());
         terrainShader.loadLight(sun);
-    	terrainShader.loadViewMatrix(camera);
-    	terrainRenderer.render(terrains);
-    	terrainShader.stop();
+        terrainShader.loadViewMatrix(camera);
+        terrainRenderer.render(terrains);
+        terrainShader.stop();
         terrains.clear();
     }
     
     public void processTerrain(Terrain terrain) {
-    	terrains.add(terrain);
+        terrains.add(terrain);
     }
 
     public void processEntity(Entity entity) {
@@ -123,8 +123,8 @@ public class MasterRendererWater03 {
     }
     
     public void prepare(Sky sky) {
-    	GL11.glEnable(GL11.GL_DEPTH_TEST);
-    	Vector3f skyColor = sky.getColor();
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        Vector3f skyColor = sky.getColor();
         GL11.glClearColor(skyColor.x, skyColor.y, skyColor.z, 1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
     }

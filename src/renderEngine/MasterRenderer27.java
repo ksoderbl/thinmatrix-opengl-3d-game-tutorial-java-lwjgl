@@ -22,14 +22,14 @@ import terrains.Terrain;
 import terrains.TerrainShader26;
 
 public class MasterRenderer27 {
-	
-	private static final float FOV = 70;
-	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 100000;
-	
-	// Sky variables moved to skybox
-	
-	private Matrix4f projectionMatrix;
+    
+    private static final float FOV = 70;
+    private static final float NEAR_PLANE = 0.1f;
+    private static final float FAR_PLANE = 100000;
+    
+    // Sky variables moved to skybox
+    
+    private Matrix4f projectionMatrix;
 
     private StaticShader26 shader = new StaticShader26();
     private EntityRenderer26 renderer;
@@ -43,11 +43,11 @@ public class MasterRenderer27 {
     private SkyboxRenderer skyboxRenderer;
     
     public MasterRenderer27(Loader loader) {
-    	enableCulling();
-    	createProjectionMatrix();
-    	renderer = new EntityRenderer26(shader, projectionMatrix);
-    	terrainRenderer = new TerrainRenderer26(terrainShader, projectionMatrix);
-    	skyboxRenderer = new SkyboxRenderer(loader, projectionMatrix);
+        enableCulling();
+        createProjectionMatrix();
+        renderer = new EntityRenderer26(shader, projectionMatrix);
+        terrainRenderer = new TerrainRenderer26(terrainShader, projectionMatrix);
+        skyboxRenderer = new SkyboxRenderer(loader, projectionMatrix);
     }
     
     public static void enableCulling() {
@@ -60,13 +60,13 @@ public class MasterRenderer27 {
     }
     
     public void renderScene(List<Entity> entities, List<Terrain> terrains,
-    		List<Light> lights, Sky sky, Camera camera, Vector4f clipPlane) {
-    	for (Entity entity : entities) {
-    		processEntity(entity);
-    	}
-    	for (Terrain terrain : terrains) {
-    		processTerrain(terrain);
-    	}
+            List<Light> lights, Sky sky, Camera camera, Vector4f clipPlane) {
+        for (Entity entity : entities) {
+            processEntity(entity);
+        }
+        for (Terrain terrain : terrains) {
+            processTerrain(terrain);
+        }
         render(lights, sky, camera, clipPlane);
     }
 
@@ -77,28 +77,28 @@ public class MasterRenderer27 {
         shader.loadClipPlane(clipPlane);
         shader.loadSkyColor(sky.getColor());
         shader.loadSkyVariables(sky.getDensity(), sky.getGradient());
-    	shader.loadLights(lights);
-    	shader.loadViewMatrix(camera);
-    	renderer.render(entities);
+        shader.loadLights(lights);
+        shader.loadViewMatrix(camera);
+        renderer.render(entities);
         shader.stop();
         
-    	terrainShader.start();
-    	terrainShader.loadClipPlane(clipPlane);
-    	terrainShader.loadSkyColor(sky.getColor());
-    	terrainShader.loadSkyVariables(sky.getDensity(), sky.getGradient());
+        terrainShader.start();
+        terrainShader.loadClipPlane(clipPlane);
+        terrainShader.loadSkyColor(sky.getColor());
+        terrainShader.loadSkyVariables(sky.getDensity(), sky.getGradient());
         terrainShader.loadLights(lights);
-    	terrainShader.loadViewMatrix(camera);
-    	terrainRenderer.render(terrains);
-    	terrainShader.stop();
+        terrainShader.loadViewMatrix(camera);
+        terrainRenderer.render(terrains);
+        terrainShader.stop();
         
         skyboxRenderer.render(camera, sky.getColor());
         
-    	entities.clear();
+        entities.clear();
         terrains.clear();
     }
     
     public void processTerrain(Terrain terrain) {
-    	terrains.add(terrain);
+        terrains.add(terrain);
     }
 
     public void processEntity(Entity entity) {
@@ -119,8 +119,8 @@ public class MasterRenderer27 {
     }
     
     public void prepare(Sky sky) {
-    	GL11.glEnable(GL11.GL_DEPTH_TEST);
-    	Vector3f skyColor = sky.getColor();
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        Vector3f skyColor = sky.getColor();
         GL11.glClearColor(skyColor.x, skyColor.y, skyColor.z, 1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
     }

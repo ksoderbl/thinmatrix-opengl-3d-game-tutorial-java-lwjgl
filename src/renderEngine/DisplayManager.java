@@ -24,7 +24,7 @@ public class DisplayManager {
     private static boolean vsync = true;
 
     public static void createDisplay(String title) {
-    	createDisplay(title, CREATE_WIDTH, CREATE_HEIGHT);
+        createDisplay(title, CREATE_WIDTH, CREATE_HEIGHT);
     }
     
     public static void createDisplay(String title, int width, int height) {
@@ -71,13 +71,13 @@ public class DisplayManager {
     // returns number of frames drawn since fps printout
     // 0 means fps was just printed out
     public static int updateDisplay() {
-    	if (vsync) {
-    		Display.sync(FPS_CAP);
-    	}
+        if (vsync) {
+            Display.sync(FPS_CAP);
+        }
         
         if (Display.wasResized()) {
-        	// TODO: create a new projection matrix here?
-        	GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
+            // TODO: create a new projection matrix here?
+            GL11.glViewport(0, 0, Display.getWidth(), Display.getHeight());
         }
         
         Display.update();
@@ -90,13 +90,13 @@ public class DisplayManager {
         long nanoTime = System.nanoTime();
         long deltaTime = nanoTime - oldNanoTime;
         if (deltaTime > 1000000000) {
-        	if (oldNanoTime > 0) {
-        		double seconds = deltaTime * 1e-9;
-        		double fps = frames / seconds;
-        		System.out.println("fps = " + fps);
-        		frames = 0;
-        	}
-        	oldNanoTime = nanoTime;
+            if (oldNanoTime > 0) {
+                double seconds = deltaTime * 1e-9;
+                double fps = frames / seconds;
+                System.out.println("fps = " + fps);
+                frames = 0;
+            }
+            oldNanoTime = nanoTime;
         }
         
         return frames;
@@ -107,7 +107,7 @@ public class DisplayManager {
     }
     
     public static void setVSync(boolean value) {
-    	vsync = value;
+        vsync = value;
     }
 
     public static void closeDisplay() {

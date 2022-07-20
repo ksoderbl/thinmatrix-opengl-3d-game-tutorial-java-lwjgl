@@ -21,9 +21,9 @@ public class MasterRenderer13 {
     public void render(Light sun, Camera camera) {
         renderer.prepare();
         shader.start();
-    	shader.loadLight(sun);
-    	shader.loadViewMatrix(camera);
-    	renderer.render(entities);
+        shader.loadLight(sun);
+        shader.loadViewMatrix(camera);
+        renderer.render(entities);
         shader.stop();
         entities.clear();
     }

@@ -20,8 +20,8 @@ public class Terrain17 implements Terrain {
     private TerrainTexture blendMap;
     
     public Terrain17(int gridX, int gridZ, Loader loader, TerrainTexturePack texturePack, TerrainTexture blendMap) {
-    	this.texturePack = texturePack;
-    	this.blendMap = blendMap;
+        this.texturePack = texturePack;
+        this.blendMap = blendMap;
         this.x = gridX * SIZE;
         this.z = gridZ * SIZE;
         this.model = generateTerrain(loader);
@@ -36,11 +36,11 @@ public class Terrain17 implements Terrain {
     }
     
     public float getSize() {
-    	return SIZE;
+        return SIZE;
     }
     
     public Vector3f getPosition() {
-    	return new Vector3f(x, 0, z);
+        return new Vector3f(x, 0, z);
     }
     
     public RawModel getModel() {
@@ -49,32 +49,32 @@ public class Terrain17 implements Terrain {
     
     // uses texture pack, so can return null
     public ModelTexture getTexture() {
-    	return null;
+        return null;
     }
     
-	public TerrainTexturePack getTexturePack() {
-		return texturePack;
-	}
+    public TerrainTexturePack getTexturePack() {
+        return texturePack;
+    }
 
-	public TerrainTexture getBlendMap() {
-		return blendMap;
-	}
-	
-	public float getHeightOfTerrain(float worldX, float worldZ) {
-		return 0;
-	}
-	
-	public float getHeightOfWater() {
-		return 0;
-	}
-	
-	public boolean containsPosition(float worldX, float worldZ) {
-		if (worldX < x || worldX >= x + SIZE)
-			return false;
-		if (worldZ < z || worldZ >= z + SIZE)
-			return false;
-		return true;
-	}
+    public TerrainTexture getBlendMap() {
+        return blendMap;
+    }
+    
+    public float getHeightOfTerrain(float worldX, float worldZ) {
+        return 0;
+    }
+    
+    public float getHeightOfWater() {
+        return 0;
+    }
+    
+    public boolean containsPosition(float worldX, float worldZ) {
+        if (worldX < x || worldX >= x + SIZE)
+            return false;
+        if (worldZ < z || worldZ >= z + SIZE)
+            return false;
+        return true;
+    }
 
     private RawModel generateTerrain(Loader loader) {
 

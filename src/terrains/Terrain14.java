@@ -34,11 +34,11 @@ public class Terrain14 implements Terrain {
     }
     
     public float getSize() {
-    	return SIZE;
+        return SIZE;
     }
     
     public Vector3f getPosition() {
-    	return new Vector3f(x, 0, z);
+        return new Vector3f(x, 0, z);
     }
     
     public RawModel getModel() {
@@ -46,32 +46,32 @@ public class Terrain14 implements Terrain {
     }
     
     public ModelTexture getTexture() {
-    	return texture;
+        return texture;
     }
     
-	public TerrainTexturePack getTexturePack() {
-		return null;
-	}
+    public TerrainTexturePack getTexturePack() {
+        return null;
+    }
 
-	public TerrainTexture getBlendMap() {
-		return null;
-	}
-	
-	public float getHeightOfTerrain(float worldX, float worldZ) {
-		return 0;
-	}
+    public TerrainTexture getBlendMap() {
+        return null;
+    }
+    
+    public float getHeightOfTerrain(float worldX, float worldZ) {
+        return 0;
+    }
 
-	public float getHeightOfWater() {
-		return 0;
-	}
-	
-	public boolean containsPosition(float worldX, float worldZ) {
-		if (worldX < x || worldX >= x + SIZE)
-			return false;
-		if (worldZ < z || worldZ >= z + SIZE)
-			return false;
-		return true;
-	}
+    public float getHeightOfWater() {
+        return 0;
+    }
+    
+    public boolean containsPosition(float worldX, float worldZ) {
+        if (worldX < x || worldX >= x + SIZE)
+            return false;
+        if (worldZ < z || worldZ >= z + SIZE)
+            return false;
+        return true;
+    }
 
     private RawModel generateTerrain(Loader loader) {
 

@@ -23,10 +23,10 @@ void main(void) {
 
         // cel shading
         if (shadingLevels > 0.1) {
-	        float amount = (finalColor.r + finalColor.g + finalColor.b) / 3.0;
-	        amount = floor(amount * shadingLevels) / shadingLevels;
-	        finalColor.rgb = amount * skyColor;
-	    }
+            float amount = (finalColor.r + finalColor.g + finalColor.b) / 3.0;
+            amount = floor(amount * shadingLevels) / shadingLevels;
+            finalColor.rgb = amount * skyColor;
+        }
 
         float factor = (textureCoords.y - lowerLimit) / (upperLimit - lowerLimit);
         factor = clamp(factor, 0.0, 1.0);

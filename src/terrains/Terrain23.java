@@ -49,11 +49,11 @@ public class Terrain23 implements Terrain {
     }
     
     public float getSize() {
-    	return SIZE;
+        return SIZE;
     }
     
     public Vector3f getPosition() {
-    	return new Vector3f(x, 0, z);
+        return new Vector3f(x, 0, z);
     }
     
     public RawModel getModel() {
@@ -62,7 +62,7 @@ public class Terrain23 implements Terrain {
     
     // uses texture pack, so can return null
     public ModelTexture getTexture() {
-    	return null;
+        return null;
     }
 
     public TerrainTexturePack getTexturePack() {
@@ -73,17 +73,17 @@ public class Terrain23 implements Terrain {
         return blendMap;
     }
     
-	public boolean containsPosition(float worldX, float worldZ) {
-		if (worldX < x || worldX >= x + SIZE)
-			return false;
-		if (worldZ < z || worldZ >= z + SIZE)
-			return false;
-		return true;
-	}
-	
-	public float getHeightOfWater() {
-		return 0;
-	}
+    public boolean containsPosition(float worldX, float worldZ) {
+        if (worldX < x || worldX >= x + SIZE)
+            return false;
+        if (worldZ < z || worldZ >= z + SIZE)
+            return false;
+        return true;
+    }
+    
+    public float getHeightOfWater() {
+        return 0;
+    }
 
     public float getHeightOfTerrain(float worldX, float worldZ) {
         float terrainX = worldX - this.x;

@@ -21,32 +21,32 @@ import textures.ModelTexture;
 
 public class MainGameLoop06
 {
-	public static String title = "OpenGL 3D Game Tutorial 6";
-	public static String subTitle = "Texturing";
-	
+    public static String title = "OpenGL 3D Game Tutorial 6";
+    public static String subTitle = "Texturing";
+    
     public static void main(String[] args) {
-    	DisplayManager.createDisplay(title + ": " + subTitle);
+        DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         Renderer06 renderer = new Renderer06();
         StaticShader06 shader = new StaticShader06();
 
         float[] vertices = {
-        	-0.5f, 0.5f, 0f,
-        	-0.5f, -0.5f, 0f,
-        	0.5f, -0.5f, 0f,
-        	0.5f, 0.5f, 0f,
+            -0.5f, 0.5f, 0f,
+            -0.5f, -0.5f, 0f,
+            0.5f, -0.5f, 0f,
+            0.5f, 0.5f, 0f,
         };
         
         int[] indices = {
-        	0, 1, 3,	// Top left triangle
-        	3, 1, 2		// Bottom right triangle
+            0, 1, 3,    // Top left triangle
+            3, 1, 2        // Bottom right triangle
         };
         
         float[] textureCoords = {
-        	0, 0,	// V0
-        	0, 1,	// V1
-        	1, 1,	// V2
-        	1, 0	// V3
+            0, 0,    // V0
+            0, 1,    // V1
+            1, 1,    // V2
+            1, 0    // V3
         };
         
         RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
@@ -64,17 +64,17 @@ public class MainGameLoop06
         text2.setColor(0.8f, 0.2f, 0.2f);
 
         while (!Display.isCloseRequested()) {
-        	
-        	// disable depth test because TextMaster turns it on
-        	GL11.glDisable(GL11.GL_DEPTH_TEST);
-        	
-        	renderer.prepare();
-        	shader.start();
+            
+            // disable depth test because TextMaster turns it on
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            
+            renderer.prepare();
+            shader.start();
             renderer.render(texturedModel);
             shader.stop();
             
-        	TextMaster.render();
-        	            
+            TextMaster.render();
+                        
             DisplayManager.updateDisplay();
         }
 

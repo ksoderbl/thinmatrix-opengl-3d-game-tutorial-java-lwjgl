@@ -17,18 +17,18 @@ public class Camera18 implements Camera {
     }
 
     public void move() {
-    	if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-    		position.z -= 1f;
-    	}
-    	if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-    		position.z += 1f;
-    	}
-    	if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-    		position.x += 1f;
-    	}
-    	if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-    		position.x -= 1f;
-    	}
+        if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+            position.z -= 1f;
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+            position.z += 1f;
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+            position.x += 1f;
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+            position.x -= 1f;
+        }
     }
     
     public void invertPitch() {
@@ -52,6 +52,6 @@ public class Camera18 implements Camera {
     }
 
     public void printPosition() {
-    	System.out.println("Camera Pos: (" + position.getX() + ", " + position.getY() + ", " + position.getZ() + ")");
+        System.out.println("Camera Pos: (" + position.getX() + ", " + position.getY() + ", " + position.getZ() + ")");
     }
 }

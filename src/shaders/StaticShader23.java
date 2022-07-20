@@ -42,24 +42,24 @@ public class StaticShader23 extends ShaderProgram {
         super.bindAttribute(2, "normal");
     }
 
-	@Override
-	protected void getAllUniformLocations() {
-		location_transformationMatrix = super.getUniformLocation("transformationMatrix");
-		location_projectionMatrix = super.getUniformLocation("projectionMatrix");
-		location_viewMatrix = super.getUniformLocation("viewMatrix");
-		location_lightPosition = super.getUniformLocation("lightPosition");
-		location_lightColor = super.getUniformLocation("lightColor");
-		location_shineDamper = super.getUniformLocation("shineDamper");
-		location_reflectivity = super.getUniformLocation("reflectivity");
-		location_useFakeLighting = super.getUniformLocation("useFakeLighting");
-		location_skyColor = super.getUniformLocation("skyColor");
-		location_skyDensity = super.getUniformLocation("skyDensity");
-		location_skyGradient = super.getUniformLocation("skyGradient");
+    @Override
+    protected void getAllUniformLocations() {
+        location_transformationMatrix = super.getUniformLocation("transformationMatrix");
+        location_projectionMatrix = super.getUniformLocation("projectionMatrix");
+        location_viewMatrix = super.getUniformLocation("viewMatrix");
+        location_lightPosition = super.getUniformLocation("lightPosition");
+        location_lightColor = super.getUniformLocation("lightColor");
+        location_shineDamper = super.getUniformLocation("shineDamper");
+        location_reflectivity = super.getUniformLocation("reflectivity");
+        location_useFakeLighting = super.getUniformLocation("useFakeLighting");
+        location_skyColor = super.getUniformLocation("skyColor");
+        location_skyDensity = super.getUniformLocation("skyDensity");
+        location_skyGradient = super.getUniformLocation("skyGradient");
         location_numberOfRows = super.getUniformLocation("numberOfRows");
         location_textureOffset = super.getUniformLocation("textureOffset");
-		location_clipPlane = super.getUniformLocation("clipPlane");
-	}
-	
+        location_clipPlane = super.getUniformLocation("clipPlane");
+    }
+    
     public void loadClipPlane(Vector4f clipPlane) {
         super.loadVector(location_clipPlane, clipPlane);
     }
@@ -71,7 +71,7 @@ public class StaticShader23 extends ShaderProgram {
     public void loadTextureOffset(float x, float y) {
         super.load2DVector(location_textureOffset, new Vector2f(x, y));
     }
-	
+    
     public void loadSkyVariables(float density, float gradient) {
         super.loadFloat(location_skyDensity, density);
         super.loadFloat(location_skyGradient, gradient);
@@ -84,31 +84,31 @@ public class StaticShader23 extends ShaderProgram {
     public void loadSkyColor(float r, float g, float b) {
         super.loadVector(location_skyColor, new Vector3f(r, g, b));
     }
-	
+    
     public void loadFakeLightingVariable(boolean useFake) {
         super.loadBoolean(location_useFakeLighting, useFake);
     }
-	
-	public void loadShineVariables(float damper, float reflectivity) {
-		super.loadFloat(location_shineDamper, damper);
-		super.loadFloat(location_reflectivity, reflectivity);
-	}
-		
-	public void loadTransformationMatrix(Matrix4f matrix) {
-		super.loadMatrix(location_transformationMatrix, matrix);
-	}
-	
-	public void loadLight(Light light) {
-		super.loadVector(location_lightPosition, light.getPosition());
-		super.loadVector(location_lightColor, light.getColor());
-	}
-	
+    
+    public void loadShineVariables(float damper, float reflectivity) {
+        super.loadFloat(location_shineDamper, damper);
+        super.loadFloat(location_reflectivity, reflectivity);
+    }
+        
+    public void loadTransformationMatrix(Matrix4f matrix) {
+        super.loadMatrix(location_transformationMatrix, matrix);
+    }
+    
+    public void loadLight(Light light) {
+        super.loadVector(location_lightPosition, light.getPosition());
+        super.loadVector(location_lightColor, light.getColor());
+    }
+    
     public void loadViewMatrix(Camera camera) {
         Matrix4f viewMatrix = Maths.createViewMatrix(camera.getPosition(), camera.getPitch(), camera.getYaw(), camera.getRoll());
         super.loadMatrix(location_viewMatrix, viewMatrix);
     }
 
-	public void loadProjectionMatrix(Matrix4f projection) {
-		super.loadMatrix(location_projectionMatrix, projection);
-	}
+    public void loadProjectionMatrix(Matrix4f projection) {
+        super.loadMatrix(location_projectionMatrix, projection);
+    }
 }

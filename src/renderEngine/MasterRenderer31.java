@@ -24,14 +24,14 @@ import terrains.Terrain;
 import terrains.TerrainShader30;
 
 public class MasterRenderer31 {
-	
-	private static final float FOV = 70;
-	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 100000;
-	
-	// Sky variables moved to skybox
-	
-	private Matrix4f projectionMatrix;
+    
+    private static final float FOV = 70;
+    private static final float NEAR_PLANE = 0.1f;
+    private static final float FAR_PLANE = 100000;
+    
+    // Sky variables moved to skybox
+    
+    private Matrix4f projectionMatrix;
 
     private StaticShader30 shader = new StaticShader30();
     private EntityRenderer30 renderer;
@@ -48,12 +48,12 @@ public class MasterRenderer31 {
     private SkyboxRenderer30 skyboxRenderer;
     
     public MasterRenderer31(Loader loader) {
-    	enableCulling();
-    	createProjectionMatrix();
-    	renderer = new EntityRenderer30(shader, projectionMatrix);
-    	terrainRenderer = new TerrainRenderer30(terrainShader, projectionMatrix);
-    	skyboxRenderer = new SkyboxRenderer30(loader, projectionMatrix);
-    	normalMapRenderer = new NormalMappingRenderer31(projectionMatrix);
+        enableCulling();
+        createProjectionMatrix();
+        renderer = new EntityRenderer30(shader, projectionMatrix);
+        terrainRenderer = new TerrainRenderer30(terrainShader, projectionMatrix);
+        skyboxRenderer = new SkyboxRenderer30(loader, projectionMatrix);
+        normalMapRenderer = new NormalMappingRenderer31(projectionMatrix);
     }
     
     public static void enableCulling() {
@@ -66,22 +66,22 @@ public class MasterRenderer31 {
     }
     
     public void renderScene(
-    	List<Entity> entities,
-    	List<Entity> normalEntities,
-    	List<Terrain> terrains,
-    	List<Light> lights,
-    	Sky sky,
-    	Camera camera,
-    	Vector4f clipPlane,
-    	boolean useClipping) {
-    	for (Terrain terrain : terrains) {
-    		processTerrain(terrain);
-    	}
-    	for (Entity entity : entities) {
-    		processEntity(entity);
-    	}
+        List<Entity> entities,
+        List<Entity> normalEntities,
+        List<Terrain> terrains,
+        List<Light> lights,
+        Sky sky,
+        Camera camera,
+        Vector4f clipPlane,
+        boolean useClipping) {
+        for (Terrain terrain : terrains) {
+            processTerrain(terrain);
+        }
+        for (Entity entity : entities) {
+            processEntity(entity);
+        }
         for(Entity entity : normalEntities){
-        	processNormalMapEntity(entity);
+            processNormalMapEntity(entity);
         }
         render(lights, sky, camera, clipPlane, useClipping);
     }
@@ -98,34 +98,34 @@ public class MasterRenderer31 {
         shader.loadClipPlane(clipPlane);
         shader.loadSkyColor(sky.getColor());
         shader.loadSkyVariables(sky.getDensity(), sky.getGradient());
-    	shader.loadLights(lights);
-    	shader.loadViewMatrix(camera);
-    	renderer.render(entities);
+        shader.loadLights(lights);
+        shader.loadViewMatrix(camera);
+        renderer.render(entities);
         shader.stop();
         
         normalMapRenderer.render(normalMapEntities, clipPlane, lights, sky, camera);
         
-    	terrainShader.start();
-    	terrainShader.loadClipPlane(clipPlane);
-    	terrainShader.loadSkyColor(sky.getColor());
-    	terrainShader.loadSkyVariables(sky.getDensity(), sky.getGradient());
+        terrainShader.start();
+        terrainShader.loadClipPlane(clipPlane);
+        terrainShader.loadSkyColor(sky.getColor());
+        terrainShader.loadSkyVariables(sky.getDensity(), sky.getGradient());
         terrainShader.loadLights(lights);
-    	terrainShader.loadViewMatrix(camera);
-    	terrainRenderer.render(terrains);
-    	terrainShader.stop();
-    	
+        terrainShader.loadViewMatrix(camera);
+        terrainRenderer.render(terrains);
+        terrainShader.stop();
+        
         if (useClipping)
             GL11.glDisable(GL30.GL_CLIP_DISTANCE0);
         
         skyboxRenderer.render(camera, sky.getColor());
         
-    	terrains.clear();
-    	entities.clear();
+        terrains.clear();
+        entities.clear();
         normalMapEntities.clear();
     }
     
     public void processTerrain(Terrain terrain) {
-    	terrains.add(terrain);
+        terrains.add(terrain);
     }
 
     public void processEntity(Entity entity) {
@@ -159,8 +159,8 @@ public class MasterRenderer31 {
     }
     
     public void prepare(Sky sky) {
-    	GL11.glEnable(GL11.GL_DEPTH_TEST);
-    	Vector3f skyColor = sky.getColor();
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        Vector3f skyColor = sky.getColor();
         GL11.glClearColor(skyColor.x, skyColor.y, skyColor.z, 1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
     }

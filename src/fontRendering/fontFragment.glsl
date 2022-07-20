@@ -44,14 +44,14 @@ const vec2 offset = vec2(0.0, 0.0);
 const vec3 outlineColor = vec3(1.0, 1.0, 1.0);
 
 void main(void) {
-	float distance = 1.0 - texture(fontAtlas, pass_textureCoords).a;
-	float alpha = 1.0 - smoothstep(width, width + edge, distance);
+    float distance = 1.0 - texture(fontAtlas, pass_textureCoords).a;
+    float alpha = 1.0 - smoothstep(width, width + edge, distance);
 
-	float distance2 = 1.0 - texture(fontAtlas, pass_textureCoords + offset).a;
-	float outlineAlpha = 1.0 - smoothstep(borderWidth, borderWidth + borderEdge, distance2);
-	
-	float overallAlpha = alpha + (1.0 - alpha) * outlineAlpha;
-	vec3 overallColor = mix(outlineColor, color, alpha / overallAlpha);
-	
-	out_color = vec4(overallColor, overallAlpha);
+    float distance2 = 1.0 - texture(fontAtlas, pass_textureCoords + offset).a;
+    float outlineAlpha = 1.0 - smoothstep(borderWidth, borderWidth + borderEdge, distance2);
+    
+    float overallAlpha = alpha + (1.0 - alpha) * outlineAlpha;
+    vec3 overallColor = mix(outlineColor, color, alpha / overallAlpha);
+    
+    out_color = vec4(overallColor, overallAlpha);
 }

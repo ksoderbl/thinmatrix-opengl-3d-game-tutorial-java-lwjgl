@@ -16,54 +16,54 @@ import textures.ModelTexture;
 import toolbox.Maths;
 
 public class Renderer12 {
-	
-	private static final float FOV = 70;
-	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 1000;
-	
-	private Matrix4f projectionMatrix;
-	
-	public Renderer12(StaticShader12 shader) {
-		createProjectionMatrix();
-		shader.start();
-		shader.loadProjectionMatrix(projectionMatrix);
-		shader.stop();
-	}
+    
+    private static final float FOV = 70;
+    private static final float NEAR_PLANE = 0.1f;
+    private static final float FAR_PLANE = 1000;
+    
+    private Matrix4f projectionMatrix;
+    
+    public Renderer12(StaticShader12 shader) {
+        createProjectionMatrix();
+        shader.start();
+        shader.loadProjectionMatrix(projectionMatrix);
+        shader.stop();
+    }
 
     public void prepare() {
-    	GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClearColor(0.4f, 0.0f, 0.1f, 1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
     }
-	
+    
     public void render(Entity entity, StaticShader12 shader) {
-    	TexturedModel model = entity.getModel();
-    	RawModel rawModel = model.getRawModel();
-    	GL30.glBindVertexArray(rawModel.getVaoID());
-    	GL20.glEnableVertexAttribArray(0); // position
-    	GL20.glEnableVertexAttribArray(1); // textureCoordinates
-    	GL20.glEnableVertexAttribArray(2); // normal
-    	
-    	Vector3f translation = entity.getPosition();
-    	float rx = entity.getRotX();
-    	float ry = entity.getRotY();
-    	float rz = entity.getRotZ();
-    	float scale = entity.getScale();
-    	
-    	Matrix4f transformationMatrix = Maths.createTransformationMatrix(
-    			translation, rx, ry, rz, scale);
-    	shader.loadTransformationMatrix(transformationMatrix);
-    	
-    	ModelTexture texture = model.getTexture();
-    	shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
-    	
-    	GL13.glActiveTexture(GL13.GL_TEXTURE0);
-    	GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getID());
-    	GL11.glDrawElements(GL11.GL_TRIANGLES, rawModel.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
-    	GL20.glDisableVertexAttribArray(0);
-    	GL20.glDisableVertexAttribArray(1);
-    	GL20.glDisableVertexAttribArray(2);
-    	GL30.glBindVertexArray(0);
+        TexturedModel model = entity.getModel();
+        RawModel rawModel = model.getRawModel();
+        GL30.glBindVertexArray(rawModel.getVaoID());
+        GL20.glEnableVertexAttribArray(0); // position
+        GL20.glEnableVertexAttribArray(1); // textureCoordinates
+        GL20.glEnableVertexAttribArray(2); // normal
+        
+        Vector3f translation = entity.getPosition();
+        float rx = entity.getRotX();
+        float ry = entity.getRotY();
+        float rz = entity.getRotZ();
+        float scale = entity.getScale();
+        
+        Matrix4f transformationMatrix = Maths.createTransformationMatrix(
+                translation, rx, ry, rz, scale);
+        shader.loadTransformationMatrix(transformationMatrix);
+        
+        ModelTexture texture = model.getTexture();
+        shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
+        
+        GL13.glActiveTexture(GL13.GL_TEXTURE0);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getID());
+        GL11.glDrawElements(GL11.GL_TRIANGLES, rawModel.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+        GL20.glDisableVertexAttribArray(0);
+        GL20.glDisableVertexAttribArray(1);
+        GL20.glDisableVertexAttribArray(2);
+        GL30.glBindVertexArray(0);
     }
     
     private void createProjectionMatrix() {

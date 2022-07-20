@@ -27,12 +27,12 @@ import textures.ModelTexture;
 
 public class MainGameLoop11
 {
-	public static String title = "OpenGL 3D Game Tutorial 11";
-	public static String subTitle = "Per-Pixel Lighting";
-	public static String subSubTitle = "Press, w, a, s or d to move";
-	
+    public static String title = "OpenGL 3D Game Tutorial 11";
+    public static String subTitle = "Per-Pixel Lighting";
+    public static String subSubTitle = "Press, w, a, s or d to move";
+    
     public static void main(String[] args) {
-    	DisplayManager.createDisplay(title + ": " + subTitle);
+        DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         StaticShader11 shader = new StaticShader11();
         Renderer11 renderer = new Renderer11(shader);
@@ -61,10 +61,10 @@ public class MainGameLoop11
         Random random = new Random();
         
         for (int i = 0; i < entities.length; i++) {
-        	Vector3f translation = new Vector3f(
-        			((10 * random.nextFloat()) - 5) * 0.8f,
-        			((10 * random.nextFloat()) - 5) * 0.8f,
-        			-10f + ((10 * random.nextFloat()) - 5) * 0.8f);
+            Vector3f translation = new Vector3f(
+                    ((10 * random.nextFloat()) - 5) * 0.8f,
+                    ((10 * random.nextFloat()) - 5) * 0.8f,
+                    -10f + ((10 * random.nextFloat()) - 5) * 0.8f);
             float rx = 0;
             float ry = 0; 
             float rz = 0; //360 * random.nextFloat();
@@ -78,32 +78,32 @@ public class MainGameLoop11
         Camera11 camera = new Camera11();
         
         while (!Display.isCloseRequested()) {
-        	
-        	for (int i = 0; i < entities.length; i++) {
-        		//entities[i].increasePosition(0, 0, 0.00001f*i);
-        		entities[i].increaseRotation(0, 0.03f*i, 0);
-        	}
-        	
-        	//light.getPosition().translate(
-        	//		((10 * random.nextFloat()) - 5) / 10f,
-        	//		((10 * random.nextFloat()) - 5) / 10f,
-			//		((10 * random.nextFloat()) - 5) / 10f);
+            
+            for (int i = 0; i < entities.length; i++) {
+                //entities[i].increasePosition(0, 0, 0.00001f*i);
+                entities[i].increaseRotation(0, 0.03f*i, 0);
+            }
+            
+            //light.getPosition().translate(
+            //        ((10 * random.nextFloat()) - 5) / 10f,
+            //        ((10 * random.nextFloat()) - 5) / 10f,
+            //        ((10 * random.nextFloat()) - 5) / 10f);
 
-        	camera.move();
-        	renderer.prepare();
-        	shader.start();
-        	shader.loadLight(light);
-        	shader.loadViewMatrix(camera);
-        	for (int i = 0; i < entities.length; i++) {
-        		//if (i == 0) {
-        		//	entities[i].setPosition(light.getPosition());
-        		//}
-	            renderer.render(entities[i], shader);
-        	}
+            camera.move();
+            renderer.prepare();
+            shader.start();
+            shader.loadLight(light);
+            shader.loadViewMatrix(camera);
+            for (int i = 0; i < entities.length; i++) {
+                //if (i == 0) {
+                //    entities[i].setPosition(light.getPosition());
+                //}
+                renderer.render(entities[i], shader);
+            }
             shader.stop();
             
-        	TextMaster.render();
-        	            
+            TextMaster.render();
+                        
             DisplayManager.updateDisplay();
         }
 

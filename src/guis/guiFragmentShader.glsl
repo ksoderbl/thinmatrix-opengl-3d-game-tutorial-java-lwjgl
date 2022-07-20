@@ -8,6 +8,6 @@ uniform sampler2D guiTexture;
 
 void main(void){
 
-	out_Color = texture(guiTexture, vec2(textureCoords.x, textureCoords.y));
+    out_Color = texture(guiTexture, vec2(textureCoords.x, textureCoords.y));
 
 }

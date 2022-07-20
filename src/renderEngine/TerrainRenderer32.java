@@ -23,7 +23,7 @@ public class TerrainRenderer32 {
     private float shadingLevels;
 
     public TerrainRenderer32(TerrainShader30 shader, Matrix4f projectionMatrix, float shadingLevels) {
-    	this.shadingLevels = shadingLevels;
+        this.shadingLevels = shadingLevels;
         this.shader = shader;
         shader.start();
         shader.loadProjectionMatrix(projectionMatrix);
@@ -32,27 +32,27 @@ public class TerrainRenderer32 {
     }
 
     public void render(List<Terrain> terrains) {
-    	
-    	shader.loadShadingLevels(shadingLevels);
         
-    	for (Terrain terrain:terrains) {
-        	prepareTerrain(terrain);
-        	loadModelMatrix(terrain);
-        	int vertexCount = terrain.getModel().getVertexCount();
-			//GL11.glDrawElements(GL11.GL_LINES, vertexCount, GL11.GL_UNSIGNED_INT, 0);
-        	GL11.glDrawElements(GL11.GL_TRIANGLES, vertexCount, GL11.GL_UNSIGNED_INT, 0);
-        	unbindTerrain();
+        shader.loadShadingLevels(shadingLevels);
+        
+        for (Terrain terrain:terrains) {
+            prepareTerrain(terrain);
+            loadModelMatrix(terrain);
+            int vertexCount = terrain.getModel().getVertexCount();
+            //GL11.glDrawElements(GL11.GL_LINES, vertexCount, GL11.GL_UNSIGNED_INT, 0);
+            GL11.glDrawElements(GL11.GL_TRIANGLES, vertexCount, GL11.GL_UNSIGNED_INT, 0);
+            unbindTerrain();
         }
     }
 
     public void prepareTerrain(Terrain terrain) {
-    	RawModel rawModel = terrain.getModel();
-    	GL30.glBindVertexArray(rawModel.getVaoID());
-    	GL20.glEnableVertexAttribArray(0); // position
-    	GL20.glEnableVertexAttribArray(1); // textureCoordinates
-    	GL20.glEnableVertexAttribArray(2); // normal
-    	bindTextures(terrain);
-    	shader.loadShineVariables(1, 0);
+        RawModel rawModel = terrain.getModel();
+        GL30.glBindVertexArray(rawModel.getVaoID());
+        GL20.glEnableVertexAttribArray(0); // position
+        GL20.glEnableVertexAttribArray(1); // textureCoordinates
+        GL20.glEnableVertexAttribArray(2); // normal
+        bindTextures(terrain);
+        shader.loadShineVariables(1, 0);
     }
     
     // OpenGL 3D Game Tutorial 17: Multitexturing
@@ -69,24 +69,24 @@ public class TerrainRenderer32 {
         GL13.glActiveTexture(GL13.GL_TEXTURE4);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, terrain.getBlendMap().getTextureID());
     }
-	
+    
     // unbindTexturedModel
     public void unbindTerrain() {
-    	GL20.glDisableVertexAttribArray(0);
-    	GL20.glDisableVertexAttribArray(1);
-    	GL20.glDisableVertexAttribArray(2);
-    	GL30.glBindVertexArray(0);
+        GL20.glDisableVertexAttribArray(0);
+        GL20.glDisableVertexAttribArray(1);
+        GL20.glDisableVertexAttribArray(2);
+        GL30.glBindVertexArray(0);
     }
     
     private void loadModelMatrix(Terrain terrain) {
-    	Vector3f translation = terrain.getPosition();
-    	float rx = 0; //terrain.getRotX();
-    	float ry = 0; //terrain.getRotY();
-    	float rz = 0; //terrain.getRotZ();
-    	float scale = 1;
-    	
-    	Matrix4f transformationMatrix = Maths.createTransformationMatrix(
-    			translation, rx, ry, rz, scale);
-    	shader.loadTransformationMatrix(transformationMatrix);
+        Vector3f translation = terrain.getPosition();
+        float rx = 0; //terrain.getRotX();
+        float ry = 0; //terrain.getRotY();
+        float rz = 0; //terrain.getRotZ();
+        float scale = 1;
+        
+        Matrix4f transformationMatrix = Maths.createTransformationMatrix(
+                translation, rx, ry, rz, scale);
+        shader.loadTransformationMatrix(transformationMatrix);
     }
 }

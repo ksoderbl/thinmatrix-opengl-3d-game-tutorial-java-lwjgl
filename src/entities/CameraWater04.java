@@ -70,7 +70,7 @@ public class CameraWater04 implements Camera {
     }
 
     public void printPosition() {
-    	System.out.println("Camera Pos: (" + position.getX() + ", " + position.getY() + ", " + position.getZ() + ")");
+        System.out.println("Camera Pos: (" + position.getX() + ", " + position.getY() + ", " + position.getZ() + ")");
     }
     
     public void calculateCameraPosition(float horizDistance, float verticDistance) {

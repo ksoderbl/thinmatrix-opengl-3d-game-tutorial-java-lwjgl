@@ -14,9 +14,9 @@ public class StaticShader05 extends ShaderProgram {
         super.bindAttribute(0, "position");
     }
 
-	@Override
-	protected void getAllUniformLocations() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    protected void getAllUniformLocations() {
+        // TODO Auto-generated method stub
+        
+    }
 }

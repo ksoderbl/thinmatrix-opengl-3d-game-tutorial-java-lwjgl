@@ -18,11 +18,11 @@ import terrains.Terrain;
 import terrains.TerrainShader17;
 
 public class MasterRenderer18 {
-	
-	private static final float FOV = 70;
-	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 1000;
-	
+    
+    private static final float FOV = 70;
+    private static final float NEAR_PLANE = 0.1f;
+    private static final float FAR_PLANE = 1000;
+    
     public static final float SKY_RED   = 0.6f;
     public static final float SKY_GREEN = 0.7f;
     public static final float SKY_BLUE  = 0.8f;
@@ -34,8 +34,8 @@ public class MasterRenderer18 {
     // fog
     //public static final float SKY_DENSITY = 0.007f;
     //public static final float SKY_GRADIENT = 1.5f;
-	
-	private Matrix4f projectionMatrix;
+    
+    private Matrix4f projectionMatrix;
 
     private StaticShader16 shader = new StaticShader16();
     private EntityRenderer16 renderer;
@@ -47,10 +47,10 @@ public class MasterRenderer18 {
     private List<Terrain> terrains = new ArrayList<>();
     
     public MasterRenderer18() {
-    	enableCulling();
-    	createProjectionMatrix();
-    	renderer = new EntityRenderer16(shader, projectionMatrix);
-    	terrainRenderer = new TerrainRenderer17(terrainShader, projectionMatrix);
+        enableCulling();
+        createProjectionMatrix();
+        renderer = new EntityRenderer16(shader, projectionMatrix);
+        terrainRenderer = new TerrainRenderer17(terrainShader, projectionMatrix);
     }
     
     public static void enableCulling() {
@@ -68,24 +68,24 @@ public class MasterRenderer18 {
         shader.start();
         shader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
         shader.loadSkyVariables(SKY_DENSITY, SKY_GRADIENT);
-    	shader.loadLight(sun);
-    	shader.loadViewMatrix(camera);
-    	renderer.render(entities);
+        shader.loadLight(sun);
+        shader.loadViewMatrix(camera);
+        renderer.render(entities);
         shader.stop();
-    	entities.clear();
+        entities.clear();
         
-    	terrainShader.start();
-    	terrainShader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
-    	terrainShader.loadSkyVariables(SKY_DENSITY, SKY_GRADIENT);
+        terrainShader.start();
+        terrainShader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
+        terrainShader.loadSkyVariables(SKY_DENSITY, SKY_GRADIENT);
         terrainShader.loadLight(sun);
-    	terrainShader.loadViewMatrix(camera);
-    	terrainRenderer.render(terrains);
-    	terrainShader.stop();
+        terrainShader.loadViewMatrix(camera);
+        terrainRenderer.render(terrains);
+        terrainShader.stop();
         terrains.clear();
     }
     
     public void processTerrain(Terrain terrain) {
-    	terrains.add(terrain);
+        terrains.add(terrain);
     }
 
     public void processEntity(Entity entity) {
@@ -106,7 +106,7 @@ public class MasterRenderer18 {
     }
     
     public void prepare() {
-    	GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClearColor(SKY_RED, SKY_GREEN, SKY_BLUE, 1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
     }

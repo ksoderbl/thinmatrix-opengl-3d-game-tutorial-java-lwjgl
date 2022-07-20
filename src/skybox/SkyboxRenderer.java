@@ -86,7 +86,7 @@ public class SkyboxRenderer {
     }
 
     public void render(Camera camera, Vector3f skyColor) {
-    	render(camera, skyColor.x, skyColor.y, skyColor.z);
+        render(camera, skyColor.x, skyColor.y, skyColor.z);
     }
     
     public void render(Camera camera, float r, float g, float b) {

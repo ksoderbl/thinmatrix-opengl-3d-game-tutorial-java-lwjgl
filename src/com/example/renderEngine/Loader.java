@@ -30,7 +30,7 @@ import com.example.models.RawModel;
 
 public class Loader {
 
-	// OpenGL 3D Game Tutorial 20: Mipmapping: level of detail bias
+    // OpenGL 3D Game Tutorial 20: Mipmapping: level of detail bias
     // private final static float LOD_BIAS = -0.4f;
 
     private List<Integer> vaos = new ArrayList<>();
@@ -39,11 +39,11 @@ public class Loader {
 
     // For OpenGL 3D Game Tutorial 5: Coloring using Shaders
     public RawModel loadToVAO(float[] positions, int[] indices) {
-		int vaoID = createVAO();
-		bindIndicesBuffer(indices);
-		storeDataInAttributeList(0, 3, positions);
-		unbindVAO();
-		return new RawModel(vaoID, indices.length);
+        int vaoID = createVAO();
+        bindIndicesBuffer(indices);
+        storeDataInAttributeList(0, 3, positions);
+        unbindVAO();
+        return new RawModel(vaoID, indices.length);
     }
     
     // // OpenGL 3D Game Tutorial 6: Texturing
@@ -89,36 +89,36 @@ public class Loader {
 
     // // OpenGL 3D Game Tutorial 36: Instanced Rendering
     // public int createEmptyVbo(int floatCount) {
-    // 	int vbo = GL15.glGenBuffers();
-    // 	vbos.add(vbo);
-    // 	GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
-    // 	GL15.glBufferData(GL15.GL_ARRAY_BUFFER, floatCount * 4, GL15.GL_STREAM_DRAW);
-    // 	// unbind
-    // 	GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-    // 	return vbo;
+    //     int vbo = GL15.glGenBuffers();
+    //     vbos.add(vbo);
+    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+    //     GL15.glBufferData(GL15.GL_ARRAY_BUFFER, floatCount * 4, GL15.GL_STREAM_DRAW);
+    //     // unbind
+    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+    //     return vbo;
     // }
     
     // // OpenGL 3D Game Tutorial 36: Instanced Rendering    
     // public void addInstancedAttribute(int vao, int vbo, int attribute, int dataSize,
-    // 		int instancedDataLength, int offset) {
-    // 	GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
-    // 	GL30.glBindVertexArray(vao);
-    // 	GL20.glVertexAttribPointer(attribute, dataSize, GL11.GL_FLOAT, false,
-    // 			instancedDataLength * 4, offset * 4);
-    // 	GL33.glVertexAttribDivisor(attribute, 1);
-    // 	GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-    // 	// unbind vao
-    // 	GL30.glBindVertexArray(0);
+    //         int instancedDataLength, int offset) {
+    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+    //     GL30.glBindVertexArray(vao);
+    //     GL20.glVertexAttribPointer(attribute, dataSize, GL11.GL_FLOAT, false,
+    //             instancedDataLength * 4, offset * 4);
+    //     GL33.glVertexAttribDivisor(attribute, 1);
+    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+    //     // unbind vao
+    //     GL30.glBindVertexArray(0);
     // }
     
     public void updateVbo(int vbo, float[] data, FloatBuffer buffer) {
-    	buffer.clear();
-    	buffer.put(data);
-    	buffer.flip();
-    	GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
-    	GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer.capacity() * 4, GL15.GL_STREAM_DRAW);
-    	GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, buffer);
-    	GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        buffer.clear();
+        buffer.put(data);
+        buffer.flip();
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer.capacity() * 4, GL15.GL_STREAM_DRAW);
+        GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, buffer);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
     }
     
     // OpenGL 3D Game Tutorial 24: Rendering GUIs
@@ -139,11 +139,11 @@ public class Loader {
     //         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
     //         GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, lodBias);
     //         // OpenGL 3D Game Tutorial 20: Mipmapping
-	// 	} catch (Exception e) {
-	// 		e.printStackTrace();
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
     //         System.err.println("Loader: File not found: " + fileName);
-	// 		System.exit(-1);
-	// 	}
+    //         System.exit(-1);
+    //     }
     //     int textureID = texture.getTextureID();
     //     textures.add(textureID);
 
@@ -156,11 +156,11 @@ public class Loader {
     // }
 
     // public int loadTexture(String fileName) {
-    // 	return loadTexture(fileName, LOD_BIAS);
+    //     return loadTexture(fileName, LOD_BIAS);
     // }
 
     // public int loadFontTextureAtlas(String fileName) {
-    // 	return loadTexture("fonts/" + fileName, 0);
+    //     return loadTexture("fonts/" + fileName, 0);
     // }
     
     public void cleanUp() {
@@ -269,11 +269,11 @@ public class Loader {
 
     // // allows creating textured models more easily in main game loop
     // public TexturedModel createTexturedModel(
-    // 		String objFileName,
-    // 		String textureFileName,
-    // 		float materialShineDamper,
-    // 		float materialReflectivity) {
-    // 	RawModel model = OBJFileLoader.loadOBJ(objFileName, this);
+    //         String objFileName,
+    //         String textureFileName,
+    //         float materialShineDamper,
+    //         float materialReflectivity) {
+    //     RawModel model = OBJFileLoader.loadOBJ(objFileName, this);
     //     ModelTexture texture = new ModelTexture(this.loadTexture(textureFileName));
     //     texture.setShineDamper(materialShineDamper);
     //     texture.setReflectivity(materialReflectivity);
@@ -282,15 +282,15 @@ public class Loader {
     // }
     
     // public TexturedModel createTexturedModel(
-    // 		String objFileName,
-    // 		String textureFileName,
-    // 		float materialShineDamper,
-    // 		float materialReflectivity,
-    // 		boolean hasTransparency,
-    // 		boolean useFakeLighting
-    // 		) {
+    //         String objFileName,
+    //         String textureFileName,
+    //         float materialShineDamper,
+    //         float materialReflectivity,
+    //         boolean hasTransparency,
+    //         boolean useFakeLighting
+    //         ) {
     //     TexturedModel texturedModel = createTexturedModel(
-    //     		objFileName, textureFileName, materialShineDamper, materialReflectivity);
+    //             objFileName, textureFileName, materialShineDamper, materialReflectivity);
     //     texturedModel.getTexture().setHasTransparency(hasTransparency);
     //     texturedModel.getTexture().setUseFakeLighting(useFakeLighting);
     //     return texturedModel;
@@ -298,30 +298,30 @@ public class Loader {
 
     // // for OpenGL 3D Game Tutorial 23: Texture Atlases
     // public TexturedModel createTexturedModel(
-    // 		String objFileName,
-    // 		String textureFileName,
-    // 		int numberOfRows,
-    // 		float materialShineDamper,
-    // 		float materialReflectivity,
-    // 		boolean hasTransparency,
-    // 		boolean useFakeLighting
-    // 		) {
+    //         String objFileName,
+    //         String textureFileName,
+    //         int numberOfRows,
+    //         float materialShineDamper,
+    //         float materialReflectivity,
+    //         boolean hasTransparency,
+    //         boolean useFakeLighting
+    //         ) {
     //     TexturedModel texturedModel = createTexturedModel(
-    //     		objFileName, textureFileName,
-    //     		materialShineDamper, materialReflectivity,
-    //     		hasTransparency, useFakeLighting);
+    //             objFileName, textureFileName,
+    //             materialShineDamper, materialReflectivity,
+    //             hasTransparency, useFakeLighting);
     //     texturedModel.getTexture().setNumberOfRows(numberOfRows);
     //     return texturedModel;
     // }
 
     // // for OpenGL 3D Game Tutorial 31: Normal Mapping
     // public TexturedModel createTexturedModel(
-    // 		String objFileName,
-    // 		String textureFileName,
-    // 		String normalMapFileName,
-    // 		float materialShineDamper,
-    // 		float materialReflectivity) {
-    // 	RawModel model = NormalMappedObjLoader.loadOBJ(objFileName, this);
+    //         String objFileName,
+    //         String textureFileName,
+    //         String normalMapFileName,
+    //         float materialShineDamper,
+    //         float materialReflectivity) {
+    //     RawModel model = NormalMappedObjLoader.loadOBJ(objFileName, this);
     //     ModelTexture texture = new ModelTexture(this.loadTexture(textureFileName));
     //     int normalMap = loadTexture(normalMapFileName);
     //     texture.setNormalMap(normalMap);

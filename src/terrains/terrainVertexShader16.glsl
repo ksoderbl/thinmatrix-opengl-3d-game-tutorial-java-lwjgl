@@ -23,23 +23,23 @@ uniform float skyGradient;
 
 void main(void)
 {
-	vec4 worldPosition = transformationMatrix * vec4(position.xyz, 1.0);
-	vec4 positionRelativeToCam = viewMatrix * worldPosition;
-	gl_Position = projectionMatrix * positionRelativeToCam;
-	
-	// multiplier to make the textureCoordinates tile
-	float tilingFactor = 40.0;
-	pass_textureCoordinates = textureCoordinates * tilingFactor;
-	
-	surfaceNormal = (transformationMatrix * vec4(normal, 0.0)).xyz;
-	toLightVector = lightPosition - worldPosition.xyz;
-	toCameraVector = (inverse(viewMatrix) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
-	
-	// Tutorial 16: Fog: distance of this vertex from camera
-	float distance = length(positionRelativeToCam.xyz);
-	visibility = exp(-pow((distance * skyDensity), skyGradient));
-	visibility = clamp(visibility, 0.0, 1.0);
-	
-	// pass position as color for testing	
-	color = vec3(position.x, position.y, position.z);
+    vec4 worldPosition = transformationMatrix * vec4(position.xyz, 1.0);
+    vec4 positionRelativeToCam = viewMatrix * worldPosition;
+    gl_Position = projectionMatrix * positionRelativeToCam;
+    
+    // multiplier to make the textureCoordinates tile
+    float tilingFactor = 40.0;
+    pass_textureCoordinates = textureCoordinates * tilingFactor;
+    
+    surfaceNormal = (transformationMatrix * vec4(normal, 0.0)).xyz;
+    toLightVector = lightPosition - worldPosition.xyz;
+    toCameraVector = (inverse(viewMatrix) * vec4(0.0, 0.0, 0.0, 1.0)).xyz - worldPosition.xyz;
+    
+    // Tutorial 16: Fog: distance of this vertex from camera
+    float distance = length(positionRelativeToCam.xyz);
+    visibility = exp(-pow((distance * skyDensity), skyGradient));
+    visibility = clamp(visibility, 0.0, 1.0);
+    
+    // pass position as color for testing    
+    color = vec3(position.x, position.y, position.z);
 }

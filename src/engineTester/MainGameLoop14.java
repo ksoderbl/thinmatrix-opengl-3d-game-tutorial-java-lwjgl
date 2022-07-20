@@ -27,12 +27,12 @@ import textures.ModelTexture;
 
 public class MainGameLoop14
 {
-	public static String title = "OpenGL 3D Game Tutorial 14";
-	public static String subTitle = "Simple Terrain";
-	public static String subSubTitle = "Press, w, a, s or d to move";
-	
+    public static String title = "OpenGL 3D Game Tutorial 14";
+    public static String subTitle = "Simple Terrain";
+    public static String subSubTitle = "Press, w, a, s or d to move";
+    
     public static void main(String[] args) {
-    	DisplayManager.createDisplay(title + ": " + subTitle);
+        DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         Camera13 camera = new Camera13();
         camera.getPosition().translate(0, 7, 0);
@@ -53,33 +53,33 @@ public class MainGameLoop14
         Random random = new Random();
         
         for (int i = 0; i < 200; i++) {
-        	
-        	/*
-        	float x = ((10 * random.nextFloat()) - 5) * 0.8f;
-        	float y = ((10 * random.nextFloat()) - 5) * 0.8f;
-        	float z = -10f + ((10 * random.nextFloat()) - 5) * 0.8f;
+            
+            /*
+            float x = ((10 * random.nextFloat()) - 5) * 0.8f;
+            float y = ((10 * random.nextFloat()) - 5) * 0.8f;
+            float z = -10f + ((10 * random.nextFloat()) - 5) * 0.8f;
             float rx = 0;
             float ry = 0; 
             float rz = 0; //360 * random.nextFloat();
             float tmp = random.nextFloat();
             float scale = 0.1f; //tmp * tmp * 0.1f;
             */
-        	
-        	float x = random.nextFloat() * 100 - 50;
-        	float y = 0; 
-        	float z = random.nextFloat() * -300; 
+            
+            float x = random.nextFloat() * 100 - 50;
+            float y = 0; 
+            float z = random.nextFloat() * -300; 
             float rx = 0; //random.nextFloat() * 180f;
             float ry = random.nextFloat() * 180f;
             float rz = 0; //random.nextFloat() * 180f;
             float scale = 1f;
 
             entities.add(new Entity(staticModel, new Vector3f(x, y, z),
-            		rx, ry, rz, scale));
+                    rx, ry, rz, scale));
         }
         
         Light light = new Light(
-        		new Vector3f(3000, 2000, 3000),
-        		new Vector3f(1f, 1f, 1f)); // white light
+                new Vector3f(3000, 2000, 3000),
+                new Vector3f(1f, 1f, 1f)); // white light
         
         ModelTexture terrainModelTexture = new ModelTexture(loader.loadTexture("grass"));
         Terrain14 terrain = new Terrain14(0, -1, loader, terrainModelTexture);
@@ -90,26 +90,26 @@ public class MainGameLoop14
         int i = 0;
         
         while (!Display.isCloseRequested()) {
-        	//int i = 0;
-        	//for (Entity entity : entities) {
-        	//	//entities[i].increasePosition(0, 0, 0.00001f*i);
-        	//	entity.increaseRotation(0f, 0.4f*i, 0f);
-        	//	i++;
-        	//}
-        	camera.move();
-        	
-        	for (Entity entity : entities) {
-        		renderer.processEntity(entity);
-        	}
-        	renderer.processTerrain(terrain);
-        	renderer.processTerrain(terrain2);
-        	
+            //int i = 0;
+            //for (Entity entity : entities) {
+            //    //entities[i].increasePosition(0, 0, 0.00001f*i);
+            //    entity.increaseRotation(0f, 0.4f*i, 0f);
+            //    i++;
+            //}
+            camera.move();
+            
+            for (Entity entity : entities) {
+                renderer.processEntity(entity);
+            }
+            renderer.processTerrain(terrain);
+            renderer.processTerrain(terrain2);
+            
             renderer.render(light, camera);
-        	TextMaster.render();
+            TextMaster.render();
             DisplayManager.updateDisplay();
             
             if ((i % 60) == 0) {
-            	camera.printPosition();
+                camera.printPosition();
             }
             i++;
         }

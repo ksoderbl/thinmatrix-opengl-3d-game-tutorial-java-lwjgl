@@ -15,12 +15,12 @@ uniform float numberOfRows;
 
 void main(void)
 {
-	vec2 textureCoords = position + vec2(0.5, 0.5);
-	textureCoords.y = 1.0 - textureCoords.y;
-	textureCoords /= numberOfRows;
-	textureCoords1 = textureCoords + texOffsets.xy;
-	textureCoords2 = textureCoords + texOffsets.zw;
-	blend = blendFactor;
-	
-	gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 0.0, 1.0);
+    vec2 textureCoords = position + vec2(0.5, 0.5);
+    textureCoords.y = 1.0 - textureCoords.y;
+    textureCoords /= numberOfRows;
+    textureCoords1 = textureCoords + texOffsets.xy;
+    textureCoords2 = textureCoords + texOffsets.zw;
+    blend = blendFactor;
+    
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 0.0, 1.0);
 }

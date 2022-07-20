@@ -18,12 +18,12 @@ import terrains.Terrain;
 import terrains.TerrainShader14;
 
 public class MasterRenderer15 {
-	
-	private static final float FOV = 70;
-	private static final float NEAR_PLANE = 0.1f;
-	private static final float FAR_PLANE = 1000;
-	
-	private Matrix4f projectionMatrix;
+    
+    private static final float FOV = 70;
+    private static final float NEAR_PLANE = 0.1f;
+    private static final float FAR_PLANE = 1000;
+    
+    private Matrix4f projectionMatrix;
 
     private StaticShader15 shader = new StaticShader15();
     private EntityRenderer15 renderer;
@@ -35,10 +35,10 @@ public class MasterRenderer15 {
     private List<Terrain> terrains = new ArrayList<>();
     
     public MasterRenderer15() {
-    	enableCulling();
-    	createProjectionMatrix();
-    	renderer = new EntityRenderer15(shader, projectionMatrix);
-    	terrainRenderer = new TerrainRenderer14(terrainShader, projectionMatrix);
+        enableCulling();
+        createProjectionMatrix();
+        renderer = new EntityRenderer15(shader, projectionMatrix);
+        terrainRenderer = new TerrainRenderer14(terrainShader, projectionMatrix);
     }
     
     public static void enableCulling() {
@@ -54,22 +54,22 @@ public class MasterRenderer15 {
         prepare();
         
         shader.start();
-    	shader.loadLight(sun);
-    	shader.loadViewMatrix(camera);
-    	renderer.render(entities);
+        shader.loadLight(sun);
+        shader.loadViewMatrix(camera);
+        renderer.render(entities);
         shader.stop();
-    	entities.clear();
+        entities.clear();
         
-    	terrainShader.start();
+        terrainShader.start();
         terrainShader.loadLight(sun);
-    	terrainShader.loadViewMatrix(camera);
-    	terrainRenderer.render(terrains);
-    	terrainShader.stop();
+        terrainShader.loadViewMatrix(camera);
+        terrainRenderer.render(terrains);
+        terrainShader.stop();
         terrains.clear();
     }
     
     public void processTerrain(Terrain terrain) {
-    	terrains.add(terrain);
+        terrains.add(terrain);
     }
 
     public void processEntity(Entity entity) {
@@ -90,7 +90,7 @@ public class MasterRenderer15 {
     }
     
     public void prepare() {
-    	GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClearColor(0.6f, 1.0f, 1.0f, 1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
     }

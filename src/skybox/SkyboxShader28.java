@@ -60,8 +60,8 @@ public class SkyboxShader28 extends ShaderProgram {
     }
     
     public void loadLimits(float lowerLimit, float upperLimit) {
-    	super.loadFloat(location_lowerLimit, lowerLimit);
-    	super.loadFloat(location_upperLimit, upperLimit);
+        super.loadFloat(location_lowerLimit, lowerLimit);
+        super.loadFloat(location_upperLimit, upperLimit);
     }
 
     @Override

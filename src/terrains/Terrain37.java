@@ -71,11 +71,11 @@ public class Terrain37 implements Terrain {
     }
     
     public float getSize() {
-    	return size;
+        return size;
     }
     
     public Vector3f getPosition() {
-    	return new Vector3f(x, 0, z);
+        return new Vector3f(x, 0, z);
     }
     
     public RawModel getModel() {
@@ -84,7 +84,7 @@ public class Terrain37 implements Terrain {
     
     // uses texture pack, so can return null
     public ModelTexture getTexture() {
-    	return null;
+        return null;
     }
 
     public TerrainTexturePack getTexturePack() {
@@ -96,16 +96,16 @@ public class Terrain37 implements Terrain {
     }
     
     public float getHeightOfWater() {
-    	return waterHeight;
+        return waterHeight;
     }
     
-	public boolean containsPosition(float worldX, float worldZ) {
-		if (worldX < x || worldX >= x + size)
-			return false;
-		if (worldZ < z || worldZ >= z + size)
-			return false;
-		return true;
-	}
+    public boolean containsPosition(float worldX, float worldZ) {
+        if (worldX < x || worldX >= x + size)
+            return false;
+        if (worldZ < z || worldZ >= z + size)
+            return false;
+        return true;
+    }
 
     public float getHeightOfTerrain(float worldX, float worldZ) {
         float terrainX = worldX - this.x;
@@ -137,9 +137,9 @@ public class Terrain37 implements Terrain {
     }
 
     private RawModel generateTerrain(Loader loader, String heightMap, int vertexCount, float maxHeight) {
-    	
-    	HeightsGenerator37 generator = new HeightsGenerator37(gridX, gridZ, vertexCount, SEED, maxHeight);
-    	
+        
+        HeightsGenerator37 generator = new HeightsGenerator37(gridX, gridZ, vertexCount, SEED, maxHeight);
+        
         this.waterHeight = generator.getWaterHeight();
 
         BufferedImage image = null;

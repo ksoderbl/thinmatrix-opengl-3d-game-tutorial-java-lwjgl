@@ -13,24 +13,24 @@ import water.WaterTile32;
 
 public class World32 implements World {
 
-	float waterHeight;
-	float waterSize;
-	float terrainSize;
-	
-	float xSize;
-	float zSize;
-	
-	List<Terrain> terrains = new ArrayList<>();
+    float waterHeight;
+    float waterSize;
+    float terrainSize;
+    
+    float xSize;
+    float zSize;
+    
+    List<Terrain> terrains = new ArrayList<>();
     List<WaterTile> waterTiles = new ArrayList<>();
-	
-	public World32(Loader loader, float terrainSize, float terrainMaxHeight, float waterSize, float waterHeight) {
-		
+    
+    public World32(Loader loader, float terrainSize, float terrainMaxHeight, float waterSize, float waterHeight) {
+        
         // *********TERRAIN TEXTURE STUFF**********
-		int xTiles = 1;
-		int zTiles = 1;
-		
-		xSize = terrainSize * xTiles;
-		zSize = terrainSize * zTiles;
+        int xTiles = 1;
+        int zTiles = 1;
+        
+        xSize = terrainSize * xTiles;
+        zSize = terrainSize * zTiles;
 
         TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture("grassy"));
         TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
@@ -45,8 +45,8 @@ public class World32 implements World {
         
         for (int x = 0; x < xTiles; x++) {
             for (int z = 0; z < zTiles; z++) {
-        		Terrain terrain = new Terrain32(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightMapLake");
-        		terrains.add(terrain);
+                Terrain terrain = new Terrain32(x, z, terrainSize, terrainMaxHeight, loader, texturePack, blendMap, "heightMapLake");
+                terrains.add(terrain);
             }
         }
         
@@ -60,65 +60,65 @@ public class World32 implements World {
         
         for (int x = 0; x < xTiles; x++) {
             for (int z = 0; z < zTiles; z++) {
-            	// center the water tile on the terrain tile
-            	WaterTile water = new WaterTile32(x * terrainSize + offset, z * terrainSize + offset, waterHeight, waterSize);
-        		waterTiles.add(water);
+                // center the water tile on the terrain tile
+                WaterTile water = new WaterTile32(x * terrainSize + offset, z * terrainSize + offset, waterHeight, waterSize);
+                waterTiles.add(water);
             }
         }
-	}
-	
-	public float getHeightOfTerrain(float worldX, float worldZ) {
-		float height = 0;
-		Terrain terrain = getTerrain(worldX, worldZ);
-	
-		// if we got a terrain, get terrain height
-		if (terrain != null) {
-			height = terrain.getHeightOfTerrain(worldX, worldZ);
-		}
-		
-		//System.out.println("" + this.getClass().getName() + ": getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
-		
-		return height;
-	}
-	
-	// return a point in space that is at worldX, worldZ, at yOffset units above the terrain
-	public Vector3f getTerrainPoint(float worldX, float worldZ, float yOffset) {
+    }
+    
+    public float getHeightOfTerrain(float worldX, float worldZ) {
+        float height = 0;
+        Terrain terrain = getTerrain(worldX, worldZ);
+    
+        // if we got a terrain, get terrain height
+        if (terrain != null) {
+            height = terrain.getHeightOfTerrain(worldX, worldZ);
+        }
+        
+        //System.out.println("" + this.getClass().getName() + ": getHeightOfTerrain: (" + worldX + ", " + worldZ + "), height " + height);
+        
+        return height;
+    }
+    
+    // return a point in space that is at worldX, worldZ, at yOffset units above the terrain
+    public Vector3f getTerrainPoint(float worldX, float worldZ, float yOffset) {
         float y = getHeightOfTerrain(worldX, worldZ) + yOffset;
         return new Vector3f(worldX, y, worldZ);
-	}
-	
-	public float getHeightOfWater(float worldX, float worldZ) {
-		return waterHeight;
-	}
-	
-	public List<Terrain> getTerrains() {
-		return terrains;
-	}
-	
-	public Terrain getTerrain(float worldX, float worldZ) {
-		// this could be optimized with a hash table
-		for (int i = 0; i < terrains.size(); i++) {
-			Terrain terrain = terrains.get(i);
-			if (terrain.containsPosition(worldX, worldZ)) {
-				return terrain;
-			}
-		}
-		return null;
-	}
-	
-	public List<WaterTile> getWaterTiles() {
-		return waterTiles;
-	}
-	
-	public float getTerrainSize() {
-		return terrainSize;
-	}
-	
-	public float getXSize() {
-		return xSize;
-	}
-	
-	public float getZSize() {
-		return zSize;
-	}
+    }
+    
+    public float getHeightOfWater(float worldX, float worldZ) {
+        return waterHeight;
+    }
+    
+    public List<Terrain> getTerrains() {
+        return terrains;
+    }
+    
+    public Terrain getTerrain(float worldX, float worldZ) {
+        // this could be optimized with a hash table
+        for (int i = 0; i < terrains.size(); i++) {
+            Terrain terrain = terrains.get(i);
+            if (terrain.containsPosition(worldX, worldZ)) {
+                return terrain;
+            }
+        }
+        return null;
+    }
+    
+    public List<WaterTile> getWaterTiles() {
+        return waterTiles;
+    }
+    
+    public float getTerrainSize() {
+        return terrainSize;
+    }
+    
+    public float getXSize() {
+        return xSize;
+    }
+    
+    public float getZSize() {
+        return zSize;
+    }
 }

@@ -17,14 +17,14 @@ uniform float skyGradient;
 
 void main(void)
 {
-	vec4 worldPosition = transformationMatrix * vec4(position.x, 0.0, position.y, 1.0);
-	vec4 positionRelativeToCam = viewMatrix * worldPosition;
-	gl_Position = projectionMatrix * positionRelativeToCam;
+    vec4 worldPosition = transformationMatrix * vec4(position.x, 0.0, position.y, 1.0);
+    vec4 positionRelativeToCam = viewMatrix * worldPosition;
+    gl_Position = projectionMatrix * positionRelativeToCam;
 
-	textureCoords = vec2(position.x / 2.0 + 0.5, position.y / 2.0 + 0.5);
-	
-	// Tutorial 16: Fog: distance of this vertex from camera
-	float distance = length(positionRelativeToCam.xyz);
-	visibility = exp(-pow((distance * skyDensity), skyGradient));
-	visibility = clamp(visibility, 0.0, 1.0);
+    textureCoords = vec2(position.x / 2.0 + 0.5, position.y / 2.0 + 0.5);
+    
+    // Tutorial 16: Fog: distance of this vertex from camera
+    float distance = length(positionRelativeToCam.xyz);
+    visibility = exp(-pow((distance * skyDensity), skyGradient));
+    visibility = clamp(visibility, 0.0, 1.0);
 }

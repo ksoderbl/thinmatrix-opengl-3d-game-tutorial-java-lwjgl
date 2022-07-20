@@ -14,7 +14,7 @@ public class DisplayManager {
     // private static boolean vsync = true; // TODO
 
     public static void createDisplay(String title) {
-    	createDisplay(title, CREATE_WIDTH, CREATE_HEIGHT);
+        createDisplay(title, CREATE_WIDTH, CREATE_HEIGHT);
     }
     
     public static void createDisplay(String title, int width, int height) {

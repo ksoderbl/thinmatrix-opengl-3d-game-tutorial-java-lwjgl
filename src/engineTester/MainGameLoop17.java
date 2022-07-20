@@ -28,12 +28,12 @@ import textures.TerrainTexturePack;
 
 public class MainGameLoop17
 {
-	public static String title = "OpenGL 3D Game Tutorial 17";
-	public static String subTitle = "Multitexturing";
-	public static String subSubTitle = "Press, w, a, s or d to move";
-	
+    public static String title = "OpenGL 3D Game Tutorial 17";
+    public static String subTitle = "Multitexturing";
+    public static String subSubTitle = "Press, w, a, s or d to move";
+    
     public static void main(String[] args) {
-    	DisplayManager.createDisplay(title + ": " + subTitle);
+        DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         Camera13 camera = new Camera13();
         camera.getPosition().translate(0, 4, 0);
@@ -73,13 +73,13 @@ public class MainGameLoop17
         Random random = new Random(676452);
         
         for (int i = 0; i < 400; i++) {
-        	
-        	float x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, scale = 1;
-        	
-        	if (i % 7 == 0) {
+            
+            float x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, scale = 1;
+            
+            if (i % 7 == 0) {
                 // grass
                 x = random.nextFloat() * 400 - 200;
-            	z = random.nextFloat() * -400;
+                z = random.nextFloat() * -400;
                 rx = 0;
                 ry = random.nextFloat() * 360;
                 rz = 0;
@@ -88,49 +88,49 @@ public class MainGameLoop17
 
                 // flower
                 x = random.nextFloat() * 400 - 200;
-            	z = random.nextFloat() * -400;
+                z = random.nextFloat() * -400;
                 rx = 0;
                 ry = random.nextFloat() * 360;
                 rz = 0;
                 scale = 2.3f;
                 entities.add(new Entity(flowerModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-        	}
+            }
 
-        	if (i % 3 == 0) {
-	            // fern
-	            x = random.nextFloat() * 400 - 400;
-	        	z = random.nextFloat() * -400;
-	            rx = 10 * random.nextFloat() - 5;
-	            ry = random.nextFloat() * 360;
-	            rz = 10 * random.nextFloat() - 5;
-	            scale = 0.9f;
-	            entities.add(new Entity(fernModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-	
-	            // low poly tree "bobble"
-	        	x = random.nextFloat() * 800 - 400;
-	        	y = 0; 
-	        	z = random.nextFloat() * -600; 
-	            rx = 4 * random.nextFloat() - 2;
-	            ry = random.nextFloat() * 360;
-	            rz = 4 * random.nextFloat() - 2;
-	            scale = random.nextFloat() * 0.1f + 0.6f;
-	            entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-	
-	        	// tree
-	        	x = random.nextFloat() * 800 - 400;
-	        	y = 0; 
-	        	z = random.nextFloat() * -600; 
-	            rx = 4 * random.nextFloat() - 2;
-	            ry = random.nextFloat() * 360;
-	            rz = 4 * random.nextFloat() - 2;
-	            scale = random.nextFloat() * 1f + 4f;
-	            entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-        	}
+            if (i % 3 == 0) {
+                // fern
+                x = random.nextFloat() * 400 - 400;
+                z = random.nextFloat() * -400;
+                rx = 10 * random.nextFloat() - 5;
+                ry = random.nextFloat() * 360;
+                rz = 10 * random.nextFloat() - 5;
+                scale = 0.9f;
+                entities.add(new Entity(fernModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+    
+                // low poly tree "bobble"
+                x = random.nextFloat() * 800 - 400;
+                y = 0; 
+                z = random.nextFloat() * -600; 
+                rx = 4 * random.nextFloat() - 2;
+                ry = random.nextFloat() * 360;
+                rz = 4 * random.nextFloat() - 2;
+                scale = random.nextFloat() * 0.1f + 0.6f;
+                entities.add(new Entity(lowPolyTreeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+    
+                // tree
+                x = random.nextFloat() * 800 - 400;
+                y = 0; 
+                z = random.nextFloat() * -600; 
+                rx = 4 * random.nextFloat() - 2;
+                ry = random.nextFloat() * 360;
+                rz = 4 * random.nextFloat() - 2;
+                scale = random.nextFloat() * 1f + 4f;
+                entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+            }
         }
         
         Light light = new Light(
-        		new Vector3f(20000, 40000, 20000),
-        		new Vector3f(1f, 1f, 1f)); // white light
+                new Vector3f(20000, 40000, 20000),
+                new Vector3f(1f, 1f, 1f)); // white light
         
         //ModelTexture terrainModelTexture = new ModelTexture(loader.loadTexture("grass"));
         Terrain17 terrain = new Terrain17(0, -1, loader, texturePack, blendMap);
@@ -141,26 +141,26 @@ public class MainGameLoop17
         int i = 0;
         
         while (!Display.isCloseRequested()) {
-        	//int i = 0;
-        	//for (Entity entity : entities) {
-        	//	//entities[i].increasePosition(0, 0, 0.00001f*i);
-        	//	entity.increaseRotation(0f, 0.4f*i, 0f);
-        	//	i++;
-        	//}
-        	camera.move();
-        	
-        	for (Entity entity : entities) {
-        		renderer.processEntity(entity);
-        	}
-        	renderer.processTerrain(terrain);
-        	renderer.processTerrain(terrain2);
-        	
+            //int i = 0;
+            //for (Entity entity : entities) {
+            //    //entities[i].increasePosition(0, 0, 0.00001f*i);
+            //    entity.increaseRotation(0f, 0.4f*i, 0f);
+            //    i++;
+            //}
+            camera.move();
+            
+            for (Entity entity : entities) {
+                renderer.processEntity(entity);
+            }
+            renderer.processTerrain(terrain);
+            renderer.processTerrain(terrain2);
+            
             renderer.render(light, camera);
-        	TextMaster.render();
+            TextMaster.render();
             DisplayManager.updateDisplay();
             
             if ((i % 60) == 0) {
-            	camera.printPosition();
+                camera.printPosition();
             }
             i++;
         }

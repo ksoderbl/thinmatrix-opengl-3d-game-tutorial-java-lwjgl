@@ -43,15 +43,15 @@ public class Player32 extends Entity {
             super.getPosition().y = terrainHeight;
         }
         
-    	// assume all low places are filled with water
-    	// make player swim so the head stays above surface
-    	float playerHeight = 5;
-    	float waterHeight = world.getHeightOfWater(getPosition().x, getPosition().z);
-    	if (super.getPosition().y < waterHeight - playerHeight) {
-    		upwardsSpeed = 0;
-    		isInAir = false;
-    		super.getPosition().y = waterHeight - playerHeight;
-    	}
+        // assume all low places are filled with water
+        // make player swim so the head stays above surface
+        float playerHeight = 5;
+        float waterHeight = world.getHeightOfWater(getPosition().x, getPosition().z);
+        if (super.getPosition().y < waterHeight - playerHeight) {
+            upwardsSpeed = 0;
+            isInAir = false;
+            super.getPosition().y = waterHeight - playerHeight;
+        }
     }
 
     private void jump() {

@@ -25,32 +25,32 @@ import toolbox.Maths;
 
 public class MainGameLoop07
 {
-	public static String title = "OpenGL 3D Game Tutorial 7";
-	public static String subTitle = "Matrices & Uniform Variables";
+    public static String title = "OpenGL 3D Game Tutorial 7";
+    public static String subTitle = "Matrices & Uniform Variables";
 
-	public static void main(String[] args) {
-    	DisplayManager.createDisplay(title + ": " + subTitle);
+    public static void main(String[] args) {
+        DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         Renderer07 renderer = new Renderer07();
         StaticShader07 shader = new StaticShader07();
 
         float[] vertices = {
-        	-0.5f, 0.5f, 0f,
-        	-0.5f, -0.5f, 0f,
-        	0.5f, -0.5f, 0f,
-        	0.5f, 0.5f, 0f,
+            -0.5f, 0.5f, 0f,
+            -0.5f, -0.5f, 0f,
+            0.5f, -0.5f, 0f,
+            0.5f, 0.5f, 0f,
         };
         
         int[] indices = {
-        	0, 1, 3,	// Top left triangle
-        	3, 1, 2		// Bottom right triangle
+            0, 1, 3,    // Top left triangle
+            3, 1, 2        // Bottom right triangle
         };
         
         float[] textureCoords = {
-        	0, 0,	// V0
-        	0, 1,	// V1
-        	1, 1,	// V2
-        	1, 0	// V3
+            0, 0,    // V0
+            0, 1,    // V1
+            1, 1,    // V2
+            1, 0    // V3
         };
         
         RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
@@ -74,9 +74,9 @@ public class MainGameLoop07
         Random random = new Random();
         
         for (int i = 0; i < matrices.length; i++) {
-        	Vector3f translation = new Vector3f(
-        			((2 * random.nextFloat()) - 1) * 0.8f,
-        			(-1f + (random.nextFloat())) * 0.8f, 0f);
+            Vector3f translation = new Vector3f(
+                    ((2 * random.nextFloat()) - 1) * 0.8f,
+                    (-1f + (random.nextFloat())) * 0.8f, 0f);
             float rx = 0;
             float ry = 0; 
             float rz = 360 * random.nextFloat();
@@ -87,20 +87,20 @@ public class MainGameLoop07
         }
 
         while (!Display.isCloseRequested()) {
-        	
-        	// disable depth test because TextMaster turns it on
-        	GL11.glDisable(GL11.GL_DEPTH_TEST);
-        	
-        	renderer.prepare();
-        	shader.start();
-        	for (int i = 0; i < matrices.length; i++) {
-	        	shader.loadTransformationMatrix(matrices[i]);
-	            renderer.render(texturedModel);
-        	}
+            
+            // disable depth test because TextMaster turns it on
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            
+            renderer.prepare();
+            shader.start();
+            for (int i = 0; i < matrices.length; i++) {
+                shader.loadTransformationMatrix(matrices[i]);
+                renderer.render(texturedModel);
+            }
             shader.stop();
             
-        	TextMaster.render();
-        	            
+            TextMaster.render();
+                        
             DisplayManager.updateDisplay();
         }
 

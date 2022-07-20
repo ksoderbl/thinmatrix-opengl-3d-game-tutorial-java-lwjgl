@@ -29,8 +29,8 @@ public class SkyboxRenderer32 {
     private float time = 8000;
     // Tutorial 30: Cel Shading
     private float shadingLevels;
-	
-	private static final float SIZE = 50000f;
+    
+    private static final float SIZE = 50000f;
 
     private static final float[] VERTICES = {
         -SIZE, SIZE, -SIZE,
@@ -89,7 +89,7 @@ public class SkyboxRenderer32 {
     }
 
     public void render(Camera camera, Vector3f skyColor) {
-    	render(camera, skyColor.x, skyColor.y, skyColor.z);
+        render(camera, skyColor.x, skyColor.y, skyColor.z);
     }
     
     public void render(Camera camera, float r, float g, float b) {

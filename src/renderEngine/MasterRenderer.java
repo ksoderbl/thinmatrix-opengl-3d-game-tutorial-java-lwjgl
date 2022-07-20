@@ -92,7 +92,7 @@ public class MasterRenderer {
             processEntity(entity);
         }
         for(Entity entity : normalEntities){
-        	processNormalMapEntity(entity);
+            processNormalMapEntity(entity);
         }
         render(lights, camera, clipPlane, useClipping);
     }

@@ -29,33 +29,33 @@ public class Sky {
     public float blue = CLEAR_BLUE;
     
     public Sky() {
-    	// default values
+        // default values
     }
     
     public Sky(float red, float green, float blue, float density, float gradient) {
-    	this.red = red;
-    	this.green = green;
-    	this.blue = blue;
-    	this.density = density;
-    	this.gradient = gradient;
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.density = density;
+        this.gradient = gradient;
     }
 
-	public float getRed() {
-		return red;
-	}
-	public float getGreen() {
-		return green;
-	}
-	public float getBlue() {
-		return blue;
-	}
-	public float getDensity() {
-		return density;
-	}
-	public float getGradient() {
-		return gradient;
-	}
-	public Vector3f getColor() {
-		return new Vector3f(red, green, blue);
-	}
+    public float getRed() {
+        return red;
+    }
+    public float getGreen() {
+        return green;
+    }
+    public float getBlue() {
+        return blue;
+    }
+    public float getDensity() {
+        return density;
+    }
+    public float getGradient() {
+        return gradient;
+    }
+    public Vector3f getColor() {
+        return new Vector3f(red, green, blue);
+    }
 }

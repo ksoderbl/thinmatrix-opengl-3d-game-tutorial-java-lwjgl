@@ -24,33 +24,33 @@ import textures.ModelTexture;
 
 public class MainGameLoop08
 {
-	public static String title = "OpenGL 3D Game Tutorial 8";
-	public static String subTitle = "Model, View & Projection Matrices";
-	public static String subSubTitle = "Press, w, a, s or d to move";
-	
+    public static String title = "OpenGL 3D Game Tutorial 8";
+    public static String subTitle = "Model, View & Projection Matrices";
+    public static String subSubTitle = "Press, w, a, s or d to move";
+    
     public static void main(String[] args) {
-    	DisplayManager.createDisplay(title + ": " + subTitle);
+        DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         StaticShader08 shader = new StaticShader08();
         Renderer08 renderer = new Renderer08(shader);
 
         float[] vertices = {
-        	-0.5f, 0.5f, 0f,
-        	-0.5f, -0.5f, 0f,
-        	0.5f, -0.5f, 0f,
-        	0.5f, 0.5f, 0f,
+            -0.5f, 0.5f, 0f,
+            -0.5f, -0.5f, 0f,
+            0.5f, -0.5f, 0f,
+            0.5f, 0.5f, 0f,
         };
         
         int[] indices = {
-        	0, 1, 3,	// Top left triangle
-        	3, 1, 2		// Bottom right triangle
+            0, 1, 3,    // Top left triangle
+            3, 1, 2        // Bottom right triangle
         };
         
         float[] textureCoords = {
-        	0, 0,	// V0
-        	0, 1,	// V1
-        	1, 1,	// V2
-        	1, 0	// V3
+            0, 0,    // V0
+            0, 1,    // V1
+            1, 1,    // V2
+            1, 0    // V3
         };
         
         RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
@@ -77,10 +77,10 @@ public class MainGameLoop08
         Random random = new Random();
         
         for (int i = 0; i < entities.length; i++) {
-        	Vector3f translation = new Vector3f(
-        			((2 * random.nextFloat()) - 1) * 0.8f,
-        			(-0.5f + (random.nextFloat())) * 0.8f,
-        			-5f);
+            Vector3f translation = new Vector3f(
+                    ((2 * random.nextFloat()) - 1) * 0.8f,
+                    (-0.5f + (random.nextFloat())) * 0.8f,
+                    -5f);
             float rx = 0;
             float ry = 0; 
             float rz = 360 * random.nextFloat();
@@ -93,23 +93,23 @@ public class MainGameLoop08
         Camera08 camera = new Camera08();
         
         while (!Display.isCloseRequested()) {
-        	
-        	for (int i = 0; i < entities.length; i++) {
-        		//entities[i].increasePosition(0, 0, 0.00001f*i);
-        		entities[i].increaseRotation(0.002f*i, 0.003f*i, 0.001f*i);
-        	}
+            
+            for (int i = 0; i < entities.length; i++) {
+                //entities[i].increasePosition(0, 0, 0.00001f*i);
+                entities[i].increaseRotation(0.002f*i, 0.003f*i, 0.001f*i);
+            }
 
-        	camera.move();
-        	renderer.prepare();
-        	shader.start();
-        	shader.loadViewMatrix(camera);
-        	for (int i = 0; i < entities.length; i++) {
-	            renderer.render(entities[i], shader);
-        	}
+            camera.move();
+            renderer.prepare();
+            shader.start();
+            shader.loadViewMatrix(camera);
+            for (int i = 0; i < entities.length; i++) {
+                renderer.render(entities[i], shader);
+            }
             shader.stop();
             
-        	TextMaster.render();
-        	            
+            TextMaster.render();
+                        
             DisplayManager.updateDisplay();
         }
 

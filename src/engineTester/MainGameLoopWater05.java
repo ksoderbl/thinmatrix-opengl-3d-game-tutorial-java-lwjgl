@@ -43,30 +43,30 @@ import water.WaterTile04;
 
 public class MainGameLoopWater05
 {
-	public static String title = "OpenGL Water Tutorial 5";
-	public static String subTitle = "DuDv Maps"; //
-	public static String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
-	 //"Use key c to swap to second camera, move it with arrow keys";
-	
+    public static String title = "OpenGL Water Tutorial 5";
+    public static String subTitle = "DuDv Maps"; //
+    public static String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
+     //"Use key c to swap to second camera, move it with arrow keys";
+    
     public static void main(String[] args) {
-    	DisplayManager.createDisplay(title + ": " + subTitle);
+        DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
 
         TextMaster.init(loader);
         if (title.length() > 0) {
-	        FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-	        GUIText text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
-	        text.setColor(0.1f, 0.1f, 0.4f);
+            FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
+            text.setColor(0.1f, 0.1f, 0.4f);
         }
         if (subTitle.length() > 0) {
-        	FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        	GUIText text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
-        	text2.setColor(0.4f, 0.1f, 0.1f);
+            FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
+            text2.setColor(0.4f, 0.1f, 0.1f);
         }
         if (subSubTitle.length() > 0) {
-	        FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-	        GUIText text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
-	        text3.setColor(0.1f, 0.4f, 0.1f);
+            FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
+            text3.setColor(0.1f, 0.4f, 0.1f);
         }
         
         float terrainSize = 20000;
@@ -156,92 +156,92 @@ public class MainGameLoopWater05
         Random random = new Random(676452);
 
         for (int i = 0; i < 1000; i++) {
-        	
-        	float x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, scale = 1;
-        	int textureIndex = 0;
-        	
-        	if (i % 7 == 0) {
+            
+            float x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, scale = 1;
+            int textureIndex = 0;
+            
+            if (i % 7 == 0) {
                 // grass
                 x = random.nextFloat() * terrainSize - terrainSize / 2;
-            	z = random.nextFloat() * terrainSize - terrainSize / 2;
-            	y = world.getHeightOfTerrain(x, z);
-            	if (y > world.getHeightOfWater(x, z)) {
-	                rx = 0;
-	                ry = random.nextFloat() * 360;
-	                rz = 0;
-	                scale = 1.8f;
-	                entities.add(new Entity(grassModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-            	}
+                z = random.nextFloat() * terrainSize - terrainSize / 2;
+                y = world.getHeightOfTerrain(x, z);
+                if (y > world.getHeightOfWater(x, z)) {
+                    rx = 0;
+                    ry = random.nextFloat() * 360;
+                    rz = 0;
+                    scale = 1.8f;
+                    entities.add(new Entity(grassModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+                }
 
                 // flower
                 x = random.nextFloat() * terrainSize - terrainSize / 2;
-            	z = random.nextFloat() * terrainSize - terrainSize / 2;
-            	y = world.getHeightOfTerrain(x, z);
-            	if (y > world.getHeightOfWater(x, z)) {
-	                rx = 0;
-	                ry = random.nextFloat() * 360;
-	                rz = 0;
-	                scale = 2.3f;
-	                entities.add(new Entity(flowerModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-            	}
-        	}
+                z = random.nextFloat() * terrainSize - terrainSize / 2;
+                y = world.getHeightOfTerrain(x, z);
+                if (y > world.getHeightOfWater(x, z)) {
+                    rx = 0;
+                    ry = random.nextFloat() * 360;
+                    rz = 0;
+                    scale = 2.3f;
+                    entities.add(new Entity(flowerModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+                }
+            }
 
-        	if (i % 3 == 0) {
-	            // fern
-        		textureIndex = random.nextInt(4);
-	            x = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	y = world.getHeightOfTerrain(x, z);
-	        	if (y > world.getHeightOfWater(x, z)) {
-		            rx = 10 * random.nextFloat() - 5;
-		            ry = random.nextFloat() * 360;
-		            rz = 10 * random.nextFloat() - 5;
-		            scale = 0.9f;
-		            entities.add(new Entity(fernModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
-	        	}
-	
-	            // low poly tree "bobble"
-	            textureIndex = random.nextInt(4);
-	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	y = world.getHeightOfTerrain(x, z);
-	        	if (y > world.getHeightOfWater(x, z)) {
-		            rx = 4 * random.nextFloat() - 2;
-		            ry = random.nextFloat() * 360;
-		            rz = 4 * random.nextFloat() - 2;
-		            scale = random.nextFloat() * 0.1f + 0.6f;
-		            entities.add(new Entity(lowPolyTreeModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
-	        	}
-	
-	        	// tree
-	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	y = world.getHeightOfTerrain(x, z);
-	        	if (y > world.getHeightOfWater(x, z)) {
-		            rx = 4 * random.nextFloat() - 2;
-		            ry = random.nextFloat() * 360;
-		            rz = 4 * random.nextFloat() - 2;
-		            scale = random.nextFloat() * 1f + 4f;
-		            entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-	        	}
+            if (i % 3 == 0) {
+                // fern
+                textureIndex = random.nextInt(4);
+                x = random.nextFloat() * terrainSize - terrainSize / 2;
+                z = random.nextFloat() * terrainSize - terrainSize / 2;
+                y = world.getHeightOfTerrain(x, z);
+                if (y > world.getHeightOfWater(x, z)) {
+                    rx = 10 * random.nextFloat() - 5;
+                    ry = random.nextFloat() * 360;
+                    rz = 10 * random.nextFloat() - 5;
+                    scale = 0.9f;
+                    entities.add(new Entity(fernModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
+                }
+    
+                // low poly tree "bobble"
+                textureIndex = random.nextInt(4);
+                x = random.nextFloat() * terrainSize - terrainSize / 2;
+                z = random.nextFloat() * terrainSize - terrainSize / 2;
+                y = world.getHeightOfTerrain(x, z);
+                if (y > world.getHeightOfWater(x, z)) {
+                    rx = 4 * random.nextFloat() - 2;
+                    ry = random.nextFloat() * 360;
+                    rz = 4 * random.nextFloat() - 2;
+                    scale = random.nextFloat() * 0.1f + 0.6f;
+                    entities.add(new Entity(lowPolyTreeModel, textureIndex, new Vector3f(x, y, z), rx, ry, rz, scale));
+                }
+    
+                // tree
+                x = random.nextFloat() * terrainSize - terrainSize / 2;
+                z = random.nextFloat() * terrainSize - terrainSize / 2;
+                y = world.getHeightOfTerrain(x, z);
+                if (y > world.getHeightOfWater(x, z)) {
+                    rx = 4 * random.nextFloat() - 2;
+                    ry = random.nextFloat() * 360;
+                    rz = 4 * random.nextFloat() - 2;
+                    scale = random.nextFloat() * 1f + 4f;
+                    entities.add(new Entity(treeModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+                }
 
-	        	// pine
-	        	x = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	z = random.nextFloat() * terrainSize - terrainSize / 2;
-	        	y = world.getHeightOfTerrain(x, z);
-	        	if (y > world.getHeightOfWater(x, z)) {
-		            rx = 4 * random.nextFloat() - 2;
-		            ry = random.nextFloat() * 360;
-		            rz = 4 * random.nextFloat() - 2;
-		            scale = random.nextFloat() * 4f + 1f;
-		            entities.add(new Entity(pineModel, new Vector3f(x, y, z), rx, ry, rz, scale));
-	        	}
-        	}
+                // pine
+                x = random.nextFloat() * terrainSize - terrainSize / 2;
+                z = random.nextFloat() * terrainSize - terrainSize / 2;
+                y = world.getHeightOfTerrain(x, z);
+                if (y > world.getHeightOfWater(x, z)) {
+                    rx = 4 * random.nextFloat() - 2;
+                    ry = random.nextFloat() * 360;
+                    rz = 4 * random.nextFloat() - 2;
+                    scale = random.nextFloat() * 4f + 1f;
+                    entities.add(new Entity(pineModel, new Vector3f(x, y, z), rx, ry, rz, scale));
+                }
+            }
         }
 
-    	float px = 350f; //-2163f;
-    	float pz = 540f; //2972f;
-    	float py = world.getHeightOfTerrain(px, pz);
+        float px = 350f; //-2163f;
+        float pz = 540f; //2972f;
+        float py = world.getHeightOfTerrain(px, pz);
         
         TexturedModel playerModel = loader.createTexturedModel("person", "playerTexture", 1, 0);
         PlayerWater04 player = new PlayerWater04(playerModel, new Vector3f(px, py, pz), 0, 2, 0, 0.6f);
@@ -300,55 +300,55 @@ public class MainGameLoopWater05
         //****************Game Loop Below*********************
         
         while (!Display.isCloseRequested()) {
-        	
-        	player.move(world);
-        	
-        	cameraFrames++;
-        	// key C used to swap camera
-        	if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
-        		if (camera == camera1) {
-            		camera = camera2;
-            	}
-            	else if (camera == camera2) {
-        			camera = camera1;
-            	}
-        		cameraFrames = 0;
-        	}
-        	
-        	camera.move();
-        	
-        	//camera2.getPosition().translate(0, 0, -0.02f);
-        	
-        	GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
+            
+            player.move(world);
+            
+            cameraFrames++;
+            // key C used to swap camera
+            if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
+                if (camera == camera1) {
+                    camera = camera2;
+                }
+                else if (camera == camera2) {
+                    camera = camera1;
+                }
+                cameraFrames = 0;
+            }
+            
+            camera.move();
+            
+            //camera2.getPosition().translate(0, 0, -0.02f);
+            
+            GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 
-        	// render to reflection texture: set the clip plane to clip stuff above water
-        	buffers.bindReflectionFrameBuffer();
+            // render to reflection texture: set the clip plane to clip stuff above water
+            buffers.bindReflectionFrameBuffer();
             float distance = 2 * (camera.getPosition().y - water.getHeight());
             // change position and pitch of camera to render the reflection 
             camera.getPosition().y -= distance;
             camera.invertPitch();
-        	renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, 1, 0, -water.getHeight()));
+            renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, 1, 0, -water.getHeight()));
             camera.getPosition().y += distance;
             camera.invertPitch();
 
-        	// render to refraction texture: set the clip plane to clip stuff below water
-        	buffers.bindRefractionFrameBuffer();
-        	renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, water.getHeight()));
-        	
-        	// render to screen: set the clip plane at a great height, so it won't clip anything
-        	buffers.unbindCurrentFrameBuffer();
-        	renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, 1000000));
-
-        	waterRenderer.render(waters, sky, camera);
-        	
-        	guiRenderer.render(guiTextures);
-
-        	TextMaster.render();
+            // render to refraction texture: set the clip plane to clip stuff below water
+            buffers.bindRefractionFrameBuffer();
+            renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, water.getHeight()));
             
-        	DisplayManager.updateDisplay();
+            // render to screen: set the clip plane at a great height, so it won't clip anything
+            buffers.unbindCurrentFrameBuffer();
+            renderer.renderScene(entities, terrains, lights, sky, camera, new Vector4f(0, -1, 0, 1000000));
 
-        	if ((i % 60) == 0) {
-            	camera.printPosition();
+            waterRenderer.render(waters, sky, camera);
+            
+            guiRenderer.render(guiTextures);
+
+            TextMaster.render();
+            
+            DisplayManager.updateDisplay();
+
+            if ((i % 60) == 0) {
+                camera.printPosition();
             }
             i++;
         }
