@@ -18,6 +18,8 @@ import org.lwjgl.opengl.GL30;
 // import org.lwjgl.opengl.GL33;
 // import org.newdawn.slick.opengl.Texture;
 // import org.newdawn.slick.opengl.TextureLoader;
+import com.example.textures.Texture;
+import com.example.textures.TextureLoader;
 
 // import de.matthiasmann.twl.utils.PNGDecoder;
 // import de.matthiasmann.twl.utils.PNGDecoder.Format;
