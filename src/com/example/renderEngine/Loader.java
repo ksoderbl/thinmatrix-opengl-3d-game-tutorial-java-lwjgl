@@ -1,6 +1,6 @@
 package com.example.renderEngine;
 
-// import java.io.FileInputStream;
+import java.io.FileInputStream;
 // import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -11,7 +11,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 // import org.lwjgl.opengl.GL12;
 // import org.lwjgl.opengl.GL13;
-// import org.lwjgl.opengl.GL14;
+import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
@@ -31,7 +31,7 @@ import com.example.models.RawModel;
 public class Loader {
 
     // OpenGL 3D Game Tutorial 20: Mipmapping: level of detail bias
-    // private final static float LOD_BIAS = -0.4f;
+    private final static float LOD_BIAS = -0.4f;
 
     private List<Integer> vaos = new ArrayList<>();
     private List<Integer> vbos = new ArrayList<>();
@@ -46,15 +46,15 @@ public class Loader {
         return new RawModel(vaoID, indices.length);
     }
     
-    // // OpenGL 3D Game Tutorial 6: Texturing
-    // public RawModel loadToVAO(float[] positions, float[] textureCoords, int[] indices) {
-    //     int vaoID = createVAO();
-    //     bindIndicesBuffer(indices);
-    //     storeDataInAttributeList(0, 3, positions);
-    //     storeDataInAttributeList(1, 2, textureCoords);
-    //     unbindVAO();
-    //     return new RawModel(vaoID, indices.length);
-    // }
+    // OpenGL 3D Game Tutorial 6: Texturing
+    public RawModel loadToVAO(float[] positions, float[] textureCoords, int[] indices) {
+        int vaoID = createVAO();
+        bindIndicesBuffer(indices);
+        storeDataInAttributeList(0, 3, positions);
+        storeDataInAttributeList(1, 2, textureCoords);
+        unbindVAO();
+        return new RawModel(vaoID, indices.length);
+    }
 
     // public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices) {
     //     int vaoID = createVAO();
@@ -129,35 +129,35 @@ public class Loader {
         return new RawModel(vaoID, positions.length / dimensions);
     }
 
-    // public int loadTexture(String fileName, float lodBias) {
-    //     Texture texture = null;
-    //     fileName = "res/" + fileName + ".png";
-    //     try {
-    //         texture = TextureLoader.getTexture("PNG", new FileInputStream(fileName));
-    //         // OpenGL 3D Game Tutorial 20: Mipmapping
-    //         GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
-    //         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
-    //         GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, lodBias);
-    //         // OpenGL 3D Game Tutorial 20: Mipmapping
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //         System.err.println("Loader: File not found: " + fileName);
-    //         System.exit(-1);
-    //     }
-    //     int textureID = texture.getTextureID();
-    //     textures.add(textureID);
+    public int loadTexture(String fileName, float lodBias) {
+        Texture texture = null;
+        fileName = "res/" + fileName + ".png";
+        try {
+            texture = TextureLoader.getTexture("PNG", new FileInputStream(fileName));
+            // OpenGL 3D Game Tutorial 20: Mipmapping
+            GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
+            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, lodBias);
+            // OpenGL 3D Game Tutorial 20: Mipmapping
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Loader: File not found: " + fileName);
+            System.exit(-1);
+        }
+        int textureID = texture.getTextureID();
+        textures.add(textureID);
 
-    //     //-If the texture on the terrain only looks good in one corner then try adding these 2 lines into your loadTexture
-    //     // method before returning the texture's ID:
-    //     //GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
-    //     //GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
+        //-If the texture on the terrain only looks good in one corner then try adding these 2 lines into your loadTexture
+        // method before returning the texture's ID:
+        //GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
+        //GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
 
-    //     return textureID;
-    // }
+        return textureID;
+    }
 
-    // public int loadTexture(String fileName) {
-    //     return loadTexture(fileName, LOD_BIAS);
-    // }
+    public int loadTexture(String fileName) {
+        return loadTexture(fileName, LOD_BIAS);
+    }
 
     // public int loadFontTextureAtlas(String fileName) {
     //     return loadTexture("fonts/" + fileName, 0);

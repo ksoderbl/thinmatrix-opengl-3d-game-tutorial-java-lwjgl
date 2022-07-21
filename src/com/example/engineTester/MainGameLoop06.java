@@ -9,21 +9,23 @@ import org.joml.Vector2f;
 // import com.example.fontMeshCreator.GUIText;
 // import com.example.fontRendering.TextMaster;
 import com.example.models.RawModel;
+import com.example.models.TexturedModel;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
-import com.example.renderEngine.Renderer05;
-import com.example.shaders.StaticShader05;
+import com.example.renderEngine.Renderer06;
+import com.example.shaders.StaticShader06;
+import com.example.textures.ModelTexture;
 
-public class MainGameLoop05
+public class MainGameLoop06
 {
-    public static String title = "OpenGL 3D Game Tutorial 5";
-    public static String subTitle = "Coloring using Shaders";
+    public static String title = "OpenGL 3D Game Tutorial 6";
+    public static String subTitle = "Texturing";
     
     public static void main(String[] args) {
         DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
-        Renderer05 renderer = new Renderer05();
-        StaticShader05 shader = new StaticShader05();
+        Renderer06 renderer = new Renderer06();
+        StaticShader06 shader = new StaticShader06();
 
         float[] vertices = {
             -0.5f, 0.5f, 0f,
@@ -37,7 +39,16 @@ public class MainGameLoop05
             3, 1, 2        // Bottom right triangle
         };
         
-        RawModel model = loader.loadToVAO(vertices, indices);
+        float[] textureCoords = {
+            0, 0,    // V0
+            0, 1,    // V1
+            1, 1,    // V2
+            1, 0    // V3
+        };
+        
+        RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
+        ModelTexture texture = new ModelTexture(loader.loadTexture("image"));
+        TexturedModel texturedModel = new TexturedModel(model, texture);
         
         // TextMaster.init(loader);
         
@@ -56,7 +67,7 @@ public class MainGameLoop05
             
             renderer.prepare();
             shader.start();
-            renderer.render(model);
+            renderer.render(texturedModel);
             shader.stop();
             
             // TextMaster.render();
