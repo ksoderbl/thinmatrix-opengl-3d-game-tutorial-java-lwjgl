@@ -36,14 +36,14 @@ public class MainGameLoop06
         
         int[] indices = {
             0, 1, 3,    // Top left triangle
-            3, 1, 2        // Bottom right triangle
+            3, 1, 2     // Bottom right triangle
         };
         
         float[] textureCoords = {
             0, 0,    // V0
             0, 1,    // V1
             1, 1,    // V2
-            1, 0    // V3
+            1, 0     // V3
         };
         
         RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
