@@ -2,6 +2,7 @@ package com.example.textures;
 
 public class Texture {
     int textureID;
+    
     public int getTextureID() {
         return this.textureID;
     }

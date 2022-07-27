@@ -134,12 +134,15 @@ public class Loader {
     public int loadTexture(String fileName, float lodBias) {
         Texture texture = null;
         fileName = "res/" + fileName + ".png";
+
+        // System.out.println("loadTexture: filename is " + fileName);
+
         try {
             texture = TextureLoader.getTexture("PNG", new FileInputStream(fileName));
             // OpenGL 3D Game Tutorial 20: Mipmapping
-            GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
-            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
-            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, lodBias);
+            // GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+            // GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
+            // GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, lodBias);
             // OpenGL 3D Game Tutorial 20: Mipmapping
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,6 +150,7 @@ public class Loader {
             System.exit(-1);
         }
         int textureID = texture.getTextureID();
+        // System.out.println("texture id: " + textureID);
         textures.add(textureID);
 
         //-If the texture on the terrain only looks good in one corner then try adding these 2 lines into your loadTexture
