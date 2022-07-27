@@ -1,9 +1,12 @@
 package com.example.engineTester;
 
 // import java.io.File;
+import java.util.Random;
 
 // import org.lwjgl.opengl.GL11;
+import org.joml.Matrix4f;
 // import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 // import com.example.fontMeshCreator.FontType;
 // import com.example.fontMeshCreator.GUIText;
@@ -12,20 +15,21 @@ import com.example.models.RawModel;
 import com.example.models.TexturedModel;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
-import com.example.renderEngine.Renderer06;
-import com.example.shaders.StaticShader06;
+import com.example.renderEngine.Renderer07;
+import com.example.shaders.StaticShader07;
 import com.example.textures.ModelTexture;
+import com.example.toolbox.Maths;
 
-public class MainGameLoop06
+public class MainGameLoop07
 {
-    public static String title = "OpenGL 3D Game Tutorial 6";
-    public static String subTitle = "Texturing";
-    
+    public static String title = "OpenGL 3D Game Tutorial 7";
+    public static String subTitle = "Matrices & Uniform Variables";
+
     public static void main(String[] args) {
         DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
-        Renderer06 renderer = new Renderer06();
-        StaticShader06 shader = new StaticShader06();
+        Renderer07 renderer = new Renderer07();
+        StaticShader07 shader = new StaticShader07();
 
         float[] vertices = {
             -0.5f, 0.5f, 0f,
@@ -59,6 +63,10 @@ public class MainGameLoop06
         // FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
         // GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
         // text2.setColor(0.8f, 0.2f, 0.2f);
+        
+        Vector3f translation = new Vector3f(0.0f, 0.0f, 0.0f);
+
+        Matrix4f m = Maths.createTransformationMatrix(translation, 45.0f, 45.0f, 45.0f, 1.0f);
 
         while (!DisplayManager.isCloseRequested()) {
             
@@ -67,6 +75,7 @@ public class MainGameLoop06
             
             renderer.prepare();
             shader.start();
+            shader.loadTransformationMatrix(m);
             renderer.render(texturedModel);
             shader.stop();
             
