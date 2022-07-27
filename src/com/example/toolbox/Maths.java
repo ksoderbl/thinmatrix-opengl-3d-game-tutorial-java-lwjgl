@@ -43,9 +43,21 @@ public class Maths {
         // Matrix4f.scale(new Vector3f(scale, scale, scale), matrix, matrix);
 
         Matrix4f matrix = new Matrix4f();
+
+        System.out.println("matrix1: \n" + matrix.toString());
+
         matrix.translate(translation);
+
+        System.out.println("matrix after translation: \n" + matrix.toString());
+
         matrix.rotateXYZ(rx, ry, rz);
+
+        System.out.println("matrix after rotation: \n" + matrix.toString());
+
         matrix.scale(scale);
+
+        System.out.println("matrix after scaling: \n" + matrix.toString());
+
         return matrix;
     }
 
