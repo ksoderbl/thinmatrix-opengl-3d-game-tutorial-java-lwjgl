@@ -48,15 +48,15 @@ public class Maths {
 
         matrix.translate(translation);
 
-        System.out.println("matrix after translation: \n" + matrix.toString());
+        // System.out.println("matrix after translation: \n" + matrix.toString());
 
         matrix.rotateXYZ(rx, ry, rz);
 
-        System.out.println("matrix after rotation: \n" + matrix.toString());
+        // System.out.println("matrix after rotation: \n" + matrix.toString());
 
         matrix.scale(scale);
 
-        System.out.println("matrix after scaling: \n" + matrix.toString());
+        // System.out.println("matrix after scaling: \n" + matrix.toString());
 
         return matrix;
     }
