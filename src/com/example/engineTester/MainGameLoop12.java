@@ -1,26 +1,23 @@
-package engineTester;
+package com.example.engineTester;
 
-import java.io.File;
+// import java.io.File;
 import java.util.Random;
 
-import org.lwjgl.opengl.Display;
-import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
+// import org.joml.Vector2f;
+import org.joml.Vector3f;
 
-import entities.Camera12;
-import entities.Entity;
-import entities.Light;
-import fontMeshCreator.FontType;
-import fontMeshCreator.GUIText;
-import fontRendering.TextMaster;
-import models.TexturedModel;
-import renderEngine.DisplayManager;
-import renderEngine.Loader;
-import renderEngine.Renderer12;
-import shaders.StaticShader12;
-
-// OpenGL 3D Game Tutorial 12: Specular Lighting
-// https://www.youtube.com/watch?v=GZ_1xOm-3qU&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=12
+import com.example.entities.Camera12;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+// import com.example.fontMeshCreator.FontType;
+// import com.example.fontMeshCreator.GUIText;
+// import com.example.fontRendering.TextMaster;
+import com.example.models.TexturedModel;
+import com.example.renderEngine.Display;
+import com.example.renderEngine.DisplayManager;
+import com.example.renderEngine.Loader;
+import com.example.renderEngine.Renderer12;
+import com.example.shaders.StaticShader12;
 
 public class MainGameLoop12
 {
@@ -36,16 +33,16 @@ public class MainGameLoop12
 
         TexturedModel staticModel = loader.createTexturedModel("dragon", "white", 2, 1);
         
-        TextMaster.init(loader);
-        FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
-        text.setColor(0.2f, 0.2f, 0.8f);
-        FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
-        text2.setColor(0.8f, 0.2f, 0.2f);
-        FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
-        text3.setColor(0.8f, 0.8f, 0.2f);
+        // TextMaster.init(loader);
+        // FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        // GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
+        // text.setColor(0.2f, 0.2f, 0.8f);
+        // FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        // GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
+        // text2.setColor(0.8f, 0.2f, 0.2f);
+        // FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        // GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
+        // text3.setColor(0.8f, 0.8f, 0.2f);
         
         
         // create some random entities 
@@ -96,12 +93,12 @@ public class MainGameLoop12
             }
             shader.stop();
             
-            TextMaster.render();
+            // TextMaster.render();
                         
             DisplayManager.updateDisplay();
         }
 
-        TextMaster.cleanUp();
+        // TextMaster.cleanUp();
         shader.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();

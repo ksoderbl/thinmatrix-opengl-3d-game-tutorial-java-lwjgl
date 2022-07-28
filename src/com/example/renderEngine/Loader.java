@@ -16,18 +16,16 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 // import org.lwjgl.opengl.GL33;
-// import org.newdawn.slick.opengl.Texture;
-// import org.newdawn.slick.opengl.TextureLoader;
 import com.example.textures.Texture;
 import com.example.textures.TextureLoader;
 
 // import de.matthiasmann.twl.utils.PNGDecoder;
 // import de.matthiasmann.twl.utils.PNGDecoder.Format;
 import com.example.models.RawModel;
-// import com.example.models.TexturedModel;
+import com.example.models.TexturedModel;
 // import com.example.normalMappingObjConverter.NormalMappedObjLoader;
-// import com.example.objConverter.OBJFileLoader;
-// import com.example.textures.ModelTexture;
+import com.example.objConverter.OBJFileLoader;
+import com.example.textures.ModelTexture;
 // import com.example.textures.TextureData;
 
 public class Loader {
@@ -273,19 +271,19 @@ public class Loader {
         return buffer;
     }
 
-    // // allows creating textured models more easily in main game loop
-    // public TexturedModel createTexturedModel(
-    //         String objFileName,
-    //         String textureFileName,
-    //         float materialShineDamper,
-    //         float materialReflectivity) {
-    //     RawModel model = OBJFileLoader.loadOBJ(objFileName, this);
-    //     ModelTexture texture = new ModelTexture(this.loadTexture(textureFileName));
-    //     texture.setShineDamper(materialShineDamper);
-    //     texture.setReflectivity(materialReflectivity);
-    //     TexturedModel texturedModel = new TexturedModel(model, texture);
-    //     return texturedModel;
-    // }
+    // allows creating textured models more easily in main game loop
+    public TexturedModel createTexturedModel(
+            String objFileName,
+            String textureFileName,
+            float materialShineDamper,
+            float materialReflectivity) {
+        RawModel model = OBJFileLoader.loadOBJ(objFileName, this);
+        ModelTexture texture = new ModelTexture(this.loadTexture(textureFileName));
+        texture.setShineDamper(materialShineDamper);
+        texture.setReflectivity(materialReflectivity);
+        TexturedModel texturedModel = new TexturedModel(model, texture);
+        return texturedModel;
+    }
     
     // public TexturedModel createTexturedModel(
     //         String objFileName,
