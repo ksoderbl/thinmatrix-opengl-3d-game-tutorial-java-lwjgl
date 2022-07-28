@@ -1,9 +1,9 @@
 package com.example.engineTester;
 
-import java.io.File;
+// import java.io.File;
 import java.util.Random;
 
-import org.joml.Vector2f;
+// import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import com.example.entities.Camera08;
@@ -13,6 +13,7 @@ import com.example.entities.Entity;
 // import com.example.fontRendering.TextMaster;
 import com.example.models.RawModel;
 import com.example.models.TexturedModel;
+import com.example.renderEngine.Display;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
 import com.example.renderEngine.Renderer08;
@@ -89,7 +90,7 @@ public class MainGameLoop08
         
         Camera08 camera = new Camera08();
         
-        while (!DisplayManager.isCloseRequested()) {
+        while (!Display.isCloseRequested()) {
             
             for (int i = 0; i < entities.length; i++) {
                 //entities[i].increasePosition(0, 0, 0.00001f*i);
