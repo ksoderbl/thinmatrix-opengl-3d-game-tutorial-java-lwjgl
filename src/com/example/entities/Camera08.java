@@ -1,7 +1,7 @@
-package entities;
+package com.example.entities;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.util.vector.Vector3f;
+// import org.lwjgl.input.Keyboard;
+import org.joml.Vector3f;
 
 public class Camera08 implements Camera {
 
@@ -16,19 +16,20 @@ public class Camera08 implements Camera {
 
     }
 
+    // TODO
     public void move() {
-        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            position.z -= 0.1f;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            position.z += 0.1f;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-            position.x += 0.1f;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-            position.x -= 0.1f;
-        }
+        // if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+        //     position.z -= 0.1f;
+        // }
+        // if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+        //     position.z += 0.1f;
+        // }
+        // if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+        //     position.x += 0.1f;
+        // }
+        // if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+        //     position.x -= 0.1f;
+        // }
     }
     
     public void invertPitch() {
@@ -52,6 +53,6 @@ public class Camera08 implements Camera {
     }
     
     public void printPosition() {
-        System.out.println("Camera Pos: (" + position.getX() + ", " + position.getY() + ", " + position.getZ() + ")");
+        System.out.println("Camera Pos: (" + position.get(0) + ", " + position.get(1) + ", " + position.get(2) + ")");
     }
 }

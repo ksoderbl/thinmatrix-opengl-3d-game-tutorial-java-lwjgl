@@ -1,12 +1,9 @@
 package com.example.renderEngine;
 
-
-
 public class DisplayManager {
     private static final int CREATE_WIDTH = 1280;
     private static final int CREATE_HEIGHT = 720;
     // private static final int FPS_CAP = 120;
-    private static Display display;
 
     // private static boolean vsync = true; // TODO
 

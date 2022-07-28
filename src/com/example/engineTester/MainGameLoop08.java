@@ -1,26 +1,23 @@
-package engineTester;
+package com.example.engineTester;
 
 import java.io.File;
 import java.util.Random;
 
-import org.lwjgl.opengl.Display;
-import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 
-import entities.Camera08;
-import entities.Entity;
-import fontMeshCreator.FontType;
-import fontMeshCreator.GUIText;
-import fontRendering.TextMaster;
-import models.RawModel;
-import models.TexturedModel;
-import renderEngine.DisplayManager;
-import renderEngine.Loader;
-import renderEngine.Renderer08;
-import shaders.StaticShader08;
-import textures.ModelTexture;
-
-// https://www.youtube.com/watch?v=50Y9u7K0PZo&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP
+import com.example.entities.Camera08;
+import com.example.entities.Entity;
+// import com.example.fontMeshCreator.FontType;
+// import com.example.fontMeshCreator.GUIText;
+// import com.example.fontRendering.TextMaster;
+import com.example.models.RawModel;
+import com.example.models.TexturedModel;
+import com.example.renderEngine.DisplayManager;
+import com.example.renderEngine.Loader;
+import com.example.renderEngine.Renderer08;
+import com.example.shaders.StaticShader08;
+import com.example.textures.ModelTexture;
 
 public class MainGameLoop08
 {
@@ -57,19 +54,19 @@ public class MainGameLoop08
         ModelTexture texture = new ModelTexture(loader.loadTexture("image"));
         TexturedModel staticModel = new TexturedModel(model, texture);
         
-        TextMaster.init(loader);
+        // TextMaster.init(loader);
         
-        FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
-        text.setColor(0.2f, 0.2f, 0.8f);
+        // FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        // GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
+        // text.setColor(0.2f, 0.2f, 0.8f);
         
-        FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
-        text2.setColor(0.8f, 0.2f, 0.2f);
+        // FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        // GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
+        // text2.setColor(0.8f, 0.2f, 0.2f);
         
-        FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
-        text3.setColor(0.8f, 0.8f, 0.2f);
+        // FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        // GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
+        // text3.setColor(0.8f, 0.8f, 0.2f);
         
         
         // create some random entities 
@@ -92,7 +89,7 @@ public class MainGameLoop08
         
         Camera08 camera = new Camera08();
         
-        while (!Display.isCloseRequested()) {
+        while (!DisplayManager.isCloseRequested()) {
             
             for (int i = 0; i < entities.length; i++) {
                 //entities[i].increasePosition(0, 0, 0.00001f*i);
@@ -108,12 +105,12 @@ public class MainGameLoop08
             }
             shader.stop();
             
-            TextMaster.render();
+            // TextMaster.render();
                         
             DisplayManager.updateDisplay();
         }
 
-        TextMaster.cleanUp();
+        // TextMaster.cleanUp();
         shader.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();

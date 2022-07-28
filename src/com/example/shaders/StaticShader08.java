@@ -1,14 +1,14 @@
-package shaders;
+package com.example.shaders;
 
-import org.lwjgl.util.vector.Matrix4f;
+import org.joml.Matrix4f;
 
-import entities.Camera08;
-import toolbox.Maths;
+import com.example.entities.Camera08;
+import com.example.toolbox.Maths;
 
 public class StaticShader08 extends ShaderProgram {
 
-    private static final String VERTEX_FILE = "src/shaders/vertexShader08.glsl";
-    private static final String FRAGMENT_FILE = "src/shaders/fragmentShader08.glsl";
+    private static final String VERTEX_FILE = "src/com/example/shaders/vertexShader08.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/shaders/fragmentShader08.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;

@@ -1,6 +1,6 @@
-package entities;
+package com.example.entities;
 
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector3f;
 
 public interface Camera {
     public void move();
