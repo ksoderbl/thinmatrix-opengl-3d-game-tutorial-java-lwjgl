@@ -1,0 +1,58 @@
+package com.example.renderEngine;
+
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL.*;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.system.MemoryUtil.*;
+
+public class Display {
+    private static String title;
+    private static int width;
+    private static int height;
+    
+    private static long window = -1L;
+
+    public static void createDisplay(String Title, int Width, int Height) {
+        title = Title;
+        width = Width;
+        height = Height;
+
+        glfwInit();
+        glfwDefaultWindowHints();
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        // glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+        window = glfwCreateWindow(width, height, title, NULL, NULL);
+        glfwMakeContextCurrent(window);
+        createCapabilities();
+        glViewport(0,0, width, height);
+    }
+
+    public static boolean isCloseRequested() {
+        return glfwWindowShouldClose(window);
+    }
+
+    public static void updateDisplay() {
+        glfwPollEvents();
+        glfwSwapBuffers(window);
+    }
+
+    public static void closeDisplay() {
+        glfwTerminate();
+    }
+
+    public static String getTitle() {
+        return title;
+    }
+
+    public static int getWidth() {
+        return width;
+    }
+
+    public static int getHeight() {
+        return height;
+    }
+}

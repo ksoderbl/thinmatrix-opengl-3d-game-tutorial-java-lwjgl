@@ -13,6 +13,7 @@ import org.joml.Vector3f;
 // import com.example.fontRendering.TextMaster;
 import com.example.models.RawModel;
 import com.example.models.TexturedModel;
+import com.example.renderEngine.Display;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
 import com.example.renderEngine.Renderer07;
@@ -68,7 +69,7 @@ public class MainGameLoop07
 
         Matrix4f m = Maths.createTransformationMatrix(translation, 45.0f, 45.0f, 45.0f, 1.0f);
 
-        while (!DisplayManager.isCloseRequested()) {
+        while (!Display.isCloseRequested()) {
             
             // disable depth test because TextMaster turns it on
             // GL11.glDisable(GL11.GL_DEPTH_TEST);
