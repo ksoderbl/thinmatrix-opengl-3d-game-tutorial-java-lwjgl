@@ -1,20 +1,20 @@
 package com.example.toolbox;
 
 import org.joml.Matrix4f;
-import org.joml.Vector2f;
+// import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 // import entities.Camera;
 
 public class Maths {
 
-    public static float baryCentric(Vector3f p1, Vector3f p2, Vector3f p3, Vector2f pos) {
-        float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
-        float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;
-        float l2 = ((p3.z - p1.z) * (pos.x - p3.x) + (p1.x - p3.x) * (pos.y - p3.z)) / det;
-        float l3 = 1.0f - l1 - l2;
-        return l1 * p1.y + l2 * p2.y + l3 * p3.y;
-    }
+    // public static float baryCentric(Vector3f p1, Vector3f p2, Vector3f p3, Vector2f pos) {
+    //     float det = (p2.z - p3.z) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.z - p3.z);
+    //     float l1 = ((p2.z - p3.z) * (pos.x - p3.x) + (p3.x - p2.x) * (pos.y - p3.z)) / det;
+    //     float l2 = ((p3.z - p1.z) * (pos.x - p3.x) + (p1.x - p3.x) * (pos.y - p3.z)) / det;
+    //     float l3 = 1.0f - l1 - l2;
+    //     return l1 * p1.y + l2 * p2.y + l3 * p3.y;
+    // }
 
     // // For OpenGL 3D Game Tutorial 24: Rendering GUIs
     // public static Matrix4f createTransformationMatrix(
@@ -44,7 +44,7 @@ public class Maths {
 
         Matrix4f matrix = new Matrix4f();
 
-        System.out.println("matrix1: \n" + matrix.toString());
+        // System.out.println("matrix1: \n" + matrix.toString());
 
         matrix.translate(translation);
 
@@ -80,13 +80,21 @@ public class Maths {
             float yaw,
             float roll) {
         Matrix4f viewMatrix = new Matrix4f();
+
+        // System.out.println("cameraPos: \n" + cameraPos.toString());
+        // System.out.println("viewMatrix1: \n" + viewMatrix.toString());
+
         // TODO
         // viewMatrix.setIdentity();
         // Matrix4f.rotate((float) Math.toRadians(pitch), new Vector3f(1, 0, 0), viewMatrix, viewMatrix);
         // Matrix4f.rotate((float) Math.toRadians(yaw),   new Vector3f(0, 1, 0), viewMatrix, viewMatrix);
         // Matrix4f.rotate((float) Math.toRadians(roll),  new Vector3f(0, 0, 1), viewMatrix, viewMatrix);
-        // Vector3f negativeCameraPos = new Vector3f(-cameraPos.x, -cameraPos.y, -cameraPos.z);
+        Vector3f negativeCameraPos = new Vector3f(-cameraPos.x, -cameraPos.y, -cameraPos.z);
         // Matrix4f.translate(negativeCameraPos, viewMatrix, viewMatrix);
+        viewMatrix.translate(negativeCameraPos);
+
+        // System.out.println("viewMatrix2: \n" + viewMatrix.toString());
+
         return viewMatrix;
     }
 }

@@ -1,6 +1,6 @@
-package objConverter;
+package com.example.objConverter;
 
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class Vertex {
     private List<Vector3f> tangents = new ArrayList<Vector3f>();
     private Vector3f averagedTangent = new Vector3f(0, 0, 0);
 
-    public Vertex(int index,Vector3f position){
+    public Vertex(int index, Vector3f position){
         this.index = index;
         this.position = position;
         this.length = position.length();
@@ -33,7 +33,8 @@ public class Vertex {
             return;
         }
         for (Vector3f tangent : tangents) {
-            Vector3f.add(averagedTangent, tangent, averagedTangent);
+            //Vector3f.add(averagedTangent, tangent, averagedTangent);
+            averagedTangent.add(tangent);
         }
 //      Added length check because lowPolyTree.obj got:
 //      OBJFileLoader: loaded file: res/lowPolyTree.obj
@@ -45,7 +46,7 @@ public class Vertex {
 //          at org.lwjgl.util.vector.Vector.normalise(Vector.java:91)
 //            at objConverter.Vertex.averageTangents(Vertex.java:38)
         if (averagedTangent.length() > 0.0f) {
-            averagedTangent.normalise();
+            averagedTangent.normalize();
         }
     }
 

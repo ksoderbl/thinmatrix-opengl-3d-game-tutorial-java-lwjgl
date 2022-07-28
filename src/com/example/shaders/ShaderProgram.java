@@ -91,12 +91,6 @@ public abstract class ShaderProgram {
     }
 
     protected void loadMatrix(int location, Matrix4f matrix) {
-        // matrix.store(matrixBuffer);
-        // matrixBuffer.flip();
-        // GL20.glUniformMatrix4(location, false, matrixBuffer);
-
-        // System.out.println("matrix: " + matrix.toString());
-
         GL20.glUniformMatrix4fv(location, true, matrix.get(matrixBuffer));
     }
 

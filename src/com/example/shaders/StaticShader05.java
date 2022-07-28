@@ -16,7 +16,6 @@ public class StaticShader05 extends ShaderProgram {
 
     @Override
     protected void getAllUniformLocations() {
-        // TODO Auto-generated method stub
         
     }
 }

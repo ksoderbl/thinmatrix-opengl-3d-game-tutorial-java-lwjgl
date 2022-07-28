@@ -33,13 +33,13 @@ import com.example.models.RawModel;
 public class Loader {
 
     // OpenGL 3D Game Tutorial 20: Mipmapping: level of detail bias
-    private final static float LOD_BIAS = -0.4f;
+    // private final static float LOD_BIAS = -0.4f;
 
     private List<Integer> vaos = new ArrayList<>();
     private List<Integer> vbos = new ArrayList<>();
     private List<Integer> textures = new ArrayList<>();
 
-    // For OpenGL 3D Game Tutorial 5: Coloring using Shaders
+    // OpenGL 3D Game Tutorial 3: Rendering with Index Buffers
     public RawModel loadToVAO(float[] positions, int[] indices) {
         int vaoID = createVAO();
         bindIndicesBuffer(indices);
@@ -58,15 +58,15 @@ public class Loader {
         return new RawModel(vaoID, indices.length);
     }
 
-    // public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices) {
-    //     int vaoID = createVAO();
-    //     bindIndicesBuffer(indices);
-    //     storeDataInAttributeList(0, 3, positions);
-    //     storeDataInAttributeList(1, 2, textureCoords);
-    //     storeDataInAttributeList(2, 3, normals);
-    //     unbindVAO();
-    //     return new RawModel(vaoID, indices.length);
-    // }
+    public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices) {
+        int vaoID = createVAO();
+        bindIndicesBuffer(indices);
+        storeDataInAttributeList(0, 3, positions);
+        storeDataInAttributeList(1, 2, textureCoords);
+        storeDataInAttributeList(2, 3, normals);
+        unbindVAO();
+        return new RawModel(vaoID, indices.length);
+    }
 
     // // OpenGL 3D Game Tutorial 32: Font Rendering
     // public int loadToVAO(float[] positions, float[] textureCoords) {
@@ -113,25 +113,25 @@ public class Loader {
     //     GL30.glBindVertexArray(0);
     // }
     
-    public void updateVbo(int vbo, float[] data, FloatBuffer buffer) {
-        buffer.clear();
-        buffer.put(data);
-        buffer.flip();
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer.capacity() * 4, GL15.GL_STREAM_DRAW);
-        GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, buffer);
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-    }
+    // public void updateVbo(int vbo, float[] data, FloatBuffer buffer) {
+    //     buffer.clear();
+    //     buffer.put(data);
+    //     buffer.flip();
+    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+    //     GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer.capacity() * 4, GL15.GL_STREAM_DRAW);
+    //     GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, buffer);
+    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+    // }
     
     // OpenGL 3D Game Tutorial 24: Rendering GUIs
-    public RawModel loadToVAO(float[] positions, int dimensions) {
-        int vaoID = createVAO();
-        storeDataInAttributeList(0, dimensions, positions);
-        unbindVAO();
-        return new RawModel(vaoID, positions.length / dimensions);
-    }
+    // public RawModel loadToVAO(float[] positions, int dimensions) {
+    //     int vaoID = createVAO();
+    //     storeDataInAttributeList(0, dimensions, positions);
+    //     unbindVAO();
+    //     return new RawModel(vaoID, positions.length / dimensions);
+    // }
 
-    public int loadTexture(String fileName, float lodBias) {
+    public int loadTexture(String fileName) { //, float lodBias) {
         Texture texture = null;
         fileName = "res/" + fileName + ".png";
 
@@ -161,9 +161,9 @@ public class Loader {
         return textureID;
     }
 
-    public int loadTexture(String fileName) {
-        return loadTexture(fileName, LOD_BIAS);
-    }
+    // public int loadTexture(String fileName) {
+    //     return loadTexture(fileName, LOD_BIAS);
+    // }
 
     // public int loadFontTextureAtlas(String fileName) {
     //     return loadTexture("fonts/" + fileName, 0);
