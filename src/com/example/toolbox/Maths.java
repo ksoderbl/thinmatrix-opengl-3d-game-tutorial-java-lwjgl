@@ -4,7 +4,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import entities.Camera;
+// import entities.Camera;
 
 public class Maths {
 
@@ -50,7 +50,7 @@ public class Maths {
 
         // System.out.println("matrix after translation: \n" + matrix.toString());
 
-        matrix.rotateXYZ(rx, ry, rz);
+        matrix.rotateXYZ((float) Math.toRadians(rx), (float) Math.toRadians(ry), (float) Math.toRadians(rz));
 
         // System.out.println("matrix after rotation: \n" + matrix.toString());
 
