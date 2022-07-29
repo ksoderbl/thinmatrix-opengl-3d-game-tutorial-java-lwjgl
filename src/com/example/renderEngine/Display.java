@@ -35,12 +35,12 @@ public class Display {
         return glfwWindowShouldClose(window);
     }
 
-    public static void updateDisplay() {
+    public static void update() {
         glfwPollEvents();
         glfwSwapBuffers(window);
     }
 
-    public static void closeDisplay() {
+    public static void destroy() {
         glfwTerminate();
     }
 
