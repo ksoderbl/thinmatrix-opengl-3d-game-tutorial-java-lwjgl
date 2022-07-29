@@ -1,13 +1,13 @@
-package guis;
+package com.example.guis;
 
-import org.lwjgl.util.vector.Matrix4f;
+import org.joml.Matrix4f;
 
-import shaders.ShaderProgram;
+import com.example.shaders.ShaderProgram;
 
 public class GuiShader extends ShaderProgram{
 
-    private static final String VERTEX_FILE = "src/guis/guiVertexShader.glsl";
-    private static final String FRAGMENT_FILE = "src/guis/guiFragmentShader.glsl";
+    private static final String VERTEX_FILE = "src/com/example/guis/guiVertexShader.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/guis/guiFragmentShader.glsl";
 
     private int location_transformationMatrix;
 
@@ -15,7 +15,7 @@ public class GuiShader extends ShaderProgram{
         super(VERTEX_FILE, FRAGMENT_FILE);
     }
 
-    public void loadTransformation(Matrix4f matrix){
+    public void loadTransformation(Matrix4f matrix) {
         super.loadMatrix(location_transformationMatrix, matrix);
     }
 

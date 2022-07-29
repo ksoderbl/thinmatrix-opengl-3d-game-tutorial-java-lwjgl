@@ -1,7 +1,7 @@
 package com.example.toolbox;
 
 import org.joml.Matrix4f;
-// import org.joml.Vector2f;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import com.example.entities.Camera;
@@ -17,14 +17,15 @@ public class Maths {
     // }
 
     // // For OpenGL 3D Game Tutorial 24: Rendering GUIs
-    // public static Matrix4f createTransformationMatrix(
-    //         Vector2f translation, Vector2f scale) {
-    //     Matrix4f matrix = new Matrix4f();
-    //     // matrix.setIdentity();
-    //     // Matrix4f.translate(translation, matrix, matrix);
-    //     // Matrix4f.scale(new Vector3f(scale.x, scale.y, 1f), matrix, matrix);
-    //     return matrix;
-    // }
+    public static Matrix4f createTransformationMatrix(
+            Vector2f translation, Vector2f scale) {
+        Matrix4f matrix = new Matrix4f();
+        // TODO
+        // matrix.setIdentity();
+        // Matrix4f.translate(translation, matrix, matrix);
+        // Matrix4f.scale(new Vector3f(scale.x, scale.y, 1f), matrix, matrix);
+        return matrix;
+    }
 
     // For OpenGL 3D Game Tutorial 7: Matrices & Uniform Variables
     public static Matrix4f createTransformationMatrix(

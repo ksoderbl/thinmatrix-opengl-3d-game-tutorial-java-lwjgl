@@ -1,6 +1,6 @@
-package guis;
+package com.example.guis;
 
-import org.lwjgl.util.vector.Vector2f;
+import org.joml.Vector2f;
 
 public class GuiTexture {
 

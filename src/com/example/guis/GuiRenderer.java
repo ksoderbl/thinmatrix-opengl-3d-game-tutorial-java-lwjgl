@@ -1,15 +1,16 @@
-package guis;
+package com.example.guis;
 
-import models.RawModel;
+import java.util.List;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-import org.lwjgl.util.vector.Matrix4f;
-import renderEngine.Loader;
-import toolbox.Maths;
+import org.joml.Matrix4f;
 
-import java.util.List;
+import com.example.models.RawModel;
+import com.example.renderEngine.Loader;
+import com.example.toolbox.Maths;
 
 public class GuiRenderer {
 
