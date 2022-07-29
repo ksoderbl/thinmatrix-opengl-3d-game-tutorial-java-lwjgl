@@ -1,4 +1,4 @@
-package renderEngine;
+package com.example.renderEngine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,15 +11,15 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector4f;
 
-import entities.Camera;
-import entities.Entity;
-import entities.Light;
-import models.TexturedModel;
-import normalMappingRenderer.NormalMappingRenderer;
-import shaders.StaticShader;
-import skybox.SkyboxRenderer;
-import terrains.Terrain;
-import terrains.TerrainShader;
+import com.example.entities.Camera;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+import com.example.models.TexturedModel;
+import com.example.normalMappingRenderer.NormalMappingRenderer;
+import com.example.shaders.StaticShader;
+import com.example.skybox.SkyboxRenderer;
+import com.example.terrains.Terrain;
+import com.example.terrains.TerrainShader;
 
 public class MasterRenderer {
 
