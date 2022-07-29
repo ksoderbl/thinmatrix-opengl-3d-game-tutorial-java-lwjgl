@@ -1,17 +1,17 @@
-package terrains;
+package com.example.terrains;
 
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
-import entities.Camera;
-import entities.Light;
-import shaders.ShaderProgram;
-import toolbox.Maths;
+import com.example.entities.Camera;
+import com.example.entities.Light;
+import com.example.shaders.ShaderProgram;
+import com.example.toolbox.Maths;
 
 public class TerrainShader17 extends ShaderProgram {
 
-    private static final String VERTEX_FILE = "src/terrains/terrainVertexShader17.glsl";
-    private static final String FRAGMENT_FILE = "src/terrains/terrainFragmentShader17.glsl";
+    private static final String VERTEX_FILE = "src/com/example/terrains/terrainVertexShader17.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/terrains/terrainFragmentShader17.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;

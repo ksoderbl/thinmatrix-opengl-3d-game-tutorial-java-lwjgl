@@ -1,21 +1,20 @@
-package renderEngine;
+package com.example.renderEngine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Matrix4f;
+import org.joml.Matrix4f;
 
-import entities.Camera;
-import entities.Entity;
-import entities.Light;
-import models.TexturedModel;
-import shaders.StaticShader16;
-import terrains.Terrain;
-import terrains.TerrainShader17;
+import com.example.entities.Camera;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+import com.example.models.TexturedModel;
+import com.example.shaders.StaticShader16;
+import com.example.terrains.Terrain;
+import com.example.terrains.TerrainShader17;
 
 public class MasterRenderer17 {
     
@@ -115,15 +114,15 @@ public class MasterRenderer17 {
         float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
         float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))) * aspectRatio);
         float x_scale = y_scale / aspectRatio;
-        float frustum_length = FAR_PLANE - NEAR_PLANE;
+        float frustumLength = FAR_PLANE - NEAR_PLANE;
 
         projectionMatrix = new Matrix4f();
-        projectionMatrix.m00 = x_scale;
-        projectionMatrix.m11 = y_scale;
-        projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustum_length);
-        projectionMatrix.m23 = -1;
-        projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
-        projectionMatrix.m33 = 0;
+        projectionMatrix.m00(x_scale);
+        projectionMatrix.m11(y_scale);
+        projectionMatrix.m22(-((FAR_PLANE + NEAR_PLANE) / frustumLength));
+        projectionMatrix.m23(-1);
+        projectionMatrix.m32(-((2 * NEAR_PLANE * FAR_PLANE) / frustumLength));
+        projectionMatrix.m33(0);
     }
 
     public Matrix4f getProjectionMatrix() {

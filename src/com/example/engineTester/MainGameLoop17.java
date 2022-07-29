@@ -1,30 +1,27 @@
-package engineTester;
+package com.example.engineTester;
 
-import java.io.File;
+// import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.opengl.Display;
-import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
+// import org.joml.Vector2f;
+import org.joml.Vector3f;
 
-import entities.Camera13;
-import entities.Entity;
-import entities.Light;
-import fontMeshCreator.FontType;
-import fontMeshCreator.GUIText;
-import fontRendering.TextMaster;
-import models.TexturedModel;
-import renderEngine.DisplayManager;
-import renderEngine.Loader;
-import renderEngine.MasterRenderer17;
-import terrains.Terrain17;
-import textures.TerrainTexture;
-import textures.TerrainTexturePack;
-
-// OpenGL 3D Game Tutorial 17: Multitexturing
-// https://www.youtube.com/watch?v=-kbal7aGUpk&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=17
+import com.example.entities.Camera13;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+// import com.example.fontMeshCreator.FontType;
+// import com.example.fontMeshCreator.GUIText;
+// import com.example.fontRendering.TextMaster;
+import com.example.models.TexturedModel;
+import com.example.renderEngine.Display;
+import com.example.renderEngine.DisplayManager;
+import com.example.renderEngine.Loader;
+import com.example.renderEngine.MasterRenderer17;
+import com.example.terrains.Terrain17;
+import com.example.textures.TerrainTexture;
+import com.example.textures.TerrainTexturePack;
 
 public class MainGameLoop17
 {
@@ -36,18 +33,18 @@ public class MainGameLoop17
         DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         Camera13 camera = new Camera13();
-        camera.getPosition().translate(0, 4, 0);
+        camera.getPosition().set(0, 4, 0);
 
-        TextMaster.init(loader);
-        FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
-        text.setColor(0.2f, 0.2f, 0.8f);
-        FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
-        text2.setColor(0.8f, 0.2f, 0.2f);
-        FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
-        text3.setColor(0.8f, 0.8f, 0.2f);
+        // TextMaster.init(loader);
+        // FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        // GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
+        // text.setColor(0.2f, 0.2f, 0.8f);
+        // FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        // GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
+        // text2.setColor(0.8f, 0.2f, 0.2f);
+        // FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        // GUIText text3 = new GUIText(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
+        // text3.setColor(0.8f, 0.8f, 0.2f);
         
         // *********TERRAIN TEXTURE STUFF**********
 
@@ -156,7 +153,7 @@ public class MainGameLoop17
             renderer.processTerrain(terrain2);
             
             renderer.render(light, camera);
-            TextMaster.render();
+            // TextMaster.render();
             DisplayManager.updateDisplay();
             
             if ((i % 60) == 0) {
@@ -165,7 +162,7 @@ public class MainGameLoop17
             i++;
         }
 
-        TextMaster.cleanUp();
+        // TextMaster.cleanUp();
         renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
