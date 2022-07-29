@@ -1,6 +1,6 @@
-package skybox;
+package com.example.skybox;
 
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector3f;
 
 public class Sky {
     public static final float CLEAR_RED   = 0.2f;
