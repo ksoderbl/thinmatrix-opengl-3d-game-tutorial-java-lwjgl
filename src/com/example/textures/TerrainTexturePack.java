@@ -1,4 +1,4 @@
-package textures;
+package com.example.textures;
 
 // OpenGL 3D Game Tutorial 17: Multitexturing
 

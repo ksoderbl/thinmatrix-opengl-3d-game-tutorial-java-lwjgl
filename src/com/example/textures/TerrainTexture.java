@@ -1,4 +1,4 @@
-package textures;
+package com.example.textures;
 
 public class TerrainTexture {
 

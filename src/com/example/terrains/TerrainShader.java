@@ -1,22 +1,22 @@
-package terrains;
+package com.example.terrains;
 
 import java.util.List;
 
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Light;
-import shaders.ShaderProgram;
-import toolbox.Maths;
+import com.example.entities.Camera;
+import com.example.entities.Light;
+import com.example.shaders.ShaderProgram;
+import com.example.toolbox.Maths;
 
 public class TerrainShader extends ShaderProgram {
 
     private static final int MAX_LIGHTS = 4;
 
-    private static final String VERTEX_FILE = "src/terrains/terrainVertexShader.glsl";
-    private static final String FRAGMENT_FILE = "src/terrains/terrainFragmentShader.glsl";
+    private static final String VERTEX_FILE = "src/com/example/terrains/terrainVertexShader.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/terrains/terrainFragmentShader.glsl";
 
     private int location_transformationMatrix;
     private int location_projectionMatrix;

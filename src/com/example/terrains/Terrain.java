@@ -1,11 +1,11 @@
-package terrains;
+package com.example.terrains;
 
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector3f;
 
-import models.RawModel;
-import textures.ModelTexture;
-import textures.TerrainTexture;
-import textures.TerrainTexturePack;
+import com.example.models.RawModel;
+import com.example.textures.ModelTexture;
+import com.example.textures.TerrainTexture;
+import com.example.textures.TerrainTexturePack;
 
 public interface Terrain {
     //public static final float SIZE = 800;
