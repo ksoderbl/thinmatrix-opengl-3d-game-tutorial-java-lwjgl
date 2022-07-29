@@ -1,15 +1,15 @@
-package renderEngine;
+package com.example.renderEngine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import entities.Camera;
-import entities.Entity;
-import entities.Light;
-import models.TexturedModel;
-import shaders.StaticShader13;
+import com.example.entities.Camera;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+import com.example.models.TexturedModel;
+import com.example.shaders.StaticShader13;
 
 public class MasterRenderer13 {
 
