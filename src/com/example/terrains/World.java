@@ -1,10 +1,10 @@
-package terrains;
+package com.example.terrains;
 
 import java.util.List;
 
 import org.joml.Vector3f;
 
-import water.WaterTile;
+import com.example.water.WaterTile;
 
 public interface World {
     public float getHeightOfTerrain(float worldX, float worldZ);

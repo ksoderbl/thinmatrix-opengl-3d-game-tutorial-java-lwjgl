@@ -23,7 +23,7 @@ public class MainGameLoop12
 {
     public static String title = "OpenGL 3D Game Tutorial 12";
     public static String subTitle = "Specular Lighting";
-    public static String subSubTitle = "Press, w, a, s or d to move";
+    public static String subSubTitle = "Press w, a, s or d to move";
     
     public static void main(String[] args) {
         DisplayManager.createDisplay(title + ": " + subTitle);

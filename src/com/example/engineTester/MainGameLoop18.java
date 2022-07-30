@@ -28,7 +28,7 @@ public class MainGameLoop18
 {
     public static String title = "OpenGL 3D Game Tutorial 18";
     public static String subTitle = "Player Movement";
-    public static String subSubTitle = "Press, w, a, s or d to move player, arrow keys to move camera";
+    public static String subSubTitle = "Press w, a, s or d to move player, arrow keys to move camera";
     
     public static void main(String[] args) {
         DisplayManager.createDisplay(title + ": " + subTitle);

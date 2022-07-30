@@ -45,12 +45,12 @@ public class Player19 extends Entity {
         }
     }
 
-    private void jump() {
-        if (!isInAir) {
-            this.upwardsSpeed = JUMP_POWER;
-            isInAir = true;
-        }
-    }
+    // private void jump() {
+    //     if (!isInAir) {
+    //         this.upwardsSpeed = JUMP_POWER;
+    //         isInAir = true;
+    //     }
+    // }
 
     private void checkInputs() {
         // TODO

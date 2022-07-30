@@ -41,9 +41,9 @@ import com.example.water.WaterTile01;
 
 public class MainGameLoop21
 {
-    public static String title = "OpenGL 3D Game Tutorial 21: Terrain Height Maps";
-    public static String subTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
-    public static String subSubTitle = "Use key c to swap to second camera, move it with arrow keys";
+    public static String title = "OpenGL 3D Game Tutorial 21";
+    public static String subTitle = "Terrain Height Maps";
+    public static String subSubTitle = "Press w, a, s or d to move player, use mouse to control camera";
     
     public static void main(String[] args) {
         DisplayManager.createDisplay(title + ": " + subTitle);
