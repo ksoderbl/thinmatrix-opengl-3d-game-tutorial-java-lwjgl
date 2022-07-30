@@ -254,7 +254,7 @@ public class MainGameLoop27
         MasterRenderer27 renderer = new MasterRenderer27(loader);
         
         int i = 0;
-        int cameraFrames = 0;
+        // int cameraFrames = 0;
         
         // Water
         WaterFrameBuffers buffers = new WaterFrameBuffers();

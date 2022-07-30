@@ -48,22 +48,22 @@ public class MainGameLoop26
         DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
 
-        // TextMaster.init(loader);
-        // if (title.length() > 0) {
-        //     FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        //     GUIText text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
-        //     text.setColor(0.1f, 0.1f, 0.4f);
-        // }
-        // if (subTitle.length() > 0) {
-        //     FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        //     GUIText text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
-        //     text2.setColor(0.4f, 0.1f, 0.1f);
-        // }
-        // if (subSubTitle.length() > 0) {
-        //     FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        //     GUIText text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
-        //     text3.setColor(0.1f, 0.4f, 0.1f);
-        // }
+        TextMaster.init(loader);
+        if (title.length() > 0) {
+            FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
+            text.setColor(0.1f, 0.1f, 0.4f);
+        }
+        if (subTitle.length() > 0) {
+            FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
+            text2.setColor(0.4f, 0.1f, 0.1f);
+        }
+        if (subSubTitle.length() > 0) {
+            FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
+            text3.setColor(0.1f, 0.4f, 0.1f);
+        }
         
         float terrainSize = 20000;
         float terrainMaxHeight = 7000;
