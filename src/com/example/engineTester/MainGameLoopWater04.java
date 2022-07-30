@@ -1,6 +1,6 @@
 package com.example.engineTester;
 
-// import java.io.File;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +8,7 @@ import java.util.Random;
 // import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
-// import org.joml.Vector2f;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
@@ -18,9 +18,9 @@ import com.example.entities.CameraWater04;
 import com.example.entities.Entity;
 import com.example.entities.Light;
 import com.example.entities.PlayerWater04;
-// import com.example.fontMeshCreator.FontType;
-// import com.example.fontMeshCreator.GUIText;
-// import com.example.fontRendering.TextMaster;
+import com.example.fontMeshCreator.FontType;
+import com.example.fontMeshCreator.GUIText;
+import com.example.fontRendering.TextMaster;
 import com.example.models.TexturedModel;
 import com.example.renderEngine.Display;
 import com.example.renderEngine.DisplayManager;
@@ -39,30 +39,29 @@ import com.example.water.WaterTile04;
 public class MainGameLoopWater04
 {
     public static String title = "OpenGL Water Tutorial 4";
-    public static String subTitle = "Projective Texture Mapping"; //
+    public static String subTitle = "Projective Texture Mapping";
     public static String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
-     //"Use key c to swap to second camera, move it with arrow keys";
     
     public static void main(String[] args) {
         DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
 
-        // TextMaster.init(loader);
-        // if (title.length() > 0) {
-        //     FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        //     GUIText text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
-        //     text.setColor(0.1f, 0.1f, 0.4f);
-        // }
-        // if (subTitle.length() > 0) {
-        //     FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        //     GUIText text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
-        //     text2.setColor(0.4f, 0.1f, 0.1f);
-        // }
-        // if (subSubTitle.length() > 0) {
-        //     FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        //     GUIText text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
-        //     text3.setColor(0.1f, 0.4f, 0.1f);
-        // }
+        TextMaster.init(loader);
+        if (title.length() > 0) {
+            FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
+            text.setColor(0.1f, 0.1f, 0.4f);
+        }
+        if (subTitle.length() > 0) {
+            FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
+            text2.setColor(0.4f, 0.1f, 0.1f);
+        }
+        if (subSubTitle.length() > 0) {
+            FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
+            text3.setColor(0.1f, 0.4f, 0.1f);
+        }
         
         float terrainSize = 20000;
         float terrainMaxHeight = 7000;
@@ -308,7 +307,7 @@ public class MainGameLoopWater04
             waterRenderer.render(waters, sky, camera);
             //guiRenderer.render(guiTextures);
 
-            // TextMaster.render();
+            TextMaster.render();
             
             DisplayManager.updateDisplay();
             
@@ -320,7 +319,7 @@ public class MainGameLoopWater04
 
         buffers.cleanUp();
         waterShader.cleanUp();
-        // TextMaster.cleanUp();
+        TextMaster.cleanUp();
         renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();

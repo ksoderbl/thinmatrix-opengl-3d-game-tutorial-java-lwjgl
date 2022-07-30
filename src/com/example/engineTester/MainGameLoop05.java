@@ -1,13 +1,13 @@
 package com.example.engineTester;
 
-// import java.io.File;
+import java.io.File;
 
 import org.lwjgl.opengl.GL11;
-// import org.joml.Vector2f;
+import org.joml.Vector2f;
 
-// import com.example.fontMeshCreator.FontType;
-// import com.example.fontMeshCreator.GUIText;
-// import com.example.fontRendering.TextMaster;
+import com.example.fontMeshCreator.FontType;
+import com.example.fontMeshCreator.GUIText;
+import com.example.fontRendering.TextMaster;
 import com.example.models.RawModel;
 import com.example.renderEngine.Display;
 import com.example.renderEngine.DisplayManager;
@@ -35,20 +35,20 @@ public class MainGameLoop05
         
         int[] indices = {
             0, 1, 3,    // Top left triangle
-            3, 1, 2        // Bottom right triangle
+            3, 1, 2     // Bottom right triangle
         };
         
         RawModel model = loader.loadToVAO(vertices, indices);
         
-        // TextMaster.init(loader);
+        TextMaster.init(loader);
         
-        // FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        // GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
-        // text.setColor(0.2f, 0.2f, 0.8f);
+        FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        GUIText text = new GUIText(title, 2.5f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
+        text.setColor(0.2f, 0.2f, 0.8f);
         
-        // FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        // GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
-        // text2.setColor(0.8f, 0.2f, 0.2f);
+        FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        GUIText text2 = new GUIText(subTitle, 2, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
+        text2.setColor(0.8f, 0.2f, 0.2f);
 
         while (!Display.isCloseRequested()) {
             
@@ -60,12 +60,12 @@ public class MainGameLoop05
             renderer.render(model);
             shader.stop();
             
-            // TextMaster.render();
+            TextMaster.render();
                         
             DisplayManager.updateDisplay();
         }
 
-        // TextMaster.cleanUp();
+        TextMaster.cleanUp();
         shader.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();

@@ -1,6 +1,6 @@
 package com.example.engineTester;
 
-// import java.io.File;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,9 +18,9 @@ import com.example.entities.Camera22;
 import com.example.entities.Entity;
 import com.example.entities.Light;
 import com.example.entities.Player22;
-// import com.example.fontMeshCreator.FontType;
-// import com.example.fontMeshCreator.GUIText;
-// import com.example.fontRendering.TextMaster;
+import com.example.fontMeshCreator.FontType;
+import com.example.fontMeshCreator.GUIText;
+import com.example.fontRendering.TextMaster;
 import com.example.guis.GuiRenderer;
 import com.example.guis.GuiTexture;
 import com.example.models.TexturedModel;
@@ -48,22 +48,22 @@ public class MainGameLoop23
         DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
 
-        // TextMaster.init(loader);
-        // if (title.length() > 0) {
-        //     FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        //     GUIText text = new GUIText(title, 2.0f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
-        //     text.setColor(0.2f, 0.2f, 0.8f);
-        // }
-        // if (subTitle.length() > 0) {
-        //     FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        //     GUIText text2 = new GUIText(subTitle, 1.5f, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
-        //     text2.setColor(0.8f, 0.2f, 0.2f);
-        // }
-        // if (subSubTitle.length() > 0) {
-        //     FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-        //     GUIText text3 = new GUIText(subSubTitle, 1.25f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
-        //     text3.setColor(0.2f, 0.8f, 0.2f);
-        // }
+        TextMaster.init(loader);
+        if (title.length() > 0) {
+            FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text = new GUIText(title, 2.0f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
+            text.setColor(0.2f, 0.2f, 0.8f);
+        }
+        if (subTitle.length() > 0) {
+            FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text2 = new GUIText(subTitle, 1.5f, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
+            text2.setColor(0.8f, 0.2f, 0.2f);
+        }
+        if (subSubTitle.length() > 0) {
+            FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            GUIText text3 = new GUIText(subSubTitle, 1.25f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
+            text3.setColor(0.2f, 0.8f, 0.2f);
+        }
         
         World world = new World23(loader);
         List<Terrain> terrains = world.getTerrains();
@@ -260,7 +260,7 @@ public class MainGameLoop23
             waterRenderer.render(waters, sky, camera);
             guiRenderer.render(guiTextures);
 
-            // TextMaster.render();
+            TextMaster.render();
             
             DisplayManager.updateDisplay();
             
@@ -272,7 +272,7 @@ public class MainGameLoop23
 
         buffers.cleanUp();
         waterShader.cleanUp();
-        // TextMaster.cleanUp();
+        TextMaster.cleanUp();
         renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();

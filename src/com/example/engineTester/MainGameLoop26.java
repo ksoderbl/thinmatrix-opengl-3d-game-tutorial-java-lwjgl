@@ -1,6 +1,6 @@
 package com.example.engineTester;
 
-// import java.io.File;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,9 +18,9 @@ import com.example.entities.CameraWater04;
 import com.example.entities.Entity;
 import com.example.entities.Light;
 import com.example.entities.PlayerWater04;
-// import com.example.fontMeshCreator.FontType;
-// import com.example.fontMeshCreator.GUIText;
-// import com.example.fontRendering.TextMaster;
+import com.example.fontMeshCreator.FontType;
+import com.example.fontMeshCreator.GUIText;
+import com.example.fontRendering.TextMaster;
 import com.example.guis.GuiRenderer;
 import com.example.guis.GuiTexture;
 import com.example.models.TexturedModel;
@@ -339,7 +339,7 @@ public class MainGameLoop26
             
             guiRenderer.render(guiTextures);
 
-            // TextMaster.render();
+            TextMaster.render();
             
             DisplayManager.updateDisplay();
             
@@ -351,7 +351,7 @@ public class MainGameLoop26
 
         buffers.cleanUp();
         waterShader.cleanUp();
-        // TextMaster.cleanUp();
+        TextMaster.cleanUp();
         guiRenderer.cleanUp();
         renderer.cleanUp();
         loader.cleanUp();
