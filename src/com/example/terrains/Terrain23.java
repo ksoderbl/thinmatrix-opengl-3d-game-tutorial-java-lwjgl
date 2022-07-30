@@ -1,4 +1,4 @@
-package terrains;
+package com.example.terrains;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,12 +9,12 @@ import javax.imageio.ImageIO;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import models.RawModel;
-import renderEngine.Loader;
-import textures.ModelTexture;
-import textures.TerrainTexture;
-import textures.TerrainTexturePack;
-import toolbox.Maths;
+import com.example.models.RawModel;
+import com.example.renderEngine.Loader;
+import com.example.textures.ModelTexture;
+import com.example.textures.TerrainTexture;
+import com.example.textures.TerrainTexturePack;
+import com.example.toolbox.Maths;
 
 public class Terrain23 implements Terrain {
 
@@ -177,7 +177,7 @@ public class Terrain23 implements Terrain {
         float heightD = getHeight(x, z-1, image);
         float heightU = getHeight(x, z+1, image);
         Vector3f normal = new Vector3f(heightL - heightR, 2f, heightD - heightU);
-        normal.normalise();
+        normal.normalize();
         return normal;
     }
 

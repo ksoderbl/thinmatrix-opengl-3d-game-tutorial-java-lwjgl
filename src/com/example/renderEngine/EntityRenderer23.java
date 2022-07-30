@@ -1,4 +1,4 @@
-package renderEngine;
+package com.example.renderEngine;
 
 import java.util.List;
 import java.util.Map;
@@ -10,12 +10,12 @@ import org.lwjgl.opengl.GL30;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import entities.Entity;
-import models.RawModel;
-import models.TexturedModel;
-import shaders.StaticShader23;
-import textures.ModelTexture;
-import toolbox.Maths;
+import com.example.entities.Entity;
+import com.example.models.RawModel;
+import com.example.models.TexturedModel;
+import com.example.shaders.StaticShader23;
+import com.example.textures.ModelTexture;
+import com.example.toolbox.Maths;
 
 public class EntityRenderer23 {
     
@@ -52,7 +52,7 @@ public class EntityRenderer23 {
         // OpenGL 3D Game Tutorial 23: Texture Atlases
         shader.loadNumberOfRows(texture.getNumberOfRows());
         if (texture.isHasTransparency()) {
-            MasterRenderer.disableCulling();
+            MasterRenderer23.disableCulling();
         }
         shader.loadFakeLightingVariable(texture.isUseFakeLighting());
         shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
@@ -61,7 +61,7 @@ public class EntityRenderer23 {
     }
     
     public void unbindTexturedModel() {
-        MasterRenderer.enableCulling();
+        MasterRenderer23.enableCulling();
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL20.glDisableVertexAttribArray(2);

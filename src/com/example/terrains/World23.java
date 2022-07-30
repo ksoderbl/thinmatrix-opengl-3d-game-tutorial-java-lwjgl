@@ -1,14 +1,14 @@
-package terrains;
+package com.example.terrains;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joml.Vector3f;
 
-import renderEngine.Loader;
-import textures.TerrainTexture;
-import textures.TerrainTexturePack;
-import water.WaterTile;
+import com.example.renderEngine.Loader;
+import com.example.textures.TerrainTexture;
+import com.example.textures.TerrainTexturePack;
+import com.example.water.WaterTile;
 
 public class World23 implements World {
     

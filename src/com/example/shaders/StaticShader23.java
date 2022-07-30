@@ -1,18 +1,18 @@
-package shaders;
+package com.example.shaders;
 
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Light;
-import toolbox.Maths;
+import com.example.entities.Camera;
+import com.example.entities.Light;
+import com.example.toolbox.Maths;
 
 public class StaticShader23 extends ShaderProgram {
 
-    private static final String VERTEX_FILE = "src/shaders/vertexShader23.glsl";
-    private static final String FRAGMENT_FILE = "src/shaders/fragmentShader23.glsl";
+    private static final String VERTEX_FILE = "src/com/example/shaders/vertexShader23.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/shaders/fragmentShader23.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;

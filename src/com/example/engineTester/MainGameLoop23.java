@@ -1,45 +1,42 @@
-package engineTester;
+package com.example.engineTester;
 
-import java.io.File;
+// import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
+// import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Camera18;
-import entities.Camera22;
-import entities.Entity;
-import entities.Light;
-import entities.Player22;
-import fontMeshCreator.FontType;
-import fontMeshCreator.GUIText;
-import fontRendering.TextMaster;
-import guis.GuiRenderer;
-import guis.GuiTexture;
-import models.TexturedModel;
-import renderEngine.DisplayManager;
-import renderEngine.Loader;
-import renderEngine.MasterRenderer23;
-import skybox.Sky;
-import terrains.Terrain;
-import terrains.World;
-import terrains.World23;
-import water.WaterFrameBuffers;
-import water.WaterRenderer01;
-import water.WaterShader01;
-import water.WaterTile;
-import water.WaterTile01;
-
-// OpenGL 3D Game Tutorial 23: Texture Atlases
-// https://www.youtube.com/watch?v=6T182r4F6J8&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=23
+import com.example.entities.Camera;
+import com.example.entities.Camera18;
+import com.example.entities.Camera22;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+import com.example.entities.Player22;
+// import com.example.fontMeshCreator.FontType;
+// import com.example.fontMeshCreator.GUIText;
+// import com.example.fontRendering.TextMaster;
+import com.example.guis.GuiRenderer;
+import com.example.guis.GuiTexture;
+import com.example.models.TexturedModel;
+import com.example.renderEngine.Display;
+import com.example.renderEngine.DisplayManager;
+import com.example.renderEngine.Loader;
+import com.example.renderEngine.MasterRenderer23;
+import com.example.skybox.Sky;
+import com.example.terrains.Terrain;
+import com.example.terrains.World;
+import com.example.terrains.World23;
+import com.example.water.WaterFrameBuffers;
+import com.example.water.WaterRenderer01;
+import com.example.water.WaterShader01;
+import com.example.water.WaterTile;
+import com.example.water.WaterTile01;
 
 public class MainGameLoop23
 {
@@ -51,22 +48,22 @@ public class MainGameLoop23
         DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
 
-        TextMaster.init(loader);
-        if (title.length() > 0) {
-            FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-            GUIText text = new GUIText(title, 2.0f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
-            text.setColor(0.2f, 0.2f, 0.8f);
-        }
-        if (subTitle.length() > 0) {
-            FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-            GUIText text2 = new GUIText(subTitle, 1.5f, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
-            text2.setColor(0.8f, 0.2f, 0.2f);
-        }
-        if (subSubTitle.length() > 0) {
-            FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-            GUIText text3 = new GUIText(subSubTitle, 1.25f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
-            text3.setColor(0.2f, 0.8f, 0.2f);
-        }
+        // TextMaster.init(loader);
+        // if (title.length() > 0) {
+        //     FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        //     GUIText text = new GUIText(title, 2.0f, font, new Vector2f(0.0f, 0.1f), 1.0f, true);
+        //     text.setColor(0.2f, 0.2f, 0.8f);
+        // }
+        // if (subTitle.length() > 0) {
+        //     FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        //     GUIText text2 = new GUIText(subTitle, 1.5f, font2, new Vector2f(0.0f, 0.2f), 1.0f, true);
+        //     text2.setColor(0.8f, 0.2f, 0.2f);
+        // }
+        // if (subSubTitle.length() > 0) {
+        //     FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        //     GUIText text3 = new GUIText(subSubTitle, 1.25f, font3, new Vector2f(0.0f, 0.3f), 1.0f, true);
+        //     text3.setColor(0.2f, 0.8f, 0.2f);
+        // }
         
         World world = new World23(loader);
         List<Terrain> terrains = world.getTerrains();
@@ -179,10 +176,10 @@ public class MainGameLoop23
         entities.add(player);
         
         Camera camera1 = new Camera22(player);
-        camera1.getPosition().translate(0, 20, 0);
+        camera1.getPosition().set(0, 20, 0);
 
         Camera camera2 = new Camera18();
-        camera2.getPosition().translate(0, 30, 0);
+        camera2.getPosition().set(0, 30, 0);
         
         Camera camera = camera1;
 
@@ -196,7 +193,7 @@ public class MainGameLoop23
         MasterRenderer23 renderer = new MasterRenderer23();
         
         int i = 0;
-        int cameraFrames = 0;
+        // int cameraFrames = 0;
         
         // Water
         
@@ -224,17 +221,17 @@ public class MainGameLoop23
             
             player.move(world);
             
-            cameraFrames++;
-            // key C used to swap camera
-            if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
-                if (camera == camera1) {
-                    camera = camera2;
-                }
-                else if (camera == camera2) {
-                    camera = camera1;
-                }
-                cameraFrames = 0;
-            }
+            // cameraFrames++;
+            // // key C used to swap camera
+            // if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
+            //     if (camera == camera1) {
+            //         camera = camera2;
+            //     }
+            //     else if (camera == camera2) {
+            //         camera = camera1;
+            //     }
+            //     cameraFrames = 0;
+            // }
             
             camera.move();
             
@@ -263,7 +260,7 @@ public class MainGameLoop23
             waterRenderer.render(waters, sky, camera);
             guiRenderer.render(guiTextures);
 
-            TextMaster.render();
+            // TextMaster.render();
             
             DisplayManager.updateDisplay();
             
@@ -275,7 +272,7 @@ public class MainGameLoop23
 
         buffers.cleanUp();
         waterShader.cleanUp();
-        TextMaster.cleanUp();
+        // TextMaster.cleanUp();
         renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
