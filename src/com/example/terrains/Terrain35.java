@@ -9,12 +9,12 @@ import javax.imageio.ImageIO;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import models.RawModel;
-import renderEngine.Loader;
+import com.example.models.RawModel;
+import com.example.renderEngine.Loader;
 import textures.ModelTexture;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
-import toolbox.Maths;
+import com.example.toolbox.Maths;
 
 public class Terrain35 implements Terrain {
 

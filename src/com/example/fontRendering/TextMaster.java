@@ -1,14 +1,14 @@
-package fontRendering;
+package com.example.fontRendering;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import renderEngine.Loader;
-import fontMeshCreator.FontType;
-import fontMeshCreator.GUIText;
-import fontMeshCreator.TextMeshData;
+import com.example.renderEngine.Loader;
+import com.example.fontMeshCreator.FontType;
+import com.example.fontMeshCreator.GUIText;
+import com.example.fontMeshCreator.TextMeshData;
 
 public class TextMaster {
 

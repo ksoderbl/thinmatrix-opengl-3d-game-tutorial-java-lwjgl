@@ -1,9 +1,9 @@
-package fontMeshCreator;
+package com.example.fontMeshCreator;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import fontRendering.TextMaster33;
+import com.example.fontRendering.TextMaster33;
 
 public class GUIText33 {
 

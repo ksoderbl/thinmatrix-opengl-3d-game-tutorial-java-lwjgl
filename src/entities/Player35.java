@@ -3,9 +3,9 @@ package entities;
 import org.lwjgl.input.Keyboard;
 import org.joml.Vector3f;
 
-import models.TexturedModel;
-import renderEngine.DisplayManager;
-import terrains.World;
+import com.example.models.TexturedModel;
+import com.example.renderEngine.DisplayManager;
+import com.example.terrains.World;
 
 public class Player35 extends Entity {
 

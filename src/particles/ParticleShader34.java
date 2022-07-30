@@ -3,7 +3,7 @@ package particles;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 
-import shaders.ShaderProgram;
+import com.example.shaders.ShaderProgram;
 
 public class ParticleShader34 extends ShaderProgram {
 

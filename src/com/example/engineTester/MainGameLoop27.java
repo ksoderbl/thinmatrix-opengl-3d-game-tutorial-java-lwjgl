@@ -1,52 +1,48 @@
-package engineTester;
+package com.example.engineTester;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
+// import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Camera18;
-import entities.CameraWater04;
-import entities.Entity;
-import entities.Light;
-import entities.PlayerWater04;
-import fontMeshCreator.FontType;
-import fontMeshCreator.GUIText;
-import fontRendering.TextMaster;
-import guis.GuiRenderer;
-import guis.GuiTexture;
-import models.TexturedModel;
-import renderEngine.DisplayManager;
-import renderEngine.Loader;
-import renderEngine.MasterRenderer27;
-import skybox.Sky;
-import terrains.Terrain;
-import terrains.World;
-import terrains.WorldWater04;
-import water.WaterFrameBuffers;
-import water.WaterRenderer04;
-import water.WaterShader04;
-import water.WaterTile;
-import water.WaterTile04;
-
-// OpenGL 3D Game Tutorial 27: Skybox
-// https://www.youtube.com/watch?v=_Ix5oN8eC1E&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=27
+import com.example.entities.Camera;
+import com.example.entities.Camera18;
+import com.example.entities.CameraWater04;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+import com.example.entities.PlayerWater04;
+import com.example.fontMeshCreator.FontType;
+import com.example.fontMeshCreator.GUIText;
+import com.example.fontRendering.TextMaster;
+import com.example.guis.GuiRenderer;
+import com.example.guis.GuiTexture;
+import com.example.models.TexturedModel;
+import com.example.renderEngine.Display;
+import com.example.renderEngine.DisplayManager;
+import com.example.renderEngine.Loader;
+import com.example.renderEngine.MasterRenderer27;
+import com.example.skybox.Sky;
+import com.example.terrains.Terrain;
+import com.example.terrains.World;
+import com.example.terrains.WorldWater04;
+import com.example.water.WaterFrameBuffers;
+import com.example.water.WaterRenderer04;
+import com.example.water.WaterShader04;
+import com.example.water.WaterTile;
+import com.example.water.WaterTile04;
 
 public class MainGameLoop27
 {
     public static String title = "OpenGL 3D Game Tutorial 27";
-    public static String subTitle = "Skybox"; //
+    public static String subTitle = "Skybox";
     public static String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
-     //"Use key c to swap to second camera, move it with arrow keys";
     
     public static void main(String[] args) {
         DisplayManager.createDisplay(title + ": " + subTitle);
@@ -248,10 +244,10 @@ public class MainGameLoop27
         entities.add(player);
         
         Camera camera1 = new CameraWater04(player);
-        camera1.getPosition().translate(0, 20, 0);
+        camera1.getPosition().set(0, 20, 0);
 
         Camera camera2 = new Camera18();
-        camera2.getPosition().translate(0, 30, 0);
+        camera2.getPosition().set(0, 30, 0);
         
         Camera camera = camera1;
 
@@ -303,17 +299,17 @@ public class MainGameLoop27
             
             player.move(world);
             
-            cameraFrames++;
-            // key C used to swap camera
-            if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
-                if (camera == camera1) {
-                    camera = camera2;
-                }
-                else if (camera == camera2) {
-                    camera = camera1;
-                }
-                cameraFrames = 0;
-            }
+            // cameraFrames++;
+            // // key C used to swap camera
+            // if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
+            //     if (camera == camera1) {
+            //         camera = camera2;
+            //     }
+            //     else if (camera == camera2) {
+            //         camera = camera1;
+            //     }
+            //     cameraFrames = 0;
+            // }
             
             camera.move();
             

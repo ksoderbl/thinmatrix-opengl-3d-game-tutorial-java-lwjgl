@@ -10,15 +10,15 @@ import org.lwjgl.opengl.GL30;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Entity;
-import entities.Light;
-import models.RawModel;
-import models.TexturedModel;
-import renderEngine.MasterRenderer;
-import skybox.Sky;
+import com.example.entities.Camera;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+import com.example.models.RawModel;
+import com.example.models.TexturedModel;
+import com.example.renderEngine.MasterRenderer;
+import com.example.skybox.Sky;
 import textures.ModelTexture;
-import toolbox.Maths;
+import com.example.toolbox.Maths;
 
 public class NormalMappingRenderer32 {
 

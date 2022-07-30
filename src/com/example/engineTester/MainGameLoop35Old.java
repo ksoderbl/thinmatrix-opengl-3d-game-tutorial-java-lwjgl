@@ -1,4 +1,4 @@
-package engineTester;
+package com.example.engineTester;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,34 +10,34 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import entities.Camera35;
-import entities.Entity;
-import entities.Light;
-import entities.Player35;
-import fontMeshCreator.FontType;
-import fontMeshCreator.GUIText;
-import fontRendering.TextMaster;
-import guis.GuiRenderer;
-import guis.GuiTexture;
-import models.RawModel;
-import models.TexturedModel;
+import com.example.entities.Camera35;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+import com.example.entities.Player35;
+import com.example.fontMeshCreator.FontType;
+import com.example.fontMeshCreator.GUIText;
+import com.example.fontRendering.TextMaster;
+import com.example.guis.GuiRenderer;
+import com.example.guis.GuiTexture;
+import com.example.models.RawModel;
+import com.example.models.TexturedModel;
 import normalMappingObjConverter.NormalMappedObjLoader;
 import objConverter.OBJFileLoader;
 import particles.ParticleMaster;
 import particles.ParticleSystem;
 import particles.ParticleTexture;
-import renderEngine.DisplayManager;
-import renderEngine.Loader;
-import renderEngine.MasterRenderer;
-import terrains.Terrain;
-import terrains.World;
-import terrains.World35;
+import com.example.renderEngine.DisplayManager;
+import com.example.renderEngine.Loader;
+import com.example.renderEngine.MasterRenderer;
+import com.example.terrains.Terrain;
+import com.example.terrains.World;
+import com.example.terrains.World35;
 import textures.ModelTexture;
-import water.WaterFrameBuffers;
-import water.WaterRenderer;
-import water.WaterShader;
-import water.WaterTile;
-import water.WaterTile35;
+import com.example.water.WaterFrameBuffers;
+import com.example.water.WaterRenderer;
+import com.example.water.WaterShader;
+import com.example.water.WaterTile;
+import com.example.water.WaterTile35;
 
 public class MainGameLoop35Old
 {

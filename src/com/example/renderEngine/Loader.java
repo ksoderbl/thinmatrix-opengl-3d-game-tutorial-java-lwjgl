@@ -1,37 +1,39 @@
 package com.example.renderEngine;
 
 import java.io.FileInputStream;
-// import java.nio.ByteBuffer;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
-// import org.lwjgl.opengl.GL12;
-// import org.lwjgl.opengl.GL13;
-// import org.lwjgl.opengl.GL14;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 // import org.lwjgl.opengl.GL33;
+import org.lwjgl.stb.STBImage;
+
 import com.example.textures.Texture;
 import com.example.textures.TextureLoader;
 
-// import de.matthiasmann.twl.utils.PNGDecoder;
-// import de.matthiasmann.twl.utils.PNGDecoder.Format;
 import com.example.models.RawModel;
 import com.example.models.TexturedModel;
 // import com.example.normalMappingObjConverter.NormalMappedObjLoader;
 import com.example.objConverter.OBJFileLoader;
 import com.example.textures.ModelTexture;
-// import com.example.textures.TextureData;
+import com.example.textures.TextureData;
 
 public class Loader {
 
     // OpenGL 3D Game Tutorial 20: Mipmapping: level of detail bias
-    // private final static float LOD_BIAS = -0.4f;
+    private final static float LOD_BIAS = -0.4f;
 
     private List<Integer> vaos = new ArrayList<>();
     private List<Integer> vbos = new ArrayList<>();
@@ -66,14 +68,14 @@ public class Loader {
         return new RawModel(vaoID, indices.length);
     }
 
-    // // OpenGL 3D Game Tutorial 32: Font Rendering
-    // public int loadToVAO(float[] positions, float[] textureCoords) {
-    //     int vaoID = createVAO();
-    //     storeDataInAttributeList(0, 2, positions);
-    //     storeDataInAttributeList(1, 2, textureCoords);
-    //     unbindVAO();
-    //     return vaoID;
-    // }
+    // OpenGL 3D Game Tutorial 32: Font Rendering
+    public int loadToVAO(float[] positions, float[] textureCoords) {
+        int vaoID = createVAO();
+        storeDataInAttributeList(0, 2, positions);
+        storeDataInAttributeList(1, 2, textureCoords);
+        unbindVAO();
+        return vaoID;
+    }
     
     // // OpenGL 3D Game Tutorial 31: Normal Mapping
     // public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, float[] tangents, int[] indices) {
@@ -129,7 +131,7 @@ public class Loader {
         return new RawModel(vaoID, positions.length / dimensions);
     }
 
-    public int loadTexture(String fileName) { //, float lodBias) {
+    public int loadTexture(String fileName, float lodBias) {
         Texture texture = null;
         fileName = "res/" + fileName + ".png";
 
@@ -138,9 +140,9 @@ public class Loader {
         try {
             texture = TextureLoader.getTexture("PNG", new FileInputStream(fileName));
             // OpenGL 3D Game Tutorial 20: Mipmapping
-            // GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
-            // GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
-            // GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, lodBias);
+            GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+            GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
+            GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, lodBias);
             // OpenGL 3D Game Tutorial 20: Mipmapping
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,13 +161,13 @@ public class Loader {
         return textureID;
     }
 
-    // public int loadTexture(String fileName) {
-    //     return loadTexture(fileName, LOD_BIAS);
-    // }
+    public int loadTexture(String fileName) {
+        return loadTexture(fileName, LOD_BIAS);
+    }
 
-    // public int loadFontTextureAtlas(String fileName) {
-    //     return loadTexture("fonts/" + fileName, 0);
-    // }
+    public int loadFontTextureAtlas(String fileName) {
+        return loadTexture("fonts/" + fileName, 0);
+    }
     
     public void cleanUp() {
         for (int vao : vaos) {
@@ -180,52 +182,87 @@ public class Loader {
     }
 
     // // OpenGL 3D Game Tutorial 27: Skybox
-    // public int loadCubeMap(String[] textureFiles) {
-    //     int texID = GL11.glGenTextures();
-    //     GL13.glActiveTexture(GL13.GL_TEXTURE0);
-    //     GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, texID);
+    public int loadCubeMap(String[] textureFiles) {
+        int texID = GL11.glGenTextures();
+        GL13.glActiveTexture(GL13.GL_TEXTURE0);
+        GL11.glBindTexture(GL13.GL_TEXTURE_CUBE_MAP, texID);
 
-    //     for (int i = 0; i < textureFiles.length; i++) {
-    //         TextureData data = decodeTextureFile("res/" + textureFiles[i] + ".png");
-    //         GL11.glTexImage2D(GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL11.GL_RGBA,
-    //                 data.getWidth(), data.getHeight(),0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE,
-    //                 data.getBuffer());
-    //     }
-    //     GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
-    //     GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
+        for (int i = 0; i < textureFiles.length; i++) {
+            TextureData data = decodeTextureFile("res/" + textureFiles[i] + ".png");
+            GL11.glTexImage2D(GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL11.GL_RGBA,
+                    data.getWidth(), data.getHeight(),0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE,
+                    data.getBuffer());
+            data.freeBuffer(); // STBImage related optimization
+        }
+        GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
+        GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
 
-    //     // "-Due to hardware limitations on some computers you may see some visible seams at
-    //     // the edges of the skybox. If this is the case then add these two lines to the end
-    //     // of the loadCubeMap() method, just before returning the texID:"
-    //     GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
-    //     GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
+        // "-Due to hardware limitations on some computers you may see some visible seams at
+        // the edges of the skybox. If this is the case then add these two lines to the end
+        // of the loadCubeMap() method, just before returning the texID:"
+        GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_WRAP_S, GL12.GL_CLAMP_TO_EDGE);
+        GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_WRAP_T, GL12.GL_CLAMP_TO_EDGE);
 
-    //     textures.add(texID);
-    //     return texID;
-    // }
+        textures.add(texID);
+        return texID;
+    }
 
-    // // OpenGL 3D Game Tutorial 27: Skybox
-    // private TextureData decodeTextureFile(String fileName) {
-    //     int width = 0;
-    //     int height = 0;
-    //     ByteBuffer buffer = null;
+    private ByteBuffer readByteBufferFromFileInputStream(FileInputStream fs) throws IOException {
+        FileChannel fc = fs.getChannel();
+        ByteBuffer buffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+        fc.close();
+        fs.close();
+        return buffer;
+    }
 
-    //     try {
-    //         FileInputStream in = new FileInputStream(fileName);
-    //         PNGDecoder decoder = new PNGDecoder(in);
-    //         width = decoder.getWidth();
-    //         height = decoder.getHeight();
-    //         buffer = ByteBuffer.allocateDirect(4 * width * height);
-    //         decoder.decode(buffer, width * 4, Format.RGBA);
-    //         buffer.flip();
-    //         in.close();
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //         System.err.println("Loader: File not found: " + fileName);
-    //         System.exit(-1);
-    //     }
-    //     return new TextureData(buffer, width, height);
-    // }
+    // OpenGL 3D Game Tutorial 27: Skybox
+    private TextureData decodeTextureFile(String fileName) {
+        int width = 0;
+        int height = 0;
+        // int components = 0;
+        ByteBuffer buffer = null;
+
+        try {
+            FileInputStream fs = new FileInputStream(fileName);
+            IntBuffer widthBuffer = BufferUtils.createIntBuffer(1);
+            IntBuffer heightBuffer = BufferUtils.createIntBuffer(1);
+            IntBuffer componentsBuffer = BufferUtils.createIntBuffer(1);
+            ByteBuffer byteBuffer = readByteBufferFromFileInputStream(fs);
+            ByteBuffer data = STBImage.stbi_load_from_memory(byteBuffer, widthBuffer, heightBuffer, componentsBuffer, 4);
+            width = widthBuffer.get(0);
+            height = heightBuffer.get(0);
+            // components = componentsBuffer.get(0);
+
+            // System.out.println("width: " + width);
+            // System.out.println("height: " + height);
+            // System.out.println("components: " + components);
+            // System.out.println("width * height * 4: " + (width * height * 4));
+            // System.out.println("capacity: " + data.capacity());
+
+            // data.flip();
+
+            // buffer = ByteBuffer.allocate(width * height * 4);
+
+            // System.out.println("buffer capacity: " + buffer.capacity());
+
+
+
+            // buffer.put(data);
+
+            buffer = data;
+
+            // STBImage.stbi_image_free(data);
+
+            // buffer.flip(); // TODO: do we need this?
+            
+            fs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Loader: File not found: " + fileName);
+            System.exit(-1);
+        }
+        return new TextureData(buffer, width, height);
+    }
 
     private int createVAO() {
         int vaoID = GL30.glGenVertexArrays();

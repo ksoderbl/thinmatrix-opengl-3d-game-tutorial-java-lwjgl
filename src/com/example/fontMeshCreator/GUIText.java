@@ -1,9 +1,9 @@
-package fontMeshCreator;
+package com.example.fontMeshCreator;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import fontRendering.TextMaster;
+import com.example.fontRendering.TextMaster;
 
 /**
  * Represents a piece of text in the game.

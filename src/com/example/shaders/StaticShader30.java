@@ -7,9 +7,9 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Light;
-import toolbox.Maths;
+import com.example.entities.Camera;
+import com.example.entities.Light;
+import com.example.toolbox.Maths;
 
 public class StaticShader30 extends ShaderProgram {
     

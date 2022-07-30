@@ -1,4 +1,4 @@
-package fontRendering;
+package com.example.fontRendering;
 
 import java.util.List;
 import java.util.Map;
@@ -8,8 +8,8 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import fontMeshCreator.FontType33;
-import fontMeshCreator.GUIText33;
+import com.example.fontMeshCreator.FontType33;
+import com.example.fontMeshCreator.GUIText33;
 
 public class FontRenderer33 {
 

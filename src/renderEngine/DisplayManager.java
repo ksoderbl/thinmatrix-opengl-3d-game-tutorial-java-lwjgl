@@ -1,4 +1,4 @@
-package renderEngine;
+package com.example.renderEngine;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;

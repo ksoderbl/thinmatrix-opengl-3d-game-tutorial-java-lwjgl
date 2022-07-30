@@ -7,8 +7,8 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import entities.Light;
-import shaders.ShaderProgram;
+import com.example.entities.Light;
+import com.example.shaders.ShaderProgram;
 
 public class NormalMappingShader extends ShaderProgram{
     

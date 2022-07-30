@@ -1,14 +1,14 @@
-package fontRendering;
+package com.example.fontRendering;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import shaders.ShaderProgram;
+import com.example.shaders.ShaderProgram;
 
 public class FontShader33 extends ShaderProgram{
 
-    private static final String VERTEX_FILE = "src/fontRendering/fontVertex33.glsl";
-    private static final String FRAGMENT_FILE = "src/fontRendering/fontFragment33.glsl";
+    private static final String VERTEX_FILE = "src/com/example/fontRendering/fontVertex33.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/fontRendering/fontFragment33.glsl";
     
     private int location_color;
     private int location_translation;

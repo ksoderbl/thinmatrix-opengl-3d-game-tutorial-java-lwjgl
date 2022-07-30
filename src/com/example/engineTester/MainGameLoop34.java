@@ -1,4 +1,4 @@
-package engineTester;
+package com.example.engineTester;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,30 +12,30 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Camera32;
-import entities.Entity;
-import entities.Light;
-import entities.Player32;
-import fontMeshCreator.FontType33;
-import fontMeshCreator.GUIText33;
-import fontRendering.TextMaster33;
-import guis.GuiRenderer;
-import guis.GuiTexture;
-import models.TexturedModel;
+import com.example.entities.Camera;
+import com.example.entities.Camera32;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+import com.example.entities.Player32;
+import com.example.fontMeshCreator.FontType33;
+import com.example.fontMeshCreator.GUIText33;
+import com.example.fontRendering.TextMaster33;
+import com.example.guis.GuiRenderer;
+import com.example.guis.GuiTexture;
+import com.example.models.TexturedModel;
 import particles.ParticleMaster34;
 import particles.ParticleSystem34;
-import renderEngine.DisplayManager;
-import renderEngine.Loader;
-import renderEngine.MasterRenderer32;
-import skybox.Sky;
-import terrains.Terrain;
-import terrains.World;
-import terrains.World32;
+import com.example.renderEngine.DisplayManager;
+import com.example.renderEngine.Loader;
+import com.example.renderEngine.MasterRenderer32;
+import com.example.skybox.Sky;
+import com.example.terrains.Terrain;
+import com.example.terrains.World;
+import com.example.terrains.World32;
 import toolbox.MousePicker;
-import water.WaterFrameBuffers;
-import water.WaterRenderer32;
-import water.WaterShader30;
+import com.example.water.WaterFrameBuffers;
+import com.example.water.WaterRenderer32;
+import com.example.water.WaterShader30;
 
 // OpenGL 3D Game Tutorial 34: Particle Effects
 // https://www.youtube.com/watch?v=6PkjU9LaDTQ&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=34

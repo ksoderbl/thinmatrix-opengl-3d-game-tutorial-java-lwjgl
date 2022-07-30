@@ -1,10 +1,10 @@
 package water;
 
-import entities.Light;
+import com.example.entities.Light;
 import org.joml.Matrix4f;
-import shaders.ShaderProgram;
-import toolbox.Maths;
-import entities.Camera;
+import com.example.shaders.ShaderProgram;
+import com.example.toolbox.Maths;
+import com.example.entities.Camera;
 
 public class WaterShader extends ShaderProgram {
 

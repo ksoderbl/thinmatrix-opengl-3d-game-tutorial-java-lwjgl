@@ -7,9 +7,9 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import entities.Camera;
-import terrains.Terrain;
-import terrains.World;
+import com.example.entities.Camera;
+import com.example.terrains.Terrain;
+import com.example.terrains.World;
 
 // http://antongerdelan.net/opengl/raycasting.html
 public class MousePicker {

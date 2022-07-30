@@ -1,14 +1,14 @@
-package fontRendering;
+package com.example.fontRendering;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import renderEngine.Loader;
-import fontMeshCreator.FontType33;
-import fontMeshCreator.GUIText33;
-import fontMeshCreator.TextMeshData;
+import com.example.renderEngine.Loader;
+import com.example.fontMeshCreator.FontType33;
+import com.example.fontMeshCreator.GUIText33;
+import com.example.fontMeshCreator.TextMeshData;
 
 public class TextMaster33 {
 

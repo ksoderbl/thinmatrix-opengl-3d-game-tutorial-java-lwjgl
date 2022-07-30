@@ -1,18 +1,18 @@
-package skybox;
+package com.example.skybox;
 
 import org.joml.Matrix4f;
 
-import entities.Camera;
+import com.example.entities.Camera;
 
 import org.joml.Vector3f;
-import renderEngine.DisplayManager;
-import shaders.ShaderProgram;
-import toolbox.Maths;
+import com.example.renderEngine.DisplayManager;
+import com.example.shaders.ShaderProgram;
+import com.example.toolbox.Maths;
 
 public class SkyboxShader30 extends ShaderProgram {
 
-    private static final String VERTEX_FILE = "src/skybox/skyboxVertexShader30.glsl";
-    private static final String FRAGMENT_FILE = "src/skybox/skyboxFragmentShader30.glsl";
+    private static final String VERTEX_FILE = "src/com/example/skybox/skyboxVertexShader30.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/skybox/skyboxFragmentShader30.glsl";
 
     private static final float ROTATE_SPEED = 0.1f; // was 1f
 
@@ -39,11 +39,12 @@ public class SkyboxShader30 extends ShaderProgram {
     public void loadViewMatrix(Camera camera) {
         Matrix4f matrix = Maths.createViewMatrix(camera);
         // remove translation from view matrix
-        matrix.m30 = 0;
-        matrix.m31 = 0;
-        matrix.m32 = 0;
+        matrix.m30(0);
+        matrix.m31(0);
+        matrix.m32(0);
         rotation += ROTATE_SPEED * DisplayManager.getFrameTimeSeconds();
-        Matrix4f.rotate((float) Math.toRadians(rotation), new Vector3f(0, 1, 0), matrix, matrix);
+        // TODO
+        // Matrix4f.rotate((float) Math.toRadians(rotation), new Vector3f(0, 1, 0), matrix, matrix);
         super.loadMatrix(location_viewMatrix, matrix);
     }
 

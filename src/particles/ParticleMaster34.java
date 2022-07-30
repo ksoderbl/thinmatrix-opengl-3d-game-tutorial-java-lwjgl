@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.joml.Matrix4f;
 
-import entities.Camera;
-import renderEngine.Loader;
+import com.example.entities.Camera;
+import com.example.renderEngine.Loader;
 
 public class ParticleMaster34 {
 

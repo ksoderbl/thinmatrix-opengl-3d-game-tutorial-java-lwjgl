@@ -1,12 +1,12 @@
 package shaders;
 
-import entities.Camera;
-import entities.Light;
+import com.example.entities.Camera;
+import com.example.entities.Light;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-import toolbox.Maths;
+import com.example.toolbox.Maths;
 
 import java.util.List;
 

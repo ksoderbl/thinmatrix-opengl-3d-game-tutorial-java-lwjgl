@@ -3,7 +3,7 @@ package particles;
 import java.util.List;
 import java.util.Map;
 
-import models.RawModel;
+import com.example.models.RawModel;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -12,9 +12,9 @@ import org.lwjgl.opengl.GL30;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import renderEngine.Loader;
-import toolbox.Maths;
-import entities.Camera;
+import com.example.renderEngine.Loader;
+import com.example.toolbox.Maths;
+import com.example.entities.Camera;
 
 public class ParticleRenderer35 {
     

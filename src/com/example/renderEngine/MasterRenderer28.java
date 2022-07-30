@@ -1,4 +1,4 @@
-package renderEngine;
+package com.example.renderEngine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,15 +11,15 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Entity;
-import entities.Light;
-import models.TexturedModel;
-import shaders.StaticShader26;
-import skybox.Sky;
-import skybox.SkyboxRenderer28;
-import terrains.Terrain;
-import terrains.TerrainShader26;
+import com.example.entities.Camera;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+import com.example.models.TexturedModel;
+import com.example.shaders.StaticShader26;
+import com.example.skybox.Sky;
+import com.example.skybox.SkyboxRenderer28;
+import com.example.terrains.Terrain;
+import com.example.terrains.TerrainShader26;
 
 public class MasterRenderer28 {
     

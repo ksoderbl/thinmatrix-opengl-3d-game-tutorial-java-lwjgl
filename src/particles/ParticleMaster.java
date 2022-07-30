@@ -9,8 +9,8 @@ import java.util.Map.Entry;
 
 import org.joml.Matrix4f;
 
-import renderEngine.Loader;
-import entities.Camera;
+import com.example.renderEngine.Loader;
+import com.example.entities.Camera;
 
 public class ParticleMaster {
 

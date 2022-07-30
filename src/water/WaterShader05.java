@@ -3,9 +3,9 @@ package water;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import entities.Camera;
-import shaders.ShaderProgram;
-import toolbox.Maths;
+import com.example.entities.Camera;
+import com.example.shaders.ShaderProgram;
+import com.example.toolbox.Maths;
 
 public class WaterShader05 extends ShaderProgram {
 

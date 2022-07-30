@@ -6,7 +6,7 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import renderEngine.DisplayManager;
+import com.example.renderEngine.DisplayManager;
 
 public class ParticleSystem36 {
 

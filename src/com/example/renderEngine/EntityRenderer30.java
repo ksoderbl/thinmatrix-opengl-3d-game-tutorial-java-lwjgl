@@ -1,4 +1,4 @@
-package renderEngine;
+package com.example.renderEngine;
 
 import java.util.List;
 import java.util.Map;
@@ -10,12 +10,12 @@ import org.lwjgl.opengl.GL30;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import entities.Entity;
-import models.RawModel;
-import models.TexturedModel;
-import shaders.StaticShader30;
+import com.example.entities.Entity;
+import com.example.models.RawModel;
+import com.example.models.TexturedModel;
+import com.example.shaders.StaticShader30;
 import textures.ModelTexture;
-import toolbox.Maths;
+import com.example.toolbox.Maths;
 
 public class EntityRenderer30 {
     

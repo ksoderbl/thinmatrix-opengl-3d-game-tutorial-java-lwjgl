@@ -10,12 +10,12 @@ import org.lwjgl.opengl.GL30;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import entities.Camera;
-import entities.Light;
-import models.RawModel;
-import renderEngine.DisplayManager;
-import renderEngine.Loader;
-import toolbox.Maths;
+import com.example.entities.Camera;
+import com.example.entities.Light;
+import com.example.models.RawModel;
+import com.example.renderEngine.DisplayManager;
+import com.example.renderEngine.Loader;
+import com.example.toolbox.Maths;
 
 public class WaterRenderer {
 

@@ -2,8 +2,8 @@ package particles;
 
 import org.joml.Vector3f;
 
-import entities.Player;
-import renderEngine.DisplayManager;
+import com.example.entities.Player;
+import com.example.renderEngine.DisplayManager;
 
 public class Particle34 {
 

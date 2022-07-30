@@ -1,4 +1,4 @@
-package renderEngine;
+package com.example.renderEngine;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import org.lwjgl.opengl.GL30;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import models.RawModel;
-import terrains.Terrain;
-import terrains.TerrainShader30;
+import com.example.models.RawModel;
+import com.example.terrains.Terrain;
+import com.example.terrains.TerrainShader30;
 import textures.TerrainTexturePack;
-import toolbox.Maths;
+import com.example.toolbox.Maths;
 
 public class TerrainRenderer32 {
 

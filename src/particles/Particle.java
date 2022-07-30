@@ -3,9 +3,9 @@ package particles;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
-import renderEngine.DisplayManager;
-import entities.Camera;
-import entities.Player;
+import com.example.renderEngine.DisplayManager;
+import com.example.entities.Camera;
+import com.example.entities.Player;
 
 public class Particle {
 

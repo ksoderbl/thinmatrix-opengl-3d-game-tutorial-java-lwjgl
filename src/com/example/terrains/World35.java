@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.joml.Vector3f;
 
-import renderEngine.Loader;
+import com.example.renderEngine.Loader;
 import textures.TerrainTexture;
 import textures.TerrainTexturePack;
-import water.WaterTile;
+import com.example.water.WaterTile;
 
 public class World35 implements World {
     

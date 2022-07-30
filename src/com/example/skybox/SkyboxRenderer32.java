@@ -1,4 +1,4 @@
-package skybox;
+package com.example.skybox;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -7,10 +7,10 @@ import org.lwjgl.opengl.GL30;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import entities.Camera;
-import models.RawModel;
-import renderEngine.DisplayManager;
-import renderEngine.Loader;
+import com.example.entities.Camera;
+import com.example.models.RawModel;
+import com.example.renderEngine.DisplayManager;
+import com.example.renderEngine.Loader;
 
 public class SkyboxRenderer32 {
 
