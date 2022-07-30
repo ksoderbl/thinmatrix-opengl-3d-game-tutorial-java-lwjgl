@@ -163,7 +163,7 @@ public class MainGameLoop19
         MasterRendererWater01 renderer = new MasterRendererWater01();
         
         int i = 0;
-        int cameraFrames = 0;
+        // int cameraFrames = 0;
         
         // Water
         
@@ -178,9 +178,9 @@ public class MainGameLoop19
         
         while (!Display.isCloseRequested()) {
             player.move();
-            
-            cameraFrames++;
+
             // TODO
+            // cameraFrames++;
             // // key C used to swap camera
             // if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
             //     if (camera == camera1) {

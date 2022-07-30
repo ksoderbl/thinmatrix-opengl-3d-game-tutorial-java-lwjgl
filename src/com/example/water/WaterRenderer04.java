@@ -1,4 +1,4 @@
-package water;
+package com.example.water;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import org.lwjgl.opengl.GL30;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import entities.Camera;
-import models.RawModel;
-import renderEngine.Loader;
-import skybox.Sky;
-import toolbox.Maths;
+import com.example.entities.Camera;
+import com.example.models.RawModel;
+import com.example.renderEngine.Loader;
+import com.example.skybox.Sky;
+import com.example.toolbox.Maths;
 
 public class WaterRenderer04 {
 

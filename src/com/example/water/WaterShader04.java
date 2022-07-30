@@ -1,16 +1,16 @@
-package water;
+package com.example.water;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-import entities.Camera;
-import shaders.ShaderProgram;
-import toolbox.Maths;
+import com.example.entities.Camera;
+import com.example.shaders.ShaderProgram;
+import com.example.toolbox.Maths;
 
 public class WaterShader04 extends ShaderProgram {
 
-    private final static String VERTEX_FILE = "src/water/waterVertex04.glsl";
-    private final static String FRAGMENT_FILE = "src/water/waterFragment04.glsl";
+    private final static String VERTEX_FILE = "src/com/example/water/waterVertex04.glsl";
+    private final static String FRAGMENT_FILE = "src/com/example/water/waterFragment04.glsl";
 
     private int location_transformationMatrix;
     private int location_viewMatrix;

@@ -1,4 +1,4 @@
-package water;
+package com.example.water;
 
 public class WaterTile04 implements WaterTile {
 
