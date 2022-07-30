@@ -1,4 +1,4 @@
-package shaders;
+package com.example.shaders;
 
 import java.util.List;
 
@@ -7,17 +7,17 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Light;
-import toolbox.Maths;
+import com.example.entities.Camera;
+import com.example.entities.Light;
+import com.example.toolbox.Maths;
 
 public class StaticShader26 extends ShaderProgram {
     
     // OpenGL 3D Game Tutorial 25: Multiple Lights
     private static final int MAX_LIGHTS = 4;
 
-    private static final String VERTEX_FILE = "src/shaders/vertexShader26.glsl";
-    private static final String FRAGMENT_FILE = "src/shaders/fragmentShader26.glsl";
+    private static final String VERTEX_FILE = "src/com/example/shaders/vertexShader26.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/shaders/fragmentShader26.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;

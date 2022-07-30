@@ -41,7 +41,7 @@ import com.example.water.WaterTile04;
 public class MainGameLoop25
 {
     public static String title = "OpenGL 3D Game Tutorial 25";
-    public static String subTitle = "OpenGL 3D Game Tutorial 25: Multiple Lights"; //
+    public static String subTitle = "Multiple Lights";
     public static String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
      //"Use key c to swap to second camera, move it with arrow keys";
     

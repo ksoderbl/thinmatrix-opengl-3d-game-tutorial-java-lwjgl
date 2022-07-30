@@ -129,15 +129,15 @@ public class MasterRenderer27 {
         float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
         float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))) * aspectRatio);
         float x_scale = y_scale / aspectRatio;
-        float frustum_length = FAR_PLANE - NEAR_PLANE;
+        float frustumLength = FAR_PLANE - NEAR_PLANE;
 
         projectionMatrix = new Matrix4f();
-        projectionMatrix.m00 = x_scale;
-        projectionMatrix.m11 = y_scale;
-        projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustum_length);
-        projectionMatrix.m23 = -1;
-        projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
-        projectionMatrix.m33 = 0;
+        projectionMatrix.m00(x_scale);
+        projectionMatrix.m11(y_scale);
+        projectionMatrix.m22(-((FAR_PLANE + NEAR_PLANE) / frustumLength));
+        projectionMatrix.m23(-1);
+        projectionMatrix.m32(-((2 * NEAR_PLANE * FAR_PLANE) / frustumLength));
+        projectionMatrix.m33(0);
     }
 
     public Matrix4f getProjectionMatrix() {
