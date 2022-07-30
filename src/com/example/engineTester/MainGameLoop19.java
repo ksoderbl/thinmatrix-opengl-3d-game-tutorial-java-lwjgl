@@ -194,7 +194,7 @@ public class MainGameLoop19
             
             camera.move();
             
-            //camera2.getPosition().translate(0, 0, -0.02f);
+            //camera2.getPosition().set(0, 0, -0.02f);
             
             renderer.renderScene(entities, terrains, lights, sky, camera);
             waterRenderer.render(waters, sky, camera);

@@ -235,7 +235,7 @@ public class MainGameLoop23
             
             camera.move();
             
-            //camera2.getPosition().translate(0, 0, -0.02f);
+            //camera2.getPosition().set(0, 0, -0.02f);
             
             GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 

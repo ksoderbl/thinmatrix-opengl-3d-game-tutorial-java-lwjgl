@@ -207,7 +207,7 @@ public class MainGameLoopWater02
             
             camera.move();
             
-            //camera2.getPosition().translate(0, 0, -0.02f);
+            //camera2.getPosition().set(0, 0, -0.02f);
             
             fbos.bindReflectionFrameBuffer();
             renderer.renderScene(entities, terrains, lights, sky, camera);

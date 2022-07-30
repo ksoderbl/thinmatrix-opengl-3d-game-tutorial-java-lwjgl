@@ -32,7 +32,7 @@ public class MainGameLoop14
         DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         Camera13 camera = new Camera13();
-        // camera.getPosition().translate(0, 7, 0);
+        // camera.getPosition().set(0, 7, 0);
         camera.getPosition().set(0, 7, 0);
 
         TextMaster.init(loader);

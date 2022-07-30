@@ -248,10 +248,10 @@ public class MainGameLoopWater06
         entities.add(player);
         
         Camera camera1 = new CameraWater04(player);
-        camera1.getPosition().translate(0, 20, 0);
+        camera1.getPosition().set(0, 20, 0);
 
         Camera camera2 = new Camera18();
-        camera2.getPosition().translate(0, 30, 0);
+        camera2.getPosition().set(0, 30, 0);
         
         Camera camera = camera1;
 
@@ -317,7 +317,7 @@ public class MainGameLoopWater06
             
             camera.move();
             
-            //camera2.getPosition().translate(0, 0, -0.02f);
+            //camera2.getPosition().set(0, 0, -0.02f);
             
             GL11.glEnable(GL30.GL_CLIP_DISTANCE0);
 

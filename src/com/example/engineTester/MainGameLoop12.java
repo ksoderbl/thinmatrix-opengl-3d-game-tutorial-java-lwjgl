@@ -75,7 +75,7 @@ public class MainGameLoop12
                 entities[i].increaseRotation(0, 0.1f*i, 0);
             }
             
-            //light.getPosition().translate(
+            //light.getPosition().set(
             //        ((10 * random.nextFloat()) - 5) / 10f,
             //        ((10 * random.nextFloat()) - 5) / 10f,
             //        ((10 * random.nextFloat()) - 5) / 10f);

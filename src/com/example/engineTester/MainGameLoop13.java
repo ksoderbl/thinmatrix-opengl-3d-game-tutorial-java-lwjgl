@@ -30,7 +30,7 @@ public class MainGameLoop13
         DisplayManager.createDisplay(title + ": " + subTitle);
         Loader loader = new Loader();
         Camera13 camera = new Camera13();
-        //camera.getPosition().translate(0, 0, 25);
+        //camera.getPosition().set(0, 0, 25);
         camera.getPosition().set(0, 0, 25);
         
         TexturedModel staticModel = loader.createTexturedModel("dragon", "white", 2, 1);

@@ -281,7 +281,7 @@ public class MainGameLoop36
         entities.add(player);
         
         Camera camera = new Camera35(player);
-        //camera.getPosition().translate(0, 20, 0);
+        //camera.getPosition().set(0, 20, 0);
        
         // Water
         WaterFrameBuffers buffers = new WaterFrameBuffers();
