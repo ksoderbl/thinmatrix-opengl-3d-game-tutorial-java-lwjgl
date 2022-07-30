@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.opengl.Display;
-import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import entities.Camera35;
 import entities.Entity;

@@ -1,7 +1,7 @@
 package fontMeshCreator;
 
-import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector3f;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 import fontRendering.TextMaster33;
 

@@ -1,18 +1,17 @@
-package terrains;
+package com.example.shaders;
 
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Light;
-import shaders.ShaderProgram;
-import toolbox.Maths;
+import com.example.entities.Camera;
+import com.example.entities.Light;
+import com.example.toolbox.Maths;
 
-public class TerrainShaderWater03 extends ShaderProgram {
+public class StaticShaderWater03 extends ShaderProgram {
 
-    private static final String VERTEX_FILE = "src/terrains/terrainVertexShaderWater03.glsl";
-    private static final String FRAGMENT_FILE = "src/terrains/terrainFragmentShaderWater03.glsl";
+    private static final String VERTEX_FILE = "src/com/example/shaders/vertexShaderWater03.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/shaders/fragmentShaderWater03.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;
@@ -21,20 +20,14 @@ public class TerrainShaderWater03 extends ShaderProgram {
     private int location_lightColor;
     private int location_shineDamper;
     private int location_reflectivity;
-    // OpenGL 3D Game Tutorial 16: Fog
+    private int location_useFakeLighting;
     private int location_skyColor;
     private int location_skyDensity;
     private int location_skyGradient;
-    // OpenGL 3D Game Tutorial 17: Multitexturing
-    private int location_backgroundTexture;
-    private int location_rTexture;
-    private int location_gTexture;
-    private int location_bTexture;
-    private int location_blendMap;
     // OpenGL Water Tutorial 3: Clipping Planes
     private int location_clipPlane;
 
-    public TerrainShaderWater03() {
+    public StaticShaderWater03() {
         super(VERTEX_FILE, FRAGMENT_FILE);
     }
 
@@ -54,23 +47,11 @@ public class TerrainShaderWater03 extends ShaderProgram {
         location_lightColor = super.getUniformLocation("lightColor");
         location_shineDamper = super.getUniformLocation("shineDamper");
         location_reflectivity = super.getUniformLocation("reflectivity");
+        location_useFakeLighting = super.getUniformLocation("useFakeLighting");
         location_skyColor = super.getUniformLocation("skyColor");
         location_skyDensity = super.getUniformLocation("skyDensity");
         location_skyGradient = super.getUniformLocation("skyGradient");
-        location_backgroundTexture = super.getUniformLocation("backgroundTexture");
-        location_rTexture = super.getUniformLocation("rTexture");
-        location_gTexture = super.getUniformLocation("gTexture");
-        location_bTexture = super.getUniformLocation("bTexture");
-        location_blendMap = super.getUniformLocation("blendMap");
         location_clipPlane = super.getUniformLocation("clipPlane");
-    }
-    
-    public void connectTextureUnits() {
-        super.loadInt(location_backgroundTexture, 0);
-        super.loadInt(location_rTexture, 1);
-        super.loadInt(location_gTexture, 2);
-        super.loadInt(location_bTexture, 3);
-        super.loadInt(location_blendMap, 4);
     }
     
     public void loadClipPlane(Vector4f clipPlane) {
@@ -81,13 +62,17 @@ public class TerrainShaderWater03 extends ShaderProgram {
         super.loadFloat(location_skyDensity, density);
         super.loadFloat(location_skyGradient, gradient);
     }
-    
+
     public void loadSkyColor(Vector3f skyColor) {
         super.loadVector(location_skyColor, skyColor);
     }
     
     public void loadSkyColor(float r, float g, float b) {
         super.loadVector(location_skyColor, new Vector3f(r, g, b));
+    }
+    
+    public void loadFakeLightingVariable(boolean useFake) {
+        super.loadBoolean(location_useFakeLighting, useFake);
     }
     
     public void loadShineVariables(float damper, float reflectivity) {

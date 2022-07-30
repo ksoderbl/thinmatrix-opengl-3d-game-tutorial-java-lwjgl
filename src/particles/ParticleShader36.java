@@ -1,6 +1,6 @@
 package particles;
 
-import org.lwjgl.util.vector.Matrix4f;
+import org.joml.Matrix4f;
 
 import shaders.ShaderProgram;
 

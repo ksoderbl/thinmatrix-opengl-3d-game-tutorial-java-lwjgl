@@ -1,42 +1,31 @@
-package renderEngine;
+package com.example.renderEngine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Matrix4f;
-import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
-import entities.Camera;
-import entities.Entity;
-import entities.Light;
-import models.TexturedModel;
-import shaders.StaticShaderWater03;
-import skybox.Sky;
-import terrains.Terrain;
-import terrains.TerrainShaderWater03;
+import com.example.entities.Camera;
+import com.example.entities.Entity;
+import com.example.entities.Light;
+import com.example.models.TexturedModel;
+import com.example.shaders.StaticShaderWater03;
+import com.example.skybox.Sky;
+import com.example.terrains.Terrain;
+import com.example.terrains.TerrainShaderWater03;
 
-public class MasterRendererWater03 {
+public class MasterRenderer21 {
     
     private static final float FOV = 70;
     private static final float NEAR_PLANE = 0.1f;
-    private static final float FAR_PLANE = 1000;
+    private static final float FAR_PLANE = 10000;
     
-    public static final float SKY_RED   = 0.6f;
-    public static final float SKY_GREEN = 0.7f;
-    public static final float SKY_BLUE  = 0.8f;
-    
-    // OpenGL 3D Game Tutorial 16: Fog
-    // haze
-    public static final float SKY_DENSITY = 0.0035f;
-    public static final float SKY_GRADIENT = 5f;
-    // fog
-    //public static final float SKY_DENSITY = 0.007f;
-    //public static final float SKY_GRADIENT = 1.5f;
+    // Sky variables moved to skybox
     
     private Matrix4f projectionMatrix;
 
@@ -49,7 +38,7 @@ public class MasterRendererWater03 {
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
     private List<Terrain> terrains = new ArrayList<>();
     
-    public MasterRendererWater03() {
+    public MasterRenderer21() {
         enableCulling();
         createProjectionMatrix();
         renderer = new EntityRendererWater03(shader, projectionMatrix);
@@ -133,15 +122,15 @@ public class MasterRendererWater03 {
         float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
         float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))) * aspectRatio);
         float x_scale = y_scale / aspectRatio;
-        float frustum_length = FAR_PLANE - NEAR_PLANE;
+        float frustumLength = FAR_PLANE - NEAR_PLANE;
 
         projectionMatrix = new Matrix4f();
-        projectionMatrix.m00 = x_scale;
-        projectionMatrix.m11 = y_scale;
-        projectionMatrix.m22 = -((FAR_PLANE + NEAR_PLANE) / frustum_length);
-        projectionMatrix.m23 = -1;
-        projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
-        projectionMatrix.m33 = 0;
+        projectionMatrix.m00(x_scale);
+        projectionMatrix.m11(y_scale);
+        projectionMatrix.m22(-((FAR_PLANE + NEAR_PLANE) / frustumLength));
+        projectionMatrix.m23(-1);
+        projectionMatrix.m32(-((2 * NEAR_PLANE * FAR_PLANE) / frustumLength));
+        projectionMatrix.m33(0);
     }
 
     public Matrix4f getProjectionMatrix() {
