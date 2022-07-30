@@ -11,13 +11,13 @@ import entities.Light;
 import shaders.ShaderProgram;
 import toolbox.Maths;
 
-public class TerrainShader26 extends ShaderProgram {
+public class TerrainShader30 extends ShaderProgram {
     
     // OpenGL 3D Game Tutorial 25: Multiple Lights
     private static final int MAX_LIGHTS = 4;
 
-    private static final String VERTEX_FILE = "src/terrains/terrainVertexShader26.glsl";
-    private static final String FRAGMENT_FILE = "src/terrains/terrainFragmentShader26.glsl";
+    private static final String VERTEX_FILE = "src/com/example/terrains/terrainVertexShader30.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/terrains/terrainFragmentShader30.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;
@@ -39,8 +39,10 @@ public class TerrainShader26 extends ShaderProgram {
     private int location_blendMap;
     // OpenGL Water Tutorial 3: Clipping Planes
     private int location_clipPlane;
+    // OpenGL 3D Game Tutorial 30: Cel Shading
+    private int location_shadingLevels;
 
-    public TerrainShader26() {
+    public TerrainShader30() {
         super(VERTEX_FILE, FRAGMENT_FILE);
     }
 
@@ -78,6 +80,7 @@ public class TerrainShader26 extends ShaderProgram {
             location_lightColor[i] = super.getUniformLocation("lightColor[" + i + "]");
             location_attenuation[i] = super.getUniformLocation("attenuation[" + i + "]");
         }
+        location_shadingLevels = super.getUniformLocation("shadingLevels");
     }
     
     public void connectTextureUnits() {
@@ -136,5 +139,9 @@ public class TerrainShader26 extends ShaderProgram {
 
     public void loadProjectionMatrix(Matrix4f projection) {
         super.loadMatrix(location_projectionMatrix, projection);
+    }
+
+    public void loadShadingLevels(float levels) {
+        super.loadFloat(location_shadingLevels, levels);
     }
 }
