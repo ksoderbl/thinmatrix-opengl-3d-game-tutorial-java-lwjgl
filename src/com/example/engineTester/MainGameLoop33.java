@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.joml.Vector2f;
@@ -23,6 +22,7 @@ import com.example.fontRendering.TextMaster33;
 import com.example.guis.GuiRenderer;
 import com.example.guis.GuiTexture;
 import com.example.models.TexturedModel;
+import com.example.renderEngine.Display;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
 import com.example.renderEngine.MasterRenderer32;
@@ -35,9 +35,6 @@ import com.example.water.WaterFrameBuffers;
 import com.example.water.WaterRenderer32;
 import com.example.water.WaterShader30;
 
-// OpenGL 3D Game Tutorial 33: Distance Field Text Rendering
-// https://www.youtube.com/watch?v=d8cfgcJR9Tk&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=33
-
 // Hiero: A bitmap font packing tool
 // https://libgdx.badlogicgames.com/tools.html
 // https://github.com/libgdx/libgdx/wiki/Hiero
@@ -46,6 +43,9 @@ import com.example.water.WaterShader30;
 
 public class MainGameLoop33
 {
+    public static void main(String[] args) {
+        new MainGameLoop33();
+    }
 
     String tutorial = "OpenGL 3D Game Tutorial 33: Distance Field Text Rendering";
     String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
@@ -103,8 +103,8 @@ public class MainGameLoop33
         TextMaster33.init(loader);
 
         FontType33 font = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-          FontType33 font2 = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-          FontType33 font3 = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        FontType33 font2 = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+        FontType33 font3 = new FontType33(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
           
         GUIText33 text, text2, text3;
 
@@ -118,15 +118,15 @@ public class MainGameLoop33
         text.setOffset(new Vector2f(0.0f, 0.0f));
 
         text2 = new GUIText33(subTitle, 2f, font2, new Vector2f(0.0f, 0.8f), 0.7f, true);
-           text2.setColor(1f, 1f, 0f);
-           text2.setOutlineColor(1.0f, 0f, 0f);
-           text2.setWidth(0.5f);
-           text2.setEdge(0.1f);
+        text2.setColor(1f, 1f, 0f);
+        text2.setOutlineColor(1.0f, 0f, 0f);
+        text2.setWidth(0.5f);
+        text2.setEdge(0.1f);
         text2.setBorderWidth(0.4f);
         text2.setBorderEdge(0.5f);
-           text2.setOffset(new Vector2f(0.005f, 0.005f));
+        text2.setOffset(new Vector2f(0.005f, 0.005f));
         
-           text3 = new GUIText33(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.9f), 0.7f, true);
+        text3 = new GUIText33(subSubTitle, 1.5f, font3, new Vector2f(0.0f, 0.9f), 0.7f, true);
         text3.setColor(0.0f, 0.0f, 0f);
         text3.setOutlineColor(1f, 1f, 0.2f);
         text3.setWidth(0.5f);
@@ -410,9 +410,5 @@ public class MainGameLoop33
         renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
-    }
-
-    public static void main(String[] args) {
-        new MainGameLoop33();
     }
 }
