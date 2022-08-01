@@ -1,4 +1,4 @@
-package shaders;
+package com.example.shaders;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ public class StaticShader30 extends ShaderProgram {
     // OpenGL 3D Game Tutorial 25: Multiple Lights
     private static final int MAX_LIGHTS = 4;
 
-    private static final String VERTEX_FILE = "src/shaders/vertexShader30.glsl";
-    private static final String FRAGMENT_FILE = "src/shaders/fragmentShader30.glsl";
+    private static final String VERTEX_FILE = "src/com/example/shaders/vertexShader30.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/shaders/fragmentShader30.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;

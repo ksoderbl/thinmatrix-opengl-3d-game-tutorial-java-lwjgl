@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
+// import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.joml.Vector2f;
@@ -25,6 +24,7 @@ import com.example.fontRendering.TextMaster;
 import com.example.guis.GuiRenderer;
 import com.example.guis.GuiTexture;
 import com.example.models.TexturedModel;
+import com.example.renderEngine.Display;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
 import com.example.renderEngine.MasterRenderer30;
@@ -38,9 +38,6 @@ import com.example.water.WaterRenderer30;
 import com.example.water.WaterShader30;
 import com.example.water.WaterTile;
 import com.example.water.WaterTile04;
-
-// OpenGL 3D Game Tutorial 30: Cel Shading
-// https://www.youtube.com/watch?v=dzItGHyteng&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=30
 
 // Raycasting
 // http://antongerdelan.net/opengl/raycasting.html
@@ -223,7 +220,7 @@ public class MainGameLoop30
         
         Camera camera = camera1;
         
-        int cameraFrames = 0;
+        // int cameraFrames = 0;
         
         // Water
         WaterFrameBuffers buffers = new WaterFrameBuffers();
@@ -269,19 +266,19 @@ public class MainGameLoop30
             
             player.move(world);
             
-            cameraFrames++;
-            // key C used to swap camera
-            if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
-                if (camera == camera1) {
-                    camera = camera2;
-                }
-                else if (camera == camera2) {
-                    camera = camera1;
-                }
-                cameraFrames = 0;
-            }
+            // cameraFrames++;
+            // // key C used to swap camera
+            // if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
+            //     if (camera == camera1) {
+            //         camera = camera2;
+            //     }
+            //     else if (camera == camera2) {
+            //         camera = camera1;
+            //     }
+            //     cameraFrames = 0;
+            // }
             
-            camera.move();
+            // camera.move();
             
             picker.update();
             Vector3f terrainPoint = picker.getCurrentTerrainPoint();

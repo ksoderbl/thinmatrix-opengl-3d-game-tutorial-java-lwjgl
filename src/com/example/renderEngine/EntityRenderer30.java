@@ -57,7 +57,7 @@ public class EntityRenderer30 {
         // OpenGL 3D Game Tutorial 23: Texture Atlases
         shader.loadNumberOfRows(texture.getNumberOfRows());
         if (texture.isHasTransparency()) {
-            MasterRenderer.disableCulling();
+            MasterRenderer30.disableCulling();
         }
         shader.loadFakeLightingVariable(texture.isUseFakeLighting());
         shader.loadShineVariables(texture.getShineDamper(), texture.getReflectivity());
@@ -66,7 +66,7 @@ public class EntityRenderer30 {
     }
     
     public void unbindTexturedModel() {
-        MasterRenderer.enableCulling();
+        MasterRenderer30.enableCulling();
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL20.glDisableVertexAttribArray(2);

@@ -1,4 +1,4 @@
-package shaders;
+package com.example.shaders;
 
 import com.example.entities.Camera;
 import com.example.entities.Light;
@@ -14,8 +14,8 @@ public class StaticShader extends ShaderProgram {
 
     private static final int MAX_LIGHTS = 4;
 
-    private static final String VERTEX_FILE = "src/shaders/vertexShader.glsl";
-    private static final String FRAGMENT_FILE = "src/shaders/fragmentShader.glsl";
+    private static final String VERTEX_FILE = "src/com/example/shaders/vertexShader.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/shaders/fragmentShader.glsl";
 
     private int location_transformationMatrix;
     private int location_projectionMatrix;
