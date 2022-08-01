@@ -14,7 +14,7 @@ import com.example.entities.Entity;
 import com.example.models.RawModel;
 import com.example.models.TexturedModel;
 import com.example.shaders.StaticShader30;
-import textures.ModelTexture;
+import com.example.textures.ModelTexture;
 import com.example.toolbox.Maths;
 
 public class EntityRenderer32 {

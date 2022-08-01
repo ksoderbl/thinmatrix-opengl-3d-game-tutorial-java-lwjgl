@@ -32,7 +32,7 @@ import com.example.renderEngine.MasterRenderer;
 import com.example.terrains.Terrain;
 import com.example.terrains.World;
 import com.example.terrains.World35;
-import textures.ModelTexture;
+import com.example.textures.ModelTexture;
 import com.example.water.WaterFrameBuffers;
 import com.example.water.WaterRenderer;
 import com.example.water.WaterShader;

@@ -32,7 +32,7 @@ import com.example.skybox.Sky;
 import com.example.terrains.Terrain;
 import com.example.terrains.World;
 import com.example.terrains.World29;
-import toolbox.MousePicker;
+import com.example.toolbox.MousePicker;
 import com.example.water.WaterFrameBuffers;
 import com.example.water.WaterRenderer30;
 import com.example.water.WaterShader30;

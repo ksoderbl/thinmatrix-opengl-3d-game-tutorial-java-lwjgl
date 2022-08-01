@@ -12,7 +12,7 @@ import org.joml.Vector3f;
 import com.example.models.RawModel;
 import com.example.terrains.Terrain;
 import com.example.terrains.TerrainShader30;
-import textures.TerrainTexturePack;
+import com.example.textures.TerrainTexturePack;
 import com.example.toolbox.Maths;
 
 public class TerrainRenderer30 {

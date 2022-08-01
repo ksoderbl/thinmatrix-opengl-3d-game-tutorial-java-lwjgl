@@ -16,7 +16,7 @@ import com.example.entities.Light;
 import com.example.models.RawModel;
 import com.example.models.TexturedModel;
 import com.example.renderEngine.MasterRenderer;
-import textures.ModelTexture;
+import com.example.textures.ModelTexture;
 import com.example.toolbox.Maths;
 
 public class NormalMappingRenderer {

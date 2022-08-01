@@ -1,13 +1,13 @@
-package toolbox;
+package com.example.toolbox;
 
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
+// import org.lwjgl.input.Mouse;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import com.example.entities.Camera;
+import com.example.renderEngine.Display;
 import com.example.terrains.Terrain;
 import com.example.terrains.World;
 
@@ -53,8 +53,13 @@ public class MousePicker {
 
     private Vector3f calculateMouseRay() {
         // viewport space
-        float mouseX = Mouse.getX();
-        float mouseY = Mouse.getY();
+        // TODO
+        // float mouseX = Mouse.getX();
+        // float mouseY = Mouse.getY();
+        float mouseX = Display.getWidth() / 2;
+        float mouseY = Display.getHeight() / 2;
+
+
         // normalized device space
         Vector2f normalizedCoords = getNormalizedDeviceCoords(mouseX, mouseY);
         // homogenous clip space
@@ -67,16 +72,20 @@ public class MousePicker {
     }
 
     private Vector3f toWorldCoords(Vector4f eyeCoords) {
-        Matrix4f invertedView = Matrix4f.invert(viewMatrix, null);
-        Vector4f rayWorld = Matrix4f.transform(invertedView, eyeCoords, null);
-        Vector3f mouseRay = new Vector3f(rayWorld.x, rayWorld.y, rayWorld.z);
-        mouseRay.normalise();
+        // TODO
+        // Matrix4f invertedView = Matrix4f.invert(viewMatrix, null);
+        // Vector4f rayWorld = Matrix4f.transform(invertedView, eyeCoords, null);
+        // Vector3f mouseRay = new Vector3f(rayWorld.x, rayWorld.y, rayWorld.z);
+        Vector3f mouseRay = new Vector3f();
+        mouseRay.normalize();
         return mouseRay;
     }
 
     private Vector4f toEyeCoords(Vector4f clipCoords) {
-        Matrix4f invertedProjection = Matrix4f.invert(projectionMatrix, null);
-        Vector4f eyeCoords = Matrix4f.transform(invertedProjection, clipCoords, null);
+        //
+        // Matrix4f invertedProjection = Matrix4f.invert(projectionMatrix, null);
+        // Vector4f eyeCoords = Matrix4f.transform(invertedProjection, clipCoords, null);
+        Vector4f eyeCoords = new Vector4f();
         return new Vector4f(eyeCoords.x, eyeCoords.y, -1f, 0f);
     }
 
@@ -94,14 +103,15 @@ public class MousePicker {
         Vector3f camPos = camera.getPosition();
         Vector3f start = new Vector3f(camPos.x, camPos.y, camPos.z);
         Vector3f scaledRay = new Vector3f(ray.x * distance, ray.y * distance, ray.z * distance);
-        return Vector3f.add(start, scaledRay, null);
+        //return Vector3f.add(start, scaledRay, null);
+        return start.add(scaledRay);
     }
 
     private Vector3f binarySearch(int count, float start, float finish, Vector3f ray) {
         float half = start + ((finish - start) / 2f);
         if (count >= RECURSION_COUNT) {
             Vector3f endPoint = getPointOnRay(ray, half);
-            Terrain terrain = getTerrain(endPoint.getX(), endPoint.getZ());
+            Terrain terrain = getTerrain(endPoint.get(0), endPoint.get(2));
             if (terrain != null) {
                 return endPoint;
             } else {
@@ -126,10 +136,10 @@ public class MousePicker {
     }
 
     private boolean isUnderGround(Vector3f testPoint) {
-        Terrain terrain = getTerrain(testPoint.getX(), testPoint.getZ());
+        Terrain terrain = getTerrain(testPoint.get(0), testPoint.get(2));
         float height = 0;
         if (terrain != null) {
-            height = terrain.getHeightOfTerrain(testPoint.getX(), testPoint.getZ());
+            height = terrain.getHeightOfTerrain(testPoint.get(0), testPoint.get(2));
         }
         if (testPoint.y < height) {
             return true;

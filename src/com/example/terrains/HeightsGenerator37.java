@@ -1,4 +1,4 @@
-package terrains;
+package com.example.terrains;
 
 import java.util.ArrayList;
 import java.util.Random;

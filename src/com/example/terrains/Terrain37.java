@@ -1,4 +1,4 @@
-package terrains;
+package com.example.terrains;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,9 +12,9 @@ import org.joml.Vector3f;
 
 import com.example.models.RawModel;
 import com.example.renderEngine.Loader;
-import textures.ModelTexture;
-import textures.TerrainTexture;
-import textures.TerrainTexturePack;
+import com.example.textures.ModelTexture;
+import com.example.textures.TerrainTexture;
+import com.example.textures.TerrainTexturePack;
 import com.example.toolbox.Maths;
 
 public class Terrain37 implements Terrain {
