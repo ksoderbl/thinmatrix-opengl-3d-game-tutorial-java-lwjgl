@@ -1,4 +1,4 @@
-package normalMappingRenderer;
+package com.example.normalMappingRenderer;
 
 import java.util.List;
 import java.util.Map;
@@ -20,14 +20,14 @@ import com.example.skybox.Sky;
 import com.example.textures.ModelTexture;
 import com.example.toolbox.Maths;
 
-public class NormalMappingRenderer32 {
+public class NormalMappingRenderer31 {
 
     private NormalMappingShader31 shader;
     
     // Tutorial 30: Cel Shading
-    private float shadingLevels;
+    private float shadingLevels = 10.0f;
 
-    public NormalMappingRenderer32(Matrix4f projectionMatrix, float shadingLevels) {
+    public NormalMappingRenderer31(Matrix4f projectionMatrix) {
         this.shader = new NormalMappingShader31();
         shader.start();
         shader.loadProjectionMatrix(projectionMatrix);
@@ -53,7 +53,7 @@ public class NormalMappingRenderer32 {
         shader.stop();
     }
     
-    public void cleanUp(){
+    public void cleanUp() {
         shader.cleanUp();
     }
 

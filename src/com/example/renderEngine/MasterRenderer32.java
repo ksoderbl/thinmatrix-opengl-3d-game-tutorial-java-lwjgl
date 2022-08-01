@@ -16,7 +16,7 @@ import com.example.entities.Camera;
 import com.example.entities.Entity;
 import com.example.entities.Light;
 import com.example.models.TexturedModel;
-import normalMappingRenderer.NormalMappingRenderer32;
+import com.example.normalMappingRenderer.NormalMappingRenderer32;
 import com.example.shaders.StaticShader30;
 import com.example.skybox.Sky;
 import com.example.skybox.SkyboxRenderer32;
@@ -84,7 +84,7 @@ public class MasterRenderer32 {
         for (Entity entity : entities) {
             processEntity(entity);
         }
-        for(Entity entity : normalEntities){
+        for(Entity entity : normalEntities) {
             processNormalMapEntity(entity);
         }
         render(lights, sky, camera, clipPlane, useClipping);

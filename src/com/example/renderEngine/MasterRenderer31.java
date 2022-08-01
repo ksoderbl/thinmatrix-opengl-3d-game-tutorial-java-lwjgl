@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.joml.Matrix4f;
@@ -16,7 +15,7 @@ import com.example.entities.Camera;
 import com.example.entities.Entity;
 import com.example.entities.Light;
 import com.example.models.TexturedModel;
-import normalMappingRenderer.NormalMappingRenderer31;
+import com.example.normalMappingRenderer.NormalMappingRenderer31;
 import com.example.shaders.StaticShader30;
 import com.example.skybox.Sky;
 import com.example.skybox.SkyboxRenderer30;
@@ -80,7 +79,7 @@ public class MasterRenderer31 {
         for (Entity entity : entities) {
             processEntity(entity);
         }
-        for(Entity entity : normalEntities){
+        for(Entity entity : normalEntities) {
             processNormalMapEntity(entity);
         }
         render(lights, sky, camera, clipPlane, useClipping);

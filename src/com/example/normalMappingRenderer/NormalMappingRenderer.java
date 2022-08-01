@@ -1,4 +1,4 @@
-package normalMappingRenderer;
+package com.example.normalMappingRenderer;
 
 import java.util.List;
 import java.util.Map;
@@ -46,7 +46,7 @@ public class NormalMappingRenderer {
         shader.stop();
     }
     
-    public void cleanUp(){
+    public void cleanUp() {
         shader.cleanUp();
     }
 

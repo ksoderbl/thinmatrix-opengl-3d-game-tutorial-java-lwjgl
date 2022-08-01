@@ -21,7 +21,6 @@ public class TextureData {
         STBImage.stbi_image_free(buffer);
         buffer = null;
     }
-    
 
     public int getWidth() {
         return width;

@@ -24,7 +24,7 @@ uniform float skyGradient;
 
 uniform vec4 plane;
 
-void main(void){
+void main(void) {
 
     vec4 worldPosition = transformationMatrix * vec4(position,1.0);
     gl_ClipDistance[0] = dot(worldPosition, plane);
@@ -46,7 +46,7 @@ void main(void){
         tang.z, bitang.z, norm.z
     );
     
-    for(int i=0;i<4;i++){
+    for(int i=0;i<4;i++) {
         toLightVector[i] = toTangentSpace * (lightPositionEyeSpace[i] - positionRelativeToCam.xyz);
     }
     toCameraVector = toTangentSpace * (-positionRelativeToCam.xyz);

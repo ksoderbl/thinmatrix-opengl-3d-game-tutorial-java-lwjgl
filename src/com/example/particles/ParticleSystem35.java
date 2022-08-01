@@ -8,7 +8,7 @@ import org.joml.Vector4f;
 
 import com.example.renderEngine.DisplayManager;
 
-public class ParticleSystem34 {
+public class ParticleSystem35 {
 
     private float pps, averageSpeed, gravityComplient, averageLifeLength, averageScale;
 
@@ -17,14 +17,17 @@ public class ParticleSystem34 {
     private Vector3f direction;
     private float directionDeviation = 0;
     
+    private ParticleTexture35 texture;
+
     private Random random = new Random();
 
-    public ParticleSystem34(float pps, float speed, float gravityComplient, float lifeLength, float scale) {
+    public ParticleSystem35(ParticleTexture35 texture, float pps, float speed, float gravityComplient, float lifeLength, float scale) {
         this.pps = pps;
         this.averageSpeed = speed;
         this.gravityComplient = gravityComplient;
         this.averageLifeLength = lifeLength;
         this.averageScale = scale;
+        this.texture = texture;
     }
 
     /**
@@ -79,7 +82,7 @@ public class ParticleSystem34 {
 
     private void emitParticle(Vector3f center) {
         Vector3f velocity = null;
-        if(direction!=null){
+        if(direction!=null) {
             velocity = generateRandomUnitVectorWithinCone(direction, directionDeviation);
         }else{
             velocity = generateRandomUnitVector();
@@ -88,7 +91,7 @@ public class ParticleSystem34 {
         velocity.scale(generateValue(averageSpeed, speedError));
         float scale = generateValue(averageScale, scaleError);
         float lifeLength = generateValue(averageLifeLength, lifeError);
-        new Particle34(new Vector3f(center), velocity, gravityComplient, lifeLength, generateRotation(), scale);
+        new Particle35(texture, new Vector3f(center), velocity, gravityComplient, lifeLength, generateRotation(), scale);
     }
 
     private float generateValue(float average, float errorMargin) {

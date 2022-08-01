@@ -15,7 +15,7 @@ uniform float shineDamper;
 uniform float reflectivity;
 uniform vec3 skyColour;
 
-void main(void){
+void main(void) {
 
     vec4 normalMapValue = 2.0 * texture(normalMap, pass_textureCoordinates, -1.0) - 1.0;
 
@@ -25,7 +25,7 @@ void main(void){
     vec3 totalDiffuse = vec3(0.0);
     vec3 totalSpecular = vec3(0.0);
     
-    for(int i=0;i<4;i++){
+    for(int i=0;i<4;i++) {
         float distance = length(toLightVector[i]);
         float attFactor = attenuation[i].x + (attenuation[i].y * distance) + (attenuation[i].z * distance * distance);
         vec3 unitLightVector = normalize(toLightVector[i]);    
@@ -42,7 +42,7 @@ void main(void){
     totalDiffuse = max(totalDiffuse, 0.2);
     
     vec4 textureColour = texture(modelTexture,pass_textureCoordinates, -1.0);
-    if(textureColour.a<0.5){
+    if(textureColour.a<0.5) {
         discard;
     }
 

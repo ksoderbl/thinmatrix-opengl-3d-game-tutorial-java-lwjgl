@@ -17,7 +17,7 @@ import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-// import org.lwjgl.opengl.GL33;
+import org.lwjgl.opengl.GL33;
 import org.lwjgl.stb.STBImage;
 
 import com.example.textures.Texture;
@@ -25,7 +25,7 @@ import com.example.textures.TextureLoader;
 
 import com.example.models.RawModel;
 import com.example.models.TexturedModel;
-// import com.example.normalMappingObjConverter.NormalMappedObjLoader;
+import com.example.normalMappingObjConverter.NormalMappedObjLoader;
 import com.example.objConverter.OBJFileLoader;
 import com.example.textures.ModelTexture;
 import com.example.textures.TextureData;
@@ -77,51 +77,51 @@ public class Loader {
         return vaoID;
     }
     
-    // // OpenGL 3D Game Tutorial 31: Normal Mapping
-    // public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, float[] tangents, int[] indices) {
-    //     int vaoID = createVAO();
-    //     bindIndicesBuffer(indices);
-    //     storeDataInAttributeList(0, 3, positions);
-    //     storeDataInAttributeList(1, 2, textureCoords);
-    //     storeDataInAttributeList(2, 3, normals);
-    //     storeDataInAttributeList(3, 3, tangents);
-    //     unbindVAO();
-    //     return new RawModel(vaoID, indices.length);
-    // }
+    // OpenGL 3D Game Tutorial 31: Normal Mapping
+    public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, float[] tangents, int[] indices) {
+        int vaoID = createVAO();
+        bindIndicesBuffer(indices);
+        storeDataInAttributeList(0, 3, positions);
+        storeDataInAttributeList(1, 2, textureCoords);
+        storeDataInAttributeList(2, 3, normals);
+        storeDataInAttributeList(3, 3, tangents);
+        unbindVAO();
+        return new RawModel(vaoID, indices.length);
+    }
 
-    // // OpenGL 3D Game Tutorial 36: Instanced Rendering
-    // public int createEmptyVbo(int floatCount) {
-    //     int vbo = GL15.glGenBuffers();
-    //     vbos.add(vbo);
-    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
-    //     GL15.glBufferData(GL15.GL_ARRAY_BUFFER, floatCount * 4, GL15.GL_STREAM_DRAW);
-    //     // unbind
-    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-    //     return vbo;
-    // }
+    // OpenGL 3D Game Tutorial 36: Instanced Rendering
+    public int createEmptyVbo(int floatCount) {
+        int vbo = GL15.glGenBuffers();
+        vbos.add(vbo);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, floatCount * 4, GL15.GL_STREAM_DRAW);
+        // unbind
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        return vbo;
+    }
     
-    // // OpenGL 3D Game Tutorial 36: Instanced Rendering    
-    // public void addInstancedAttribute(int vao, int vbo, int attribute, int dataSize,
-    //         int instancedDataLength, int offset) {
-    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
-    //     GL30.glBindVertexArray(vao);
-    //     GL20.glVertexAttribPointer(attribute, dataSize, GL11.GL_FLOAT, false,
-    //             instancedDataLength * 4, offset * 4);
-    //     GL33.glVertexAttribDivisor(attribute, 1);
-    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-    //     // unbind vao
-    //     GL30.glBindVertexArray(0);
-    // }
+    // OpenGL 3D Game Tutorial 36: Instanced Rendering    
+    public void addInstancedAttribute(int vao, int vbo, int attribute, int dataSize,
+            int instancedDataLength, int offset) {
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+        GL30.glBindVertexArray(vao);
+        GL20.glVertexAttribPointer(attribute, dataSize, GL11.GL_FLOAT, false,
+                instancedDataLength * 4, offset * 4);
+        GL33.glVertexAttribDivisor(attribute, 1);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        // unbind vao
+        GL30.glBindVertexArray(0);
+    }
     
-    // public void updateVbo(int vbo, float[] data, FloatBuffer buffer) {
-    //     buffer.clear();
-    //     buffer.put(data);
-    //     buffer.flip();
-    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
-    //     GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer.capacity() * 4, GL15.GL_STREAM_DRAW);
-    //     GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, buffer);
-    //     GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
-    // }
+    public void updateVbo(int vbo, float[] data, FloatBuffer buffer) {
+        buffer.clear();
+        buffer.put(data);
+        buffer.flip();
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer.capacity() * 4, GL15.GL_STREAM_DRAW);
+        GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, buffer);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+    }
     
     // OpenGL 3D Game Tutorial 24: Rendering GUIs
     public RawModel loadToVAO(float[] positions, int dimensions) {
@@ -181,7 +181,7 @@ public class Loader {
         }
     }
 
-    // // OpenGL 3D Game Tutorial 27: Skybox
+    // OpenGL 3D Game Tutorial 27: Skybox
     public int loadCubeMap(String[] textureFiles) {
         int texID = GL11.glGenTextures();
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
@@ -192,7 +192,7 @@ public class Loader {
             GL11.glTexImage2D(GL13.GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL11.GL_RGBA,
                     data.getWidth(), data.getHeight(),0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE,
                     data.getBuffer());
-            data.freeBuffer(); // STBImage related optimization
+            data.freeBuffer();
         }
         GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
         GL11.glTexParameteri(GL13.GL_TEXTURE_CUBE_MAP, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
@@ -228,33 +228,11 @@ public class Loader {
             IntBuffer heightBuffer = BufferUtils.createIntBuffer(1);
             IntBuffer componentsBuffer = BufferUtils.createIntBuffer(1);
             ByteBuffer byteBuffer = readByteBufferFromFileInputStream(fs);
+            // Caller is responsible for freeing this.
             ByteBuffer data = STBImage.stbi_load_from_memory(byteBuffer, widthBuffer, heightBuffer, componentsBuffer, 4);
             width = widthBuffer.get(0);
             height = heightBuffer.get(0);
-            // components = componentsBuffer.get(0);
-
-            // System.out.println("width: " + width);
-            // System.out.println("height: " + height);
-            // System.out.println("components: " + components);
-            // System.out.println("width * height * 4: " + (width * height * 4));
-            // System.out.println("capacity: " + data.capacity());
-
-            // data.flip();
-
-            // buffer = ByteBuffer.allocate(width * height * 4);
-
-            // System.out.println("buffer capacity: " + buffer.capacity());
-
-
-
-            // buffer.put(data);
-
             buffer = data;
-
-            // STBImage.stbi_image_free(data);
-
-            // buffer.flip(); // TODO: do we need this?
-            
             fs.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -355,20 +333,20 @@ public class Loader {
         return texturedModel;
     }
 
-    // // for OpenGL 3D Game Tutorial 31: Normal Mapping
-    // public TexturedModel createTexturedModel(
-    //         String objFileName,
-    //         String textureFileName,
-    //         String normalMapFileName,
-    //         float materialShineDamper,
-    //         float materialReflectivity) {
-    //     RawModel model = NormalMappedObjLoader.loadOBJ(objFileName, this);
-    //     ModelTexture texture = new ModelTexture(this.loadTexture(textureFileName));
-    //     int normalMap = loadTexture(normalMapFileName);
-    //     texture.setNormalMap(normalMap);
-    //     texture.setShineDamper(materialShineDamper);
-    //     texture.setReflectivity(materialReflectivity);
-    //     TexturedModel texturedModel = new TexturedModel(model, texture);
-    //     return texturedModel;
-    // }
+    // for OpenGL 3D Game Tutorial 31: Normal Mapping
+    public TexturedModel createTexturedModel(
+            String objFileName,
+            String textureFileName,
+            String normalMapFileName,
+            float materialShineDamper,
+            float materialReflectivity) {
+        RawModel model = NormalMappedObjLoader.loadOBJ(objFileName, this);
+        ModelTexture texture = new ModelTexture(this.loadTexture(textureFileName));
+        int normalMap = loadTexture(normalMapFileName);
+        texture.setNormalMap(normalMap);
+        texture.setShineDamper(materialShineDamper);
+        texture.setReflectivity(materialReflectivity);
+        TexturedModel texturedModel = new TexturedModel(model, texture);
+        return texturedModel;
+    }
 }

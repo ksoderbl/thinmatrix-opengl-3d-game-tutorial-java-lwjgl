@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.joml.Vector2f;
@@ -23,6 +22,7 @@ import com.example.fontRendering.TextMaster;
 import com.example.guis.GuiRenderer;
 import com.example.guis.GuiTexture;
 import com.example.models.TexturedModel;
+import com.example.renderEngine.Display;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
 import com.example.renderEngine.MasterRenderer31;
@@ -36,12 +36,6 @@ import com.example.water.WaterRenderer30;
 import com.example.water.WaterShader30;
 import com.example.water.WaterTile;
 import com.example.water.WaterTile04;
-
-// OpenGL 3D Game Tutorial 31: Normal Mapping
-// https://www.youtube.com/watch?v=4DUfwAEx4Ts&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=31
-
-// Raycasting
-// http://antongerdelan.net/opengl/raycasting.html
 
 public class MainGameLoop31
 {

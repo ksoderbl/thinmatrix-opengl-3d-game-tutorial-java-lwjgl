@@ -28,7 +28,7 @@ void main(void)
     vec3 totalDiffuse = vec3(0.0);
     vec3 totalSpecular = vec3(0.0);
     
-    for(int i=0;i<4;i++){
+    for(int i=0;i<4;i++) {
         float distance = length(toLightVector[i]);
         float attFactor = attenuation[i].x + (attenuation[i].y * distance) + (attenuation[i].z * distance * distance);
         vec3 unitLightVector = normalize(toLightVector[i]);    
@@ -60,7 +60,7 @@ void main(void)
     totalDiffuse = max(totalDiffuse, 0.2);
     
     vec4 textureColor = texture(modelTexture,pass_textureCoordinates, -1.0);
-    if(textureColor.a<0.5){
+    if(textureColor.a<0.5) {
         discard;
     }
 

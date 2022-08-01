@@ -21,7 +21,7 @@ import com.example.guis.GuiRenderer;
 import com.example.guis.GuiTexture;
 import com.example.models.RawModel;
 import com.example.models.TexturedModel;
-import normalMappingObjConverter.NormalMappedObjLoader;
+import com.example.normalMappingObjConverter.NormalMappedObjLoader;
 import objConverter.OBJFileLoader;
 import particles.ParticleMaster;
 import particles.ParticleSystem;

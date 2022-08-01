@@ -1,4 +1,4 @@
-package entities;
+package com.example.entities;
 
 import org.lwjgl.input.Keyboard;
 import org.joml.Vector3f;

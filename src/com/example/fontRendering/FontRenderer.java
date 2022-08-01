@@ -31,7 +31,7 @@ public class FontRenderer {
         endRendering();
     }
     
-    public void cleanUp(){
+    public void cleanUp() {
         shader.cleanUp();
     }
     
