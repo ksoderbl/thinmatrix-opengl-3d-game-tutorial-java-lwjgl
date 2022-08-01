@@ -7,7 +7,7 @@ public class DisplayManager {
     private static final int CREATE_HEIGHT = 720;
     // private static final int FPS_CAP = 120;
 
-    private static long lastFrameTime;
+    private static long lastFrameTime = getCurrentTime();
     private static float delta = 1.0f / 60f;  // TODO
     
     private static long oldNanoTime = 0;

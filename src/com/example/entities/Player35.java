@@ -1,6 +1,6 @@
 package com.example.entities;
 
-import org.lwjgl.input.Keyboard;
+// import org.lwjgl.input.Keyboard;
 import org.joml.Vector3f;
 
 import com.example.models.TexturedModel;
@@ -54,33 +54,33 @@ public class Player35 extends Entity {
         }
     }
 
-    private void jump() {
-        if (!isInAir) {
-            this.upwardsSpeed = JUMP_POWER;
-            isInAir = true;
-        }
-    }
+    // private void jump() {
+    //     if (!isInAir) {
+    //         this.upwardsSpeed = JUMP_POWER;
+    //         isInAir = true;
+    //     }
+    // }
 
     private void checkInputs() {
-        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            this.currentSpeed = RUN_SPEED;
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            this.currentSpeed = -RUN_SPEED;
-        } else {
-            this.currentSpeed = 0;
-        }
+        // TODO
+        // if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+        //     this.currentSpeed = RUN_SPEED;
+        // } else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+        //     this.currentSpeed = -RUN_SPEED;
+        // } else {
+        //     this.currentSpeed = 0;
+        // }
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-            this.currentTurnSpeed = -TURN_SPEED;
-        } else if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-            this.currentTurnSpeed = TURN_SPEED;
-        } else {
-            this.currentTurnSpeed = 0;
-        }
+        // if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+        //     this.currentTurnSpeed = -TURN_SPEED;
+        // } else if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+        //     this.currentTurnSpeed = TURN_SPEED;
+        // } else {
+        //     this.currentTurnSpeed = 0;
+        // }
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-            jump();
-        }
-
+        // if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+        //     jump();
+        // }
     }
 }

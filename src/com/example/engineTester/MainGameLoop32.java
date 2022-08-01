@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.joml.Vector2f;
@@ -23,6 +22,7 @@ import com.example.fontRendering.TextMaster;
 import com.example.guis.GuiRenderer;
 import com.example.guis.GuiTexture;
 import com.example.models.TexturedModel;
+import com.example.renderEngine.Display;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
 import com.example.renderEngine.MasterRenderer32;
@@ -35,9 +35,6 @@ import com.example.water.WaterFrameBuffers;
 import com.example.water.WaterRenderer32;
 import com.example.water.WaterShader30;
 
-// OpenGL 3D Game Tutorial 32: Font Rendering
-// https://www.youtube.com/watch?v=mnIQEQoHHCU&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=32
-
 // Hiero: A bitmap font packing tool
 // https://libgdx.badlogicgames.com/tools.html
 // https://github.com/libgdx/libgdx/wiki/Hiero
@@ -46,6 +43,9 @@ import com.example.water.WaterShader30;
 
 public class MainGameLoop32
 {
+    public static void main(String[] args) {
+        new MainGameLoop32();
+    }
 
     String tutorial = "OpenGL 3D Game Tutorial 32: Font Rendering";
     String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
@@ -101,19 +101,22 @@ public class MainGameLoop32
         DisplayManager.setVSync(vsync);
 
         TextMaster.init(loader);
-
-        FontType font = new FontType(loader.loadFontTextureAtlas("arial"), new File("res/fonts/arial.fnt"));
-          FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-          FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
-          
-        GUIText text, text2, text3;
-
-        text = new GUIText(title, 2f, font, new Vector2f(0.0f, 0.7f), 0.5f, true);
-        text.setColor(0.2f, 0.2f, 0.5f);
-           text2 = new GUIText(subTitle, 1.5f, font2, new Vector2f(0.0f, 0.8f), 0.5f, true);
-           text2.setColor(0.5f, 0.2f, 0.2f);
-        text3 = new GUIText(subSubTitle, 1f, font3, new Vector2f(0.0f, 0.9f), 0.5f, true);
-        text3.setColor(0.2f, 0.5f, 0.2f);
+        GUIText text = null, text2 = null, text3 = null;
+        if (title.length() > 0) {
+            FontType font = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            text = new GUIText(title, 1.3f, font, new Vector2f(0.0f, 0.85f), 0.3f, true);
+            text.setColor(0.1f, 0.1f, 0.4f);
+        }
+        if (subTitle.length() > 0) {
+            FontType font2 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            text2 = new GUIText(subTitle, 1f, font2, new Vector2f(0.0f, 0.9f), 0.3f, true);
+            text2.setColor(0.4f, 0.1f, 0.1f);
+        }
+        if (subSubTitle.length() > 0) {
+            FontType font3 = new FontType(loader.loadFontTextureAtlas("candara"), new File("res/fonts/candara.fnt"));
+            text3 = new GUIText(subSubTitle, 0.7f, font3, new Vector2f(0.0f, 0.95f), 0.3f, true);
+            text3.setColor(0.1f, 0.4f, 0.1f);
+        }
         
         World world = new World32(loader, terrainSize, terrainMaxHeight, terrainSize * 0.8f, waterHeight);
         List<Terrain> terrains = world.getTerrains();
@@ -301,7 +304,7 @@ public class MainGameLoop32
             //entity3.increaseRotation(0.2f, 0.3f, 0.1f);
             float dt = DisplayManager.getFrameTimeSeconds();
             t += dt;
-            //System.out.println("time: " + t);
+            // System.out.println("time: " + t);
             
             entity4.increaseRotation(12f * dt , 20f * dt, 6f * dt);
             
@@ -336,11 +339,17 @@ public class MainGameLoop32
             
             guiRenderer.render(guiTextures);
             
-            if (t > 15.0f && t < 30f) {
+            if (t > 5.0f && t < 10f) {
                 float v = -0.01f * (t - 5.0f) * (t - 5.0f);
-                text.increasePosition(v * dt, 0f);
-                text2.increasePosition(v * dt, 0f);
-                text3.increasePosition(v * dt, 0f);
+                if (text != null) {
+                    text.increasePosition(v * dt, 0f);
+                }
+                if (text2 != null) {
+                    text2.increasePosition(v * dt, 0f);
+                }
+                if (text3 != null) {
+                    text3.increasePosition(v * dt, 0f);
+                }
             }
             if (t >= 30f) {
                 if (text != null) {
@@ -376,9 +385,5 @@ public class MainGameLoop32
         renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
-    }
-
-    public static void main(String[] args) {
-        new MainGameLoop32();
     }
 }
