@@ -1,4 +1,4 @@
-package water;
+package com.example.water;
 
 import java.util.List;
 
@@ -10,34 +10,42 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import com.example.entities.Camera;
+import com.example.entities.Light;
 import com.example.models.RawModel;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
 import com.example.skybox.Sky;
 import com.example.toolbox.Maths;
 
-public class WaterRenderer06 {
+public class WaterRenderer32 {
     
     private static final String DUDV_MAP = "waterDUDV";
-    private static final float WAVE_SPEED = 0.03f;
+    private static final String NORMAL_MAP = "normalMap";
+    
+    private static final float WAVE_SPEED = 0.05f;
 
     private RawModel quad;
-    private WaterShader06 shader;
+    private WaterShader30 shader;
     private WaterFrameBuffers fbos;
     
     // tiling has to be huge since the water tiles are huge
-    private float tiling = 600f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
+    private float tiling = 122f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
+    private float waveStrength = 0.004f; // 0.02 before water tutorial 8
     
     private float moveFactor = 0f;
-    private float waveStrength = 0.02f; // const 0.02 in wter tutorial 5
     
     private int dudvTexture;
+    private int normalMap;
     
-    public WaterRenderer06(Loader loader, WaterShader06 shader, Matrix4f projectionMatrix,
-            WaterFrameBuffers fbos) {
+    private float shadingLevels;
+    
+    public WaterRenderer32(Loader loader, WaterShader30 shader, Matrix4f projectionMatrix,
+            WaterFrameBuffers fbos, float shadingLevels) {
         this.shader = shader;
         this.fbos = fbos;
+        this.shadingLevels = shadingLevels;
         dudvTexture = loader.loadTexture(DUDV_MAP);
+        normalMap = loader.loadTexture(NORMAL_MAP);
         shader.start();
         shader.connectTextureUnits();
         shader.loadProjectionMatrix(projectionMatrix);
@@ -45,8 +53,8 @@ public class WaterRenderer06 {
         setUpVAO(loader);
     }
 
-    public void render(List<WaterTile> water, Sky sky, Camera camera) {
-        prepareRender(sky, camera);
+    public void render(List<WaterTile> water, Sky sky, Camera camera, List<Light> lights) {
+        prepareRender(sky, camera, lights);
         for (WaterTile tile : water) {
             Matrix4f modelMatrix = Maths.createTransformationMatrix(
                     new Vector3f(tile.getX(), tile.getHeight(), tile.getZ()),
@@ -57,7 +65,7 @@ public class WaterRenderer06 {
         unbind();
     }
     
-    private void prepareRender(Sky sky, Camera camera) {
+    private void prepareRender(Sky sky, Camera camera, List<Light> lights) {
         shader.start();
         shader.loadViewMatrix(camera);
         shader.loadTiling(tiling);
@@ -65,9 +73,12 @@ public class WaterRenderer06 {
         moveFactor %= 1;
         shader.loadMoveFactor(moveFactor);
         shader.loadWaveStrength(waveStrength); // set waveStrength to 0 to remove the dudvMap distortion
+        shader.loadLights(lights);
 
         shader.loadSkyColor(sky.getColor());
         shader.loadSkyVariables(sky.getDensity(), sky.getGradient());
+        shader.loadShadingLevels(shadingLevels);
+       
         GL30.glBindVertexArray(quad.getVaoID());
         GL20.glEnableVertexAttribArray(0);
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
@@ -76,9 +87,17 @@ public class WaterRenderer06 {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, fbos.getRefractionTexture());
         GL13.glActiveTexture(GL13.GL_TEXTURE2);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, dudvTexture);
+        GL13.glActiveTexture(GL13.GL_TEXTURE3);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, normalMap);
+        GL13.glActiveTexture(GL13.GL_TEXTURE4);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, fbos.getRefractionDepthTexture());
+        
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
     }
     
     private void unbind() {
+        GL11.glDisable(GL11.GL_BLEND);
         GL20.glDisableVertexAttribArray(0);
         GL30.glBindVertexArray(0);
         shader.stop();

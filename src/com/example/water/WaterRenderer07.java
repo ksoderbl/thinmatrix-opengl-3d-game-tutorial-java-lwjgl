@@ -1,4 +1,4 @@
-package water;
+package com.example.water;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import com.example.renderEngine.Loader;
 import com.example.skybox.Sky;
 import com.example.toolbox.Maths;
 
-public class WaterRenderer08 {
+public class WaterRenderer07 {
     
     private static final String DUDV_MAP = "waterDUDV";
     private static final String NORMAL_MAP = "normalMap";
@@ -25,19 +25,19 @@ public class WaterRenderer08 {
     private static final float WAVE_SPEED = 0.03f;
 
     private RawModel quad;
-    private WaterShader08 shader;
+    private WaterShader07 shader;
     private WaterFrameBuffers fbos;
     
     // tiling has to be huge since the water tiles are huge
-    private float tiling = 5000f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
+    private float tiling = 600f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
     
     private float moveFactor = 0f;
-    private float waveStrength = 0.04f; // 0.02 before water tutorial 8
+    private float waveStrength = 0.02f; // const 0.02 in water tutorial 5
     
     private int dudvTexture;
     private int normalMap;
     
-    public WaterRenderer08(Loader loader, WaterShader08 shader, Matrix4f projectionMatrix,
+    public WaterRenderer07(Loader loader, WaterShader07 shader, Matrix4f projectionMatrix,
             WaterFrameBuffers fbos) {
         this.shader = shader;
         this.fbos = fbos;
@@ -84,15 +84,9 @@ public class WaterRenderer08 {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, dudvTexture);
         GL13.glActiveTexture(GL13.GL_TEXTURE3);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, normalMap);
-        GL13.glActiveTexture(GL13.GL_TEXTURE4);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, fbos.getRefractionDepthTexture());
-        
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
     }
     
     private void unbind() {
-        GL11.glDisable(GL11.GL_BLEND);
         GL20.glDisableVertexAttribArray(0);
         GL30.glBindVertexArray(0);
         shader.stop();

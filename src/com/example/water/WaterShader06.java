@@ -1,21 +1,16 @@
-package water;
-
-import java.util.List;
+package com.example.water;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import com.example.entities.Camera;
-import com.example.entities.Light;
 import com.example.shaders.ShaderProgram;
 import com.example.toolbox.Maths;
 
-public class WaterShader08 extends ShaderProgram {
-    
-    private static final int MAX_LIGHTS = 4;
+public class WaterShader06 extends ShaderProgram {
 
-    private final static String VERTEX_FILE = "src/water/waterVertex08.glsl";
-    private final static String FRAGMENT_FILE = "src/water/waterFragment08.glsl";
+    private final static String VERTEX_FILE = "src/com/example/water/waterVertex06.glsl";
+    private final static String FRAGMENT_FILE = "src/com/example/water/waterFragment06.glsl";
 
     private int location_modelMatrix;
     private int location_viewMatrix;
@@ -27,18 +22,12 @@ public class WaterShader08 extends ShaderProgram {
     private int location_tiling;
     private int location_moveFactor;
     private int location_cameraPosition;
-    private int location_normalMap;
-    private int location_depthMap;
-    
-    private int location_lightColor[];
-    private int location_lightPosition[];
-    private int location_attenuation[];
     
     private int location_skyColor;
     private int location_skyDensity;
     private int location_skyGradient;
 
-    public WaterShader08() {
+    public WaterShader06() {
         super(VERTEX_FILE, FRAGMENT_FILE);
     }
 
@@ -59,19 +48,6 @@ public class WaterShader08 extends ShaderProgram {
         location_tiling = getUniformLocation("tiling");
         location_moveFactor = getUniformLocation("moveFactor");
         location_cameraPosition = getUniformLocation("cameraPosition");
-        location_normalMap = getUniformLocation("normalMap");
-        location_depthMap = getUniformLocation("depthMap");
-        
-        // OpenGL 3D Game Tutorial 25: Multiple Lights,
-        // OpenGL 3D Game Tutorial 26: Point Lights
-        location_lightPosition = new int[MAX_LIGHTS];
-        location_lightColor = new int[MAX_LIGHTS];
-        location_attenuation = new int[MAX_LIGHTS];
-        for (int i = 0; i < MAX_LIGHTS; i++) {
-            location_lightPosition[i] = super.getUniformLocation("lightPosition[" + i + "]");
-            location_lightColor[i] = super.getUniformLocation("lightColor[" + i + "]");
-            location_attenuation[i] = super.getUniformLocation("attenuation[" + i + "]");
-        }
         
         location_skyColor = super.getUniformLocation("skyColor");
         location_skyDensity = super.getUniformLocation("skyDensity");
@@ -82,25 +58,8 @@ public class WaterShader08 extends ShaderProgram {
         super.loadInt(location_reflectionTexture, 0);
         super.loadInt(location_refractionTexture, 1);
         super.loadInt(location_dudvMap, 2);
-        super.loadInt(location_normalMap, 3);
-        super.loadInt(location_depthMap, 4);
     }
-    
-    public void loadLights(List<Light> lights) {
-        for (int i = 0; i < MAX_LIGHTS; i++) {
-            if (i < lights.size()) {
-                super.loadVector(location_lightPosition[i], lights.get(i).getPosition());
-                super.loadVector(location_lightColor[i], lights.get(i).getColor());
-                super.loadVector(location_attenuation[i], lights.get(i).getAttenuation());
-            }
-            else {
-                super.loadVector(location_lightPosition[i], new Vector3f(0, 0, 0));
-                super.loadVector(location_lightColor[i], new Vector3f(0, 0, 0));
-                super.loadVector(location_attenuation[i], new Vector3f(1, 0, 0));
-            }
-        }
-    }
-    
+
     public void loadMoveFactor(float factor) {
         super.loadFloat(location_moveFactor, factor);
     }

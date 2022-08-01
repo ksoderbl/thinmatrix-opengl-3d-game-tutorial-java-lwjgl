@@ -1,4 +1,4 @@
-package water;
+package com.example.water;
 
 import java.util.List;
 

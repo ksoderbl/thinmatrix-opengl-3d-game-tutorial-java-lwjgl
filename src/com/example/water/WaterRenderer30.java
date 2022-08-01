@@ -1,4 +1,4 @@
-package water;
+package com.example.water;
 
 import java.util.List;
 
@@ -17,33 +17,32 @@ import com.example.renderEngine.Loader;
 import com.example.skybox.Sky;
 import com.example.toolbox.Maths;
 
-public class WaterRenderer32 {
+public class WaterRenderer30 {
     
     private static final String DUDV_MAP = "waterDUDV";
     private static final String NORMAL_MAP = "normalMap";
     
-    private static final float WAVE_SPEED = 0.05f;
+    private static final float WAVE_SPEED = 0.03f;
 
     private RawModel quad;
     private WaterShader30 shader;
     private WaterFrameBuffers fbos;
     
     // tiling has to be huge since the water tiles are huge
-    private float tiling = 122f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
-    private float waveStrength = 0.004f; // 0.02 before water tutorial 8
+    private float tiling = 100f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
     
     private float moveFactor = 0f;
+    private float waveStrength = 0.04f; // 0.02 before water tutorial 8
     
     private int dudvTexture;
     private int normalMap;
     
-    private float shadingLevels;
+    private float shadingLevels = 10.0f;
     
-    public WaterRenderer32(Loader loader, WaterShader30 shader, Matrix4f projectionMatrix,
-            WaterFrameBuffers fbos, float shadingLevels) {
+    public WaterRenderer30(Loader loader, WaterShader30 shader, Matrix4f projectionMatrix,
+            WaterFrameBuffers fbos) {
         this.shader = shader;
         this.fbos = fbos;
-        this.shadingLevels = shadingLevels;
         dudvTexture = loader.loadTexture(DUDV_MAP);
         normalMap = loader.loadTexture(NORMAL_MAP);
         shader.start();

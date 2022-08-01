@@ -1,4 +1,4 @@
-package water;
+package com.example.water;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ import com.example.renderEngine.Loader;
 import com.example.skybox.Sky;
 import com.example.toolbox.Maths;
 
-public class WaterRenderer05 {
+public class WaterRenderer06 {
     
     private static final String DUDV_MAP = "waterDUDV";
     private static final float WAVE_SPEED = 0.03f;
 
     private RawModel quad;
-    private WaterShader05 shader;
+    private WaterShader06 shader;
     private WaterFrameBuffers fbos;
     
     // tiling has to be huge since the water tiles are huge
@@ -33,7 +33,7 @@ public class WaterRenderer05 {
     
     private int dudvTexture;
     
-    public WaterRenderer05(Loader loader, WaterShader05 shader, Matrix4f projectionMatrix,
+    public WaterRenderer06(Loader loader, WaterShader06 shader, Matrix4f projectionMatrix,
             WaterFrameBuffers fbos) {
         this.shader = shader;
         this.fbos = fbos;
@@ -51,7 +51,7 @@ public class WaterRenderer05 {
             Matrix4f modelMatrix = Maths.createTransformationMatrix(
                     new Vector3f(tile.getX(), tile.getHeight(), tile.getZ()),
                     0, 0, 0, tile.getSize());
-            shader.loadTransformationMatrix(modelMatrix);
+            shader.loadModelMatrix(modelMatrix);
             GL11.glDrawArrays(GL11.GL_TRIANGLES, 0, quad.getVertexCount());
         }
         unbind();

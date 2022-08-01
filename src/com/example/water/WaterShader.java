@@ -1,4 +1,4 @@
-package water;
+package com.example.water;
 
 import com.example.entities.Light;
 import org.joml.Matrix4f;
@@ -10,8 +10,8 @@ public class WaterShader extends ShaderProgram {
 
     //private static final int MAX_LIGHTS = 4;
 
-    private final static String VERTEX_FILE = "src/water/waterVertex.glsl";
-    private final static String FRAGMENT_FILE = "src/water/waterFragment.glsl";
+    private final static String VERTEX_FILE = "src/com/example/water/waterVertex.glsl";
+    private final static String FRAGMENT_FILE = "src/com/example/water/waterFragment.glsl";
 
     private int location_modelMatrix;
     private int location_viewMatrix;

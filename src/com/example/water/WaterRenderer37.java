@@ -1,7 +1,8 @@
-package water;
+package com.example.water;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -17,37 +18,40 @@ import com.example.renderEngine.Loader;
 import com.example.skybox.Sky;
 import com.example.toolbox.Maths;
 
-public class WaterRenderer30 {
+public class WaterRenderer37 {
     
     private static final String DUDV_MAP = "waterDUDV";
     private static final String NORMAL_MAP = "normalMap";
-    
-    private static final float WAVE_SPEED = 0.03f;
 
     private RawModel quad;
-    private WaterShader30 shader;
+    private WaterShader37 shader;
     private WaterFrameBuffers fbos;
-    
-    // tiling has to be huge since the water tiles are huge
-    private float tiling = 100f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
-    
+
+    private float waveSpeed = 0.03f;
+    private float waterTiling = 20f; // was 6 in OpenGL Water Tutorial 5: DuDv Maps
     private float moveFactor = 0f;
     private float waveStrength = 0.04f; // 0.02 before water tutorial 8
+    private float waterReflectivity = 2.0f; // for fresnel effect, thinmatrix had 0.5
+    private float shineDamper = 20.0f; // for normal maps
+    private float reflectivity = 0.5f; // for normal maps
     
     private int dudvTexture;
     private int normalMap;
     
-    private float shadingLevels = 10.0f;
+    private float shadingLevels;
     
-    public WaterRenderer30(Loader loader, WaterShader30 shader, Matrix4f projectionMatrix,
-            WaterFrameBuffers fbos) {
+    public WaterRenderer37(Loader loader, WaterShader37 shader, Matrix4f projectionMatrix,
+            float nearPlane, float farPlane, WaterFrameBuffers fbos, float shadingLevels) {
         this.shader = shader;
         this.fbos = fbos;
+        this.shadingLevels = shadingLevels;
         dudvTexture = loader.loadTexture(DUDV_MAP);
         normalMap = loader.loadTexture(NORMAL_MAP);
         shader.start();
         shader.connectTextureUnits();
         shader.loadProjectionMatrix(projectionMatrix);
+        shader.loadNearPlane(nearPlane);
+        shader.loadFarPlane(farPlane);
         shader.stop();
         setUpVAO(loader);
     }
@@ -67,13 +71,22 @@ public class WaterRenderer30 {
     private void prepareRender(Sky sky, Camera camera, List<Light> lights) {
         shader.start();
         shader.loadViewMatrix(camera);
-        shader.loadTiling(tiling);
-        moveFactor += WAVE_SPEED * DisplayManager.getFrameTimeSeconds();
+        
+        if (Keyboard.isKeyDown(Keyboard.KEY_1))
+            waterTiling -= 0.1;
+        if (Keyboard.isKeyDown(Keyboard.KEY_2))
+            waterTiling += 0.1;
+
+        shader.loadWaterTiling(waterTiling);
+
+        moveFactor += waveSpeed * DisplayManager.getFrameTimeSeconds();
         moveFactor %= 1;
         shader.loadMoveFactor(moveFactor);
         shader.loadWaveStrength(waveStrength); // set waveStrength to 0 to remove the dudvMap distortion
+        shader.loadWaterReflectivity(waterReflectivity); // e.g.  0.5
+        shader.loadShineVariables(shineDamper, reflectivity);
+        
         shader.loadLights(lights);
-
         shader.loadSkyColor(sky.getColor());
         shader.loadSkyVariables(sky.getDensity(), sky.getGradient());
         shader.loadShadingLevels(shadingLevels);

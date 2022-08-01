@@ -1,4 +1,4 @@
-package water;
+package com.example.water;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ public class WaterShader30 extends ShaderProgram {
     
     private static final int MAX_LIGHTS = 4;
 
-    private final static String VERTEX_FILE = "src/water/waterVertex30.glsl";
-    private final static String FRAGMENT_FILE = "src/water/waterFragment30.glsl";
+    private final static String VERTEX_FILE = "src/com/example/water/waterVertex30.glsl";
+    private final static String FRAGMENT_FILE = "src/com/example/water/waterFragment30.glsl";
 
     private int location_modelMatrix;
     private int location_viewMatrix;
