@@ -121,16 +121,17 @@ public class ParticleSystem35 {
             //Vector3f rotateAxis = Vector3f.cross(coneDirection, new Vector3f(0, 0, 1), null);
             Vector3f rotateAxis = coneDirection.cross(new Vector3f(0, 0, 1));
             rotateAxis.normalize();
-            // float rotateAngle = (float) Math.acos(Vector3f.dot(coneDirection, new Vector3f(0, 0, 1)));
+            //float rotateAngle = (float) Math.acos(Vector3f.dot(coneDirection, new Vector3f(0, 0, 1)));
             double dotProduct = coneDirection.dot(new Vector3f(0, 0, 1));
             float rotateAngle = (float) Math.acos(dotProduct);
             Matrix4f rotationMatrix = new Matrix4f();
             rotationMatrix.rotate(-rotateAngle, rotateAxis);
-            Matrix4f.transform(rotationMatrix, direction, direction);
+            //Matrix4f.transform(rotationMatrix, direction, direction);
+            direction = rotationMatrix.transform(direction);
         } else if (coneDirection.z == -1) {
             direction.z *= -1;
         }
-        return new Vector3f(direction);
+        return new Vector3f(direction.x, direction.y, direction.z);
     }
     
     private Vector3f generateRandomUnitVector() {
