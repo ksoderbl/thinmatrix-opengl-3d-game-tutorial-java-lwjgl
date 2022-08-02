@@ -1,4 +1,4 @@
-#version 140
+#version 400 core
 
 // outputs from vertexShader
 //in vec3 color;
