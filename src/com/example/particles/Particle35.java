@@ -8,7 +8,6 @@ import com.example.entities.Camera;
 import com.example.entities.Player;
 
 public class Particle35 {
-
     private Vector3f position;
     private Vector3f velocity;
     private float gravityEffect;
@@ -73,8 +72,10 @@ public class Particle35 {
         velocity.y += Player.GRAVITY * gravityEffect * DisplayManager.getFrameTimeSeconds();
         Vector3f change = new Vector3f(velocity);
         change.mul(DisplayManager.getFrameTimeSeconds());
-        Vector3f.add(change, position, position);
-        distance = Vector3f.sub(camera.getPosition(), position, null).lengthSquared();
+        position.add(change);
+        Vector3f d = new Vector3f(position);
+        d.sub(camera.getPosition());
+        distance = d.lengthSquared();
         updateTextureCoordInfo();
         elapsedTime += DisplayManager.getFrameTimeSeconds();
         return elapsedTime < lifeLength;

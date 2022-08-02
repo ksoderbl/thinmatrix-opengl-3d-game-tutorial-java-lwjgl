@@ -73,8 +73,10 @@ public class Particle {
         velocity.y += Player.GRAVITY * gravityEffect * DisplayManager.getFrameTimeSeconds();
         Vector3f change = new Vector3f(velocity);
         change.mul(DisplayManager.getFrameTimeSeconds());
-        Vector3f.add(change, position, position);
-        distance = Vector3f.sub(camera.getPosition(), position, null).lengthSquared();
+        position.add(change);
+        Vector3f d = new Vector3f(position);
+        d.sub(camera.getPosition());
+        distance = d.lengthSquared();
         updateTextureCoordInfo();
         elapsedTime += DisplayManager.getFrameTimeSeconds();
         return elapsedTime < lifeLength;

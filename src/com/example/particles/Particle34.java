@@ -6,7 +6,6 @@ import com.example.entities.Player;
 import com.example.renderEngine.DisplayManager;
 
 public class Particle34 {
-
     private Vector3f position;
     private Vector3f velocity;
     private float gravityEffect;
@@ -42,8 +41,6 @@ public class Particle34 {
     public boolean update() {
         velocity.y += Player.GRAVITY * gravityEffect * DisplayManager.getFrameTimeSeconds();
         Vector3f change = new Vector3f(velocity);
-        // change.mul(DisplayManager.getFrameTimeSeconds());
-        // Vector3f.add(change, position, position);
         change.mul(DisplayManager.getFrameTimeSeconds());
         position.add(change);
         elapsedTime += DisplayManager.getFrameTimeSeconds();
