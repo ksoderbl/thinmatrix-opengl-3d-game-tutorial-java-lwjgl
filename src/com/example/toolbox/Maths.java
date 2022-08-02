@@ -55,7 +55,7 @@ public class Maths {
 
         // System.out.println("matrix after rotation: \n" + matrix.toString());
 
-        matrix.mul(scale);
+        matrix.scale(scale);
 
         // System.out.println("matrix after scaling: \n" + matrix.toString());
 

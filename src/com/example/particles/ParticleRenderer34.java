@@ -48,15 +48,15 @@ public class ParticleRenderer34 {
         // Sets the rotation 3x3 part of the model matrix to the transpose
         // of the 3x3 rotation part of the view matrix.
         // See video OpenGL 3D Game Tutorial 34: Particle Effects at about 8 minutes.
-        modelMatrix.m00 = viewMatrix.m00;
-        modelMatrix.m01 = viewMatrix.m10;
-        modelMatrix.m02 = viewMatrix.m20;
-        modelMatrix.m10 = viewMatrix.m01;
-        modelMatrix.m11 = viewMatrix.m11;
-        modelMatrix.m12 = viewMatrix.m21;
-        modelMatrix.m20 = viewMatrix.m02;
-        modelMatrix.m21 = viewMatrix.m12;
-        modelMatrix.m22 = viewMatrix.m22;
+        modelMatrix.m00(viewMatrix.m00());
+        modelMatrix.m01(viewMatrix.m10());
+        modelMatrix.m02(viewMatrix.m20());
+        modelMatrix.m10(viewMatrix.m01());
+        modelMatrix.m11(viewMatrix.m11());
+        modelMatrix.m12(viewMatrix.m21());
+        modelMatrix.m20(viewMatrix.m02());
+        modelMatrix.m21(viewMatrix.m12());
+        modelMatrix.m22(viewMatrix.m22());
         Matrix4f.rotate((float)Math.toRadians(rotation), new Vector3f(0, 0, 1), modelMatrix, modelMatrix);
         Matrix4f.mul(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
         Matrix4f modelViewMatrix = Matrix4f.mul(viewMatrix, modelMatrix, null); 
@@ -79,5 +79,4 @@ public class ParticleRenderer34 {
         GL30.glBindVertexArray(0);
         shader.stop();
     }
-
 }

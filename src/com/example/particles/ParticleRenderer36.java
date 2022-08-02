@@ -97,15 +97,15 @@ public class ParticleRenderer36 {
         Matrix4f.translate(position, modelMatrix, modelMatrix);
         // Sets the rotation 3x3 part of the model matrix to the transpose
         // of the 3x3 rotation part of the view matrix.
-        modelMatrix.m00 = viewMatrix.m00;
-        modelMatrix.m01 = viewMatrix.m10;
-        modelMatrix.m02 = viewMatrix.m20;
-        modelMatrix.m10 = viewMatrix.m01;
-        modelMatrix.m11 = viewMatrix.m11;
-        modelMatrix.m12 = viewMatrix.m21;
-        modelMatrix.m20 = viewMatrix.m02;
-        modelMatrix.m21 = viewMatrix.m12;
-        modelMatrix.m22 = viewMatrix.m22;
+        modelMatrix.m00(viewMatrix.m00());
+        modelMatrix.m01(viewMatrix.m10());
+        modelMatrix.m02(viewMatrix.m20());
+        modelMatrix.m10(viewMatrix.m01());
+        modelMatrix.m11(viewMatrix.m11());
+        modelMatrix.m12(viewMatrix.m21());
+        modelMatrix.m20(viewMatrix.m02());
+        modelMatrix.m21(viewMatrix.m12());
+        modelMatrix.m22(viewMatrix.m22());
         
         Matrix4f.rotate((float)Math.toRadians(rotation), new Vector3f(0, 0, 1), modelMatrix, modelMatrix);
         Matrix4f.mul(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
@@ -119,22 +119,22 @@ public class ParticleRenderer36 {
     }
 
     public void storeMatrixData(Matrix4f matrix, float[] vboData) {
-        vboData[pointer++] = matrix.m00;
-        vboData[pointer++] = matrix.m01;
-        vboData[pointer++] = matrix.m02;
-        vboData[pointer++] = matrix.m03;
-        vboData[pointer++] = matrix.m10;
-        vboData[pointer++] = matrix.m11;
-        vboData[pointer++] = matrix.m12;
-        vboData[pointer++] = matrix.m13;
-        vboData[pointer++] = matrix.m20;
-        vboData[pointer++] = matrix.m21;
-        vboData[pointer++] = matrix.m22;
-        vboData[pointer++] = matrix.m23;
-        vboData[pointer++] = matrix.m30;
-        vboData[pointer++] = matrix.m31;
-        vboData[pointer++] = matrix.m32;
-        vboData[pointer++] = matrix.m33;
+        vboData[pointer++] = matrix.m00();
+        vboData[pointer++] = matrix.m01();
+        vboData[pointer++] = matrix.m02();
+        vboData[pointer++] = matrix.m03();
+        vboData[pointer++] = matrix.m10();
+        vboData[pointer++] = matrix.m11();
+        vboData[pointer++] = matrix.m12();
+        vboData[pointer++] = matrix.m13();
+        vboData[pointer++] = matrix.m20();
+        vboData[pointer++] = matrix.m21();
+        vboData[pointer++] = matrix.m22();
+        vboData[pointer++] = matrix.m23();
+        vboData[pointer++] = matrix.m30();
+        vboData[pointer++] = matrix.m31();
+        vboData[pointer++] = matrix.m32();
+        vboData[pointer++] = matrix.m33();
     }
     
     private void prepare() {
@@ -165,5 +165,4 @@ public class ParticleRenderer36 {
         GL30.glBindVertexArray(0);
         shader.stop();
     }
-
 }
