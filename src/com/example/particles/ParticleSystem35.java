@@ -118,9 +118,12 @@ public class ParticleSystem35 {
 
         Vector4f direction = new Vector4f(x, y, z, 1);
         if (coneDirection.x != 0 || coneDirection.y != 0 || (coneDirection.z != 1 && coneDirection.z != -1)) {
-            Vector3f rotateAxis = Vector3f.cross(coneDirection, new Vector3f(0, 0, 1), null);
+            //Vector3f rotateAxis = Vector3f.cross(coneDirection, new Vector3f(0, 0, 1), null);
+            Vector3f rotateAxis = coneDirection.cross(new Vector3f(0, 0, 1));
             rotateAxis.normalize();
-            float rotateAngle = (float) Math.acos(Vector3f.dot(coneDirection, new Vector3f(0, 0, 1)));
+            // float rotateAngle = (float) Math.acos(Vector3f.dot(coneDirection, new Vector3f(0, 0, 1)));
+            double dotProduct = coneDirection.dot(new Vector3f(0, 0, 1));
+            float rotateAngle = (float) Math.acos(dotProduct);
             Matrix4f rotationMatrix = new Matrix4f();
             rotationMatrix.rotate(-rotateAngle, rotateAxis);
             Matrix4f.transform(rotationMatrix, direction, direction);
