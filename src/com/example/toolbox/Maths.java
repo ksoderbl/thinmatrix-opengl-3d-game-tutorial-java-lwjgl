@@ -23,7 +23,7 @@ public class Maths {
         // TODO
         // matrix.setIdentity();
         // Matrix4f.translate(translation, matrix, matrix);
-        // Matrix4f.scale(new Vector3f(scale.x, scale.y, 1f), matrix, matrix);
+        // Matrix4f.mul(new Vector3f(scale.x, scale.y, 1f), matrix, matrix);
         return matrix;
     }
 
@@ -41,7 +41,7 @@ public class Maths {
         // Matrix4f.rotate((float) Math.toRadians(rx), new Vector3f(1,0,0), matrix, matrix);
         // Matrix4f.rotate((float) Math.toRadians(ry), new Vector3f(0,1,0), matrix, matrix);
         // Matrix4f.rotate((float) Math.toRadians(rz), new Vector3f(0,0,1), matrix, matrix);
-        // Matrix4f.scale(new Vector3f(scale, scale, scale), matrix, matrix);
+        // Matrix4f.mul(new Vector3f(scale, scale, scale), matrix, matrix);
 
         Matrix4f matrix = new Matrix4f();
 
@@ -55,7 +55,7 @@ public class Maths {
 
         // System.out.println("matrix after rotation: \n" + matrix.toString());
 
-        matrix.scale(scale);
+        matrix.mul(scale);
 
         // System.out.println("matrix after scaling: \n" + matrix.toString());
 

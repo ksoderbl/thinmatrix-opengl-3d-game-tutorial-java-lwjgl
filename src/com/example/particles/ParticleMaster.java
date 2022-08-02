@@ -1,4 +1,4 @@
-package particles;
+package com.example.particles;
 
 import java.util.ArrayList;
 import java.util.HashMap;

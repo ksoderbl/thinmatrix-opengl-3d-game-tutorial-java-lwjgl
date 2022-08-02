@@ -1,4 +1,4 @@
-package particles;
+package com.example.particles;
 
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -96,7 +96,7 @@ public class Particle36 {
     public boolean update(Camera camera) {
         velocity.y += Player.GRAVITY * gravityEffect * DisplayManager.getFrameTimeSeconds();
         reusableChange.set(velocity);
-        reusableChange.scale(DisplayManager.getFrameTimeSeconds());
+        reusableChange.mul(DisplayManager.getFrameTimeSeconds());
         Vector3f.add(reusableChange, position, position);
         distance = Vector3f.sub(camera.getPosition(), position, null).lengthSquared();
         updateTextureCoordInfo();

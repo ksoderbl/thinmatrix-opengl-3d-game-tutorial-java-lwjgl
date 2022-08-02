@@ -1,4 +1,4 @@
-package particles;
+package com.example.particles;
 
 import org.joml.Vector3f;
 
@@ -42,8 +42,10 @@ public class Particle34 {
     public boolean update() {
         velocity.y += Player.GRAVITY * gravityEffect * DisplayManager.getFrameTimeSeconds();
         Vector3f change = new Vector3f(velocity);
-        change.scale(DisplayManager.getFrameTimeSeconds());
-        Vector3f.add(change, position, position);
+        // change.mul(DisplayManager.getFrameTimeSeconds());
+        // Vector3f.add(change, position, position);
+        change.mul(DisplayManager.getFrameTimeSeconds());
+        position.add(change);
         elapsedTime += DisplayManager.getFrameTimeSeconds();
         return elapsedTime < lifeLength;
     }

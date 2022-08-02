@@ -1,4 +1,4 @@
-package particles;
+package com.example.particles;
 
 import java.util.List;
 import java.util.Map;
@@ -72,7 +72,7 @@ public class ParticleRenderer35 {
         modelMatrix.m21 = viewMatrix.m12;
         modelMatrix.m22 = viewMatrix.m22;
         Matrix4f.rotate((float)Math.toRadians(rotation), new Vector3f(0, 0, 1), modelMatrix, modelMatrix);
-        Matrix4f.scale(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
+        Matrix4f.mul(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
         Matrix4f modelViewMatrix = Matrix4f.mul(viewMatrix, modelMatrix, null); 
         shader.loadModelViewMatrix(modelViewMatrix);
     }

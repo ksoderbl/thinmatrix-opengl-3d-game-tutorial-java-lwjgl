@@ -1,4 +1,4 @@
-package particles;
+package com.example.particles;
 
 public class ParticleTexture36 {
 

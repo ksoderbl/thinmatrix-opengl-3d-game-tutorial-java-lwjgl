@@ -1,4 +1,4 @@
-package particles;
+package com.example.particles;
 
 import java.nio.FloatBuffer;
 import java.util.List;
@@ -108,12 +108,12 @@ public class ParticleRenderer36 {
         modelMatrix.m22 = viewMatrix.m22;
         
         Matrix4f.rotate((float)Math.toRadians(rotation), new Vector3f(0, 0, 1), modelMatrix, modelMatrix);
-        Matrix4f.scale(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
+        Matrix4f.mul(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
         Matrix4f modelViewMatrix = Matrix4f.mul(viewMatrix, modelMatrix, null); 
         
 //        Matrix4f modelViewMatrix = Matrix4f.mul(viewMatrix, modelMatrix, null);
 //        Matrix4f.rotate((float)Math.toRadians(rotation), new Vector3f(0, 0, 1), modelMatrix, modelMatrix);
-//        Matrix4f.scale(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
+//        Matrix4f.mul(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
 
         storeMatrixData(modelViewMatrix, vboData);
     }

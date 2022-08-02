@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
+// import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.joml.Vector2f;
@@ -24,9 +23,10 @@ import com.example.fontRendering.TextMaster33;
 import com.example.guis.GuiRenderer;
 import com.example.guis.GuiTexture;
 import com.example.models.TexturedModel;
-import particles.ParticleMaster36;
-import particles.ParticleSystem36;
-import particles.ParticleTexture36;
+import com.example.particles.ParticleMaster36;
+import com.example.particles.ParticleSystem36;
+import com.example.particles.ParticleTexture36;
+import com.example.renderEngine.Display;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
 import com.example.renderEngine.MasterRenderer32;
@@ -39,16 +39,12 @@ import com.example.water.WaterFrameBuffers;
 import com.example.water.WaterRenderer37;
 import com.example.water.WaterShader37;
 
-// https://www.youtube.com/watch?v=qChQrNWU9Xw&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=37
-
-// Hiero: A bitmap font packing tool
-// https://libgdx.badlogicgames.com/tools.html
-// https://github.com/libgdx/libgdx/wiki/Hiero
-// http://www.angelcode.com/products/bmfont/
-// https://github.com/libgdx/libgdx/wiki/Bitmap-fonts
-
 public class MainGameLoop37
 {
+    public static void main(String[] args) {
+        new MainGameLoop37();
+    }
+
     String tutorial = "OpenGL 3D Game Tutorial 37: Procedural Terrain";
     String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
      //"Use key c to swap to second camera, move it with arrow keys";
@@ -432,11 +428,11 @@ public class MainGameLoop37
             ParticleMaster36.renderParticles(camera);
             guiRenderer.render(GuiTextures);
             
-            if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
+            // if (Keyboard.isKeyDown(Keyboard.KEY_T)) {
 //                text.increasePosition(dt, 0f);
 //                text2.increasePosition(dt, 0f);
 //                text3.increasePosition(dt, 0f);
-            }
+            // }
             
             if (t > 15.0f && t < 30f) {
                 float v = -0.2f * (t - 15.0f) * (t - 15.0f);
@@ -492,9 +488,5 @@ public class MainGameLoop37
         renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
-    }
-
-    public static void main(String[] args) {
-        new MainGameLoop37();
     }
 }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.joml.Vector2f;
@@ -23,9 +22,10 @@ import com.example.fontRendering.TextMaster33;
 import com.example.guis.GuiRenderer;
 import com.example.guis.GuiTexture;
 import com.example.models.TexturedModel;
-import particles.ParticleMaster36;
-import particles.ParticleSystem36;
-import particles.ParticleTexture36;
+import com.example.particles.ParticleMaster36;
+import com.example.particles.ParticleSystem36;
+import com.example.particles.ParticleTexture36;
+import com.example.renderEngine.Display;
 import com.example.renderEngine.DisplayManager;
 import com.example.renderEngine.Loader;
 import com.example.renderEngine.MasterRenderer32;
@@ -38,16 +38,12 @@ import com.example.water.WaterFrameBuffers;
 import com.example.water.WaterRenderer32;
 import com.example.water.WaterShader30;
 
-// https://www.youtube.com/watch?v=Rm-By2NJsrc&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&index=36
-
-// Hiero: A bitmap font packing tool
-// https://libgdx.badlogicgames.com/tools.html
-// https://github.com/libgdx/libgdx/wiki/Hiero
-// http://www.angelcode.com/products/bmfont/
-// https://github.com/libgdx/libgdx/wiki/Bitmap-fonts
-
 public class MainGameLoop36
 {
+    public static void main(String[] args) {
+        new MainGameLoop36();
+    }
+
     String tutorial = "OpenGL 3D Game Tutorial 36: Instanced Rendering";
     String subSubTitle = "Use keys w, a, s, d to move player, use mouse to control camera";
      //"Use key c to swap to second camera, move it with arrow keys";
@@ -478,9 +474,5 @@ public class MainGameLoop36
         renderer.cleanUp();
         loader.cleanUp();
         DisplayManager.closeDisplay();
-    }
-
-    public static void main(String[] args) {
-        new MainGameLoop36();
     }
 }

@@ -1,4 +1,4 @@
-package particles;
+package com.example.particles;
 
 import org.joml.Matrix4f;
 
@@ -6,8 +6,8 @@ import com.example.shaders.ShaderProgram;
 
 public class ParticleShader36 extends ShaderProgram {
 
-    private static final String VERTEX_FILE = "src/particles/particleVShader36.glsl";
-    private static final String FRAGMENT_FILE = "src/particles/particleFShader36.glsl";
+    private static final String VERTEX_FILE = "src/com/example/particles/particleVShader36.glsl";
+    private static final String FRAGMENT_FILE = "src/com/example/particles/particleFShader36.glsl";
 
     private int location_numberOfRows;
     private int location_projectionMatrix;
