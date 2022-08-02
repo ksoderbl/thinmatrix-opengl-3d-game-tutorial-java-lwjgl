@@ -59,7 +59,10 @@ public class ParticleRenderer {
 
     private void updateModelViewMatrix(Vector3f position, float rotation, float scale, Matrix4f viewMatrix) {
         Matrix4f modelMatrix = new Matrix4f();
-        Matrix4f.translate(position, modelMatrix, modelMatrix);
+        
+        // Matrix4f.translate(position, modelMatrix, modelMatrix);
+        modelMatrix.translate(position);
+
         // Sets the rotation 3x3 part of the model matrix to the transpose
         // of the 3x3 rotation part of the view matrix.
         modelMatrix.m00(viewMatrix.m00());
@@ -71,9 +74,14 @@ public class ParticleRenderer {
         modelMatrix.m20(viewMatrix.m02());
         modelMatrix.m21(viewMatrix.m12());
         modelMatrix.m22(viewMatrix.m22());
-        Matrix4f.rotate((float)Math.toRadians(rotation), new Vector3f(0, 0, 1), modelMatrix, modelMatrix);
-        Matrix4f.mul(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
-        Matrix4f modelViewMatrix = Matrix4f.mul(viewMatrix, modelMatrix, null); 
+
+        // Matrix4f.rotate((float)Math.toRadians(rotation), new Vector3f(0, 0, 1), modelMatrix, modelMatrix);
+        // Matrix4f.scale(new Vector3f(scale, scale, scale), modelMatrix, modelMatrix);
+        // Matrix4f modelViewMatrix = Matrix4f.mul(viewMatrix, modelMatrix, null); 
+        modelMatrix.rotate((float)Math.toRadians(rotation), new Vector3f(0, 0, 1));
+        modelMatrix.scale(scale, scale, scale);
+        Matrix4f modelViewMatrix = viewMatrix.mul(modelMatrix);
+        
         shader.loadModelViewMatrix(modelViewMatrix);
     }
 
@@ -92,5 +100,4 @@ public class ParticleRenderer {
         GL30.glBindVertexArray(0);
         shader.stop();
     }
-
 }
