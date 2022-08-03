@@ -1,10 +1,12 @@
 package com.example.engineTester;
 
 import java.io.File;
-import java.util.Random;
+// import java.util.Random;
 
+import org.lwjgl.opengl.GL11;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.joml.Matrix4f;
 
 import com.example.entities.Camera08;
 import com.example.entities.Entity;
@@ -19,6 +21,7 @@ import com.example.renderEngine.Loader;
 import com.example.renderEngine.Renderer08;
 import com.example.shaders.StaticShader08;
 import com.example.textures.ModelTexture;
+import com.example.toolbox.Maths;
 
 public class MainGameLoop08
 {
@@ -70,40 +73,59 @@ public class MainGameLoop08
         text3.setColor(0.8f, 0.8f, 0.2f);
         
         
-        // create some random entities 
-        Entity[] entities = new Entity[ 1000 ];
-        Random random = new Random();
+        // // create some random entities 
+        // Entity[] entities = new Entity[ 1000 ];
+        // Random random = new Random();
         
-        for (int i = 0; i < entities.length; i++) {
-            Vector3f translation = new Vector3f(
-                    ((2 * random.nextFloat()) - 1) * 0.8f,
-                    (-0.5f + (random.nextFloat())) * 0.8f,
-                    -5f);
-            float rx = 0;
-            float ry = 0; 
-            float rz = 360 * random.nextFloat();
-            float tmp = random.nextFloat();
-            float scale = tmp * tmp * 0.1f;
+        // for (int i = 0; i < entities.length; i++) {
+        //     Vector3f translation = new Vector3f(
+        //             ((2 * random.nextFloat()) - 1) * 0.8f,
+        //             (-0.5f + (random.nextFloat())) * 0.8f,
+        //             -5f);
+        //     float rx = 0;
+        //     float ry = 0; 
+        //     float rz = 360 * random.nextFloat();
+        //     float tmp = random.nextFloat();
+        //     float scale = tmp * tmp * 0.1f;
 
-            entities[i] = new Entity(staticModel, translation, rx, ry, rz, scale);
-        }
+        //     entities[i] = new Entity(staticModel, translation, rx, ry, rz, scale);
+        // }
         
-        Camera08 camera = new Camera08();
+        Vector3f translation = new Vector3f(-1, 0, 0);
+        float rx = 0.0f;
+        float ry = 0.0f;
+        float rz = 0.0f;
+        float scale = 1.0f;
+        Entity entity = new Entity(staticModel, translation, rx, ry, rz, scale);
+        
+        // Camera08 camera = new Camera08();
+        Matrix4f m = Maths.createTransformationMatrix(translation, 45.0f, 45.0f, 45.0f, 1.0f);
         
         while (!Display.isCloseRequested()) {
-            
-            for (int i = 0; i < entities.length; i++) {
-                //entities[i].increasePosition(0, 0, 0.00001f*i);
-                entities[i].increaseRotation(0.002f*i, 0.003f*i, 0.001f*i);
-            }
+            entity.increasePosition(0.002f, 0, 0);
+            entity.increaseRotation(0, 1, 0);
 
-            camera.move();
+
+            // disable depth test because TextMaster turns it on
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            
+            // disable depth test because TextMaster turns it on
+            // GL11.glDisable(GL11.GL_DEPTH_TEST);
+            
+            // for (int i = 0; i < entities.length; i++) {
+            //     //entities[i].increasePosition(0, 0, 0.00001f*i);
+            //     entities[i].increaseRotation(0.002f*i, 0.003f*i, 0.001f*i);
+            // }
+
+            // camera.move();
             renderer.prepare();
             shader.start();
-            shader.loadViewMatrix(camera);
-            for (int i = 0; i < entities.length; i++) {
-                renderer.render(entities[i], shader);
-            }
+            shader.loadTransformationMatrix(m);
+            // shader.loadViewMatrix(camera);
+            // for (int i = 0; i < entities.length; i++) {
+            //     renderer.render(entities[i], shader);
+            // }
+            renderer.render(entity, shader);
             shader.stop();
             
             TextMaster.render();
