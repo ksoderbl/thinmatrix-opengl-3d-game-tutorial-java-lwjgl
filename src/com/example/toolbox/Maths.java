@@ -19,12 +19,21 @@ public class Maths {
     // // For OpenGL 3D Game Tutorial 24: Rendering GUIs
     public static Matrix4f createTransformationMatrix(
             Vector2f translation, Vector2f scale) {
-        Matrix4f matrix = new Matrix4f();
-        // TODO
+
         // matrix.setIdentity();
         // Matrix4f.translate(translation, matrix, matrix);
         // Matrix4f.mul(new Vector3f(scale.x, scale.y, 1f), matrix, matrix);
-        return matrix;
+
+        Matrix4f m = new Matrix4f();
+
+        m.translate(translation.x, translation.y, 0);
+        m.scale(scale.x, scale.y, 1.0f);
+
+        // Something weird going on since I need this transpose here for the transformation to work
+        // correctly.
+        m.transpose();
+        
+        return m;
     }
 
     private static void printMatrix(Matrix4f m, String name) {
