@@ -6,7 +6,7 @@ import java.io.File;
 import org.lwjgl.opengl.GL11;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
-import org.joml.Matrix4f;
+// import org.joml.Matrix4f;0
 
 import com.example.entities.Camera08;
 import com.example.entities.Entity;
@@ -21,7 +21,7 @@ import com.example.renderEngine.Loader;
 import com.example.renderEngine.Renderer08;
 import com.example.shaders.StaticShader08;
 import com.example.textures.ModelTexture;
-import com.example.toolbox.Maths;
+// import com.example.toolbox.Maths;
 
 public class MainGameLoop08
 {
@@ -91,17 +91,17 @@ public class MainGameLoop08
         //     entities[i] = new Entity(staticModel, translation, rx, ry, rz, scale);
         // }
         
-        Vector3f translation = new Vector3f(0, 0, 0);
+        Vector3f translation = new Vector3f(0, 0, -1);
         float rx = 0.0f;
         float ry = 0.0f;
         float rz = 0.0f;
         float scale = 1.0f;
         Entity entity = new Entity(staticModel, translation, rx, ry, rz, scale);
         
-        // Camera08 camera = new Camera08();
+        Camera08 camera = new Camera08();
         
         while (!Display.isCloseRequested()) {
-            entity.increasePosition(0.f, 0, -0.1f);
+            // entity.increasePosition(0.f, 0, -0.1f);
             // entity.increaseRotation(0, 1, 0);
 
 
@@ -116,10 +116,10 @@ public class MainGameLoop08
             //     entities[i].increaseRotation(0.002f*i, 0.003f*i, 0.001f*i);
             // }
 
-            // camera.move();
+            camera.move();
             renderer.prepare();
             shader.start();
-            // shader.loadViewMatrix(camera);
+            shader.loadViewMatrix(camera);
             // for (int i = 0; i < entities.length; i++) {
             //     renderer.render(entities[i], shader);
             // }

@@ -18,6 +18,8 @@ public class Camera08 implements Camera {
 
     // TODO
     public void move() {
+        position.x += 0.01f;
+        position.z += 0.01f;
         // if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
         //     position.z -= 0.1f;
         // }

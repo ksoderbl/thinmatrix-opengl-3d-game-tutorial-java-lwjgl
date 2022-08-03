@@ -142,14 +142,16 @@ public class Maths {
 
     public static Matrix4f createViewMatrix(Camera camera) {
         Matrix4f viewMatrix = new Matrix4f();
-        // TODO
-        // viewMatrix.setIdentity();
-        // Matrix4f.rotate((float) Math.toRadians(camera.getPitch()), new Vector3f(1, 0, 0), viewMatrix, viewMatrix);
-        // Matrix4f.rotate((float) Math.toRadians(camera.getYaw()),   new Vector3f(0, 1, 0), viewMatrix, viewMatrix);
-        // Matrix4f.rotate((float) Math.toRadians(camera.getRoll()),  new Vector3f(0, 0, 1), viewMatrix, viewMatrix);
-        // Vector3f cameraPos = camera.getPosition();
-        // Vector3f negativeCameraPos = new Vector3f(-cameraPos.x, -cameraPos.y, -cameraPos.z);
-        // Matrix4f.translate(negativeCameraPos, viewMatrix, viewMatrix);
+        viewMatrix.rotate((float) Math.toRadians(camera.getPitch()), new Vector3f(1, 0, 0));
+        viewMatrix.rotate((float) Math.toRadians(camera.getYaw()),   new Vector3f(0, 1, 0));
+        viewMatrix.rotate((float) Math.toRadians(camera.getRoll()),  new Vector3f(0, 0, 1));
+        Vector3f cameraPos = camera.getPosition();
+        Vector3f negativeCameraPos = new Vector3f(-cameraPos.x, -cameraPos.y, -cameraPos.z);
+        viewMatrix.translate(negativeCameraPos);
+
+        // Doesn't seem to work right without this transpose here for some reason.
+        viewMatrix.transpose();
+
         return viewMatrix;
     }
 
@@ -160,20 +162,14 @@ public class Maths {
             float yaw,
             float roll) {
         Matrix4f viewMatrix = new Matrix4f();
-
-        // System.out.println("cameraPos: \n" + cameraPos.toString());
-        // System.out.println("viewMatrix1: \n" + viewMatrix.toString());
-
-        // TODO
-        // viewMatrix.setIdentity();
-        // Matrix4f.rotate((float) Math.toRadians(pitch), new Vector3f(1, 0, 0), viewMatrix, viewMatrix);
-        // Matrix4f.rotate((float) Math.toRadians(yaw),   new Vector3f(0, 1, 0), viewMatrix, viewMatrix);
-        // Matrix4f.rotate((float) Math.toRadians(roll),  new Vector3f(0, 0, 1), viewMatrix, viewMatrix);
+        viewMatrix.rotate((float) Math.toRadians(pitch), new Vector3f(1, 0, 0));
+        viewMatrix.rotate((float) Math.toRadians(yaw),   new Vector3f(0, 1, 0));
+        viewMatrix.rotate((float) Math.toRadians(roll),  new Vector3f(0, 0, 1));
         Vector3f negativeCameraPos = new Vector3f(-cameraPos.x, -cameraPos.y, -cameraPos.z);
-        // Matrix4f.translate(negativeCameraPos, viewMatrix, viewMatrix);
         viewMatrix.translate(negativeCameraPos);
 
-        // System.out.println("viewMatrix2: \n" + viewMatrix.toString());
+        // Doesn't seem to work right without this transpose here for some reason.
+        viewMatrix.transpose();
 
         return viewMatrix;
     }
