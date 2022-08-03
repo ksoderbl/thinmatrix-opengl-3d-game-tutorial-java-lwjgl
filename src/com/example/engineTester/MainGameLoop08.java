@@ -121,6 +121,7 @@ public class MainGameLoop08
             renderer.prepare();
             shader.start();
             shader.loadTransformationMatrix(m);
+            shader.loadProjectionMatrix(new Matrix4f());
             // shader.loadViewMatrix(camera);
             // for (int i = 0; i < entities.length; i++) {
             //     renderer.render(entities[i], shader);

@@ -15,6 +15,6 @@ void main(void)
     
     // pass_textureCoordinates = textureCoordinates;
 
-    gl_Position = transformationMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * transformationMatrix * vec4(position, 1.0);
     pass_textureCoordinates = textureCoordinates;    
 }
