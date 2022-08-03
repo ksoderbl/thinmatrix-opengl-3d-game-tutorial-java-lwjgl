@@ -2,7 +2,6 @@ package com.example.water;
 
 import java.util.List;
 
-// import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -68,7 +67,6 @@ public class WaterRenderer {
         shader.start();
         shader.loadViewMatrix(camera);
 
-        // TODO
         // if (Keyboard.isKeyDown(Keyboard.KEY_1))
         //     waterTiling -= 0.1;
         // if (Keyboard.isKeyDown(Keyboard.KEY_2))

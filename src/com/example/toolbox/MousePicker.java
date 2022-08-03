@@ -1,12 +1,12 @@
 package com.example.toolbox;
 
-// import org.lwjgl.input.Mouse;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import com.example.entities.Camera;
+import com.example.input.Mouse;
 import com.example.renderEngine.Display;
 import com.example.terrains.Terrain;
 import com.example.terrains.World;
@@ -53,12 +53,8 @@ public class MousePicker {
 
     private Vector3f calculateMouseRay() {
         // viewport space
-        // TODO
-        // float mouseX = Mouse.getX();
-        // float mouseY = Mouse.getY();
-        float mouseX = Display.getWidth() / 2;
-        float mouseY = Display.getHeight() / 2;
-
+        float mouseX = Mouse.getX();
+        float mouseY = Mouse.getY();
 
         // normalized device space
         Vector2f normalizedCoords = getNormalizedDeviceCoords(mouseX, mouseY);

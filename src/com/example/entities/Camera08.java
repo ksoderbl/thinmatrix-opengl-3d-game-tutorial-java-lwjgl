@@ -1,7 +1,8 @@
 package com.example.entities;
 
-// import org.lwjgl.input.Keyboard;
 import org.joml.Vector3f;
+
+import com.example.input.Keyboard;
 
 public class Camera08 implements Camera {
 
@@ -16,22 +17,19 @@ public class Camera08 implements Camera {
 
     }
 
-    // TODO
     public void move() {
-        position.x += 0.01f;
-        position.z += 0.01f;
-        // if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-        //     position.z -= 0.1f;
-        // }
-        // if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-        //     position.z += 0.1f;
-        // }
-        // if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-        //     position.x += 0.1f;
-        // }
-        // if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-        //     position.x -= 0.1f;
-        // }
+        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
+            position.z -= 0.1f;
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
+            position.z += 0.1f;
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
+            position.x += 0.1f;
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
+            position.x -= 0.1f;
+        }
     }
     
     public void invertPitch() {

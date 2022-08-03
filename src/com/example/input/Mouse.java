@@ -4,12 +4,6 @@ package com.example.input;
 
 public class Mouse {
 
-    // Returns:
-    // Movement of the wheel since last time getDWheel() was called
-    public static int getDWheel() {
-        // TODO
-        return 0;
-    }
 
     // See if a particular mouse button is down.
     // Parameters:
@@ -19,6 +13,20 @@ public class Mouse {
     public static boolean isButtonDown(int button) {
         // TODO
         return false;
+    }
+
+    // Retrieves the absolute position. It will be clamped to 0...width-1.
+    // Returns:
+    // Absolute x axis position of mouse
+    public static int getX() {
+        return 0;
+    }
+
+    // Retrieves the absolute position. It will be clamped to 0...height-1.
+    // Returns:
+    // Absolute y axis position of mouse
+    public static int getY() {
+        return 0;
     }
 
     // Returns:
@@ -31,6 +39,13 @@ public class Mouse {
     // Returns:
     // Movement on the y axis since last time getDY() was called.
     public static int getDY() {
+        // TODO
+        return 0;
+    }
+
+    // Returns:
+    // Movement of the wheel since last time getDWheel() was called
+    public static int getDWheel() {
         // TODO
         return 0;
     }

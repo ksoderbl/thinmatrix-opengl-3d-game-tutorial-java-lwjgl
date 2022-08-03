@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-// import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.joml.Vector2f;
@@ -233,7 +232,6 @@ public class MainGameLoopWater04
         MasterRenderer23 renderer = new MasterRenderer23();
         
         int i = 0;
-        // int cameraFrames = 0;
         
         // Water
         WaterFrameBuffers buffers = new WaterFrameBuffers();
@@ -267,18 +265,6 @@ public class MainGameLoopWater04
         while (!Display.isCloseRequested()) {
             
             player.move(world);
-            
-            // cameraFrames++;
-            // // key C used to swap camera
-            // if (cameraFrames > 10 && Keyboard.isKeyDown(Keyboard.KEY_C)) {
-            //     if (camera == camera1) {
-            //         camera = camera2;
-            //     }
-            //     else if (camera == camera2) {
-            //         camera = camera1;
-            //     }
-            //     cameraFrames = 0;
-            // }
             
             camera.move();
             
