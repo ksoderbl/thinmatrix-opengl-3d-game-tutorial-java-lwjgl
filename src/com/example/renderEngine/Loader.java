@@ -131,6 +131,7 @@ public class Loader {
         return new RawModel(vaoID, positions.length / dimensions);
     }
 
+    // OpenGL 3D Game Tutorial 6: Texturing
     public int loadTexture(String fileName, float lodBias) {
         Texture texture = null;
         fileName = "res/" + fileName + ".png";

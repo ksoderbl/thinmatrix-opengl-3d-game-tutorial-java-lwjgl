@@ -50,7 +50,7 @@ public class DisplayManager {
             if (oldNanoTime > 0) {
                 double seconds = deltaTime * 1e-9;
                 double fps = frames / seconds;
-                System.out.println("fps = " + fps);
+                // System.out.println("fps = " + fps);
                 frames = 0;
             }
             oldNanoTime = nanoTime;
