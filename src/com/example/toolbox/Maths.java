@@ -129,12 +129,13 @@ public class Maths {
         Matrix4f projectionMatrix = new Matrix4f();
         projectionMatrix.m00(x_scale);
         projectionMatrix.m11(y_scale);
-        // projectionMatrix.m22(-((farPlane + nearPlane) / frustumLength));
-        // projectionMatrix.m23(-1);
-        // projectionMatrix.m32(-((2 * nearPlane * farPlane) / frustumLength));
-        // projectionMatrix.m33(0);
+        projectionMatrix.m22(-((farPlane + nearPlane) / frustumLength));
+        projectionMatrix.m23(-1);
+        projectionMatrix.m32(-((2 * nearPlane * farPlane) / frustumLength));
+        projectionMatrix.m33(0);
 
-        // projectionMatrix.transpose();
+        // Doesn't seem to work right without this transpose here for some reason.
+        projectionMatrix.transpose();
 
         return projectionMatrix;
     }

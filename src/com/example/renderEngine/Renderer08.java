@@ -47,8 +47,7 @@ public class Renderer08 {
         float rz = entity.getRotZ();
         float scale = entity.getScale();
         
-        Matrix4f transformationMatrix = Maths.createTransformationMatrix(
-                translation, rx, ry, rz, scale);
+        Matrix4f transformationMatrix = Maths.createTransformationMatrix(translation, rx, ry, rz, scale);
         shader.loadTransformationMatrix(transformationMatrix);
         
         GL13.glActiveTexture(GL13.GL_TEXTURE0);

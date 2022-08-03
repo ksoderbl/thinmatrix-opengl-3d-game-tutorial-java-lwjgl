@@ -91,7 +91,7 @@ public class MainGameLoop08
         //     entities[i] = new Entity(staticModel, translation, rx, ry, rz, scale);
         // }
         
-        Vector3f translation = new Vector3f(-1, 0, 0);
+        Vector3f translation = new Vector3f(0, 0, 0);
         float rx = 0.0f;
         float ry = 0.0f;
         float rz = 0.0f;
@@ -99,11 +99,10 @@ public class MainGameLoop08
         Entity entity = new Entity(staticModel, translation, rx, ry, rz, scale);
         
         // Camera08 camera = new Camera08();
-        Matrix4f m = Maths.createTransformationMatrix(translation, 45.0f, 45.0f, 45.0f, 1.0f);
         
         while (!Display.isCloseRequested()) {
-            entity.increasePosition(0.002f, 0, 0);
-            entity.increaseRotation(0, 1, 0);
+            entity.increasePosition(0.f, 0, -0.1f);
+            // entity.increaseRotation(0, 1, 0);
 
 
             // disable depth test because TextMaster turns it on
@@ -120,7 +119,6 @@ public class MainGameLoop08
             // camera.move();
             renderer.prepare();
             shader.start();
-            shader.loadTransformationMatrix(m);
             // shader.loadViewMatrix(camera);
             // for (int i = 0; i < entities.length; i++) {
             //     renderer.render(entities[i], shader);
