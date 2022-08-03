@@ -1,7 +1,8 @@
 package com.example.entities;
 
-// import org.lwjgl.input.Mouse;
 import org.joml.Vector3f;
+
+import com.example.input.Mouse;
 
 public class Camera31 implements Camera {
 
@@ -91,9 +92,7 @@ public class Camera31 implements Camera {
     }
 
     private void calculateZoom() {
-        // TODO
-        // float zoomLevel = Mouse.getDWheel() * ZOOM_LEVEL_FACTOR;
-        float zoomLevel = 0;
+        float zoomLevel = Mouse.getDWheel() * ZOOM_LEVEL_FACTOR;
         distanceFromPlayer -= zoomLevel;
         if (distanceFromPlayer < MIN_DISTANCE_FROM_PLAYER)
             distanceFromPlayer = MIN_DISTANCE_FROM_PLAYER;
@@ -102,23 +101,21 @@ public class Camera31 implements Camera {
     }
 
     private void calculatePitch() {
-        // TODO
-        // if (Mouse.isButtonDown(1)) {
-        //     float pitchChange = Mouse.getDY() * PITCH_CHANGE_FACTOR;
-        //     pitch -= pitchChange;
-        //     if (pitch < MIN_PITCH) {
-        //         pitch = MIN_PITCH;
-        //     } else if (pitch > MAX_PITCH) {
-        //         pitch = MAX_PITCH;
-        //     }
-        // }
+        if (Mouse.isButtonDown(1)) {
+            float pitchChange = Mouse.getDY() * PITCH_CHANGE_FACTOR;
+            pitch -= pitchChange;
+            if (pitch < MIN_PITCH) {
+                pitch = MIN_PITCH;
+            } else if (pitch > MAX_PITCH) {
+                pitch = MAX_PITCH;
+            }
+        }
     }
 
     private void calculateAngleAroundPlayer() {
-        // TODO        
-        // if (Mouse.isButtonDown(0)) {
-        //     float angleChange = Mouse.getDX() * ANGLE_AROUND_PLAYER_CHANGE_FACTOR;
-        //     angleAroundPlayer -= angleChange;
-        // }
+        if (Mouse.isButtonDown(0)) {
+            float angleChange = Mouse.getDX() * ANGLE_AROUND_PLAYER_CHANGE_FACTOR;
+            angleAroundPlayer -= angleChange;
+        }
     }
 }
