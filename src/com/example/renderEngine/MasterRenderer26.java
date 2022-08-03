@@ -18,6 +18,7 @@ import com.example.shaders.StaticShader26;
 import com.example.skybox.Sky;
 import com.example.terrains.Terrain;
 import com.example.terrains.TerrainShader26;
+import com.example.toolbox.Maths;
 
 public class MasterRenderer26 {
     
@@ -40,7 +41,7 @@ public class MasterRenderer26 {
     
     public MasterRenderer26() {
         enableCulling();
-        createProjectionMatrix();
+        projectionMatrix = Maths.createProjectionMatrix(FOV, NEAR_PLANE, FAR_PLANE);
         renderer = new EntityRenderer26(shader, projectionMatrix);
         terrainRenderer = new TerrainRenderer26(terrainShader, projectionMatrix);
     }
@@ -117,21 +118,6 @@ public class MasterRenderer26 {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
     }
     
-    private void createProjectionMatrix() {
-        float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
-        float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))) * aspectRatio);
-        float x_scale = y_scale / aspectRatio;
-        float frustumLength = FAR_PLANE - NEAR_PLANE;
-
-        projectionMatrix = new Matrix4f();
-        projectionMatrix.m00(x_scale);
-        projectionMatrix.m11(y_scale);
-        projectionMatrix.m22(-((FAR_PLANE + NEAR_PLANE) / frustumLength));
-        projectionMatrix.m23(-1);
-        projectionMatrix.m32(-((2 * NEAR_PLANE * FAR_PLANE) / frustumLength));
-        projectionMatrix.m33(0);
-    }
-
     public Matrix4f getProjectionMatrix() {
         return projectionMatrix;
     }

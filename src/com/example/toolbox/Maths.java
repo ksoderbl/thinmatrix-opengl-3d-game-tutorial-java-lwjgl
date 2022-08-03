@@ -5,6 +5,7 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 import com.example.entities.Camera;
+import com.example.renderEngine.Display;
 
 public class Maths {
 
@@ -117,6 +118,25 @@ public class Maths {
         m.transpose();
 
         return m;
+    }
+
+    public static Matrix4f createProjectionMatrix(float fov, float nearPlane, float farPlane) {
+        float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
+        float y_scale = (float) ((1f / Math.tan(Math.toRadians(fov / 2f))) * aspectRatio);
+        float x_scale = y_scale / aspectRatio;
+        float frustumLength = farPlane - nearPlane;
+
+        Matrix4f projectionMatrix = new Matrix4f();
+        projectionMatrix.m00(x_scale);
+        projectionMatrix.m11(y_scale);
+        // projectionMatrix.m22(-((farPlane + nearPlane) / frustumLength));
+        // projectionMatrix.m23(-1);
+        // projectionMatrix.m32(-((2 * nearPlane * farPlane) / frustumLength));
+        // projectionMatrix.m33(0);
+
+        // projectionMatrix.transpose();
+
+        return projectionMatrix;
     }
 
     public static Matrix4f createViewMatrix(Camera camera) {

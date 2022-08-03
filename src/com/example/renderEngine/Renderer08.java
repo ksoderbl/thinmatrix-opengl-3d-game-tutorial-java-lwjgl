@@ -22,10 +22,10 @@ public class Renderer08 {
     private Matrix4f projectionMatrix;
     
     public Renderer08(StaticShader08 shader) {
-        // createProjectionMatrix();
-        // shader.start();
-        // shader.loadProjectionMatrix(projectionMatrix);
-        // shader.stop();
+        projectionMatrix = Maths.createProjectionMatrix(FOV, NEAR_PLANE, FAR_PLANE);
+        shader.start();
+        shader.loadProjectionMatrix(projectionMatrix);
+        shader.stop();
     }
 
     public void prepare() {
@@ -58,46 +58,6 @@ public class Renderer08 {
         GL20.glDisableVertexAttribArray(1);
         GL30.glBindVertexArray(0);
     }
-    
-    // private void createProjectionMatrix() {
-    //     float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
-
-    //     System.out.println("aspectRatio: " + aspectRatio);
-
-    //     float y_scale = (float) ((1f / Math.tan(Math.toRadians(FOV / 2f))) * aspectRatio);
-    //     float x_scale = y_scale / aspectRatio;
-    //     float frustumLength = FAR_PLANE - NEAR_PLANE;
-
-    //     System.out.println("frustumLength: " + frustumLength);
-
-    //     projectionMatrix = new Matrix4f();
-
-    //     System.out.println("projectionMatrix1: \n" + projectionMatrix.toString());
-
-    //     projectionMatrix.m00(x_scale);
-
-    //     System.out.println("projectionMatrix after x_scale: \n" + projectionMatrix.toString());
-
-    //     projectionMatrix.m11(y_scale);
-
-    //     System.out.println("projectionMatrix after y_scale: \n" + projectionMatrix.toString());
-
-    //     projectionMatrix.m22(-((FAR_PLANE + NEAR_PLANE) / frustumLength));
-
-    //     System.out.println("projectionMatrix 4: \n" + projectionMatrix.toString());
-
-    //     projectionMatrix.m23(-1);
-
-    //     System.out.println("projectionMatrix 5: \n" + projectionMatrix.toString());
-
-    //     projectionMatrix.m32(-((2 * NEAR_PLANE * FAR_PLANE) / frustumLength));
-
-    //     System.out.println("projectionMatrix 6: \n" + projectionMatrix.toString());
-
-    //     projectionMatrix.m33(0);
-
-    //     System.out.println("projectionMatrix 7: \n" + projectionMatrix.toString());
-    // }
 
     public Matrix4f getProjectionMatrix() {
         return projectionMatrix;
