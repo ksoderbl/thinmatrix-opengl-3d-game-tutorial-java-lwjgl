@@ -14,6 +14,14 @@ public class Display {
     private static int height;
     
     private static long window = -1L;
+    
+    public static void frameBufferSizeCallback(long window, int w, int h) {
+        // System.out.println("frameBufferSizeCallback: w, h: " + w + ", " + h);
+        width = w;
+        height = h;
+        glViewport(0, 0, width, height);
+    }
+    
 
     public static void createDisplay(String Title, int Width, int Height) {
         title = Title;
@@ -31,7 +39,9 @@ public class Display {
         window = glfwCreateWindow(width, height, title, NULL, NULL);
         glfwMakeContextCurrent(window);
         createCapabilities();
-        // glViewport(0,0, width, height);
+
+        // callbacks
+        glfwSetFramebufferSizeCallback(window, Display::frameBufferSizeCallback);
         Keyboard.setWindow(window);
         Mouse.setWindow(window);
     }

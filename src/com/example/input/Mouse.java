@@ -12,9 +12,6 @@ public class Mouse {
 
     // Callback method used with Java 8 method references.
     public static void mouseCallback(long window, int button, int action, int mods) {
-
-
-
         System.out.println("mouseCallback: button, action, mods: " + button + ", " + action + ", " + mods);
 
         switch (button) {
@@ -23,7 +20,6 @@ public class Mouse {
             case GLFW_MOUSE_BUTTON_RIGHT: System.out.println("right"); break;
             default: break;
         }
-
 
         if (action == GLFW_PRESS) {
             buttonsDown.put(button, "down");
