@@ -101,7 +101,7 @@ public class MainGameLoop08
         Camera08 camera = new Camera08();
         
         while (!Display.isCloseRequested()) {
-            entity.increasePosition(0.f, 0, -0.1f);
+            entity.increasePosition(0.f, 0, -0.05f);
             // entity.increaseRotation(0, 1, 0);
 
 
