@@ -372,9 +372,9 @@ public class MainGameLoop32
             int frames = DisplayManager.updateDisplay();
             
             if (frames == 0) {
-                camera.printPosition();
-                System.out.println("ray:          " + picker.getCurrentRay());
-                System.out.println("terrainPoint: " + picker.getCurrentTerrainPoint());
+                // camera.printPosition();
+                // System.out.println("ray:          " + picker.getCurrentRay());
+                // System.out.println("terrainPoint: " + picker.getCurrentTerrainPoint());
             }
         }
 

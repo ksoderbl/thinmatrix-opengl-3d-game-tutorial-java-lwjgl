@@ -7,15 +7,12 @@ import static org.lwjgl.glfw.GLFW.*;
 public class Mouse {
 
     // Callback method used with Java 8 method references.
-    public static void mouseCallback(long win, int button, int action, int mods) {
-        System.out.println("mouseCallback: win: " + win);
-        System.out.println("mouseCallback: button: " + button);
-        System.out.println("mouseCallback: action: " + action);
-        System.out.println("mouseCallback: mods: " + mods);
+    public static void mouseCallback(long window, int button, int action, int mods) {
+        System.out.println("mouseCallback: button, action, mods: " + button + ", " + action + ", " + mods);
+    }
 
-        if (action == GLFW_PRESS) {
-            System.out.println("Pressed!");
-        }
+    public static void setWindow(long window) {
+        glfwSetMouseButtonCallback(window, Mouse::mouseCallback);        
     }
 
     // See if a particular mouse button is down.

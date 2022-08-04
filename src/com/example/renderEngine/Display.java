@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import com.example.input.Keyboard;
 import com.example.input.Mouse;
 
 public class Display {
@@ -31,7 +32,8 @@ public class Display {
         glfwMakeContextCurrent(window);
         createCapabilities();
         // glViewport(0,0, width, height);
-        glfwSetMouseButtonCallback(window, Mouse::mouseCallback);
+        Keyboard.setWindow(window);
+        Mouse.setWindow(window);
     }
 
     public static boolean isCloseRequested() {
