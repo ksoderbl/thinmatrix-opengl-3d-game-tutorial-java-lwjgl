@@ -263,7 +263,7 @@ public class MainGameLoop30
             
             player.move(world);
             
-            // camera.move();
+            camera.move();
             
             picker.update();
             Vector3f terrainPoint = picker.getCurrentTerrainPoint();
