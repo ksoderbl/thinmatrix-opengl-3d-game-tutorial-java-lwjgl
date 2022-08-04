@@ -5,6 +5,8 @@ import static org.lwjgl.opengl.GL.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+import com.example.input.Mouse;
+
 public class Display {
     private static String title;
     private static int width;
@@ -28,7 +30,8 @@ public class Display {
         window = glfwCreateWindow(width, height, title, NULL, NULL);
         glfwMakeContextCurrent(window);
         createCapabilities();
-        glViewport(0,0, width, height);
+        // glViewport(0,0, width, height);
+        glfwSetMouseButtonCallback(window, Mouse::mouseCallback);
     }
 
     public static boolean isCloseRequested() {
