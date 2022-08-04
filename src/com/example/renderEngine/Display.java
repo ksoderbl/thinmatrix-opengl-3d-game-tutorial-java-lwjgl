@@ -21,7 +21,6 @@ public class Display {
         height = h;
         glViewport(0, 0, width, height);
     }
-    
 
     public static void createDisplay(String Title, int Width, int Height) {
         title = Title;

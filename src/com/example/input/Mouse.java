@@ -2,6 +2,8 @@ package com.example.input;
 
 import java.util.HashMap;
 
+import com.example.renderEngine.Display;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 // https://legacy.lwjgl.org/javadoc/org/lwjgl/input/Mouse.html
@@ -9,6 +11,15 @@ import static org.lwjgl.glfw.GLFW.*;
 public class Mouse {
 
     private static HashMap<Integer, String> buttonsDown = new HashMap<Integer, String>();
+
+    private static double mouseX = 0;
+    private static double mouseY = 0;
+
+    // for getDX and getDY
+    private static int oldX = 0;
+    private static int oldY = 0;
+    private static boolean haveOldX = false;
+    private static boolean haveOldY = false;
 
     // Callback method used with Java 8 method references.
     public static void mouseCallback(long window, int button, int action, int mods) {
@@ -29,8 +40,15 @@ public class Mouse {
         }
     }
 
+    public static void cursorPosCallback(long window, double x, double y) {
+        System.out.println("cursorPosCallback: x, y: " + x + ", " + y);
+        mouseX = x;
+        mouseY = y;
+    }
+
     public static void setWindow(long window) {
-        glfwSetMouseButtonCallback(window, Mouse::mouseCallback);        
+        glfwSetMouseButtonCallback(window, Mouse::mouseCallback);
+        glfwSetCursorPosCallback(window, Mouse::cursorPosCallback);
     }
 
     // See if a particular mouse button is down.
@@ -46,27 +64,69 @@ public class Mouse {
     // Returns:
     // Absolute x axis position of mouse
     public static int getX() {
-        return 0;
+        int width = Display.getWidth();
+        int x = (int) Math.round(mouseX);
+        if (x < 0) {
+            x = 0;
+        }
+        else if (x > width - 1) {
+            x =  width - 1;
+        }
+        System.out.println("x: " + x);
+        return x;
     }
 
     // Retrieves the absolute position. It will be clamped to 0...height-1.
     // Returns:
     // Absolute y axis position of mouse
     public static int getY() {
-        return 0;
+        int height = Display.getHeight();
+        int y = (int) Math.round(mouseY);
+        if (y < 0) {
+            y = 0;
+        }
+        else if (y > height - 1) {
+            y = height - 1;
+        }
+        System.out.println("y: " + y);
+        return y;
     }
 
     // Returns:
     // Movement on the x axis since last time getDX() was called.
     public static int getDX() {
-        // TODO
+        int x = getX();
+
+        if (haveOldX) {
+            int dx = x - oldX;
+            oldX = x;
+            haveOldX = true;
+            // System.out.println("DX: "+dx);
+            return dx;
+        }
+        
+        oldX = x;
+        haveOldX = true;
         return 0;
     }
 
     // Returns:
     // Movement on the y axis since last time getDY() was called.
     public static int getDY() {
-        // TODO
+        int y = getY();
+
+        if (haveOldY) {
+            int dy = y - oldY;
+            oldY = y;
+            haveOldY = true;
+            // System.out.println("DY: "+dy);
+
+            // returning -dy here because we want the opposition direction for the move
+            return -dy;
+        }
+        
+        oldY = y;
+        haveOldY = true;
         return 0;
     }
 
