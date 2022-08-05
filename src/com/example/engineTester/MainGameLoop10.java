@@ -53,39 +53,49 @@ public class MainGameLoop10
         
         
         // create some random entities 
-        Entity[] entities = new Entity[ 1000 ];
-        Random random = new Random();
+        // Entity[] entities = new Entity[ 1000 ];
+        // Random random = new Random();
         
-        for (int i = 0; i < entities.length; i++) {
-            Vector3f translation = new Vector3f(
-                    ((20 * random.nextFloat()) - 10) * 0.8f,
-                    ((20 * random.nextFloat()) - 10) * 0.8f,
-                    -25f + ((20 * random.nextFloat()) - 10) * 0.8f);
-            float rx = 0;
-            float ry = 0; 
-            float rz = 360 * random.nextFloat();
-            float tmp = random.nextFloat();
-            float scale = tmp * tmp * 0.1f;
+        // for (int i = 0; i < entities.length; i++) {
+        //     Vector3f translation = new Vector3f(
+        //             ((20 * random.nextFloat()) - 10) * 0.8f,
+        //             ((20 * random.nextFloat()) - 10) * 0.8f,
+        //             -25f + ((20 * random.nextFloat()) - 10) * 0.8f);
+        //     float rx = 0;
+        //     float ry = 0; 
+        //     float rz = 360 * random.nextFloat();
+        //     float tmp = random.nextFloat();
+        //     float scale = tmp * tmp * 0.1f;
 
-            entities[i] = new Entity(staticModel, translation, rx, ry, rz, scale);
-        }
+        //     entities[i] = new Entity(staticModel, translation, rx, ry, rz, scale);
+        // }
+
+        Vector3f translation = new Vector3f(0,-3,-50);
+        float rx = 0;
+        float ry = 90; 
+        float rz = 0;
+        float scale = 1;
+
+        Entity entity = new Entity(staticModel, translation, rx, ry, rz, scale);
         
         Camera08 camera = new Camera08();
         
         while (!Display.isCloseRequested()) {
             
-            for (int i = 0; i < entities.length; i++) {
-                //entities[i].increasePosition(0, 0, 0.00001f*i);
-                entities[i].increaseRotation(0.002f*i, 0.003f*i, 0.001f*i);
-            }
+            // for (int i = 0; i < entities.length; i++) {
+            //     //entities[i].increasePosition(0, 0, 0.00001f*i);
+            //     entities[i].increaseRotation(0.002f*i, 0.003f*i, 0.001f*i);
+            // }
+            entity.increaseRotation(0, 1f, 0);
 
             camera.move();
             renderer.prepare();
             shader.start();
             shader.loadViewMatrix(camera);
-            for (int i = 0; i < entities.length; i++) {
-                renderer.render(entities[i], shader);
-            }
+            // for (int i = 0; i < entities.length; i++) {
+            //     renderer.render(entities[i], shader);
+            // }
+            renderer.render(entity, shader);
             shader.stop();
             
             TextMaster.render();
